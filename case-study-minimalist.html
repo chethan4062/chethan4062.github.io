@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minimalist Case Study — Chethan S</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #FAFAF8;
+      --card:      #FFFFFF;
+      --text:      #1A1A1A;
+      --muted:     #6B6B6B;
+      --accent:    #E8E4DF;
+      --border:    #E5E3DE;
+      --highlight: #2C2C2C;
+      --warm:      #C8A882;
+      --warm-bg:   #F5EFE8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Instrument Serif', serif;
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250,250,248,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+    .nav-back {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--text); }
+    .nav-back svg { width: 14px; height: 14px; }
+    .nav-sections {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+    }
+    .nav-sections a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+    .nav-sections a:hover { color: var(--text); }
+    @media (max-width: 768px) { .nav-sections { display: none; } }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 5rem 6% 4rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--warm);
+      margin-bottom: 1.5rem;
+    }
+    .hero-label::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 1px;
+      background: var(--warm);
+    }
+    .hero h1 {
+      font-size: clamp(3rem, 7vw, 6rem);
+      letter-spacing: -0.04em;
+      line-height: 1.0;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--muted);
+    }
+    .hero-tagline {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted);
+      max-width: 600px;
+      margin: 1.2rem 0 2.5rem;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 3.5rem;
+    }
+    .hero-tag {
+      background: var(--accent);
+      color: var(--highlight);
+      padding: 0.3rem 0.9rem;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .hero-stat {
+      background: var(--card);
+      padding: 1.4rem 1.6rem;
+    }
+    .hero-stat-val {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.9rem;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+    .hero-stat-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 5rem 6%;
+    }
+    .container-wide {
+      padding: 5rem 6%;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--warm);
+      margin-bottom: 1.2rem;
+    }
+    .section-eyebrow::after {
+      content: '';
+      flex: 1;
+      max-width: 40px;
+      height: 1px;
+      background: var(--warm);
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .section-lead {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 640px;
+      line-height: 1.75;
+      margin-bottom: 3rem;
+    }
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin: 0;
+    }
+
+    /* ── BRAND OVERVIEW ── */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    @media (max-width: 640px) { .overview-grid { grid-template-columns: 1fr; } }
+
+    .overview-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.4rem 1.6rem;
+    }
+    .overview-card-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .overview-card-val {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .overview-card.span-2 { grid-column: 1 / -1; }
+
+    .revenue-timeline {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.8rem 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .revenue-timeline h4 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+    }
+    .rev-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 1rem;
+      height: 100px;
+    }
+    .rev-bar-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      height: 100%;
+      justify-content: flex-end;
+    }
+    .rev-bar {
+      width: 100%;
+      background: var(--warm-bg);
+      border-top: 2px solid var(--warm);
+      border-radius: 3px 3px 0 0;
+      transition: background 0.2s;
+    }
+    .rev-bar:hover { background: #eedec8; }
+    .rev-bar-label {
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-align: center;
+      font-weight: 500;
+    }
+    .rev-bar-val {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+
+    .insight-block {
+      border-left: 3px solid var(--warm);
+      background: var(--warm-bg);
+      border-radius: 0 8px 8px 0;
+      padding: 1.2rem 1.5rem;
+      margin: 2rem 0;
+      font-size: 0.95rem;
+      color: var(--highlight);
+      line-height: 1.7;
+    }
+    .insight-block strong { font-weight: 600; }
+
+    /* ── AD STRATEGY ── */
+    .platform-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-bottom: 2.5rem;
+    }
+    @media (max-width: 600px) { .platform-grid { grid-template-columns: 1fr; } }
+
+    .platform-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.4rem;
+    }
+    .platform-head {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.8rem;
+    }
+    .platform-icon {
+      width: 34px; height: 34px;
+      background: var(--accent);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+    .platform-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .platform-share {
+      font-size: 0.75rem;
+      color: var(--warm);
+      font-weight: 600;
+    }
+    .platform-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .platform-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.8rem;
+    }
+    .ptag {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 0.18rem 0.6rem;
+      border-radius: 100px;
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .budget-bar-section { margin: 2.5rem 0; }
+    .budget-bar-section h4 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+    }
+    .budget-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.9rem;
+    }
+    .budget-label {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text);
+      width: 180px;
+      flex-shrink: 0;
+    }
+    .budget-track {
+      flex: 1;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+    .budget-fill {
+      height: 100%;
+      background: var(--warm);
+      border-radius: 100px;
+    }
+    .budget-pct {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      width: 40px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .metrics-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 2.5rem 0;
+    }
+    .metric-box {
+      background: var(--card);
+      padding: 1.3rem 1.5rem;
+    }
+    .metric-box-val {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.6rem;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .metric-box-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .metric-box-note {
+      font-size: 0.7rem;
+      color: var(--warm);
+      font-weight: 500;
+      margin-top: 0.2rem;
+    }
+
+    /* ── FUNNEL ── */
+    .funnel-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .funnel-stage {
+      position: relative;
+      margin-bottom: 2px;
+    }
+    .funnel-stage-inner {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: box-shadow 0.2s;
+    }
+    .funnel-stage-inner:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    .funnel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 1.6rem;
+      gap: 1rem;
+    }
+    .funnel-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .funnel-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .dot-awareness  { background: #C8A882; }
+    .dot-consider   { background: #A8956B; }
+    .dot-convert    { background: #7A6A4F; }
+    .dot-retain     { background: #4A3F2F; }
+
+    .funnel-stage-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .funnel-stage-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .funnel-toggle {
+      font-size: 1.2rem;
+      color: var(--muted);
+      transition: transform 0.3s;
+      font-weight: 300;
+      line-height: 1;
+      user-select: none;
+    }
+    .funnel-stage-inner.open .funnel-toggle { transform: rotate(45deg); }
+
+    .funnel-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+    }
+    .funnel-body-inner {
+      padding: 0 1.6rem 1.4rem;
+      border-top: 1px solid var(--border);
+    }
+    .funnel-points {
+      list-style: none;
+      margin-top: 1rem;
+    }
+    .funnel-points li {
+      font-size: 0.9rem;
+      color: var(--muted);
+      padding: 0.3rem 0 0.3rem 1.2rem;
+      position: relative;
+      line-height: 1.6;
+    }
+    .funnel-points li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--warm);
+      font-size: 0.8rem;
+    }
+    .funnel-points li strong { color: var(--text); font-weight: 600; }
+
+    .funnel-connector {
+      display: flex;
+      justify-content: center;
+      height: 22px;
+      align-items: center;
+    }
+    .funnel-connector::before {
+      content: '';
+      width: 1px;
+      height: 100%;
+      background: var(--border);
+    }
+
+    /* ── CREATIVE STRATEGY ── */
+    .creative-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-bottom: 2.5rem;
+    }
+    @media (max-width: 600px) { .creative-grid { grid-template-columns: 1fr; } }
+
+    .creative-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.4rem;
+    }
+    .creative-card-icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.7rem;
+    }
+    .creative-card-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .creative-card-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .creative-card.span-2 { grid-column: 1 / -1; }
+
+    .why-list {
+      list-style: none;
+      margin-top: 1.5rem;
+    }
+    .why-list li {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .why-list li:last-child { border-bottom: none; }
+    .why-num {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.4rem;
+      color: var(--accent);
+      color: #D4C4B0;
+      flex-shrink: 0;
+      width: 28px;
+      line-height: 1.3;
+    }
+    .why-text strong {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+    .why-text span {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── TAKEAWAYS ── */
+    #takeaways { background: var(--highlight); }
+    #takeaways .section-eyebrow { color: #C8A882; }
+    #takeaways .section-eyebrow::after { background: #C8A882; }
+    #takeaways .section-title { color: #F5EFE8; }
+    #takeaways .section-lead { color: #94867A; }
+
+    .takeaway-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-bottom: 3.5rem;
+    }
+    @media (max-width: 600px) { .takeaway-grid { grid-template-columns: 1fr; } }
+
+    .takeaway-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 1.4rem;
+    }
+    .takeaway-num {
+      font-family: 'Instrument Serif', serif;
+      font-size: 2rem;
+      color: rgba(200,168,130,0.3);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .takeaway-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #F0E8DF;
+      margin-bottom: 0.5rem;
+    }
+    .takeaway-desc {
+      font-size: 0.83rem;
+      color: #7A6E65;
+      line-height: 1.65;
+    }
+
+    .optimize-section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #C8A882;
+      margin-bottom: 1.2rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .optimize-list { list-style: none; }
+    .optimize-item {
+      display: flex;
+      gap: 1.2rem;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .optimize-item:last-child { border-bottom: none; }
+    .optimize-icon {
+      width: 36px; height: 36px;
+      background: rgba(200,168,130,0.12);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .optimize-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #F0E8DF;
+      margin-bottom: 0.3rem;
+    }
+    .optimize-desc {
+      font-size: 0.83rem;
+      color: #7A6E65;
+      line-height: 1.65;
+    }
+
+    /* ── FOOTER ── */
+    .case-footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 6%;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 2rem;
+    }
+    @media (max-width: 600px) { .case-footer { grid-template-columns: 1fr; } }
+
+    .case-footer-left { }
+    .case-footer-author {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+    .case-footer-author strong { color: var(--text); font-weight: 600; }
+    .case-footer-links {
+      display: flex;
+      gap: 1.2rem;
+      margin-top: 0.6rem;
+    }
+    .case-footer-links a {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .case-footer-links a:hover { color: var(--text); }
+
+    .next-study {
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.2rem;
+    }
+    .next-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .next-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.1rem;
+      color: var(--text);
+      transition: color 0.2s;
+    }
+    .next-study:hover .next-title { color: var(--warm); }
+    .next-arrow { color: var(--warm); font-size: 0.85rem; }
+    @media (max-width: 600px) { .next-study { align-items: flex-start; } }
+
+    /* ── PROSE ── */
+    .prose p { font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+    .prose p:last-child { margin-bottom: 0; }
+    .prose strong { color: var(--text); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M5 12l7-7M5 12l7 7"/>
+      </svg>
+      Portfolio
+    </a>
+    <ul class="nav-sections">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#ad-strategy">Ad Strategy</a></li>
+      <li><a href="#funnel">Funnel</a></li>
+      <li><a href="#creative">Creative</a></li>
+      <li><a href="#takeaways">Takeaways</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero reveal">
+    <div class="hero-label">Case Study · D2C Skincare</div>
+    <h1>Minimalist<em>.</em></h1>
+    <p class="hero-tagline">
+      How a Jaipur-based ingredient-led skincare brand grew 80× in 4 years,
+      built a performance marketing machine without celebrities, and sold to HUL for ₹2,955 Cr.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-tag">Performance Marketing</span>
+      <span class="hero-tag">Meta Ads</span>
+      <span class="hero-tag">Google Ads</span>
+      <span class="hero-tag">D2C Strategy</span>
+      <span class="hero-tag">India · Skincare</span>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-val">₹518 Cr</div>
+        <div class="hero-stat-label">Revenue FY25</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">₹2,955 Cr</div>
+        <div class="hero-stat-label">Acquired by HUL</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">80×</div>
+        <div class="hero-stat-label">Revenue Growth in 4 Yrs</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">7/min</div>
+        <div class="hero-stat-label">Products Sold on Amazon</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">42+</div>
+        <div class="hero-stat-label">SKUs</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">01 — Brand Overview</div>
+        <h2 class="section-title">The Ordinary, built for India.</h2>
+        <p class="section-lead">
+          Minimalist didn't invent actives-led skincare — they made it accessible, transparent,
+          and locally relevant. That's a harder problem than it sounds.
+        </p>
+      </div>
+
+      <div class="overview-grid reveal reveal-delay-1">
+        <div class="overview-card">
+          <div class="overview-card-label">Founded</div>
+          <div class="overview-card-val">2020 — Jaipur, Rajasthan</div>
+        </div>
+        <div class="overview-card">
+          <div class="overview-card-label">Founders</div>
+          <div class="overview-card-val">Mohit Yadav &amp; Rahul Yadav</div>
+        </div>
+        <div class="overview-card">
+          <div class="overview-card-label">Category</div>
+          <div class="overview-card-val">Premium actives-led skincare &amp; haircare (D2C)</div>
+        </div>
+        <div class="overview-card">
+          <div class="overview-card-label">Mission</div>
+          <div class="overview-card-val">#HideNothing — radical ingredient transparency</div>
+        </div>
+        <div class="overview-card">
+          <div class="overview-card-label">Acquisition</div>
+          <div class="overview-card-val">Acquired by HUL in January 2025 at ₹2,955 Cr (~$350M) — one of the largest D2C exits in India</div>
+        </div>
+        <div class="overview-card">
+          <div class="overview-card-label">Investors</div>
+          <div class="overview-card-val">Peak XV Partners (Sequoia India) — Series A</div>
+        </div>
+        <div class="overview-card span-2">
+          <div class="overview-card-label">Positioning</div>
+          <div class="overview-card-val">Inspired by The Ordinary (Canada) but engineered for Indian skin types, climate, and price sensitivity. Products named after their active ingredients — not brand fantasy names — which created instant consumer trust and powerful SEO signals simultaneously.</div>
+        </div>
+      </div>
+
+      <div class="revenue-timeline reveal reveal-delay-2">
+        <h4>Revenue Trajectory</h4>
+        <div class="rev-bars">
+          <div class="rev-bar-wrap">
+            <div class="rev-bar-val">₹6 Cr</div>
+            <div class="rev-bar" style="height:5%;"></div>
+            <div class="rev-bar-label">FY20</div>
+          </div>
+          <div class="rev-bar-wrap">
+            <div class="rev-bar-val">₹184 Cr</div>
+            <div class="rev-bar" style="height:36%;"></div>
+            <div class="rev-bar-label">FY23</div>
+          </div>
+          <div class="rev-bar-wrap">
+            <div class="rev-bar-val">₹347 Cr</div>
+            <div class="rev-bar" style="height:67%;"></div>
+            <div class="rev-bar-label">FY24</div>
+          </div>
+          <div class="rev-bar-wrap">
+            <div class="rev-bar-val">₹518 Cr</div>
+            <div class="rev-bar" style="height:100%;"></div>
+            <div class="rev-bar-label">FY25</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="insight-block reveal reveal-delay-3">
+        <strong>What makes this extraordinary:</strong> Minimalist was profitable from inception — a rarity in Indian D2C where most brands burn cash chasing GMV. Their ~65% gross margins meant they could reinvest 40–50% of revenue into marketing without ever being loss-led. The growth wasn't funded by discounting; it was funded by genuine product-market fit.
+      </div>
+
+      <div class="prose reveal reveal-delay-4">
+        <p>
+          The brand's masterstroke was the naming convention. By calling products <strong>'10% Niacinamide + Zinc'</strong> instead of 'Glow Serum' or 'Blemish Fix', they did three things at once: built immediate trust with skincare-educated consumers, created a natural SEO moat (ingredient queries = buying intent), and forced competitors into a comparison they couldn't win without matching the transparency.
+        </p>
+        <p>
+          The #HideNothing mission wasn't just a tagline — it was a complete creative and communication framework. Every ad, every packaging decision, every landing page echoed the same philosophy. This brand coherence is exceptionally rare and is a large part of why the performance marketing worked so well: the message was consistent from cold ad to checkout page to post-purchase email.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- AD STRATEGY -->
+  <section id="ad-strategy">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">02 — Ad Strategy</div>
+        <h2 class="section-title">A multi-channel performance machine.</h2>
+        <p class="section-lead">
+          Minimalist didn't rely on a single channel. They built an interlocking system where
+          each platform played a specific role in the customer journey.
+        </p>
+      </div>
+
+      <div class="platform-grid reveal reveal-delay-1">
+        <div class="platform-card">
+          <div class="platform-head">
+            <div class="platform-icon">📱</div>
+            <div>
+              <div class="platform-name">Meta Ads</div>
+              <div class="platform-share">~40–45% of budget</div>
+            </div>
+          </div>
+          <div class="platform-desc">
+            Primary discovery and acquisition channel. Instagram is home to India's skincare-savvy 18–35 demographic. Educational carousel ads explaining ingredient science, Reels-first format for cold prospecting, and UGC before-after content in the mid-funnel.
+          </div>
+          <div class="platform-tags">
+            <span class="ptag">Instagram Reels</span>
+            <span class="ptag">Carousel Ads</span>
+            <span class="ptag">Retargeting</span>
+            <span class="ptag">Lookalike Audiences</span>
+            <span class="ptag">Dynamic Product Ads</span>
+          </div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-head">
+            <div class="platform-icon">🔍</div>
+            <div>
+              <div class="platform-name">Google Ads</div>
+              <div class="platform-share">~20–25% of budget</div>
+            </div>
+          </div>
+          <div class="platform-desc">
+            Brand search protection (bidding on 'minimalist serum', 'niacinamide serum india') plus Google Shopping for high-intent product queries. Performance Max campaigns to capture demand across search, display, and YouTube in a unified structure. Bidding on 186+ keywords.
+          </div>
+          <div class="platform-tags">
+            <span class="ptag">Brand Search</span>
+            <span class="ptag">Google Shopping</span>
+            <span class="ptag">Performance Max</span>
+            <span class="ptag">Competitor Keywords</span>
+          </div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-head">
+            <div class="platform-icon">🛒</div>
+            <div>
+              <div class="platform-name">Marketplace Ads</div>
+              <div class="platform-share">~15–20% of budget</div>
+            </div>
+          </div>
+          <div class="platform-desc">
+            Amazon Sponsored Products and Sponsored Brands are critical — Amazon is their highest-intent channel where 7 products sell per minute. Nykaa Sponsored Listings capture beauty-specific shoppers already in purchase mode on India's largest beauty marketplace.
+          </div>
+          <div class="platform-tags">
+            <span class="ptag">Amazon Sponsored Products</span>
+            <span class="ptag">Amazon Sponsored Brands</span>
+            <span class="ptag">Nykaa Ads</span>
+          </div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-head">
+            <div class="platform-icon">▶️</div>
+            <div>
+              <div class="platform-name">YouTube + Content</div>
+              <div class="platform-share">~10–15% of budget</div>
+            </div>
+          </div>
+          <div class="platform-desc">
+            Educational pre-roll and mid-roll ads — 'how niacinamide works', 'skincare routine for oily skin'. Feels like content, not advertising. Paired with organic influencer seeding and dermatologist-led explainers that double as paid creative.
+          </div>
+          <div class="platform-tags">
+            <span class="ptag">Pre-roll Ads</span>
+            <span class="ptag">Ingredient Explainers</span>
+            <span class="ptag">Influencer Seeding</span>
+            <span class="ptag">Dermatologist Content</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="budget-bar-section reveal reveal-delay-2">
+        <h4>Estimated Budget Allocation</h4>
+        <div class="budget-row">
+          <div class="budget-label">Meta Ads (Instagram-heavy)</div>
+          <div class="budget-track"><div class="budget-fill" style="width:43%"></div></div>
+          <div class="budget-pct">43%</div>
+        </div>
+        <div class="budget-row">
+          <div class="budget-label">Google Ads (Shopping + Search)</div>
+          <div class="budget-track"><div class="budget-fill" style="width:23%"></div></div>
+          <div class="budget-pct">23%</div>
+        </div>
+        <div class="budget-row">
+          <div class="budget-label">Marketplace (Amazon + Nykaa)</div>
+          <div class="budget-track"><div class="budget-fill" style="width:18%"></div></div>
+          <div class="budget-pct">18%</div>
+        </div>
+        <div class="budget-row">
+          <div class="budget-label">YouTube + Content</div>
+          <div class="budget-track"><div class="budget-fill" style="width:11%"></div></div>
+          <div class="budget-pct">11%</div>
+        </div>
+        <div class="budget-row">
+          <div class="budget-label">Influencer / Affiliate</div>
+          <div class="budget-track"><div class="budget-fill" style="width:5%"></div></div>
+          <div class="budget-pct">5%</div>
+        </div>
+      </div>
+
+      <div class="metrics-row reveal reveal-delay-3">
+        <div class="metric-box">
+          <div class="metric-box-val">₹150–300</div>
+          <div class="metric-box-label">Estimated CAC (First Purchase)</div>
+          <div class="metric-box-note">Skincare D2C benchmark</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-box-val">~65%</div>
+          <div class="metric-box-label">Gross Margin</div>
+          <div class="metric-box-note">Rare profitability in D2C</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-box-val">45 days</div>
+          <div class="metric-box-label">Avg. Serum Replenishment</div>
+          <div class="metric-box-note">Drives strong repeat rate</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-box-val">186+</div>
+          <div class="metric-box-label">Keywords Bid On</div>
+          <div class="metric-box-note">Google Ads coverage</div>
+        </div>
+      </div>
+
+      <div class="insight-block reveal reveal-delay-4">
+        <strong>Targeting philosophy I find most interesting:</strong> Minimalist didn't chase broad demographic targeting — they went deep on <strong>intent and education signals</strong>. Audiences who engaged with skincare content, searched ingredient-specific queries, or visited competitor pages were far more valuable than standard "women 18–35 interested in beauty." The customer they wanted already knew what niacinamide was. The ad just needed to say "ours is better value."
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FUNNEL -->
+  <section id="funnel">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">03 — Funnel Breakdown</div>
+        <h2 class="section-title">From cold scroll to loyal customer.</h2>
+        <p class="section-lead">
+          Minimalist's funnel is elegant because it mirrors how skincare decisions actually happen:
+          education first, trust second, purchase third, and a repeatable retention loop after.
+          Click each stage to expand.
+        </p>
+      </div>
+
+      <div class="funnel-wrap reveal reveal-delay-1">
+
+        <!-- AWARENESS -->
+        <div class="funnel-stage">
+          <div class="funnel-stage-inner open" onclick="toggleFunnel(this)">
+            <div class="funnel-header">
+              <div class="funnel-left">
+                <div class="funnel-dot dot-awareness"></div>
+                <div>
+                  <div class="funnel-stage-label">Top of Funnel</div>
+                  <div class="funnel-stage-title">Awareness — Educate &amp; Attract</div>
+                </div>
+              </div>
+              <div class="funnel-toggle">+</div>
+            </div>
+            <div class="funnel-body" style="max-height:500px;">
+              <div class="funnel-body-inner">
+                <ul class="funnel-points">
+                  <li><strong>Instagram Reels &amp; Carousels:</strong> Ingredient education as the hook — 'What does 10% Niacinamide actually do to your skin?' Teaches first, sells second. These perform best because they stop the scroll without feeling like ads.</li>
+                  <li><strong>YouTube Pre-roll:</strong> Dermatologist-style explainers for 'hyaluronic acid for dry skin', 'retinol for beginners' — capturing high-intent users researching before they buy.</li>
+                  <li><strong>Micro-influencer seeding:</strong> Skincare creators (50K–500K), not Bollywood celebrities. Authentic, ingredient-accurate reviews that align with the #HideNothing positioning. ROAS on seeded content outperforms paid celebrity deals in this category.</li>
+                  <li><strong>SEO Content Flywheel:</strong> DA 60+, 64,000+ backlinks, ranking for 'best serum for acne scars', 'niacinamide benefits', 'SPF 50 sunscreen India'. Organic traffic reduces paid acquisition dependency over time — this is the structural advantage most D2C brands miss.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="funnel-connector"></div>
+
+        <!-- CONSIDERATION -->
+        <div class="funnel-stage">
+          <div class="funnel-stage-inner" onclick="toggleFunnel(this)">
+            <div class="funnel-header">
+              <div class="funnel-left">
+                <div class="funnel-dot dot-consider"></div>
+                <div>
+                  <div class="funnel-stage-label">Mid Funnel</div>
+                  <div class="funnel-stage-title">Consideration — Build Trust &amp; Reduce Friction</div>
+                </div>
+              </div>
+              <div class="funnel-toggle">+</div>
+            </div>
+            <div class="funnel-body">
+              <div class="funnel-body-inner">
+                <ul class="funnel-points">
+                  <li><strong>Retargeting with product-specific creative:</strong> If you viewed the Niacinamide 10% serum, you're retargeted with that exact SKU — not generic brand ads. Dynamic Product Ads on Meta handle this at scale.</li>
+                  <li><strong>UGC &amp; review-based ads:</strong> Before-after skin transformation content from real customers. These convert significantly better than polished brand creative in skincare because the result is the product demo.</li>
+                  <li><strong>Ingredient Spotlight content:</strong> 'Why SPF 50 vs SPF 30 actually matters' — deepens trust and moves users closer to purchase without a hard sell.</li>
+                  <li><strong>Comparison content:</strong> 'Minimalist vs The Ordinary' is a search term people type. Minimalist ranked for it, capturing users who are already considering buying actives — just deciding which brand.</li>
+                  <li><strong>Email nurture:</strong> Website visitors who didn't purchase receive educational sequences — skin type guides, ingredient 101s — that prime them for conversion on the next visit.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="funnel-connector"></div>
+
+        <!-- CONVERSION -->
+        <div class="funnel-stage">
+          <div class="funnel-stage-inner" onclick="toggleFunnel(this)">
+            <div class="funnel-header">
+              <div class="funnel-left">
+                <div class="funnel-dot dot-convert"></div>
+                <div>
+                  <div class="funnel-stage-label">Bottom of Funnel</div>
+                  <div class="funnel-stage-title">Conversion — Close the Sale</div>
+                </div>
+              </div>
+              <div class="funnel-toggle">+</div>
+            </div>
+            <div class="funnel-body">
+              <div class="funnel-body-inner">
+                <ul class="funnel-points">
+                  <li><strong>Dynamic Product Ads (Meta):</strong> Price, rating, and product image in a single unit for cart abandoners. Urgency without gimmicks — the product's price point does the heavy lifting.</li>
+                  <li><strong>Google Shopping:</strong> Competitive pricing is visible before the click — ₹599 for a serum vs ₹1,800+ for imports. This is a conversion argument built into the ad format itself.</li>
+                  <li><strong>Amazon Sponsored Products:</strong> 'Buy niacinamide serum India' is high commercial intent. Minimalist shows up here with ratings, Prime badge, and competitive price. Conversion rates on marketplace are structurally higher than DTC site.</li>
+                  <li><strong>Cart abandonment retargeting:</strong> Meta + email within 1–3 hours of abandonment. First-time buyer offers (free shipping, introductory bundle) close the hesitant segment.</li>
+                  <li><strong>Bundle deals at checkout:</strong> Routine-building cross-sells — 'Add the Vitamin C serum to complete your morning routine' — increase AOV at the point of highest intent.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="funnel-connector"></div>
+
+        <!-- RETENTION -->
+        <div class="funnel-stage">
+          <div class="funnel-stage-inner" onclick="toggleFunnel(this)">
+            <div class="funnel-header">
+              <div class="funnel-left">
+                <div class="funnel-dot dot-retain"></div>
+                <div>
+                  <div class="funnel-stage-label">Post-Purchase</div>
+                  <div class="funnel-stage-title">Retention — The LTV Engine</div>
+                </div>
+              </div>
+              <div class="funnel-toggle">+</div>
+            </div>
+            <div class="funnel-body">
+              <div class="funnel-body-inner">
+                <ul class="funnel-points">
+                  <li><strong>Replenishment email triggers:</strong> Serums last ~45 days. An automated email at day 35 ('Your Niacinamide is running low') with a one-click reorder link converts at significantly higher rates than cold acquisition — and at near-zero marginal cost.</li>
+                  <li><strong>Cross-sell campaigns:</strong> Bought a serum? The next recommended product is sunscreen (non-negotiable for actives users), then moisturizer. Systematically building the 3-step routine increases LTV 3–4× per customer.</li>
+                  <li><strong>UGC flywheel:</strong> Post-purchase emails requesting reviews and social shares. This UGC then feeds back into the TOFU ad creative — a self-reinforcing content loop that reduces creative production costs.</li>
+                  <li><strong>WhatsApp Commerce:</strong> Reorder convenience for repeat customers. Low-friction channel for replenishment nudges in a market where WhatsApp penetration is near-universal.</li>
+                  <li><strong>Education as retention:</strong> 'Your 4-week skin progress check-in', 'how to layer your actives correctly' — content that makes customers feel invested in the routine, not just the product.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /funnel-wrap -->
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CREATIVE STRATEGY -->
+  <section id="creative">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">04 — Creative Strategy</div>
+        <h2 class="section-title">The ad is the education.</h2>
+        <p class="section-lead">
+          Minimalist's creative approach broke every conventional D2C playbook rule —
+          and it worked precisely because it did.
+        </p>
+      </div>
+
+      <div class="creative-grid reveal reveal-delay-1">
+        <div class="creative-card">
+          <div class="creative-card-icon">📋</div>
+          <div class="creative-card-title">Instagram Carousels</div>
+          <div class="creative-card-desc">
+            Highest engagement format in their mix. '5 things you didn't know about Hyaluronic Acid', 'Niacinamide vs Salicylic Acid — which one do you need?' Each slide is a micro-lesson. Users save and share these, giving organic reach on paid spend.
+          </div>
+        </div>
+        <div class="creative-card">
+          <div class="creative-card-icon">🎬</div>
+          <div class="creative-card-title">Reels / Short Video</div>
+          <div class="creative-card-desc">
+            Quick skincare routines, ingredient explainers, before-after transformations in 30–60 seconds. Hook in the first 2 seconds is always a problem statement: 'If you have oily skin and still get dehydrated…'. Stops the scroll by speaking directly to the viewer's pain.
+          </div>
+        </div>
+        <div class="creative-card">
+          <div class="creative-card-icon">📸</div>
+          <div class="creative-card-title">Static Product Creative</div>
+          <div class="creative-card-desc">
+            Clinical, white-background product photography with ingredient percentage callouts. Deliberately anti-glamorous. The pack itself is the hero — minimal design that signals scientific credibility rather than aspirational luxury. Works especially well in Google Shopping.
+          </div>
+        </div>
+        <div class="creative-card">
+          <div class="creative-card-icon">👥</div>
+          <div class="creative-card-title">UGC Compilation Ads</div>
+          <div class="creative-card-desc">
+            Real customer before-after results, raw phone footage, honest reviews. These outperform polished brand creative on conversion because the result IS the product demo. Authenticity signals in skincare carry significantly more weight than production quality.
+          </div>
+        </div>
+        <div class="creative-card span-2">
+          <div class="creative-card-icon">📺</div>
+          <div class="creative-card-title">YouTube Mid-Roll (60–90 seconds)</div>
+          <div class="creative-card-desc">
+            Educational content that feels indistinguishable from organic YouTube videos. Dermatologist-style delivery, clinical framing, no hard sell until the final 10 seconds. These ads build brand equity alongside driving conversions — something most performance-only creatives fail to do. The dual purpose (brand + direct response) makes the channel exceptionally capital-efficient.
+          </div>
+        </div>
+      </div>
+
+      <div class="insight-block reveal reveal-delay-2">
+        <strong>The insight that drives everything:</strong> Minimalist's target customer is <em>already educated</em>. They know what niacinamide does. They've read the Reddit threads. They watch skincare YouTube. Treating them as intelligent — showing the exact % of active ingredients, explaining the science without dumbing it down — is itself a differentiator in a category full of vague promises.
+      </div>
+
+      <div class="reveal reveal-delay-3">
+        <h3 style="font-size:1.3rem; margin-bottom:1.2rem;">Why Their Creative Works</h3>
+        <ul class="why-list">
+          <li>
+            <div class="why-num">01</div>
+            <div class="why-text">
+              <strong>Consistency from cold ad to checkout</strong>
+              <span>The brand voice, visual identity, and messaging are identical across every touchpoint — Instagram ad, Nykaa listing, product packaging, email. This coherence builds trust faster than any single creative element can.</span>
+            </div>
+          </li>
+          <li>
+            <div class="why-num">02</div>
+            <div class="why-text">
+              <strong>High creative refresh rate</strong>
+              <span>Each new product launch (42+ SKUs) is also a content event — an ingredient spotlight that generates fresh creative organically. The product roadmap and the creative calendar are the same calendar. This structural advantage keeps fatigue low without needing a large creative team.</span>
+            </div>
+          </li>
+          <li>
+            <div class="why-num">03</div>
+            <div class="why-text">
+              <strong>Social proof baked into the creative unit</strong>
+              <span>'4.3★ from 8,400 reviews', 'Amazon's Choice', '#1 Bestseller in Serums' — these aren't just trust badges on landing pages. They're embedded directly into ad creative, compressing the consideration phase before the click happens.</span>
+            </div>
+          </li>
+          <li>
+            <div class="why-num">04</div>
+            <div class="why-text">
+              <strong>Anti-celebrity, pro-credibility casting</strong>
+              <span>No Bollywood endorsements. Dermatologists, skincare chemists, and everyday users with visible skin improvements. In a post-influencer-fatigue market, this casting choice signals that the product works on scientific merit — not because a celebrity was paid to say so.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- TAKEAWAYS -->
+  <section id="takeaways">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">05 — Takeaways</div>
+        <h2 class="section-title">What I took away from this.</h2>
+        <p class="section-lead">
+          Six strategic principles from Minimalist's growth playbook — and four things
+          I would push further if I were running their performance marketing.
+        </p>
+      </div>
+
+      <div class="takeaway-grid reveal reveal-delay-1">
+        <div class="takeaway-card">
+          <div class="takeaway-num">01</div>
+          <div class="takeaway-title">Education IS the ad</div>
+          <div class="takeaway-desc">Minimalist proved you don't need celebrity endorsements when your content genuinely solves a problem. Information-dense creative that respects the audience's intelligence outperforms hype in high-consideration categories.</div>
+        </div>
+        <div class="takeaway-card">
+          <div class="takeaway-num">02</div>
+          <div class="takeaway-title">Naming as a growth lever</div>
+          <div class="takeaway-desc">Calling products '10% Niacinamide + Zinc' instead of 'Glow Serum' created instant search intent, built SEO moats, and forced competitors into a transparency arms race. The product name was simultaneously positioning, SEO, and performance marketing strategy.</div>
+        </div>
+        <div class="takeaway-card">
+          <div class="takeaway-num">03</div>
+          <div class="takeaway-title">Price-value discipline</div>
+          <div class="takeaway-desc">Competing with The Ordinary at similar or lower price points, while being locally stocked and Amazon Prime-eligible, removed every purchase barrier for the Indian consumer. Price + availability + trust = conversion without discounting.</div>
+        </div>
+        <div class="takeaway-card">
+          <div class="takeaway-num">04</div>
+          <div class="takeaway-title">D2C + Marketplace hybrid</div>
+          <div class="takeaway-desc">Not putting all eggs in one basket. Own site for brand building and higher margins, Amazon for volume and trust (ratings + Prime), Nykaa for beauty-intent discovery. Each channel serves a distinct role in the growth engine.</div>
+        </div>
+        <div class="takeaway-card">
+          <div class="takeaway-num">05</div>
+          <div class="takeaway-title">Profitable from day one</div>
+          <div class="takeaway-desc">Disciplined CAC management and ~65% gross margins let them reinvest 40–50% of revenue into marketing — without VC pressure to grow at any cost. Profitable growth gives you strategic patience that loss-making brands never have.</div>
+        </div>
+        <div class="takeaway-card">
+          <div class="takeaway-num">06</div>
+          <div class="takeaway-title">Content-led SEO flywheel</div>
+          <div class="takeaway-desc">Educational blog content (DA 60+, 64K+ backlinks) drove organic traffic that continuously reduced their dependency on paid acquisition. Most brands treat SEO and paid as separate budgets. Minimalist treated them as a unified customer acquisition system.</div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <div class="optimize-section-label">What I Would Optimize</div>
+        <ul class="optimize-list">
+          <li class="optimize-item">
+            <div class="optimize-icon">💬</div>
+            <div>
+              <div class="optimize-title">Deeper WhatsApp Commerce Integration</div>
+              <div class="optimize-desc">Skincare replenishment cycles (30–45 days) are structurally perfect for WhatsApp reorder flows. An automated nudge at day 25 with a single-tap reorder link would capture the highest-intent repeat purchase moment — before the customer runs out and opens Amazon instead. In a market with near-universal WhatsApp penetration, this is an underexploited LTV lever.</div>
+            </div>
+          </li>
+          <li class="optimize-item">
+            <div class="optimize-icon">🗣️</div>
+            <div>
+              <div class="optimize-title">Vernacular Content Expansion</div>
+              <div class="optimize-desc">Minimalist's education-first approach is currently English-heavy — which caps its reach at Tier 1 urban audiences. Hindi and regional language Reels and ads could unlock the Tier 2/3 consumer who is equally interested in skincare but scrolls in their native language. The product formulations already work for Indian skin. The content language should follow.</div>
+            </div>
+          </li>
+          <li class="optimize-item">
+            <div class="optimize-icon">🤖</div>
+            <div>
+              <div class="optimize-title">AI-Powered Personalization at Scale</div>
+              <div class="optimize-desc">A skincare quiz (skin type, concerns, current routine) → personalized product bundle recommendation → dynamic bundle ads across Meta and Google retargeting that show the exact recommended routine. This reduces decision paralysis for new users (42 SKUs is overwhelming) and increases first-order AOV by showing a curated 3-step stack rather than a single product.</div>
+            </div>
+          </li>
+          <li class="optimize-item">
+            <div class="optimize-icon">🔁</div>
+            <div>
+              <div class="optimize-title">Subscription Model for Core SKUs</div>
+              <div class="optimize-desc">Serums and sunscreens have predictable 30–45 day usage cycles. A subscribe-and-save model (10–15% discount) would lock in LTV, smooth revenue predictability, and dramatically reduce re-acquisition costs. The customer who subscribes has already made a commitment to the routine — the hardest part of skincare CAC is already done. Post-HUL acquisition, this is also a natural fit for HUL's existing D2C infrastructure.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="divider"></div>
+  <footer class="case-footer">
+    <div class="case-footer-left">
+      <div class="case-footer-author">Analysis by <strong>Chethan S</strong> — Performance Marketing Specialist</div>
+      <div style="font-size:0.78rem; color:var(--muted); margin-bottom:0.6rem;">All revenue figures sourced from public filings and media reports. Budget allocation estimates are based on channel signals and industry benchmarks.</div>
+      <div class="case-footer-links">
+        <a href="index.html">← Portfolio</a>
+      </div>
+    </div>
+    <a href="case-study-mamaearth.html" class="next-study">
+      <div class="next-label">Next Case Study</div>
+      <div class="next-title">Mamaearth →</div>
+    </a>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Funnel accordion
+    function toggleFunnel(el) {
+      const body = el.querySelector('.funnel-body');
+      const isOpen = el.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.funnel-stage-inner').forEach(s => {
+        s.classList.remove('open');
+        s.querySelector('.funnel-body').style.maxHeight = '0';
+      });
+      // Open clicked if it was closed
+      if (!isOpen) {
+        el.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + 40 + 'px';
+      }
+    }
+    // Init: open first stage
+    document.addEventListener('DOMContentLoaded', () => {
+      const first = document.querySelector('.funnel-stage-inner.open');
+      if (first) {
+        const b = first.querySelector('.funnel-body');
+        b.style.maxHeight = b.scrollHeight + 40 + 'px';
+      }
+    });
+  </script>
+
+</body>
+</html>

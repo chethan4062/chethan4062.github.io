@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cult.fit Case Study — Chethan S</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #FAFAF8;
+      --card:      #FFFFFF;
+      --text:      #1A1A1A;
+      --muted:     #6B6B6B;
+      --accent:    #E8E4DF;
+      --border:    #E5E3DE;
+      --highlight: #2C2C2C;
+      --warm:      #C8A882;
+      --warm-bg:   #F5EFE8;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'DM Sans', sans-serif; font-size: 16px;
+      line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+    h1, h2, h3, h4 { font-family: 'Instrument Serif', serif; font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; }
+
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(250,250,248,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 0 6%; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .nav-back { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--muted); font-size: 0.82rem; font-weight: 500; transition: color 0.2s; }
+    .nav-back:hover { color: var(--text); }
+    .nav-back svg { width: 14px; height: 14px; }
+    .nav-sections { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-sections a { text-decoration: none; color: var(--muted); font-size: 0.8rem; font-weight: 500; transition: color 0.2s; white-space: nowrap; }
+    .nav-sections a:hover { color: var(--text); }
+    @media (max-width: 768px) { .nav-sections { display: none; } }
+
+    /* HERO */
+    .hero { padding: 5rem 6% 4rem; border-bottom: 1px solid var(--border); }
+    .hero-label { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--warm); margin-bottom: 1.5rem; }
+    .hero-label::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--warm); }
+    .hero h1 { font-size: clamp(3rem, 7vw, 6rem); letter-spacing: -0.04em; line-height: 1.0; margin-bottom: 0.5rem; }
+    .hero h1 em { font-style: italic; color: var(--muted); }
+    .hero-tagline { font-size: clamp(1rem, 2vw, 1.2rem); color: var(--muted); max-width: 600px; margin: 1.2rem 0 2.5rem; font-weight: 400; line-height: 1.6; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 3.5rem; }
+    .hero-tag { background: var(--accent); color: var(--highlight); padding: 0.3rem 0.9rem; border-radius: 100px; font-size: 0.75rem; font-weight: 500; }
+    .hero-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .hero-stat { background: var(--card); padding: 1.4rem 1.6rem; }
+    .hero-stat-val { font-family: 'Instrument Serif', serif; font-size: 1.9rem; letter-spacing: -0.03em; color: var(--text); line-height: 1; margin-bottom: 0.35rem; }
+    .hero-stat-label { font-size: 0.75rem; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* LAYOUT */
+    .container { max-width: 860px; margin: 0 auto; padding: 5rem 6%; }
+    .divider { width: 100%; height: 1px; background: var(--border); }
+
+    /* SECTION */
+    .section-eyebrow { display: flex; align-items: center; gap: 0.8rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--warm); margin-bottom: 1.2rem; }
+    .section-eyebrow::after { content: ''; flex: 1; max-width: 40px; height: 1px; background: var(--warm); }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 1rem; color: var(--text); }
+    .section-lead { font-size: 1.05rem; color: var(--muted); max-width: 640px; line-height: 1.75; margin-bottom: 3rem; }
+
+    /* OVERVIEW */
+    .overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+    @media (max-width: 640px) { .overview-grid { grid-template-columns: 1fr; } }
+    .overview-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.4rem 1.6rem; }
+    .overview-card-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+    .overview-card-val { font-size: 1rem; font-weight: 500; color: var(--text); line-height: 1.5; }
+    .overview-card.span-2 { grid-column: 1 / -1; }
+
+    .insight-block { border-left: 3px solid var(--warm); background: var(--warm-bg); border-radius: 0 8px 8px 0; padding: 1.2rem 1.5rem; margin: 2rem 0; font-size: 0.95rem; color: var(--highlight); line-height: 1.7; }
+    .insight-block strong { font-weight: 600; }
+
+    /* VS TABLE */
+    .vs-table { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 2rem; }
+    .vs-table-header { display: grid; grid-template-columns: 1fr 1fr 1fr; background: var(--accent); }
+    .vs-col { padding: 0.9rem 1.2rem; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.5px; color: var(--highlight); text-transform: uppercase; }
+    .vs-row { display: grid; grid-template-columns: 1fr 1fr 1fr; border-top: 1px solid var(--border); }
+    .vs-row:hover { background: var(--bg); }
+    .vs-cell { padding: 0.85rem 1.2rem; font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+    .vs-cell.label { color: var(--text); font-weight: 500; }
+    .vs-cell.good { color: var(--text); }
+
+    /* PLATFORM */
+    .platform-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 2.5rem; }
+    @media (max-width: 600px) { .platform-grid { grid-template-columns: 1fr; } }
+    .platform-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.4rem; }
+    .platform-head { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.8rem; }
+    .platform-icon { width: 34px; height: 34px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+    .platform-name { font-size: 0.9rem; font-weight: 600; color: var(--text); }
+    .platform-share { font-size: 0.75rem; color: var(--warm); font-weight: 600; }
+    .platform-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+    .platform-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.8rem; }
+    .ptag { background: var(--bg); border: 1px solid var(--border); padding: 0.18rem 0.6rem; border-radius: 100px; font-size: 0.72rem; color: var(--muted); font-weight: 500; }
+
+    /* BUDGET BARS */
+    .budget-bar-section { margin: 2.5rem 0; }
+    .budget-bar-section h4 { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 1.4rem; }
+    .budget-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.9rem; }
+    .budget-label { font-size: 0.82rem; font-weight: 500; color: var(--text); width: 220px; flex-shrink: 0; }
+    .budget-track { flex: 1; height: 8px; background: var(--accent); border-radius: 100px; overflow: hidden; }
+    .budget-fill { height: 100%; background: var(--warm); border-radius: 100px; }
+    .budget-pct { font-size: 0.78rem; font-weight: 600; color: var(--muted); width: 40px; text-align: right; flex-shrink: 0; }
+
+    /* METRICS */
+    .metrics-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin: 2.5rem 0; }
+    .metric-box { background: var(--card); padding: 1.3rem 1.5rem; }
+    .metric-box-val { font-family: 'Instrument Serif', serif; font-size: 1.6rem; color: var(--text); letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.3rem; }
+    .metric-box-label { font-size: 0.75rem; color: var(--muted); font-weight: 500; }
+    .metric-box-note { font-size: 0.7rem; color: var(--warm); font-weight: 500; margin-top: 0.2rem; }
+
+    /* FUNNEL */
+    .funnel-wrap { max-width: 760px; margin: 0 auto; }
+    .funnel-stage { position: relative; margin-bottom: 2px; }
+    .funnel-stage-inner { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; cursor: pointer; transition: box-shadow 0.2s; }
+    .funnel-stage-inner:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    .funnel-header { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 1.6rem; gap: 1rem; }
+    .funnel-left { display: flex; align-items: center; gap: 1rem; }
+    .funnel-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .dot-1 { background: #C8A882; }
+    .dot-2 { background: #A8956B; }
+    .dot-3 { background: #7A6A4F; }
+    .dot-4 { background: #4A3F2F; }
+    .funnel-stage-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+    .funnel-stage-title { font-size: 1rem; font-weight: 600; color: var(--text); }
+    .funnel-toggle { font-size: 1.2rem; color: var(--muted); transition: transform 0.3s; font-weight: 300; line-height: 1; user-select: none; }
+    .funnel-stage-inner.open .funnel-toggle { transform: rotate(45deg); }
+    .funnel-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+    .funnel-body-inner { padding: 0 1.6rem 1.4rem; border-top: 1px solid var(--border); }
+    .funnel-points { list-style: none; margin-top: 1rem; }
+    .funnel-points li { font-size: 0.9rem; color: var(--muted); padding: 0.3rem 0 0.3rem 1.2rem; position: relative; line-height: 1.6; }
+    .funnel-points li::before { content: '→'; position: absolute; left: 0; color: var(--warm); font-size: 0.8rem; }
+    .funnel-points li strong { color: var(--text); font-weight: 600; }
+    .funnel-connector { display: flex; justify-content: center; height: 22px; align-items: center; }
+    .funnel-connector::before { content: ''; width: 1px; height: 100%; background: var(--border); }
+
+    /* CREATIVE */
+    .creative-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 2.5rem; }
+    @media (max-width: 600px) { .creative-grid { grid-template-columns: 1fr; } }
+    .creative-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.4rem; }
+    .creative-card.span-2 { grid-column: 1 / -1; }
+    .creative-card-icon { font-size: 1.4rem; margin-bottom: 0.7rem; }
+    .creative-card-title { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.5rem; }
+    .creative-card-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+
+    .why-list { list-style: none; margin-top: 1.5rem; }
+    .why-list li { display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+    .why-list li:last-child { border-bottom: none; }
+    .why-num { font-family: 'Instrument Serif', serif; font-size: 1.4rem; color: #D4C4B0; flex-shrink: 0; width: 28px; line-height: 1.3; }
+    .why-text strong { display: block; font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
+    .why-text span { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    .caveat-block { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.4rem 1.6rem; margin-top: 2rem; }
+    .caveat-block h4 { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 0.8rem; }
+    .caveat-list { list-style: none; }
+    .caveat-list li { font-size: 0.875rem; color: var(--muted); padding: 0.3rem 0 0.3rem 1.2rem; position: relative; line-height: 1.6; }
+    .caveat-list li::before { content: '–'; position: absolute; left: 0; color: #D4C4B0; }
+
+    /* TAKEAWAYS */
+    #takeaways { background: var(--highlight); }
+    #takeaways .section-eyebrow { color: #C8A882; }
+    #takeaways .section-eyebrow::after { background: #C8A882; }
+    #takeaways .section-title { color: #F5EFE8; }
+    #takeaways .section-lead { color: #94867A; }
+    .takeaway-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 3.5rem; }
+    @media (max-width: 600px) { .takeaway-grid { grid-template-columns: 1fr; } }
+    .takeaway-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 1.4rem; }
+    .takeaway-num { font-family: 'Instrument Serif', serif; font-size: 2rem; color: rgba(200,168,130,0.3); line-height: 1; margin-bottom: 0.5rem; }
+    .takeaway-title { font-size: 0.9rem; font-weight: 600; color: #F0E8DF; margin-bottom: 0.5rem; }
+    .takeaway-desc { font-size: 0.83rem; color: #7A6E65; line-height: 1.65; }
+    .optimize-section-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #C8A882; margin-bottom: 1.2rem; padding-top: 0.5rem; border-top: 1px solid rgba(255,255,255,0.08); }
+    .optimize-list { list-style: none; }
+    .optimize-item { display: flex; gap: 1.2rem; padding: 1.2rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .optimize-item:last-child { border-bottom: none; }
+    .optimize-icon { width: 36px; height: 36px; background: rgba(200,168,130,0.12); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+    .optimize-title { font-size: 0.9rem; font-weight: 600; color: #F0E8DF; margin-bottom: 0.3rem; }
+    .optimize-desc { font-size: 0.83rem; color: #7A6E65; line-height: 1.65; }
+
+    /* FOOTER */
+    .case-footer { border-top: 1px solid var(--border); padding: 3rem 6%; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2rem; }
+    @media (max-width: 600px) { .case-footer { grid-template-columns: 1fr; } }
+    .case-footer-author { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.4rem; }
+    .case-footer-author strong { color: var(--text); font-weight: 600; }
+    .case-footer-links { display: flex; gap: 1.2rem; margin-top: 0.6rem; }
+    .case-footer-links a { font-size: 0.8rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .case-footer-links a:hover { color: var(--text); }
+    .footer-nav { display: flex; gap: 2rem; align-items: center; }
+    .footer-nav-link { text-decoration: none; display: flex; flex-direction: column; gap: 0.2rem; }
+    .footer-nav-link .fnl { font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+    .footer-nav-link .fnt { font-family: 'Instrument Serif', serif; font-size: 1.1rem; color: var(--text); transition: color 0.2s; }
+    .footer-nav-link:hover .fnt { color: var(--warm); }
+
+    .prose p { font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+    .prose p:last-child { margin-bottom: 0; }
+    .prose strong { color: var(--text); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M5 12l7-7M5 12l7 7"/>
+      </svg>
+      Portfolio
+    </a>
+    <ul class="nav-sections">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#ad-strategy">Ad Strategy</a></li>
+      <li><a href="#funnel">Funnel</a></li>
+      <li><a href="#creative">Creative</a></li>
+      <li><a href="#takeaways">Takeaways</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero reveal">
+    <div class="hero-label">Case Study · Health-Tech / Subscription Fitness</div>
+    <h1>Cult<em>.fit</em></h1>
+    <p class="hero-tagline">
+      Why subscription LTV changes everything about performance marketing —
+      and how Cult.fit built a ₹1,270 Cr fitness empire by getting people through the door, not past a checkout cart.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-tag">Subscription Marketing</span>
+      <span class="hero-tag">Hyper-Local Ads</span>
+      <span class="hero-tag">Google My Business</span>
+      <span class="hero-tag">App Install Campaigns</span>
+      <span class="hero-tag">India · Fitness</span>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-val">₹1,270 Cr</div>
+        <div class="hero-stat-label">Revenue FY25</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">31%</div>
+        <div class="hero-stat-label">YoY Growth</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">₹12,200 Cr</div>
+        <div class="hero-stat-label">Unicorn Valuation</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">60%</div>
+        <div class="hero-stat-label">Subscription Renewal Rate</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">90%</div>
+        <div class="hero-stat-label">User Recommendation Rate</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">35+</div>
+        <div class="hero-stat-label">Cities</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">01 — Brand Overview</div>
+        <h2 class="section-title">Not a gym. A fitness operating system.</h2>
+        <p class="section-lead">
+          Cult.fit doesn't sell products — it sells access. The performance marketing playbook here
+          is fundamentally different from e-commerce D2C. The goal isn't a checkout; it's a first class booking
+          that leads to a subscription that leads to a habit.
+        </p>
+      </div>
+
+      <div class="overview-grid reveal reveal-delay-1">
+        <div class="overview-card">
+          <div class="overview-card-label">Founded</div>
+          <div class="overview-card-val">2016 — Bengaluru (originally Cure.fit, rebranded May 2021)</div>
+        </div>
+        <div class="overview-card">
+          <div class="overview-card-label">Founders</div>
+          <div class="overview-card-val">Mukesh Bansal &amp; Ankit Nagori</div>
+        </div>
+        <div class="overview-card">
+          <div class="overview-card-label">Funding</div>
+          <div class="overview-card-val">$577M raised — Accel, Temasek, Tata Digital, Zomato. Unicorn since 2021.</div>
+        </div>
+        <div class="overview-card">
+          <div class="overview-card-label">Scale</div>
+          <div class="overview-card-val">35+ cities, Dubai. Acquired Gold's Gym India. ~3,964 total workforce including trainers.</div>
+        </div>
+        <div class="overview-card">
+          <div class="overview-card-label">Core Product</div>
+          <div class="overview-card-val">Cult Pass — one subscription for unlimited group classes across all centers and class types</div>
+        </div>
+        <div class="overview-card">
+          <div class="overview-card-label">Discovery</div>
+          <div class="overview-card-val">400K+ monthly organic website traffic. 43% from Google search. NPS drives 90% recommendation rate.</div>
+        </div>
+        <div class="overview-card span-2">
+          <div class="overview-card-label">The Cult Pass Model — Why It Matters for Marketing</div>
+          <div class="overview-card-val">The Cult Pass is the single most important product decision for performance marketing. By offering unlimited classes at any center for one monthly price, it eliminates the biggest subscription objections: 'what if I travel?', 'what if I want to try a different class?', 'what if my centre is far?'. Every ad can promise unlimited access — and the promise is true. This makes conversion copy simpler, trust easier to build, and churn structurally lower.</div>
+        </div>
+      </div>
+
+      <div class="vs-table reveal reveal-delay-2">
+        <div class="vs-table-header">
+          <div class="vs-col">Dimension</div>
+          <div class="vs-col">Cult.fit (Cult Pass)</div>
+          <div class="vs-col">Traditional Gym</div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-cell label">Access</div>
+          <div class="vs-cell good">Any center, any city</div>
+          <div class="vs-cell">One location only</div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-cell label">Class Variety</div>
+          <div class="vs-cell good">HIIT, yoga, dance, boxing, Pilates, strength</div>
+          <div class="vs-cell">Equipment + limited classes</div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-cell label">Churn Driver</div>
+          <div class="vs-cell good">Scheduling conflict (solvable)</div>
+          <div class="vs-cell">Boredom, relocation (harder to solve)</div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-cell label">Booking</div>
+          <div class="vs-cell good">App — reserve specific class, specific time</div>
+          <div class="vs-cell">Show up, hope for equipment</div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-cell label">Community</div>
+          <div class="vs-cell good">Trainer-led group classes, leaderboards</div>
+          <div class="vs-cell">Individual, anonymous</div>
+        </div>
+      </div>
+
+      <div class="insight-block reveal reveal-delay-3">
+        <strong>The number that changes the entire CAC calculation:</strong> A ₹500 free trial that converts to a ₹2,000/month subscription with an 8-month average retention period = <strong>₹16,000 LTV</strong>. This means Cult.fit can rationally spend 3–5× more to acquire a user than most e-commerce brands, because the payback window is longer and the revenue is recurring. Every performance marketing decision — bid strategy, target CPA, creative spend — must be anchored to this LTV math, not immediate conversion value.
+      </div>
+
+      <div class="prose reveal reveal-delay-4">
+        <p>
+          What most gym chains miss — and Cult.fit understood — is that <strong>80% of users who churned said they wanted to come back, but had scheduling conflicts, not dissatisfaction</strong>. This single insight rewrites the retargeting strategy entirely. You're not trying to convince lapsed members that Cult is good. They already know it's good. You're removing the friction that stopped them from renewing. That's a completely different message, creative, and offer.
+        </p>
+        <p>
+          The addition of <strong>Cult.sport</strong> (D2C fitness equipment and athleisure) is also a smart performance marketing play — it gives the brand an e-commerce acquisition channel that feeds the subscription funnel. Someone who buys a yoga mat from Cult.sport is a warm lead for a Cult Pass. The two products share infrastructure but serve as separate top-of-funnel entry points.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- AD STRATEGY -->
+  <section id="ad-strategy">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">02 — Ad Strategy</div>
+        <h2 class="section-title">Subscription marketing isn't e-commerce marketing.</h2>
+        <p class="section-lead">
+          The channels look similar — Meta, Google, YouTube — but the strategy, metrics, and creative
+          are fundamentally different when you're selling a recurring experience, not a one-time product.
+        </p>
+      </div>
+
+      <div class="platform-grid reveal reveal-delay-1">
+        <div class="platform-card">
+          <div class="platform-head">
+            <div class="platform-icon">🔍</div>
+            <div>
+              <div class="platform-name">Google Ads + GMB</div>
+              <div class="platform-share">~30–35% of budget</div>
+            </div>
+          </div>
+          <div class="platform-desc">
+            THE most critical channel for a location-based business. Hyper-local search ads: 'gym near me', 'fitness classes in Bangalore', 'yoga classes near Koramangala'. Each center has its own Google My Business profile with correct hours, class photos, reviews, and service descriptions. Appearing in the local pack for fitness queries is non-negotiable. Performance Max campaigns drive local conversions across search and display simultaneously.
+          </div>
+          <div class="platform-tags">
+            <span class="ptag">Hyper-local Search</span>
+            <span class="ptag">Google My Business</span>
+            <span class="ptag">Local Pack Optimization</span>
+            <span class="ptag">Performance Max</span>
+            <span class="ptag">Call Extensions</span>
+          </div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-head">
+            <div class="platform-icon">📱</div>
+            <div>
+              <div class="platform-name">Meta Ads</div>
+              <div class="platform-share">~25–30% of budget</div>
+            </div>
+          </div>
+          <div class="platform-desc">
+            Instagram is the primary brand-building and trial-acquisition channel. High-energy Reels showing actual class experiences, trainer spotlights, and member transformation stories. Lead generation ads offering free trial classes capture intent before users are ready to commit. Facebook retargeting re-engages website visitors and app users who haven't subscribed. Geo-targeted to 2–5km radius per center.
+          </div>
+          <div class="platform-tags">
+            <span class="ptag">Instagram Reels</span>
+            <span class="ptag">Lead Gen Ads</span>
+            <span class="ptag">Geo-targeted Retargeting</span>
+            <span class="ptag">Free Trial CTAs</span>
+          </div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-head">
+            <div class="platform-icon">📲</div>
+            <div>
+              <div class="platform-name">App Install Campaigns</div>
+              <div class="platform-share">~15–20% of budget</div>
+            </div>
+          </div>
+          <div class="platform-desc">
+            The Cult.fit app is the primary booking platform — every subscription conversion flows through it. Google UAC (Universal App Campaigns) and Meta app install ads drive downloads that are the gateway to subscription conversion. App store optimization (screenshots showing class variety, booking ease, center map) is a critical part of this conversion path. App install → first class booking = the highest-intent moment in the funnel.
+          </div>
+          <div class="platform-tags">
+            <span class="ptag">Google UAC</span>
+            <span class="ptag">Meta App Install</span>
+            <span class="ptag">App Store Optimization</span>
+            <span class="ptag">In-app Push</span>
+          </div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-head">
+            <div class="platform-icon">▶️</div>
+            <div>
+              <div class="platform-name">YouTube + Outdoor</div>
+              <div class="platform-share">~15–20% of budget</div>
+            </div>
+          </div>
+          <div class="platform-desc">
+            Pre-roll and discovery ads showing the class experience — aspirational fitness content that makes you feel like you're missing out. Trainer-led workout clips double as content and paid ads. YouTube Shorts for quick 15-second class energy bursts. Outdoor hoardings and society gate branding in catchment areas around centers create local awareness that digital alone can't achieve for walk-in trial conversions.
+          </div>
+          <div class="platform-tags">
+            <span class="ptag">YouTube Pre-roll</span>
+            <span class="ptag">6-sec Bumper Ads</span>
+            <span class="ptag">YouTube Shorts</span>
+            <span class="ptag">OOH Near Centers</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="budget-bar-section reveal reveal-delay-2">
+        <h4>Estimated Budget Allocation</h4>
+        <div class="budget-row">
+          <div class="budget-label">Google Ads + GMB (Local + Search)</div>
+          <div class="budget-track"><div class="budget-fill" style="width:33%"></div></div>
+          <div class="budget-pct">33%</div>
+        </div>
+        <div class="budget-row">
+          <div class="budget-label">Meta Ads (Instagram + Facebook)</div>
+          <div class="budget-track"><div class="budget-fill" style="width:28%"></div></div>
+          <div class="budget-pct">28%</div>
+        </div>
+        <div class="budget-row">
+          <div class="budget-label">App Install (Google UAC + Meta)</div>
+          <div class="budget-track"><div class="budget-fill" style="width:18%"></div></div>
+          <div class="budget-pct">18%</div>
+        </div>
+        <div class="budget-row">
+          <div class="budget-label">YouTube</div>
+          <div class="budget-track"><div class="budget-fill" style="width:13%"></div></div>
+          <div class="budget-pct">13%</div>
+        </div>
+        <div class="budget-row">
+          <div class="budget-label">Outdoor / BTL near centers</div>
+          <div class="budget-track"><div class="budget-fill" style="width:8%"></div></div>
+          <div class="budget-pct">8%</div>
+        </div>
+      </div>
+
+      <div class="metrics-row reveal reveal-delay-3">
+        <div class="metric-box">
+          <div class="metric-box-val">₹16,000</div>
+          <div class="metric-box-label">Estimated User LTV</div>
+          <div class="metric-box-note">₹2K/mo × 8 months avg.</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-box-val">60%</div>
+          <div class="metric-box-label">Subscription Renewal Rate</div>
+          <div class="metric-box-note">Above category average</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-box-val">43%</div>
+          <div class="metric-box-label">Traffic from Google Search</div>
+          <div class="metric-box-note">Local SEO is critical</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-box-val">90%</div>
+          <div class="metric-box-label">User Recommendation Rate</div>
+          <div class="metric-box-note">Word-of-mouth as a channel</div>
+        </div>
+      </div>
+
+      <div class="insight-block reveal reveal-delay-4">
+        <strong>Why targeting is fundamentally different here:</strong> Cult.fit doesn't target demographics — they target <strong>geography + intent + life events</strong>. A 28-year-old professional in Indiranagar sees ads for the Indiranagar center, not a generic Cult.fit ad. 'Gym near me' at 7am on a weekday is a completely different signal than the same search at 11pm — and bid strategy should reflect that. January (New Year resolutions), March (pre-summer), and September (post-monsoon restart) are volume spikes that require budget reallocation planning months in advance.
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FUNNEL -->
+  <section id="funnel">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">03 — Funnel Breakdown</div>
+        <h2 class="section-title">The subscription funnel is not a purchase funnel.</h2>
+        <p class="section-lead">
+          The biggest mistake brands make when marketing subscriptions is treating it like e-commerce.
+          The stages are different, the metrics are different, and the moments that matter most are different.
+        </p>
+      </div>
+
+      <div class="funnel-wrap reveal reveal-delay-1">
+
+        <div class="funnel-stage">
+          <div class="funnel-stage-inner open" onclick="toggleFunnel(this)">
+            <div class="funnel-header">
+              <div class="funnel-left">
+                <div class="funnel-dot dot-1"></div>
+                <div>
+                  <div class="funnel-stage-label">Top of Funnel</div>
+                  <div class="funnel-stage-title">Awareness — Local Discovery &amp; Aspiration</div>
+                </div>
+              </div>
+              <div class="funnel-toggle">+</div>
+            </div>
+            <div class="funnel-body" style="max-height:600px;">
+              <div class="funnel-body-inner">
+                <ul class="funnel-points">
+                  <li><strong>Google Search — local intent:</strong> 'Best gym in Bangalore', 'fitness classes near me', 'yoga classes Koramangala', 'HIIT near Indiranagar'. These are the highest-value queries Cult.fit can capture — the user is actively searching for exactly what Cult offers. Appearing in the top 3 local pack results here is more valuable than any brand campaign.</li>
+                  <li><strong>Instagram Reels — aspiration and FOMO:</strong> High-energy class clips showing real trainers, real members, real sweat. The creative doesn't sell Cult.fit — it shows you what you're missing. A 15-second clip of a packed HIIT class with pumping music creates FOMO that a static image or copy never could.</li>
+                  <li><strong>YouTube ads — class experience previews:</strong> Aspirational fitness content showing the full class experience — the warm-up, the intensity, the cool-down, the community. These 30-second cuts make you feel what a class feels like before you've ever walked in.</li>
+                  <li><strong>Word of mouth — the underrated channel:</strong> With a 90% recommendation rate, every satisfied member is an acquisition channel. Cult.fit's organic referral rate is likely their lowest-CAC acquisition path, driven by genuine product satisfaction. This isn't something you can buy — it has to be earned through product quality and community experience.</li>
+                  <li><strong>Google My Business — local trust signals:</strong> 300+ GMB profiles, each with class photos, current hours, specific service listings, recent reviews, and Q&amp;A. When someone searches 'yoga classes near me', a GMB profile with 4.6★ from 800 reviews and current class schedule information converts at a fundamentally higher rate than a profile that hasn't been updated in 6 months.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="funnel-connector"></div>
+
+        <div class="funnel-stage">
+          <div class="funnel-stage-inner" onclick="toggleFunnel(this)">
+            <div class="funnel-header">
+              <div class="funnel-left">
+                <div class="funnel-dot dot-2"></div>
+                <div>
+                  <div class="funnel-stage-label">Mid Funnel — Unique to Subscriptions</div>
+                  <div class="funnel-stage-title">Trial &amp; First Experience — The Product Demo</div>
+                </div>
+              </div>
+              <div class="funnel-toggle">+</div>
+            </div>
+            <div class="funnel-body">
+              <div class="funnel-body-inner">
+                <ul class="funnel-points">
+                  <li><strong>Free trial class as the conversion event:</strong> Meta lead gen ads and Google search ads driving to a 'Book Your Free First Class' landing page — optimized per city, per center, per class type. The CTA is a class booking, not a product purchase. This removes all financial risk and collapses the consideration stage dramatically.</li>
+                  <li><strong>Frictionless app onboarding:</strong> App download → location access → nearby centers → class schedule → one-tap booking. Every extra step in this flow is a drop-off point. The booking UX IS part of the product, and it's part of the performance marketing funnel — a clunky booking flow kills conversion rates that no ad creative can rescue.</li>
+                  <li><strong>First-class experience IS the ad:</strong> Trainer quality, class energy, facility cleanliness, member friendliness — these are the product demo. No ad creative can convert as effectively as a first class that exceeds expectations. Performance marketing's job is to get someone through the door; the product's job is to close the sale. The two have to work together.</li>
+                  <li><strong>First-week habit nudges:</strong> Welcome sequence push notifications guiding users to book their 2nd and 3rd classes within the first 7 days. Data shows that users who attend 3+ classes in their first week have dramatically higher subscription conversion rates. These nudges are free to send but have outsized impact on LTV.</li>
+                  <li><strong>Gamification from day one:</strong> 'You're on a 2-class streak! Book tomorrow to keep it going.' Streak mechanics and class completion badges create early habit loops that make subscription conversion feel like a natural next step rather than a purchase decision.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="funnel-connector"></div>
+
+        <div class="funnel-stage">
+          <div class="funnel-stage-inner" onclick="toggleFunnel(this)">
+            <div class="funnel-header">
+              <div class="funnel-left">
+                <div class="funnel-dot dot-3"></div>
+                <div>
+                  <div class="funnel-stage-label">Bottom of Funnel</div>
+                  <div class="funnel-stage-title">Subscription Conversion — Locking In the Habit</div>
+                </div>
+              </div>
+              <div class="funnel-toggle">+</div>
+            </div>
+            <div class="funnel-body">
+              <div class="funnel-body-inner">
+                <ul class="funnel-points">
+                  <li><strong>In-app post-trial prompts:</strong> After the free trial class, in-app messaging: 'Lock in your Cult Pass — ₹1,999/month for unlimited classes at any center'. The ask comes at the peak of engagement, immediately after the best possible product experience. Timing is everything here.</li>
+                  <li><strong>Retargeting trial users who didn't subscribe:</strong> Custom audiences of trial users who downloaded the app but didn't convert get retargeted with social proof — member count, class variety, testimonials — and limited-time pricing. The message isn't 'try Cult.fit'; they've already done that. The message is 'the window for this offer is closing'.</li>
+                  <li><strong>Flexible pricing removes commitment anxiety:</strong> Monthly, quarterly, and annual plans at different price points. The annual plan dramatically increases LTV and reduces churn risk; the monthly plan removes commitment anxiety for new subscribers. Offering both options converts more users overall than a single plan, even if it means some choose monthly over annual.</li>
+                  <li><strong>Cult Pass positioning removes the biggest objection:</strong> Traditional gym memberships lock you to one location. Cult Pass removes that objection entirely — subscribe once, attend anywhere, book any class. Every bottom-funnel ad that leads with 'access any center' is using the product architecture as the conversion argument.</li>
+                  <li><strong>Referral incentives at conversion moment:</strong> 'Bring a friend and get one month free' offers at the point of subscription decision — when the user is most enthusiastic and most likely to share. This converts referrals at the highest possible rate by timing the ask correctly.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="funnel-connector"></div>
+
+        <div class="funnel-stage">
+          <div class="funnel-stage-inner" onclick="toggleFunnel(this)">
+            <div class="funnel-header">
+              <div class="funnel-left">
+                <div class="funnel-dot dot-4"></div>
+                <div>
+                  <div class="funnel-stage-label">Post-Conversion — Most Critical Stage</div>
+                  <div class="funnel-stage-title">Retention &amp; Renewal — The LTV Engine</div>
+                </div>
+              </div>
+              <div class="funnel-toggle">+</div>
+            </div>
+            <div class="funnel-body">
+              <div class="funnel-body-inner">
+                <ul class="funnel-points">
+                  <li><strong>Attendance frequency as the churn predictor:</strong> Members attending 3+ classes per week renew at dramatically higher rates than those attending once. Every retention mechanism — booking reminders, streak challenges, class recommendations — is designed to increase weekly attendance frequency in the critical first 30 days, when most churn happens.</li>
+                  <li><strong>Waitlist and scarcity mechanics:</strong> Popular classes have limited spots and waitlists. This creates urgency (book early or miss out), habit formation (plan your week around class slots), and perceived value (if it's hard to get into, it must be worth attending). The waitlist system is simultaneously a product feature and a retention marketing tool.</li>
+                  <li><strong>Class variety as an anti-churn mechanism:</strong> Yoga, HIIT, dance, boxing, strength training, Pilates, cycling — the variety prevents the boredom that kills gym memberships. A member who's explored 5 class types is far less likely to churn than one who's only ever attended HIIT. Cross-class recommendation nudges ('You loved HIIT — try our Strength class this Saturday') actively guide members toward variety.</li>
+                  <li><strong>Lapsed member win-back campaigns:</strong> Targeting expired subscribers on Meta and Google with personalized messaging: their specific class types, their nearest center, and a re-join offer tailored to why they lapsed. The 80% who churned because of scheduling conflicts get a message about the new 6am and 9pm classes. The ones who moved cities see the new center near their new location.</li>
+                  <li><strong>Cult.sport as a between-class touchpoint:</strong> D2C fitness equipment purchases keep the Cult brand in a member's daily life even on non-class days — the yoga mat, the resistance bands, the gym bag. This cross-sell strategy extends brand touchpoints and feeds member data back into the platform for better personalization.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CREATIVE -->
+  <section id="creative">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">04 — Creative Strategy</div>
+        <h2 class="section-title">Make them feel like they're missing out.</h2>
+        <p class="section-lead">
+          Cult.fit's best creative doesn't describe fitness — it shows what a class actually feels like.
+          Energy, community, and transformation are the message; the product format just delivers it.
+        </p>
+      </div>
+
+      <div class="creative-grid reveal reveal-delay-1">
+        <div class="creative-card">
+          <div class="creative-card-icon">🎬</div>
+          <div class="creative-card-title">Instagram Reels (15–30 sec)</div>
+          <div class="creative-card-desc">High-energy class clips with music, trainer callouts, and real member reactions. The best-performing format because it shows the actual product experience in native format. The hook is always a feeling, not a feature — 10 seconds of a packed HIIT class converts better than 30 seconds of voiceover about class types and pricing.</div>
+        </div>
+        <div class="creative-card">
+          <div class="creative-card-icon">📍</div>
+          <div class="creative-card-title">Hyper-Local Google Search Ads</div>
+          <div class="creative-card-desc">'HIIT Classes in Indiranagar — Free First Class' with location extensions, call extensions, and site links to specific class schedules. The copy is locality-first, not brand-first. Someone searching for a gym in Koramangala doesn't care about Cult.fit's national presence — they care about the Koramangala center's class schedule and availability.</div>
+        </div>
+        <div class="creative-card">
+          <div class="creative-card-icon">📲</div>
+          <div class="creative-card-title">Stories Ads with Direct CTA</div>
+          <div class="creative-card-desc">Swipe-up to book a free trial. Countdown timers for limited-time pricing offers. Poll stickers asking 'Which class would you try first?' — engagement mechanics that simultaneously build audience signal and drive soft conversions. Stories' full-screen format creates immersive class experience previews that feed ads can't replicate.</div>
+        </div>
+        <div class="creative-card">
+          <div class="creative-card-icon">⚡</div>
+          <div class="creative-card-title">YouTube Bumper Ads (6 sec)</div>
+          <div class="creative-card-desc">A trainer's countdown, music pumping, class cheering — in 6 seconds. These non-skippable bumpers don't sell; they create a feeling. 6 seconds of class energy is just enough to plant FOMO before the main video the user came to watch. They work best as a top-of-funnel frequency-building tool alongside longer format awareness ads.</div>
+        </div>
+        <div class="creative-card">
+          <div class="creative-card-icon">🏋️</div>
+          <div class="creative-card-title">Transformation &amp; Community UGC</div>
+          <div class="creative-card-desc">Member before-after stories, workout progress posts, class selfies, trainer shoutout compilations. Real people in real classes — not fitness models in a studio. The authenticity makes the aspiration feel achievable rather than unattainable. These also function as social proof for skeptical users in the consideration phase.</div>
+        </div>
+        <div class="creative-card">
+          <div class="creative-card-icon">🗺️</div>
+          <div class="creative-card-title">Outdoor &amp; Society Gate Branding</div>
+          <div class="creative-card-desc">Large-format hoardings near centers and society gate branding in catchment areas. 'First Class Free — Book on the App' with a QR code. Local outdoor creates walk-in trial conversions that no digital channel can capture — the person who lives 800 meters from a center and walks past the hoarding every morning is a high-conversion prospect that Meta and Google will never find.</div>
+        </div>
+      </div>
+
+      <div class="insight-block reveal reveal-delay-2">
+        <strong>The creative insight that separates Cult.fit from every other fitness brand:</strong> They don't show fitness results — they show <strong>the experience of getting there</strong>. Most gym ads show transformation: before-after bodies, weight numbers, dress sizes. Cult.fit shows what Tuesday morning HIIT class feels like — the music, the trainer's energy, the members around you. The result they're selling isn't a body; it's a feeling you get three times a week. That's a fundamentally more compelling and sustainable creative strategy.
+      </div>
+
+      <div class="reveal reveal-delay-3">
+        <h3 style="font-size:1.3rem; margin-bottom:1.2rem;">Why Their Creative Works</h3>
+        <ul class="why-list">
+          <li>
+            <div class="why-num">01</div>
+            <div class="why-text">
+              <strong>Shows the actual product, not a representation of it</strong>
+              <span>A 20-second class clip does more conversion work than any testimonial or claim because it answers the prospect's real question: 'What will I actually be doing?' The uncertainty about what a class feels like is the biggest barrier to trial. Remove the uncertainty, remove the barrier.</span>
+            </div>
+          </li>
+          <li>
+            <div class="why-num">02</div>
+            <div class="why-text">
+              <strong>Trainer personalities create pre-class connection</strong>
+              <span>Cult.fit's trainers are positioned as personalities, not just instructors. Recurring trainer faces in ads create familiarity before the first class — you feel like you know them before you walk in. This familiarity dramatically increases the chance that a first trial leads to a repeat booking, which leads to subscription conversion.</span>
+            </div>
+          </li>
+          <li>
+            <div class="why-num">03</div>
+            <div class="why-text">
+              <strong>Hyper-local messaging earns local trust</strong>
+              <span>An ad that names your specific neighborhood — Indiranagar, Koramangala, Bandra — signals that this isn't a generic national brand speaking to everyone. It's a local center speaking to you, specifically. This personalization, even when it's just geographic, meaningfully improves CTR and trial conversion rates in location-based businesses.</span>
+            </div>
+          </li>
+          <li>
+            <div class="why-num">04</div>
+            <div class="why-text">
+              <strong>FOMO is structural, not manufactured</strong>
+              <span>Limited class spots and waitlists create urgency that the ads don't need to manufacture. 'Only 4 spots left in Saturday's boxing class' is a factually true statement that creates genuine urgency. The product design creates the scarcity; the creative just communicates it honestly. This is fundamentally more trustworthy than fake countdown timers.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="caveat-block reveal">
+        <h4>What Doesn't Work As Well</h4>
+        <ul class="caveat-list">
+          <li>App install ads often feel generic — 'Download and book your first class' doesn't differentiate Cult.fit from any fitness app; the creative needs to show WHY this specific app and what it unlocks</li>
+          <li>Pricing communication is confusing — multiple plans, dynamic pricing, and center-specific rates make the value proposition unclear in ads; simpler per-class framing would reduce decision paralysis</li>
+          <li>Lapsed user retargeting tends to be one-size-fits-all; users who churned because of relocation, scheduling conflicts, or budget constraints need different messages and offers</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- TAKEAWAYS -->
+  <section id="takeaways">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">05 — Takeaways</div>
+        <h2 class="section-title">What I took away from this.</h2>
+        <p class="section-lead">
+          Six strategic principles from Cult.fit's subscription marketing playbook — and four
+          things I would push further to improve trial-to-subscription conversion and retention.
+        </p>
+      </div>
+
+      <div class="takeaway-grid reveal reveal-delay-1">
+        <div class="takeaway-card">
+          <div class="takeaway-num">01</div>
+          <div class="takeaway-title">Local search is king for location-based businesses</div>
+          <div class="takeaway-desc">GMB optimization and hyper-local Google Ads are more important than any Meta campaign. When someone searches 'gym near me' at 7am on a Monday, you need to be in the local pack top 3. That query has higher conversion intent than any awareness ad could generate. Miss it and no amount of Instagram Reels will compensate.</div>
+        </div>
+        <div class="takeaway-card">
+          <div class="takeaway-num">02</div>
+          <div class="takeaway-title">The trial IS the ad</div>
+          <div class="takeaway-desc">For subscription services, the free first class experience sells better than any creative. Performance marketing's job is to get people through the door — the product does the rest. This means the quality of the first-class experience is as much a marketing problem as the quality of the Instagram creative. Both have to be right.</div>
+        </div>
+        <div class="takeaway-card">
+          <div class="takeaway-num">03</div>
+          <div class="takeaway-title">Retention > acquisition in unit economics</div>
+          <div class="takeaway-desc">A 60% renewal rate and 90% NPS mean that every rupee spent on member experience and retention delivers more long-term value than the same rupee spent on acquisition. Most marketing teams are structured and incentivized to optimize acquisition; the better structural bet is to rebalance toward retention programs.</div>
+        </div>
+        <div class="takeaway-card">
+          <div class="takeaway-num">04</div>
+          <div class="takeaway-title">Habit-building is retention marketing</div>
+          <div class="takeaway-desc">Streak tracking, class booking reminders, waitlists, and class variety aren't just product features — they're retention marketing tools that reduce churn without any additional media spend. The best retention programs are built into the product, not bolted on as email campaigns after the fact.</div>
+        </div>
+        <div class="takeaway-card">
+          <div class="takeaway-num">05</div>
+          <div class="takeaway-title">Subscription LTV changes the entire CAC math</div>
+          <div class="takeaway-desc">Unlike e-commerce brands optimizing for single-purchase ROAS, Cult.fit can rationally afford a higher CAC because ₹500 trial → ₹16,000+ LTV. Performance marketers working in subscription businesses must anchor every bid decision to LTV, not immediate conversion value. A ₹1,200 CAC that generates ₹16,000 LTV is a better business than a ₹200 CAC that generates ₹600 LTV.</div>
+        </div>
+        <div class="takeaway-card">
+          <div class="takeaway-num">06</div>
+          <div class="takeaway-title">Community is an organic growth channel</div>
+          <div class="takeaway-desc">A 90% recommendation rate means word-of-mouth is a genuine paid-channel equivalent at zero marginal cost. This isn't an accident — it's the result of a product experience that consistently delivers on its promise. When members become advocates, CAC drops and LTV extends through social proof effects on their networks. The best growth hack is building something worth recommending.</div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <div class="optimize-section-label">What I Would Optimize</div>
+        <ul class="optimize-list">
+          <li class="optimize-item">
+            <div class="optimize-icon">🎯</div>
+            <div>
+              <div class="optimize-title">Personalized Win-Back Campaigns for Lapsed Members</div>
+              <div class="optimize-desc">80% of churned users want to come back — they just hit friction. The current retargeting likely treats all lapsed users the same. I would build dynamic audience segments based on churn reason: users who lapsed because of relocation see ads highlighting the new center in their area; users who lapsed during Ramadan get re-activation messaging in October; users whose most-attended class type is now available at expanded timings get that specific message. Personalized win-back based on behavioral history, not just 'We miss you' — the conversion rate difference would be significant.</div>
+            </div>
+          </li>
+          <li class="optimize-item">
+            <div class="optimize-icon">🤝</div>
+            <div>
+              <div class="optimize-title">Referral-Powered Performance Marketing</div>
+              <div class="optimize-desc">With a 90% recommendation rate, referrals should be treated as a paid acquisition channel with its own budget, creative, and reporting. I would run Meta ads featuring real members doing 'bring a friend free' offers — not a CTA card but actual user video saying 'I've been coming for 6 months, bring a friend this week and both your first classes are free'. Track referral-driven CAC separately and compare to cold acquisition. The hypothesis: referred users have lower CAC, higher trial-to-subscription conversion, and better long-term retention — because they came in with social accountability already built in.</div>
+            </div>
+          </li>
+          <li class="optimize-item">
+            <div class="optimize-icon">📺</div>
+            <div>
+              <div class="optimize-title">YouTube Shorts as Primary Discovery Format</div>
+              <div class="optimize-desc">15-second class experience clips on YouTube Shorts would reach fitness-curious users who haven't yet searched for a gym — people watching fitness content, workout videos, or health content organically. This is largely untapped top-of-funnel reach that bridges the gap between the high-intent Google Search user and the passive Instagram Reel viewer. Shorts' native discovery algorithm also means content with strong watch-through can earn organic reach on top of paid distribution — a content efficiency Reels can also deliver but Shorts specifically reaches a different, slightly older demographic on YouTube.</div>
+            </div>
+          </li>
+          <li class="optimize-item">
+            <div class="optimize-icon">💰</div>
+            <div>
+              <div class="optimize-title">Per-Class Cost Framing in All Bottom-Funnel Ads</div>
+              <div class="optimize-desc">Showing '₹1,999/month' makes the ask feel large in bottom-funnel ads. Showing '₹150/class for unlimited classes' makes the same price feel like a bargain — especially compared to a single PT session at ₹1,000+. I would A/B test per-class framing vs monthly pricing across all conversion-stage ads. The hypothesis is that per-class cost framing increases subscription conversion rate by making the value proposition immediately comparable to alternatives the user is already familiar with. This single copy change, if validated, would have significant impact on conversion rates at no additional media cost.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="divider"></div>
+  <footer class="case-footer">
+    <div>
+      <div class="case-footer-author">Analysis by <strong>Chethan S</strong> — Performance Marketing Specialist</div>
+      <div style="font-size:0.78rem; color:var(--muted); margin-bottom:0.6rem;">Revenue and metric figures sourced from public filings and industry reports. Budget allocations and LTV estimates are analytical estimates based on publicly available signals.</div>
+      <div class="case-footer-links">
+        <a href="index.html">← Portfolio</a>
+      </div>
+    </div>
+    <div class="footer-nav">
+      <a href="case-study-mamaearth.html" class="footer-nav-link">
+        <span class="fnl">Previous</span>
+        <span class="fnt">← Mamaearth</span>
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    function toggleFunnel(el) {
+      const body = el.querySelector('.funnel-body');
+      const isOpen = el.classList.contains('open');
+      document.querySelectorAll('.funnel-stage-inner').forEach(s => {
+        s.classList.remove('open');
+        s.querySelector('.funnel-body').style.maxHeight = '0';
+      });
+      if (!isOpen) {
+        el.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + 40 + 'px';
+      }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      const first = document.querySelector('.funnel-stage-inner.open');
+      if (first) { const b = first.querySelector('.funnel-body'); b.style.maxHeight = b.scrollHeight + 40 + 'px'; }
+    });
+  </script>
+</body>
+</html>

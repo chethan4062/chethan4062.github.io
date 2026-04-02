@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ad Creative Analysis — Chethan S</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --border: #1e1e2e;
+      --accent: #f97316;
+      --accent2: #fb923c;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --card: #0f0f1a;
+      --green: #22c55e;
+      --yellow: #eab308;
+      --red: #ef4444;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 6%;
+      backdrop-filter: blur(16px);
+      background: rgba(10,10,15,0.85);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .nav-back {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      padding: 9rem 6% 5rem;
+      border-bottom: 1px solid var(--border);
+      background: radial-gradient(ellipse 60% 50% at 80% 50%, rgba(249,115,22,0.06) 0%, transparent 70%);
+    }
+    .breadcrumb {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .hero-meta {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+    .meta-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.9rem;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .meta-pill span { color: var(--text); }
+
+    /* LAYOUT */
+    .container { max-width: 1200px; margin: 0 auto; padding: 5rem 6%; }
+
+    /* SECTION TITLES */
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 2rem;
+    }
+
+    /* CREATIVE CARDS */
+    .creatives-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    .creative-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .creative-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.4rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .brand-info { display: flex; align-items: center; gap: 0.7rem; }
+    .brand-logo {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .brand-name { font-weight: 700; font-size: 0.95rem; }
+    .brand-tag { color: var(--muted); font-size: 0.78rem; }
+    .sponsored-badge {
+      background: rgba(249,115,22,0.1);
+      border: 1px solid rgba(249,115,22,0.2);
+      color: var(--accent);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+    .creative-img-wrap {
+      position: relative;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+    }
+    .creative-img-wrap img {
+      width: 100%;
+      display: block;
+      object-fit: contain;
+    }
+    .creative-img-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      padding: 3rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      text-align: center;
+      min-height: 300px;
+    }
+    .placeholder-icon { font-size: 2.5rem; opacity: 0.4; }
+    .placeholder-text { opacity: 0.6; }
+    .creative-footer {
+      padding: 0.9rem 1.4rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cta-text { font-size: 0.82rem; color: var(--muted); }
+    .cta-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.35rem 1rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    /* SCORE CARD */
+    .score-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    .score-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+    }
+    .score-brand {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .score-row {
+      margin-bottom: 1.1rem;
+    }
+    .score-row-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.4rem;
+    }
+    .score-label { font-size: 0.85rem; color: var(--muted); font-weight: 500; }
+    .score-val { font-size: 0.85rem; font-weight: 700; }
+    .score-bar-bg {
+      height: 6px;
+      background: var(--border);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+    .score-bar-fill {
+      height: 100%;
+      border-radius: 100px;
+      background: var(--accent);
+      transition: width 1s ease;
+    }
+
+    /* ANALYSIS GRID */
+    .analysis-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    .analysis-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+    }
+    .analysis-card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .point-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    .point-item {
+      display: flex;
+      gap: 0.7rem;
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+    .point-icon { flex-shrink: 0; margin-top: 1px; font-size: 0.9rem; }
+    .point-text { color: var(--muted); }
+    .point-text strong { color: var(--text); }
+
+    /* VERDICT SECTION */
+    .verdict-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin-bottom: 4rem;
+    }
+    .verdict-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+    }
+
+    /* COMPARISON TABLE */
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    .comparison-table th {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      font-weight: 600;
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+    .comparison-table td {
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .comparison-table td:first-child { color: var(--muted); font-weight: 500; }
+    .comparison-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+    .tag-green { background: rgba(34,197,94,0.1); color: var(--green); }
+    .tag-yellow { background: rgba(234,179,8,0.1); color: var(--yellow); }
+    .tag-orange { background: rgba(249,115,22,0.1); color: var(--accent); }
+
+    /* WINNER BANNER */
+    .winner-banner {
+      margin-top: 2rem;
+      background: linear-gradient(135deg, rgba(249,115,22,0.1), rgba(249,115,22,0.03));
+      border: 1px solid rgba(249,115,22,0.25);
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .winner-icon { font-size: 1.8rem; flex-shrink: 0; }
+    .winner-title { font-weight: 700; margin-bottom: 0.3rem; color: var(--accent); }
+    .winner-body { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+
+    /* TAKEAWAYS */
+    .takeaways-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 5rem;
+    }
+    .takeaway-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .takeaway-card:hover { border-color: rgba(249,115,22,0.3); }
+    .takeaway-icon { font-size: 1.5rem; margin-bottom: 0.8rem; }
+    .takeaway-title { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.5rem; }
+    .takeaway-body { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .creatives-grid,
+      .score-section,
+      .analysis-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">CS.</a>
+    <a href="index.html" class="nav-back">← Back to Portfolio</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div style="max-width:1200px;margin:0 auto;padding:0 0;">
+      <div class="breadcrumb">Case Study · Ad Creative Analysis</div>
+      <h1>PhonePe vs CRED<br>Ad Creative Breakdown</h1>
+      <p style="color:var(--muted);max-width:580px;margin-top:0.8rem;font-size:1rem;">
+        A performance marketing teardown of two Meta ad creatives from leading Indian fintech brands — analysing hook, design, copy, and conversion strategy.
+      </p>
+      <div class="hero-meta">
+        <div class="meta-pill">📅 <span>March 2026</span></div>
+        <div class="meta-pill">📍 <span>Meta Ads (Facebook Feed)</span></div>
+        <div class="meta-pill">🏷️ <span>Fintech · India</span></div>
+        <div class="meta-pill">🎯 <span>App Install + Lead Gen</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- CREATIVES -->
+    <div class="section-label">The Ads</div>
+    <div class="section-title">Creatives Under Review</div>
+
+    <div class="creatives-grid">
+
+      <!-- PhonePe -->
+      <div class="creative-card">
+        <div class="creative-header">
+          <div class="brand-info">
+            <div class="brand-logo" style="background:rgba(99,67,206,0.15);color:#6343ce;">Pe</div>
+            <div>
+              <div class="brand-name">PhonePe</div>
+              <div class="brand-tag">HDFC Bank Credit Card</div>
+            </div>
+          </div>
+          <div class="sponsored-badge">SPONSORED</div>
+        </div>
+        <div class="creative-img-wrap">
+          <img src="phonepe-ad.png" alt="PhonePe HDFC Bank Credit Card Ad" onerror="this.parentElement.innerHTML='<div class=\'creative-img-placeholder\'><div class=\'placeholder-icon\'>🖼️</div><div class=\'placeholder-text\'>Add phonepe-ad.png to this folder</div></div>'" />
+        </div>
+        <div class="creative-footer">
+          <span class="cta-text">Get exclusive lounge access</span>
+          <span class="cta-btn">Learn More</span>
+        </div>
+      </div>
+
+      <!-- CRED -->
+      <div class="creative-card">
+        <div class="creative-header">
+          <div class="brand-info">
+            <div class="brand-logo" style="background:rgba(0,0,0,0.4);color:#fff;border:1px solid #333;">C</div>
+            <div>
+              <div class="brand-name">CRED</div>
+              <div class="brand-tag">Credit Score Tracker</div>
+            </div>
+          </div>
+          <div class="sponsored-badge">SPONSORED</div>
+        </div>
+        <div class="creative-img-wrap">
+          <img src="cred-ad.png" alt="CRED Ad Creative" onerror="this.parentElement.innerHTML='<div class=\'creative-img-placeholder\'><div class=\'placeholder-icon\'>🖼️</div><div class=\'placeholder-text\'>Add cred-ad.png to this folder</div></div>'" />
+        </div>
+        <div class="creative-footer">
+          <span class="cta-text">Your credit score, decoded.</span>
+          <span class="cta-btn">Use App</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SCORES -->
+    <div class="section-label">Performance Scoring</div>
+    <div class="section-title">Creative Scorecard</div>
+
+    <div class="score-section">
+
+      <div class="score-card">
+        <div class="score-brand">
+          <span style="background:rgba(99,67,206,0.15);color:#6343ce;padding:0.3rem 0.7rem;border-radius:6px;font-size:0.85rem;">Pe</span>
+          PhonePe × HDFC Bank
+        </div>
+        <div class="score-row">
+          <div class="score-row-header">
+            <span class="score-label">Hook Strength</span>
+            <span class="score-val" style="color:var(--green);">8/10</span>
+          </div>
+          <div class="score-bar-bg"><div class="score-bar-fill" style="width:80%;background:var(--green);"></div></div>
+        </div>
+        <div class="score-row">
+          <div class="score-row-header">
+            <span class="score-label">Visual Clarity</span>
+            <span class="score-val" style="color:var(--yellow);">7/10</span>
+          </div>
+          <div class="score-bar-bg"><div class="score-bar-fill" style="width:70%;background:var(--yellow);"></div></div>
+        </div>
+        <div class="score-row">
+          <div class="score-row-header">
+            <span class="score-label">Trust Signals</span>
+            <span class="score-val" style="color:var(--green);">9/10</span>
+          </div>
+          <div class="score-bar-bg"><div class="score-bar-fill" style="width:90%;background:var(--green);"></div></div>
+        </div>
+        <div class="score-row">
+          <div class="score-row-header">
+            <span class="score-label">CTA Effectiveness</span>
+            <span class="score-val" style="color:var(--yellow);">7/10</span>
+          </div>
+          <div class="score-bar-bg"><div class="score-bar-fill" style="width:70%;background:var(--yellow);"></div></div>
+        </div>
+        <div class="score-row">
+          <div class="score-row-header">
+            <span class="score-label">Emotional Appeal</span>
+            <span class="score-val" style="color:var(--yellow);">7/10</span>
+          </div>
+          <div class="score-bar-bg"><div class="score-bar-fill" style="width:70%;background:var(--yellow);"></div></div>
+        </div>
+        <div style="margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+          <span style="color:var(--muted);font-size:0.85rem;">Overall Score</span>
+          <span style="font-family:'Space Grotesk',sans-serif;font-size:1.8rem;font-weight:700;color:var(--accent);">7.6<span style="font-size:1rem;color:var(--muted);">/10</span></span>
+        </div>
+      </div>
+
+      <div class="score-card">
+        <div class="score-brand">
+          <span style="background:rgba(0,0,0,0.4);color:#fff;padding:0.3rem 0.7rem;border-radius:6px;font-size:0.85rem;border:1px solid #333;">C</span>
+          CRED
+        </div>
+        <div class="score-row">
+          <div class="score-row-header">
+            <span class="score-label">Hook Strength</span>
+            <span class="score-val" style="color:var(--green);">9/10</span>
+          </div>
+          <div class="score-bar-bg"><div class="score-bar-fill" style="width:90%;background:var(--green);"></div></div>
+        </div>
+        <div class="score-row">
+          <div class="score-row-header">
+            <span class="score-label">Visual Clarity</span>
+            <span class="score-val" style="color:var(--green);">9/10</span>
+          </div>
+          <div class="score-bar-bg"><div class="score-bar-fill" style="width:90%;background:var(--green);"></div></div>
+        </div>
+        <div class="score-row">
+          <div class="score-row-header">
+            <span class="score-label">Trust Signals</span>
+            <span class="score-val" style="color:var(--yellow);">7/10</span>
+          </div>
+          <div class="score-bar-bg"><div class="score-bar-fill" style="width:70%;background:var(--yellow);"></div></div>
+        </div>
+        <div class="score-row">
+          <div class="score-row-header">
+            <span class="score-label">CTA Effectiveness</span>
+            <span class="score-val" style="color:var(--yellow);">6/10</span>
+          </div>
+          <div class="score-bar-bg"><div class="score-bar-fill" style="width:60%;background:var(--yellow);"></div></div>
+        </div>
+        <div class="score-row">
+          <div class="score-row-header">
+            <span class="score-label">Emotional Appeal</span>
+            <span class="score-val" style="color:var(--green);">9/10</span>
+          </div>
+          <div class="score-bar-bg"><div class="score-bar-fill" style="width:90%;background:var(--green);"></div></div>
+        </div>
+        <div style="margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+          <span style="color:var(--muted);font-size:0.85rem;">Overall Score</span>
+          <span style="font-family:'Space Grotesk',sans-serif;font-size:1.8rem;font-weight:700;color:var(--accent);">8.0<span style="font-size:1rem;color:var(--muted);">/10</span></span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- DEEP ANALYSIS -->
+    <div class="section-label">Deep Dive</div>
+    <div class="section-title">What Works & What Doesn't</div>
+
+    <div class="analysis-grid">
+
+      <div class="analysis-card">
+        <div class="analysis-card-title">
+          <span style="background:rgba(99,67,206,0.15);color:#6343ce;padding:0.25rem 0.6rem;border-radius:5px;font-size:0.8rem;">Pe</span>
+          PhonePe — Strengths
+        </div>
+        <ul class="point-list">
+          <li class="point-item"><span class="point-icon">✅</span><span class="point-text"><strong>Benefit-first headline</strong> — "8 Complimentary Lounge Visits" is specific, tangible, and aspirational. Exact numbers stop the scroll.</span></li>
+          <li class="point-item"><span class="point-icon">✅</span><span class="point-text"><strong>Premium visual language</strong> — dark card placed on a velvet lounge chair visually reinforces the luxury positioning.</span></li>
+          <li class="point-item"><span class="point-icon">✅</span><span class="point-text"><strong>Trust stacking</strong> — PhonePe + HDFC Bank + RuPay SELECT in one frame removes friction for hesitant users.</span></li>
+          <li class="point-item"><span class="point-icon">✅</span><span class="point-text"><strong>Direct-response copy</strong> — "Apply now" is a clear, low-friction action directive in the ad text.</span></li>
+        </ul>
+      </div>
+
+      <div class="analysis-card">
+        <div class="analysis-card-title">
+          <span style="background:rgba(99,67,206,0.15);color:#6343ce;padding:0.25rem 0.6rem;border-radius:5px;font-size:0.8rem;">Pe</span>
+          PhonePe — Gaps
+        </div>
+        <ul class="point-list">
+          <li class="point-item"><span class="point-icon">⚠️</span><span class="point-text"><strong>Asterisk anxiety</strong> — the "8*" with T&C may erode trust for users previously misled by fine print offers.</span></li>
+          <li class="point-item"><span class="point-icon">⚠️</span><span class="point-text"><strong>No social proof</strong> — no user count, rating, or testimonial to validate the offer or build credibility.</span></li>
+          <li class="point-item"><span class="point-icon">⚠️</span><span class="point-text"><strong>Visual clutter</strong> — QR code on the card adds detail that doesn't translate well at mobile thumbnail sizes.</span></li>
+          <li class="point-item"><span class="point-icon">⚠️</span><span class="point-text"><strong>Weak CTA button</strong> — "Learn More" is the lowest-commitment CTA. Could test "Apply Now" or "Check Eligibility" for stronger intent signals.</span></li>
+        </ul>
+      </div>
+
+      <div class="analysis-card">
+        <div class="analysis-card-title">
+          <span style="background:rgba(0,0,0,0.3);color:#aaa;padding:0.25rem 0.6rem;border-radius:5px;font-size:0.8rem;border:1px solid #333;">C</span>
+          CRED — Strengths
+        </div>
+        <ul class="point-list">
+          <li class="point-item"><span class="point-icon">✅</span><span class="point-text"><strong>Identity-driven hook</strong> — "you're in the 800 club now" triggers belonging and aspiration. Users want to be that person.</span></li>
+          <li class="point-item"><span class="point-icon">✅</span><span class="point-text"><strong>Minimal, premium design</strong> — white + mint gradient with bold editorial type feels aspirational and on-brand for CRED's positioning.</span></li>
+          <li class="point-item"><span class="point-icon">✅</span><span class="point-text"><strong>Product shown in context</strong> — the actual app UI in the phone builds trust and reduces download uncertainty.</span></li>
+          <li class="point-item"><span class="point-icon">✅</span><span class="point-text"><strong>Progress signal</strong> — "+12↑" beside the score subtly implies CRED actively improves your financial health.</span></li>
+        </ul>
+      </div>
+
+      <div class="analysis-card">
+        <div class="analysis-card-title">
+          <span style="background:rgba(0,0,0,0.3);color:#aaa;padding:0.25rem 0.6rem;border-radius:5px;font-size:0.8rem;border:1px solid #333;">C</span>
+          CRED — Gaps
+        </div>
+        <ul class="point-list">
+          <li class="point-item"><span class="point-icon">⚠️</span><span class="point-text"><strong>CTA blends in</strong> — the black "Download CRED" button has poor contrast against the white/mint background. Easy to miss.</span></li>
+          <li class="point-item"><span class="point-icon">⚠️</span><span class="point-text"><strong>Lowercase copy readability</strong> — stylish but may reduce legibility at small mobile sizes, especially mid-scroll.</span></li>
+          <li class="point-item"><span class="point-icon">⚠️</span><span class="point-text"><strong>No urgency or incentive</strong> — nothing pushes the user to download <em>right now</em>. A limited offer or onboarding reward could lift CVR.</span></li>
+          <li class="point-item"><span class="point-icon">⚠️</span><span class="point-text"><strong>Dual CTA confusion</strong> — "Download CRED" in the creative and "Use App" as the Facebook CTA button send slightly mixed signals.</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- COMPARISON TABLE -->
+    <div class="verdict-section">
+      <div class="verdict-title">Head-to-Head Comparison</div>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th style="width:25%;">Dimension</th>
+            <th style="width:35%;">PhonePe × HDFC</th>
+            <th style="width:35%;">CRED</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Objective</td>
+            <td>Lead gen / Credit card acquisition</td>
+            <td>App install / MAU growth</td>
+          </tr>
+          <tr>
+            <td>Hook Type</td>
+            <td><span class="tag tag-orange">Benefit-driven</span></td>
+            <td><span class="tag tag-green">Identity / Aspiration</span></td>
+          </tr>
+          <tr>
+            <td>Visual Style</td>
+            <td>Busy but premium — product-led</td>
+            <td>Clean, minimal — emotion-led</td>
+          </tr>
+          <tr>
+            <td>Trust Signals</td>
+            <td><span class="tag tag-green">High</span> — dual brand logos</td>
+            <td><span class="tag tag-yellow">Medium</span> — app UI only</td>
+          </tr>
+          <tr>
+            <td>CTA Strength</td>
+            <td><span class="tag tag-yellow">Moderate</span> — "Learn More"</td>
+            <td><span class="tag tag-yellow">Weak</span> — blends into BG</td>
+          </tr>
+          <tr>
+            <td>Emotional Pull</td>
+            <td><span class="tag tag-yellow">Moderate</span> — aspirational luxury</td>
+            <td><span class="tag tag-green">Strong</span> — belonging trigger</td>
+          </tr>
+          <tr>
+            <td>Target Fit</td>
+            <td>Travel-aspirant card seekers</td>
+            <td>Credit-conscious urban users</td>
+          </tr>
+          <tr>
+            <td>Best For</td>
+            <td>Bottom-of-funnel conversion</td>
+            <td>Top-of-funnel awareness + install</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="winner-banner">
+        <div class="winner-icon">🏆</div>
+        <div>
+          <div class="winner-title">Edge: CRED (on creative quality)</div>
+          <div class="winner-body">
+            CRED's creative wins on emotional resonance and design clarity. The identity hook ("800 club") is more memorable and shareable than a feature-led offer. However, PhonePe's ad is likely the stronger <em>direct-response</em> performer — specific numbers, dual-brand trust, and a tangible benefit make it easier to convert bottom-funnel users who are already considering a credit card. The right winner depends entirely on the campaign objective and funnel stage.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAKEAWAYS -->
+    <div class="section-label">Key Takeaways</div>
+    <div class="section-title">Lessons for Performance Marketers</div>
+
+    <div class="takeaways-grid">
+      <div class="takeaway-card">
+        <div class="takeaway-icon">🔢</div>
+        <div class="takeaway-title">Specificity beats vagueness</div>
+        <div class="takeaway-body">PhonePe's "8 visits" outperforms generic "travel benefits." Exact numbers build credibility and set clear expectations in the user's mind.</div>
+      </div>
+      <div class="takeaway-card">
+        <div class="takeaway-icon">🪞</div>
+        <div class="takeaway-title">Sell the identity, not the product</div>
+        <div class="takeaway-body">CRED doesn't sell a credit tracker — it sells membership in an exclusive club. Users download the app to become that person, not to use a feature.</div>
+      </div>
+      <div class="takeaway-card">
+        <div class="takeaway-icon">🎯</div>
+        <div class="takeaway-title">CTA must contrast, always</div>
+        <div class="takeaway-body">CRED's black button on a light background is a missed conversion. A CTA that blends into the design is a CTA that gets ignored — contrast is non-negotiable.</div>
+      </div>
+      <div class="takeaway-card">
+        <div class="takeaway-icon">🛡️</div>
+        <div class="takeaway-title">Trust stacking reduces friction</div>
+        <div class="takeaway-body">For high-commitment actions like credit card applications, combining multiple trusted brand logos (PhonePe + HDFC + RuPay) in one frame reduces drop-off significantly.</div>
+      </div>
+      <div class="takeaway-card">
+        <div class="takeaway-icon">📲</div>
+        <div class="takeaway-title">Show the product in use</div>
+        <div class="takeaway-body">CRED's in-app screen inside a real phone frame demystifies the product. Users know what they're getting before they tap — reducing install-to-uninstall churn.</div>
+      </div>
+      <div class="takeaway-card">
+        <div class="takeaway-icon">⏱️</div>
+        <div class="takeaway-title">Add urgency at every funnel stage</div>
+        <div class="takeaway-body">Neither ad creates urgency. A limited offer, countdown, or onboarding reward could meaningfully lift CTR — especially for CRED targeting top-of-funnel users.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>© 2026 Chethan S · Performance Marketing Specialist</span>
+    <a href="index.html">← Back to Portfolio</a>
+  </footer>
+
+</body>
+</html>

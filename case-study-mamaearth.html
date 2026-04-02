@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mamaearth Case Study — Chethan S</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #FAFAF8;
+      --card:      #FFFFFF;
+      --text:      #1A1A1A;
+      --muted:     #6B6B6B;
+      --accent:    #E8E4DF;
+      --border:    #E5E3DE;
+      --highlight: #2C2C2C;
+      --warm:      #C8A882;
+      --warm-bg:   #F5EFE8;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Instrument Serif', serif;
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(250,250,248,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 6%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px;
+    }
+    .nav-back {
+      display: flex; align-items: center; gap: 0.5rem;
+      text-decoration: none; color: var(--muted);
+      font-size: 0.82rem; font-weight: 500; transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--text); }
+    .nav-back svg { width: 14px; height: 14px; }
+    .nav-sections { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-sections a {
+      text-decoration: none; color: var(--muted);
+      font-size: 0.8rem; font-weight: 500;
+      transition: color 0.2s; white-space: nowrap;
+    }
+    .nav-sections a:hover { color: var(--text); }
+    @media (max-width: 768px) { .nav-sections { display: none; } }
+
+    /* HERO */
+    .hero { padding: 5rem 6% 4rem; border-bottom: 1px solid var(--border); }
+    .hero-label {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--warm); margin-bottom: 1.5rem;
+    }
+    .hero-label::before {
+      content: ''; display: inline-block;
+      width: 20px; height: 1px; background: var(--warm);
+    }
+    .hero h1 {
+      font-size: clamp(3rem, 7vw, 6rem);
+      letter-spacing: -0.04em; line-height: 1.0; margin-bottom: 0.5rem;
+    }
+    .hero h1 em { font-style: italic; color: var(--muted); }
+    .hero-tagline {
+      font-size: clamp(1rem, 2vw, 1.2rem); color: var(--muted);
+      max-width: 600px; margin: 1.2rem 0 2.5rem;
+      font-weight: 400; line-height: 1.6;
+    }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 3.5rem; }
+    .hero-tag {
+      background: var(--accent); color: var(--highlight);
+      padding: 0.3rem 0.9rem; border-radius: 100px;
+      font-size: 0.75rem; font-weight: 500;
+    }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+    }
+    .hero-stat { background: var(--card); padding: 1.4rem 1.6rem; }
+    .hero-stat-val {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.9rem; letter-spacing: -0.03em;
+      color: var(--text); line-height: 1; margin-bottom: 0.35rem;
+    }
+    .hero-stat-label {
+      font-size: 0.75rem; color: var(--muted); font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+
+    /* LAYOUT */
+    .container { max-width: 860px; margin: 0 auto; padding: 5rem 6%; }
+    .divider { width: 100%; height: 1px; background: var(--border); }
+
+    /* SECTION */
+    .section-eyebrow {
+      display: flex; align-items: center; gap: 0.8rem;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--warm); margin-bottom: 1.2rem;
+    }
+    .section-eyebrow::after {
+      content: ''; flex: 1; max-width: 40px;
+      height: 1px; background: var(--warm);
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: 1rem; color: var(--text);
+    }
+    .section-lead {
+      font-size: 1.05rem; color: var(--muted);
+      max-width: 640px; line-height: 1.75; margin-bottom: 3rem;
+    }
+
+    /* OVERVIEW */
+    .overview-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.5rem; margin-bottom: 2rem;
+    }
+    @media (max-width: 640px) { .overview-grid { grid-template-columns: 1fr; } }
+    .overview-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.4rem 1.6rem;
+    }
+    .overview-card-label {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem;
+    }
+    .overview-card-val { font-size: 1rem; font-weight: 500; color: var(--text); line-height: 1.5; }
+    .overview-card.span-2 { grid-column: 1 / -1; }
+
+    .insight-block {
+      border-left: 3px solid var(--warm);
+      background: var(--warm-bg); border-radius: 0 8px 8px 0;
+      padding: 1.2rem 1.5rem; margin: 2rem 0;
+      font-size: 0.95rem; color: var(--highlight); line-height: 1.7;
+    }
+    .insight-block strong { font-weight: 600; }
+
+    /* BRAND PORTFOLIO BARS */
+    .brand-bars { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.8rem 2rem; margin-bottom: 1.5rem; }
+    .brand-bars h4 { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 1.4rem; }
+    .brand-bar-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.8rem; }
+    .brand-bar-label { font-size: 0.82rem; font-weight: 500; color: var(--text); width: 160px; flex-shrink: 0; }
+    .brand-bar-track { flex: 1; height: 8px; background: var(--accent); border-radius: 100px; overflow: hidden; }
+    .brand-bar-fill { height: 100%; background: var(--warm); border-radius: 100px; }
+    .brand-bar-pct { font-size: 0.78rem; font-weight: 600; color: var(--muted); width: 40px; text-align: right; flex-shrink: 0; }
+
+    /* PLATFORM */
+    .platform-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 2.5rem; }
+    @media (max-width: 600px) { .platform-grid { grid-template-columns: 1fr; } }
+    .platform-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.4rem; }
+    .platform-head { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.8rem; }
+    .platform-icon { width: 34px; height: 34px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+    .platform-name { font-size: 0.9rem; font-weight: 600; color: var(--text); }
+    .platform-share { font-size: 0.75rem; color: var(--warm); font-weight: 600; }
+    .platform-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+    .platform-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.8rem; }
+    .ptag { background: var(--bg); border: 1px solid var(--border); padding: 0.18rem 0.6rem; border-radius: 100px; font-size: 0.72rem; color: var(--muted); font-weight: 500; }
+
+    /* BUDGET BARS */
+    .budget-bar-section { margin: 2.5rem 0; }
+    .budget-bar-section h4 { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 1.4rem; }
+    .budget-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.9rem; }
+    .budget-label { font-size: 0.82rem; font-weight: 500; color: var(--text); width: 200px; flex-shrink: 0; }
+    .budget-track { flex: 1; height: 8px; background: var(--accent); border-radius: 100px; overflow: hidden; }
+    .budget-fill { height: 100%; background: var(--warm); border-radius: 100px; }
+    .budget-pct { font-size: 0.78rem; font-weight: 600; color: var(--muted); width: 40px; text-align: right; flex-shrink: 0; }
+
+    /* METRICS ROW */
+    .metrics-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin: 2.5rem 0; }
+    .metric-box { background: var(--card); padding: 1.3rem 1.5rem; }
+    .metric-box-val { font-family: 'Instrument Serif', serif; font-size: 1.6rem; color: var(--text); letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.3rem; }
+    .metric-box-label { font-size: 0.75rem; color: var(--muted); font-weight: 500; }
+    .metric-box-note { font-size: 0.7rem; color: var(--warm); font-weight: 500; margin-top: 0.2rem; }
+
+    /* FUNNEL */
+    .funnel-wrap { max-width: 760px; margin: 0 auto; }
+    .funnel-stage { position: relative; margin-bottom: 2px; }
+    .funnel-stage-inner { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; cursor: pointer; transition: box-shadow 0.2s; }
+    .funnel-stage-inner:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    .funnel-header { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 1.6rem; gap: 1rem; }
+    .funnel-left { display: flex; align-items: center; gap: 1rem; }
+    .funnel-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .dot-awareness { background: #C8A882; }
+    .dot-consider  { background: #A8956B; }
+    .dot-convert   { background: #7A6A4F; }
+    .dot-retain    { background: #4A3F2F; }
+    .funnel-stage-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+    .funnel-stage-title { font-size: 1rem; font-weight: 600; color: var(--text); }
+    .funnel-toggle { font-size: 1.2rem; color: var(--muted); transition: transform 0.3s; font-weight: 300; line-height: 1; user-select: none; }
+    .funnel-stage-inner.open .funnel-toggle { transform: rotate(45deg); }
+    .funnel-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+    .funnel-body-inner { padding: 0 1.6rem 1.4rem; border-top: 1px solid var(--border); }
+    .funnel-points { list-style: none; margin-top: 1rem; }
+    .funnel-points li { font-size: 0.9rem; color: var(--muted); padding: 0.3rem 0 0.3rem 1.2rem; position: relative; line-height: 1.6; }
+    .funnel-points li::before { content: '→'; position: absolute; left: 0; color: var(--warm); font-size: 0.8rem; }
+    .funnel-points li strong { color: var(--text); font-weight: 600; }
+    .funnel-connector { display: flex; justify-content: center; height: 22px; align-items: center; }
+    .funnel-connector::before { content: ''; width: 1px; height: 100%; background: var(--border); }
+
+    /* CREATIVE */
+    .creative-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 2.5rem; }
+    @media (max-width: 600px) { .creative-grid { grid-template-columns: 1fr; } }
+    .creative-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.4rem; }
+    .creative-card.span-2 { grid-column: 1 / -1; }
+    .creative-card-icon { font-size: 1.4rem; margin-bottom: 0.7rem; }
+    .creative-card-title { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.5rem; }
+    .creative-card-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+
+    .why-list { list-style: none; margin-top: 1.5rem; }
+    .why-list li { display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+    .why-list li:last-child { border-bottom: none; }
+    .why-num { font-family: 'Instrument Serif', serif; font-size: 1.4rem; color: #D4C4B0; flex-shrink: 0; width: 28px; line-height: 1.3; }
+    .why-text strong { display: block; font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
+    .why-text span { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    .caveat-block { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.4rem 1.6rem; margin-top: 2rem; }
+    .caveat-block h4 { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 0.8rem; }
+    .caveat-list { list-style: none; }
+    .caveat-list li { font-size: 0.875rem; color: var(--muted); padding: 0.3rem 0 0.3rem 1.2rem; position: relative; line-height: 1.6; }
+    .caveat-list li::before { content: '–'; position: absolute; left: 0; color: #D4C4B0; }
+
+    /* TAKEAWAYS */
+    #takeaways { background: var(--highlight); }
+    #takeaways .section-eyebrow { color: #C8A882; }
+    #takeaways .section-eyebrow::after { background: #C8A882; }
+    #takeaways .section-title { color: #F5EFE8; }
+    #takeaways .section-lead { color: #94867A; }
+    .takeaway-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 3.5rem; }
+    @media (max-width: 600px) { .takeaway-grid { grid-template-columns: 1fr; } }
+    .takeaway-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 1.4rem; }
+    .takeaway-num { font-family: 'Instrument Serif', serif; font-size: 2rem; color: rgba(200,168,130,0.3); line-height: 1; margin-bottom: 0.5rem; }
+    .takeaway-title { font-size: 0.9rem; font-weight: 600; color: #F0E8DF; margin-bottom: 0.5rem; }
+    .takeaway-desc { font-size: 0.83rem; color: #7A6E65; line-height: 1.65; }
+    .optimize-section-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #C8A882; margin-bottom: 1.2rem; padding-top: 0.5rem; border-top: 1px solid rgba(255,255,255,0.08); }
+    .optimize-list { list-style: none; }
+    .optimize-item { display: flex; gap: 1.2rem; padding: 1.2rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .optimize-item:last-child { border-bottom: none; }
+    .optimize-icon { width: 36px; height: 36px; background: rgba(200,168,130,0.12); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+    .optimize-title { font-size: 0.9rem; font-weight: 600; color: #F0E8DF; margin-bottom: 0.3rem; }
+    .optimize-desc { font-size: 0.83rem; color: #7A6E65; line-height: 1.65; }
+
+    /* FOOTER */
+    .case-footer { border-top: 1px solid var(--border); padding: 3rem 6%; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2rem; }
+    @media (max-width: 600px) { .case-footer { grid-template-columns: 1fr; } }
+    .case-footer-author { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.4rem; }
+    .case-footer-author strong { color: var(--text); font-weight: 600; }
+    .case-footer-links { display: flex; gap: 1.2rem; margin-top: 0.6rem; }
+    .case-footer-links a { font-size: 0.8rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .case-footer-links a:hover { color: var(--text); }
+    .footer-nav { display: flex; gap: 2rem; align-items: center; }
+    .footer-nav-link { text-decoration: none; display: flex; flex-direction: column; gap: 0.2rem; }
+    .footer-nav-link .fnl { font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+    .footer-nav-link .fnt { font-family: 'Instrument Serif', serif; font-size: 1.1rem; color: var(--text); transition: color 0.2s; }
+    .footer-nav-link:hover .fnt { color: var(--warm); }
+    @media (max-width: 600px) { .footer-nav { flex-direction: column; align-items: flex-start; gap: 1rem; } }
+
+    .prose p { font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+    .prose p:last-child { margin-bottom: 0; }
+    .prose strong { color: var(--text); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M5 12l7-7M5 12l7 7"/>
+      </svg>
+      Portfolio
+    </a>
+    <ul class="nav-sections">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#ad-strategy">Ad Strategy</a></li>
+      <li><a href="#funnel">Funnel</a></li>
+      <li><a href="#creative">Creative</a></li>
+      <li><a href="#takeaways">Takeaways</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero reveal">
+    <div class="hero-label">Case Study · Beauty &amp; Personal Care D2C</div>
+    <h1>Mamaearth<em>.</em></h1>
+    <p class="hero-tagline">
+      Inside the ₹960 Cr/year marketing engine driving India's largest D2C beauty brand —
+      from 6 products and zero funding to IPO in 7 years.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-tag">Performance Marketing</span>
+      <span class="hero-tag">Meta Ads</span>
+      <span class="hero-tag">TV-to-Digital Funnel</span>
+      <span class="hero-tag">House of Brands</span>
+      <span class="hero-tag">India · Beauty</span>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-val">₹1,920 Cr</div>
+        <div class="hero-stat-label">Revenue FY24</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">29%</div>
+        <div class="hero-stat-label">YoY Growth</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">₹960 Cr</div>
+        <div class="hero-stat-label">Est. Annual Marketing Spend</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">100+</div>
+        <div class="hero-stat-label">SKUs</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">IPO</div>
+        <div class="hero-stat-label">Listed NSE/BSE Nov 2023</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">01 — Brand Overview</div>
+        <h2 class="section-title">Goodness Inside, growth outside.</h2>
+        <p class="section-lead">
+          Mamaearth built one of India's largest D2C empires on a simple promise — natural, toxin-free products
+          for every stage of life. What makes the business remarkable is how they funded the growth: by spending
+          nearly half of every rupee earned on marketing.
+        </p>
+      </div>
+
+      <div class="overview-grid reveal reveal-delay-1">
+        <div class="overview-card">
+          <div class="overview-card-label">Founded</div>
+          <div class="overview-card-val">2016 — Gurugram, Haryana</div>
+        </div>
+        <div class="overview-card">
+          <div class="overview-card-label">Founders</div>
+          <div class="overview-card-val">Ghazal Alagh &amp; Varun Alagh</div>
+        </div>
+        <div class="overview-card">
+          <div class="overview-card-label">Category</div>
+          <div class="overview-card-val">Natural, toxin-free personal care — baby, skincare, haircare</div>
+        </div>
+        <div class="overview-card">
+          <div class="overview-card-label">Mission</div>
+          <div class="overview-card-val">'Goodness Inside' — Made Safe certified, toxin-free (first Asian brand with US Made Safe certification)</div>
+        </div>
+        <div class="overview-card">
+          <div class="overview-card-label">Parent Company</div>
+          <div class="overview-card-val">Honasa Consumer Pvt Ltd — listed NSE/BSE November 2023</div>
+        </div>
+        <div class="overview-card">
+          <div class="overview-card-label">Revenue Reality</div>
+          <div class="overview-card-val">80% from skincare &amp; haircare — not baby care, despite the brand name</div>
+        </div>
+        <div class="overview-card span-2">
+          <div class="overview-card-label">House of Brands</div>
+          <div class="overview-card-val">Mamaearth (mass market) · The Derma Co (science-forward) · Aqualogica (hydration) · BBlunt (salon) · Dr. Sheth's (premium dermat). Each brand has its own positioning, creative strategy, and target audience — this is deliberate brand architecture, not portfolio sprawl.</div>
+        </div>
+      </div>
+
+      <div class="brand-bars reveal reveal-delay-2">
+        <h4>Honasa Brand Portfolio — Estimated Revenue Contribution</h4>
+        <div class="brand-bar-row">
+          <div class="brand-bar-label">Mamaearth</div>
+          <div class="brand-bar-track"><div class="brand-bar-fill" style="width:65%"></div></div>
+          <div class="brand-bar-pct">~65%</div>
+        </div>
+        <div class="brand-bar-row">
+          <div class="brand-bar-label">The Derma Co</div>
+          <div class="brand-bar-track"><div class="brand-bar-fill" style="width:20%"></div></div>
+          <div class="brand-bar-pct">~20%</div>
+        </div>
+        <div class="brand-bar-row">
+          <div class="brand-bar-label">Aqualogica</div>
+          <div class="brand-bar-track"><div class="brand-bar-fill" style="width:8%"></div></div>
+          <div class="brand-bar-pct">~8%</div>
+        </div>
+        <div class="brand-bar-row">
+          <div class="brand-bar-label">BBlunt + Dr. Sheth's</div>
+          <div class="brand-bar-track"><div class="brand-bar-fill" style="width:7%"></div></div>
+          <div class="brand-bar-pct">~7%</div>
+        </div>
+      </div>
+
+      <div class="insight-block reveal reveal-delay-3">
+        <strong>The number that defines this brand:</strong> At 40–50% of revenue spent on marketing, Mamaearth puts ₹770–960 Cr into advertising annually. For context, that's more than most Indian D2C brands earn in total. This isn't reckless — it's a deliberate land-grab in India's ₹68,000 Cr beauty and personal care market, where brand recall translates directly into shelf space, both digital and physical.
+      </div>
+
+      <div class="prose reveal reveal-delay-4">
+        <p>
+          What often gets missed in Mamaearth's story is the <strong>positioning precision</strong>. The brand entered as baby care — a category with extreme trust requirements — and used that trust halo to cross-sell into skincare and haircare as their customers aged. Acquire a new parent at 28, retain them as a skincare customer at 32. This life-stage funnel is baked into the product portfolio and the creative strategy simultaneously.
+        </p>
+        <p>
+          The ambassador strategy is equally calculated. <strong>Shilpa Shetty</strong> is an investor, not just a face — her credibility is on the line, which makes the endorsement credible. <strong>Ghazal Alagh's</strong> Shark Tank India visibility gave the brand a founder-story narrative that no paid media can replicate. These aren't just celebrity deals; they're strategic assets that reduce CAC by building earned media at scale.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- AD STRATEGY -->
+  <section id="ad-strategy">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">02 — Ad Strategy</div>
+        <h2 class="section-title">Omnichannel at full throttle.</h2>
+        <p class="section-lead">
+          Mamaearth doesn't pick one channel and dominate it — they flood every touchpoint.
+          The sophistication is in how each channel feeds the next, creating a loop from TV screen to checkout cart.
+        </p>
+      </div>
+
+      <div class="platform-grid reveal reveal-delay-1">
+        <div class="platform-card">
+          <div class="platform-head">
+            <div class="platform-icon">📱</div>
+            <div>
+              <div class="platform-name">Meta Ads</div>
+              <div class="platform-share">~35–40% of budget</div>
+            </div>
+          </div>
+          <div class="platform-desc">
+            Their highest-volume paid channel. Meta Ad Library shows 100+ active creatives running simultaneously — a clear sign of aggressive creative testing. Heavy Instagram Reels for top-of-funnel, dynamic product ads for retargeting, and Advantage+ campaigns for broad prospecting. The sheer volume of creative variants allows rapid iteration on what converts.
+          </div>
+          <div class="platform-tags">
+            <span class="ptag">Instagram Reels</span>
+            <span class="ptag">Carousels</span>
+            <span class="ptag">Dynamic Product Ads</span>
+            <span class="ptag">Advantage+</span>
+            <span class="ptag">Lead Gen Ads</span>
+          </div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-head">
+            <div class="platform-icon">🔍</div>
+            <div>
+              <div class="platform-name">Google Ads</div>
+              <div class="platform-share">~20–25% of budget</div>
+            </div>
+          </div>
+          <div class="platform-desc">
+            Brand search protection is non-negotiable — competitors actively bid on 'mamaearth' and 'mamaearth face wash'. Google Shopping is critical for high-intent queries. Performance Max captures demand across search, display, and YouTube in one campaign. Estimated spend: ~$300K+/month. Bidding on 186+ keywords across categories.
+          </div>
+          <div class="platform-tags">
+            <span class="ptag">Brand Search</span>
+            <span class="ptag">Google Shopping</span>
+            <span class="ptag">Performance Max</span>
+            <span class="ptag">Competitor Bidding Defence</span>
+          </div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-head">
+            <div class="platform-icon">📺</div>
+            <div>
+              <div class="platform-name">TV / OTT / YouTube</div>
+              <div class="platform-share">~15–20% of budget</div>
+            </div>
+          </div>
+          <div class="platform-desc">
+            Bigg Boss sponsorship is the crown jewel — massive linear TV reach that creates branded search spikes captured by Google. TV-style brand films (30–60 sec) with Sara Ali Khan and Samantha Ruth Prabhu are repurposed for YouTube pre-roll. This offline-to-online loop is the most sophisticated part of their funnel and is what most pure D2C brands cannot replicate.
+          </div>
+          <div class="platform-tags">
+            <span class="ptag">Bigg Boss Sponsorship</span>
+            <span class="ptag">YouTube Pre-roll</span>
+            <span class="ptag">OTT Ads</span>
+            <span class="ptag">Celebrity Films</span>
+          </div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-head">
+            <div class="platform-icon">🛒</div>
+            <div>
+              <div class="platform-name">Marketplace Ads</div>
+              <div class="platform-share">~10–15% of budget</div>
+            </div>
+          </div>
+          <div class="platform-desc">
+            Sponsored Products and Sponsored Brands on Amazon, Nykaa, and Flipkart. Marketplace ads convert at structurally higher rates than DTC because the buyer intent is already established. Nykaa is particularly important for the beauty-specific audience. Managing ROAS across three marketplaces simultaneously requires sophisticated attribution thinking.
+          </div>
+          <div class="platform-tags">
+            <span class="ptag">Amazon Sponsored</span>
+            <span class="ptag">Nykaa Ads</span>
+            <span class="ptag">Flipkart Ads</span>
+            <span class="ptag">Multi-marketplace ROAS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="budget-bar-section reveal reveal-delay-2">
+        <h4>Estimated Budget Allocation</h4>
+        <div class="budget-row">
+          <div class="budget-label">Meta Ads (Instagram-heavy)</div>
+          <div class="budget-track"><div class="budget-fill" style="width:38%"></div></div>
+          <div class="budget-pct">38%</div>
+        </div>
+        <div class="budget-row">
+          <div class="budget-label">Google Ads (Shopping + Search)</div>
+          <div class="budget-track"><div class="budget-fill" style="width:23%"></div></div>
+          <div class="budget-pct">23%</div>
+        </div>
+        <div class="budget-row">
+          <div class="budget-label">TV / OTT / YouTube</div>
+          <div class="budget-track"><div class="budget-fill" style="width:18%"></div></div>
+          <div class="budget-pct">18%</div>
+        </div>
+        <div class="budget-row">
+          <div class="budget-label">Marketplace Ads</div>
+          <div class="budget-track"><div class="budget-fill" style="width:13%"></div></div>
+          <div class="budget-pct">13%</div>
+        </div>
+        <div class="budget-row">
+          <div class="budget-label">Influencer / Affiliate</div>
+          <div class="budget-track"><div class="budget-fill" style="width:8%"></div></div>
+          <div class="budget-pct">8%</div>
+        </div>
+      </div>
+
+      <div class="metrics-row reveal reveal-delay-3">
+        <div class="metric-box">
+          <div class="metric-box-val">₹960 Cr</div>
+          <div class="metric-box-label">Est. Annual Marketing Spend</div>
+          <div class="metric-box-note">~50% of FY24 revenue</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-box-val">~65%</div>
+          <div class="metric-box-label">Gross Margin</div>
+          <div class="metric-box-note">Funds the marketing machine</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-box-val">100+</div>
+          <div class="metric-box-label">Active Meta Creatives</div>
+          <div class="metric-box-note">Aggressive variant testing</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-box-val">186+</div>
+          <div class="metric-box-label">Google Keywords Bid</div>
+          <div class="metric-box-note">Broad category coverage</div>
+        </div>
+      </div>
+
+      <div class="insight-block reveal reveal-delay-4">
+        <strong>The TV-to-digital loop — their most underappreciated strategy:</strong> Bigg Boss sponsorship creates a massive reach event → branded search queries spike on Google → Google Search ads capture that intent at low CPCs (branded search is cheap) → users who visit but don't buy are retargeted on Meta → final conversion happens on Amazon or Nykaa. Each channel feeds the next. The TV spend is essentially subsidizing the efficiency of every downstream digital channel.
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FUNNEL -->
+  <section id="funnel">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">03 — Funnel Breakdown</div>
+        <h2 class="section-title">From primetime TV to checkout.</h2>
+        <p class="section-lead">
+          Mamaearth operates a full-funnel machine that few D2C brands can match — blending
+          offline reach with digital precision across every stage of the customer journey.
+        </p>
+      </div>
+
+      <div class="funnel-wrap reveal reveal-delay-1">
+
+        <div class="funnel-stage">
+          <div class="funnel-stage-inner open" onclick="toggleFunnel(this)">
+            <div class="funnel-header">
+              <div class="funnel-left">
+                <div class="funnel-dot dot-awareness"></div>
+                <div>
+                  <div class="funnel-stage-label">Top of Funnel</div>
+                  <div class="funnel-stage-title">Awareness — Mass Reach Meets Digital Discovery</div>
+                </div>
+              </div>
+              <div class="funnel-toggle">+</div>
+            </div>
+            <div class="funnel-body" style="max-height:600px;">
+              <div class="funnel-body-inner">
+                <ul class="funnel-points">
+                  <li><strong>Bigg Boss sponsorship:</strong> India's highest-rated reality TV show. Mamaearth gets product placements, host mentions, and bumper ads in every episode. The reach is staggering — and it drives measurable branded search spikes that can be captured cheaply via Google brand search campaigns. This is the anchor of their omnichannel strategy.</li>
+                  <li><strong>YouTube brand films:</strong> 30–60 second celebrity-led narratives with Sara Ali Khan and Samantha Ruth Prabhu. Emotional storytelling (motherhood, self-care, natural ingredients) repurposed from TV for YouTube pre-roll and in-feed ads. The same asset works across multiple channels — content efficiency at scale.</li>
+                  <li><strong>Instagram Reels:</strong> Quick ingredient stories (onion oil for hair loss, vitamin C for glow), product benefit demos in 15–30 seconds. Mamaearth produces a high volume of Reel formats to test hooks and messaging, with winning formats scaled via paid promotion.</li>
+                  <li><strong>Influencer seeding:</strong> Mommy bloggers, parenting influencers, and beauty creators — not just Bollywood faces. The micro-influencer layer adds authenticity that celebrity ads can't deliver and reaches niche communities (new parents, skincare enthusiasts) with relevant messaging.</li>
+                  <li><strong>SEO content flywheel:</strong> DA 60+, 64,000+ backlinks. Ranking for 'best face wash India', 'onion hair oil benefits', 'vitamin C serum for oily skin'. Educational blog content drives organic traffic that reduces paid acquisition dependency over time — the same compounding advantage that Minimalist also built.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="funnel-connector"></div>
+
+        <div class="funnel-stage">
+          <div class="funnel-stage-inner" onclick="toggleFunnel(this)">
+            <div class="funnel-header">
+              <div class="funnel-left">
+                <div class="funnel-dot dot-consider"></div>
+                <div>
+                  <div class="funnel-stage-label">Mid Funnel</div>
+                  <div class="funnel-stage-title">Consideration — Trust Building at Scale</div>
+                </div>
+              </div>
+              <div class="funnel-toggle">+</div>
+            </div>
+            <div class="funnel-body">
+              <div class="funnel-body-inner">
+                <ul class="funnel-points">
+                  <li><strong>Product-specific retargeting:</strong> If a user visited the Onion Hair Oil page, they get retargeted with that SKU — not generic brand ads. Dynamic Product Ads on Meta handle this at scale, with personalized creative matched to browsing behaviour.</li>
+                  <li><strong>UGC and review-based ads:</strong> Before-after skin and hair transformation content from real customers. These convert significantly better than polished brand creative because the result IS the demo. Mamaearth aggregates these systematically and runs them as paid creative.</li>
+                  <li><strong>Educational ingredient content:</strong> 'Why onion extract reduces hair fall', 'what ubtan does for skin texture' — deepens trust without a hard sell. This content also feeds the SEO flywheel as on-site blog content.</li>
+                  <li><strong>Comparison and positioning content:</strong> Positioning against imported natural brands on price and local availability. 'Same natural ingredients, made for Indian skin, available on Prime' is a powerful consideration-stage message.</li>
+                  <li><strong>Email capture via quizzes and samples:</strong> 'What's your skin type?' quizzes and sample offers capture email and build a permission-based CRM list for nurture sequences — reducing dependence on paid retargeting for mid-funnel work.</li>
+                  <li><strong>The Derma Co dermatologist content:</strong> For the science-forward sub-brand, dermatologist recommendation videos and clinical ingredient explainers run as mid-funnel content — targeting users who want proof before purchase.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="funnel-connector"></div>
+
+        <div class="funnel-stage">
+          <div class="funnel-stage-inner" onclick="toggleFunnel(this)">
+            <div class="funnel-header">
+              <div class="funnel-left">
+                <div class="funnel-dot dot-convert"></div>
+                <div>
+                  <div class="funnel-stage-label">Bottom of Funnel</div>
+                  <div class="funnel-stage-title">Conversion — Closing With Precision</div>
+                </div>
+              </div>
+              <div class="funnel-toggle">+</div>
+            </div>
+            <div class="funnel-body">
+              <div class="funnel-body-inner">
+                <ul class="funnel-points">
+                  <li><strong>Dynamic product ads with social proof:</strong> Meta DPAs showing product image, star rating, review count, and price. The trust signals are embedded in the ad unit — no need to visit the site to feel reassured.</li>
+                  <li><strong>Google Shopping:</strong> Price visibility before the click is a competitive weapon. Mamaearth's pricing vs imported natural brands is a conversion argument built into the ad format itself.</li>
+                  <li><strong>Amazon / Nykaa / Flipkart sponsored listings:</strong> High-intent shoppers on marketplaces convert at 3–5× DTC site rates because they're already in purchase mode. Mamaearth ensures they're visible at every high-intent query across all three platforms simultaneously.</li>
+                  <li><strong>Festival sale campaigns:</strong> Diwali, Big Billion Days, Prime Day — Mamaearth runs aggressive offer-driven creatives during these windows. The entire creative calendar shifts to value-led messaging: combo packs, GWP (gift with purchase), percentage discounts. High-volume, time-limited spend with predictable ROAS uplift.</li>
+                  <li><strong>Cart abandonment retargeting:</strong> Meta + email within 1–3 hours of abandonment. Bundle upsell logic: 'You left the onion shampoo — complete your hair care routine with the conditioner at ₹100 off'.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="funnel-connector"></div>
+
+        <div class="funnel-stage">
+          <div class="funnel-stage-inner" onclick="toggleFunnel(this)">
+            <div class="funnel-header">
+              <div class="funnel-left">
+                <div class="funnel-dot dot-retain"></div>
+                <div>
+                  <div class="funnel-stage-label">Post-Purchase</div>
+                  <div class="funnel-stage-title">Retention — The House of Brands LTV Engine</div>
+                </div>
+              </div>
+              <div class="funnel-toggle">+</div>
+            </div>
+            <div class="funnel-body">
+              <div class="funnel-body-inner">
+                <ul class="funnel-points">
+                  <li><strong>Replenishment CRM:</strong> Email and app push with replenishment reminders triggered by estimated product usage cycles. 'Your Onion Oil is running low — reorder now and save 15%' converts at much higher rates than cold acquisition.</li>
+                  <li><strong>Cross-sell within brand:</strong> Bought onion hair oil → recommend onion shampoo → onion conditioner → hair mask. Systematically building the complete hair care routine triples LTV per customer without re-acquiring them.</li>
+                  <li><strong>#PlantGoodness campaign:</strong> One tree planted per order. This creates emotional loyalty — the customer feels their purchase has impact beyond themselves. Retention through purpose is one of Mamaearth's most distinctive CRM tools and is genuinely difficult to replicate.</li>
+                  <li><strong>House-of-brands graduation:</strong> Mamaearth customer at 28 (baby care + basic skincare) → The Derma Co customer at 30 (active ingredients, science-led) → Aqualogica (hydration-focused). Honasa retains the customer across the portfolio as their needs and sophistication evolve. This is multi-brand LTV, and it's exceptional marketing architecture.</li>
+                  <li><strong>WhatsApp commerce:</strong> Reorder convenience and personalized product recommendations through WhatsApp — leveraging India's most-used messaging platform for frictionless repeat purchase.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CREATIVE STRATEGY -->
+  <section id="creative">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">04 — Creative Strategy</div>
+        <h2 class="section-title">Emotion sells. Ingredients close.</h2>
+        <p class="section-lead">
+          Every Mamaearth ad blends emotional storytelling with product education.
+          The feeling comes first — trust and certification follow.
+        </p>
+      </div>
+
+      <div class="creative-grid reveal reveal-delay-1">
+        <div class="creative-card">
+          <div class="creative-card-icon">🎬</div>
+          <div class="creative-card-title">TV-Style Brand Films (30–60 sec)</div>
+          <div class="creative-card-desc">Celebrity-led emotional narratives — motherhood, self-care, natural living. Produced for broadcast quality, repurposed across YouTube pre-roll, Instagram, and OTT. One shoot generates assets across five channels. The emotional arc (problem → product → transformation) follows classic brand film structure but with 'Made Safe' certification as the rational closer.</div>
+        </div>
+        <div class="creative-card">
+          <div class="creative-card-icon">📱</div>
+          <div class="creative-card-title">Instagram Reels (15–30 sec)</div>
+          <div class="creative-card-desc">Fast-paced ingredient spotlights, quick product demos, and before-after skin/hair results. The hook is always a pain point: 'Struggling with hair fall?' or 'Oily skin but still dehydrated?' Mamaearth tests multiple hook variants per product and scales winning creatives quickly. High creative volume = fast learning loops.</div>
+        </div>
+        <div class="creative-card">
+          <div class="creative-card-icon">🃏</div>
+          <div class="creative-card-title">Carousel Ads</div>
+          <div class="creative-card-desc">Product range showcases ('Complete your hair care routine'), ingredient comparison cards, and regimen builders. Each slide earns attention independently. Used heavily in mid-funnel to move users from single-product awareness to routine consideration — increasing AOV in the process.</div>
+        </div>
+        <div class="creative-card">
+          <div class="creative-card-icon">👥</div>
+          <div class="creative-card-title">UGC Compilation Ads</div>
+          <div class="creative-card-desc">Real customer before-after footage, raw testimonials, and transformation stories stitched together with product shots. These outperform polished brand creative on conversion because authenticity reads as proof. Mamaearth actively collects UGC post-purchase and feeds it back into the ad creative pipeline.</div>
+        </div>
+        <div class="creative-card">
+          <div class="creative-card-icon">🏷️</div>
+          <div class="creative-card-title">Static Product Ads with Trust Badges</div>
+          <div class="creative-card-desc">Clean product photography with 'Made Safe Certified', '100% Toxin-Free', 'Dermatologically Tested' prominently displayed. These trust signals do heavy lifting in Google Shopping and static placements where there's no video to make the case. The certification is the creative.</div>
+        </div>
+        <div class="creative-card">
+          <div class="creative-card-icon">🎯</div>
+          <div class="creative-card-title">Festival &amp; Offer Creatives</div>
+          <div class="creative-card-desc">Entire creative calendar pivots 4–6 times a year for Diwali, Big Billion Days, Prime Day, and Holi. Offer-driven formats (combo packs, GWP, flash discounts) with bold typography and urgency cues. These seasonal campaigns drive disproportionate revenue and require a separate creative production track running in parallel to the always-on calendar.</div>
+        </div>
+      </div>
+
+      <div class="insight-block reveal reveal-delay-2">
+        <strong>The creative philosophy in one line:</strong> Mamaearth never lets the rational or the emotional stand alone. Every ad pairs a feeling (safe, natural, good for my family) with a claim (Made Safe certified, no harmful chemicals, dermatologically tested). The feeling gets attention; the claim earns trust; the celebrity provides scale. Remove any one of these and the creative underperforms.
+      </div>
+
+      <div class="reveal reveal-delay-3">
+        <h3 style="font-size:1.3rem; margin-bottom:1.2rem;">Why Their Creative Works</h3>
+        <ul class="why-list">
+          <li>
+            <div class="why-num">01</div>
+            <div class="why-text">
+              <strong>Trust badges are the hero, not the afterthought</strong>
+              <span>'Made Safe Certified' and 'Toxin-Free' appear in the first 3 seconds of every video and in every static creative. In a category where safety is the primary purchase driver (especially for baby products), this front-loading of credentials does more conversion work than any copy or celebrity can.</span>
+            </div>
+          </li>
+          <li>
+            <div class="why-num">02</div>
+            <div class="why-text">
+              <strong>Celebrity face = instant feed stop</strong>
+              <span>Sara Ali Khan and Samantha Ruth Prabhu provide immediate recognition in crowded social feeds. The first frame is a face people know — this buys the 2 seconds needed to deliver the product message. In a 15-second Reel, those 2 seconds are everything.</span>
+            </div>
+          </li>
+          <li>
+            <div class="why-num">03</div>
+            <div class="why-text">
+              <strong>100+ concurrent creative variants = fast signal</strong>
+              <span>Running 100+ active Meta creatives simultaneously isn't wasteful — it's a systematic testing machine. By running this volume, Mamaearth identifies winning hooks, formats, and audiences faster than competitors with smaller creative budgets. The winners get budget; the losers get switched off. This is performance creative at scale.</span>
+            </div>
+          </li>
+          <li>
+            <div class="why-num">04</div>
+            <div class="why-text">
+              <strong>Cross-brand creative ecosystem</strong>
+              <span>Mamaearth for mass-market natural, The Derma Co for clinically credible actives, Aqualogica for hydration — each sub-brand has its own creative language, audience, and channel mix. This prevents the parent brand from being stretched and allows each brand to speak authentically to its specific buyer.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="caveat-block reveal">
+        <h4>What Doesn't Work As Well</h4>
+        <ul class="caveat-list">
+          <li>Over-reliance on celebrity can make ads feel formulaic — in a market saturated with celebrity endorsements, differentiation becomes harder and CPMs inflate</li>
+          <li>'Toxin-free' messaging has faced regulatory and consumer scrutiny — any claims need to be airtight as the brand scales and faces more public attention post-IPO</li>
+          <li>Heavy discounting in bottom-funnel can erode brand perception over time — training consumers to wait for sales is a structural LTV risk</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- TAKEAWAYS -->
+  <section id="takeaways">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">05 — Takeaways</div>
+        <h2 class="section-title">What I took away from this.</h2>
+        <p class="section-lead">
+          Six strategic principles from Mamaearth's growth playbook — and four things
+          I would push further if I were running their performance marketing.
+        </p>
+      </div>
+
+      <div class="takeaway-grid reveal reveal-delay-1">
+        <div class="takeaway-card">
+          <div class="takeaway-num">01</div>
+          <div class="takeaway-title">TV-to-digital funnel mastery</div>
+          <div class="takeaway-desc">Bigg Boss creates awareness → Google captures branded intent → Meta retargets → marketplace converts. This offline-online loop is the most sophisticated omnichannel funnel in Indian D2C, and it's only possible because they invest in TV at a scale most digital-native brands refuse to.</div>
+        </div>
+        <div class="takeaway-card">
+          <div class="takeaway-num">02</div>
+          <div class="takeaway-title">House-of-brands as a moat</div>
+          <div class="takeaway-desc">Instead of stretching Mamaearth into premium skincare (which would dilute the brand), they built The Derma Co. Instead of adding a salon line, they acquired BBlunt. Each brand gets clean positioning and clean creative — and Honasa retains the customer across all of them as their needs evolve.</div>
+        </div>
+        <div class="takeaway-card">
+          <div class="takeaway-num">03</div>
+          <div class="takeaway-title">Marketing spend as competitive moat</div>
+          <div class="takeaway-desc">At 40–50% of revenue, Mamaearth outspends every competitor in the natural beauty segment. This isn't a sign of poor unit economics — at 65% gross margins, they can afford it. The spend creates brand recall that makes every new product launch cheaper to market and every marketplace listing more likely to convert.</div>
+        </div>
+        <div class="takeaway-card">
+          <div class="takeaway-num">04</div>
+          <div class="takeaway-title">Life-stage acquisition funnel</div>
+          <div class="takeaway-desc">Acquire a new parent through baby care — the highest-trust category entry point. Then cross-sell as they age: baby care at 28, skincare at 30, premium actives at 32. The CAC is paid once; the LTV compounds across 5+ years of the customer's life. This is brand strategy as performance marketing strategy.</div>
+        </div>
+        <div class="takeaway-card">
+          <div class="takeaway-num">05</div>
+          <div class="takeaway-title">IPO-grade performance marketing</div>
+          <div class="takeaway-desc">Going public required demonstrating ROAS discipline, CAC payback periods, and unit economics at scale to public market investors. Mamaearth had to build reporting infrastructure and attribution models that most D2C brands never need to justify. The IPO forced a rigor that made the marketing operation more efficient.</div>
+        </div>
+        <div class="takeaway-card">
+          <div class="takeaway-num">06</div>
+          <div class="takeaway-title">Content + SEO flywheel</div>
+          <div class="takeaway-desc">64,000+ backlinks and educational blog content on ingredient benefits drive organic traffic that compounds over time. Every blog post about 'onion oil for hair growth' is a permanent, zero-marginal-cost acquisition asset. This compounding organic base reduces the pressure on paid channels and smooths out performance in down periods.</div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <div class="optimize-section-label">What I Would Optimize</div>
+        <ul class="optimize-list">
+          <li class="optimize-item">
+            <div class="optimize-icon">🎭</div>
+            <div>
+              <div class="optimize-title">Reduce Celebrity Dependency, Scale UGC</div>
+              <div class="optimize-desc">Celebrity CPMs are inflating as more FMCG brands chase the same faces. The audience is also beginning to fatigue on endorsement-style ads where the celebrity's connection to the product is superficial. I would systematically shift 10–15% of the celebrity creative budget into UGC-first creative — real customers with real results, scaled via creator marketplace platforms. The conversion data already supports this: UGC consistently outperforms polished brand creative in bottom-funnel placement.</div>
+            </div>
+          </li>
+          <li class="optimize-item">
+            <div class="optimize-icon">🗣️</div>
+            <div>
+              <div class="optimize-title">Vernacular-First Creative for Tier 2/3 Expansion</div>
+              <div class="optimize-desc">Mamaearth's offline push into modern trade and pharmacy retail in smaller cities needs a matching paid media strategy in local languages. Hindi, Tamil, Telugu, and Kannada Reels and search ads — not just English creative translated. Tier 2/3 consumers scroll in their native language; ads that speak to them in it convert at measurably higher rates. This is the same education-first creative, just in the right language.</div>
+            </div>
+          </li>
+          <li class="optimize-item">
+            <div class="optimize-icon">🔁</div>
+            <div>
+              <div class="optimize-title">Subscription Model for Core Replenishable SKUs</div>
+              <div class="optimize-desc">Shampoo, face wash, and sunscreen have predictable 30–45 day usage cycles. A subscribe-and-save model (10–15% discount) would lock in LTV, smooth revenue predictability, and dramatically reduce re-acquisition costs. The customer who subscribes has already committed — the hardest and most expensive part of the acquisition funnel is done. For an IPO-listed brand managing quarter-on-quarter revenue expectations, subscription revenue is also structurally more attractive to investors.</div>
+            </div>
+          </li>
+          <li class="optimize-item">
+            <div class="optimize-icon">🎯</div>
+            <div>
+              <div class="optimize-title">Sharper Sub-Brand Differentiation in Paid Media</div>
+              <div class="optimize-desc">The Derma Co and Aqualogica ads currently feel too visually and tonally similar to Mamaearth's creative — the same warm colours, similar copy structures, overlapping celebrity faces. Sharper creative differentiation per sub-brand (The Derma Co should feel clinical and scientific; Aqualogica should feel light and fresh) would improve audience segmentation, reduce internal brand cannibalization, and allow each brand to own a distinct mental space in the consumer's mind.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="divider"></div>
+  <footer class="case-footer">
+    <div>
+      <div class="case-footer-author">Analysis by <strong>Chethan S</strong> — Performance Marketing Specialist</div>
+      <div style="font-size:0.78rem; color:var(--muted); margin-bottom:0.6rem;">Revenue and spend figures sourced from public filings (Honasa Consumer RHP/annual reports) and industry estimates. Budget allocations are analytical estimates based on channel signals.</div>
+      <div class="case-footer-links">
+        <a href="index.html">← Portfolio</a>
+      </div>
+    </div>
+    <div class="footer-nav">
+      <a href="case-study-minimalist.html" class="footer-nav-link">
+        <span class="fnl">Previous</span>
+        <span class="fnt">← Minimalist</span>
+      </a>
+      <a href="case-study-cultfit.html" class="footer-nav-link" style="align-items:flex-end;">
+        <span class="fnl">Next</span>
+        <span class="fnt">Cult.fit →</span>
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    function toggleFunnel(el) {
+      const body = el.querySelector('.funnel-body');
+      const isOpen = el.classList.contains('open');
+      document.querySelectorAll('.funnel-stage-inner').forEach(s => {
+        s.classList.remove('open');
+        s.querySelector('.funnel-body').style.maxHeight = '0';
+      });
+      if (!isOpen) {
+        el.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + 40 + 'px';
+      }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      const first = document.querySelector('.funnel-stage-inner.open');
+      if (first) { const b = first.querySelector('.funnel-body'); b.style.maxHeight = b.scrollHeight + 40 + 'px'; }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personal Touch Skincare — Campaign I Led · Chethan S</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #FAFAF8;
+      --card:      #FFFFFF;
+      --text:      #1A1A1A;
+      --muted:     #6B6B6B;
+      --accent:    #E8E4DF;
+      --border:    #E5E3DE;
+      --highlight: #2C2C2C;
+      --warm:      #C8A882;
+      --warm-bg:   #F5EFE8;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'DM Sans', sans-serif; font-size: 16px;
+      line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+    h1, h2, h3, h4 { font-family: 'Instrument Serif', serif; font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; }
+
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(250,250,248,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 0 6%; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .nav-back { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--muted); font-size: 0.82rem; font-weight: 500; transition: color 0.2s; }
+    .nav-back:hover { color: var(--text); }
+    .nav-back svg { width: 14px; height: 14px; }
+    .nav-sections { display: flex; gap: 1.6rem; list-style: none; }
+    .nav-sections a { text-decoration: none; color: var(--muted); font-size: 0.8rem; font-weight: 500; transition: color 0.2s; white-space: nowrap; }
+    .nav-sections a:hover { color: var(--text); }
+    @media (max-width: 768px) { .nav-sections { display: none; } }
+
+    /* HERO */
+    .hero { padding: 5rem 6% 4rem; border-bottom: 1px solid var(--border); }
+    .hero-label {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: var(--highlight); color: #F5EFE8;
+      padding: 0.3rem 1rem; border-radius: 100px;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 1.5px;
+      text-transform: uppercase; margin-bottom: 1.8rem;
+    }
+    .hero-label::before { content: '◆'; font-size: 0.5rem; color: var(--warm); }
+    .hero h1 { font-size: clamp(2.8rem, 6.5vw, 5.5rem); letter-spacing: -0.04em; line-height: 1.0; margin-bottom: 0.5rem; }
+    .hero h1 em { font-style: italic; color: var(--muted); }
+    .hero-meta-row {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;
+      margin: 1.4rem 0 2rem; font-size: 0.82rem; color: var(--muted);
+    }
+    .hero-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+    .hero-meta-row .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--border); }
+    .hero-tagline { font-size: clamp(1rem, 2vw, 1.15rem); color: var(--muted); max-width: 620px; line-height: 1.7; margin-bottom: 3rem; }
+
+    /* STAT BAR */
+    .stat-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+    }
+    .stat-bar-item { background: var(--card); padding: 1.3rem 1.5rem; }
+    .stat-bar-item.highlight-stat { background: var(--highlight); }
+    .stat-bar-val {
+      font-family: 'Instrument Serif', serif;
+      font-size: 2rem; letter-spacing: -0.03em;
+      color: var(--text); line-height: 1; margin-bottom: 0.3rem;
+    }
+    .stat-bar-item.highlight-stat .stat-bar-val { color: #F5EFE8; }
+    .stat-bar-label { font-size: 0.72rem; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat-bar-item.highlight-stat .stat-bar-label { color: #7A6E65; }
+    .stat-bar-note { font-size: 0.68rem; color: var(--warm); font-weight: 600; margin-top: 0.2rem; }
+
+    /* LAYOUT */
+    .container { max-width: 860px; margin: 0 auto; padding: 5rem 6%; }
+    .divider { width: 100%; height: 1px; background: var(--border); }
+
+    /* SECTION */
+    .section-eyebrow { display: flex; align-items: center; gap: 0.8rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--warm); margin-bottom: 1.2rem; }
+    .section-eyebrow::after { content: ''; flex: 1; max-width: 40px; height: 1px; background: var(--warm); }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 1rem; color: var(--text); }
+    .section-lead { font-size: 1.05rem; color: var(--muted); max-width: 640px; line-height: 1.75; margin-bottom: 3rem; }
+
+    .insight-block { border-left: 3px solid var(--warm); background: var(--warm-bg); border-radius: 0 8px 8px 0; padding: 1.2rem 1.5rem; margin: 2rem 0; font-size: 0.95rem; color: var(--highlight); line-height: 1.7; }
+    .insight-block strong { font-weight: 600; }
+
+    .prose p { font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+    .prose p:last-child { margin-bottom: 0; }
+    .prose strong { color: var(--text); font-weight: 600; }
+
+    /* BRIEF / OVERVIEW */
+    .brief-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 2rem; }
+    @media (max-width: 600px) { .brief-grid { grid-template-columns: 1fr; } }
+    .brief-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.3rem 1.5rem; }
+    .brief-card.span-2 { grid-column: 1 / -1; }
+    .brief-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+    .brief-val { font-size: 0.9rem; font-weight: 500; color: var(--text); line-height: 1.6; }
+    .brief-val.muted { font-weight: 400; color: var(--muted); }
+
+    .product-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; }
+    .ptag { background: var(--bg); border: 1px solid var(--border); padding: 0.2rem 0.65rem; border-radius: 100px; font-size: 0.72rem; color: var(--muted); font-weight: 500; }
+    .ptag.hero-product { background: var(--warm-bg); border-color: #D4B896; color: var(--highlight); font-weight: 600; }
+
+    /* CHALLENGE LIST */
+    .challenge-list { list-style: none; margin-top: 1rem; }
+    .challenge-list li { display: flex; gap: 0.9rem; padding: 0.7rem 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+    .challenge-list li:last-child { border-bottom: none; }
+    .challenge-list li::before { content: '→'; color: var(--warm); flex-shrink: 0; margin-top: 0.05rem; }
+    .challenge-list li strong { color: var(--text); font-weight: 600; }
+
+    /* STRATEGY */
+    .strategy-block { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.6rem; margin-bottom: 1.2rem; }
+    .strategy-block-title { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.9rem; display: flex; align-items: center; gap: 0.6rem; }
+    .strategy-icon { width: 32px; height: 32px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; flex-shrink: 0; }
+    .strategy-list { list-style: none; }
+    .strategy-list li { font-size: 0.875rem; color: var(--muted); padding: 0.28rem 0 0.28rem 1.1rem; position: relative; line-height: 1.65; }
+    .strategy-list li::before { content: '–'; position: absolute; left: 0; color: #D4C4B0; }
+    .strategy-list li strong { color: var(--text); font-weight: 600; }
+
+    /* BUDGET SPLIT */
+    .budget-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 2rem; }
+    @media (max-width: 600px) { .budget-grid { grid-template-columns: 1fr; } }
+    .budget-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.4rem; }
+    .budget-card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; }
+    .budget-card-title { font-size: 0.9rem; font-weight: 600; color: var(--text); }
+    .budget-card-total { font-family: 'Instrument Serif', serif; font-size: 1.4rem; color: var(--warm); letter-spacing: -0.02em; }
+    .budget-row { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.7rem; }
+    .budget-label { font-size: 0.78rem; font-weight: 500; color: var(--muted); width: 150px; flex-shrink: 0; }
+    .budget-track { flex: 1; height: 6px; background: var(--accent); border-radius: 100px; overflow: hidden; }
+    .budget-fill { height: 100%; background: var(--warm); border-radius: 100px; }
+    .budget-pct { font-size: 0.75rem; font-weight: 600; color: var(--muted); width: 36px; text-align: right; flex-shrink: 0; }
+
+    /* CREATIVE GRID */
+    .creative-types { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .creative-type { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem; }
+    .creative-type-icon { font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .creative-type-title { font-size: 0.85rem; font-weight: 600; color: var(--text); margin-bottom: 0.3rem; }
+    .creative-type-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+
+    /* FORMAT MIX */
+    .format-mix { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.6rem; margin-bottom: 2rem; }
+    .format-mix h4 { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; }
+    .format-bar-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.7rem; }
+    .format-label { font-size: 0.82rem; font-weight: 500; color: var(--text); width: 160px; flex-shrink: 0; }
+    .format-track { flex: 1; height: 8px; background: var(--accent); border-radius: 100px; overflow: hidden; }
+    .format-fill { height: 100%; background: var(--warm); border-radius: 100px; }
+    .format-pct { font-size: 0.75rem; font-weight: 600; color: var(--muted); width: 36px; text-align: right; flex-shrink: 0; }
+
+    /* FUNNEL */
+    .funnel-wrap { max-width: 760px; margin: 0 auto; }
+    .funnel-stage { position: relative; margin-bottom: 2px; }
+    .funnel-stage-inner { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; cursor: pointer; transition: box-shadow 0.2s; }
+    .funnel-stage-inner:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    .funnel-header { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 1.6rem; gap: 1rem; }
+    .funnel-left { display: flex; align-items: center; gap: 1rem; }
+    .funnel-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .dot-1 { background: #C8A882; }
+    .dot-2 { background: #A8956B; }
+    .dot-3 { background: #7A6A4F; }
+    .dot-4 { background: #4A3F2F; }
+    .funnel-budget { font-size: 0.72rem; font-weight: 700; color: var(--warm); background: var(--warm-bg); padding: 0.2rem 0.6rem; border-radius: 100px; white-space: nowrap; }
+    .funnel-stage-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+    .funnel-stage-title { font-size: 1rem; font-weight: 600; color: var(--text); }
+    .funnel-toggle { font-size: 1.2rem; color: var(--muted); transition: transform 0.3s; font-weight: 300; line-height: 1; user-select: none; }
+    .funnel-stage-inner.open .funnel-toggle { transform: rotate(45deg); }
+    .funnel-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+    .funnel-body-inner { padding: 0 1.6rem 1.4rem; border-top: 1px solid var(--border); }
+    .funnel-points { list-style: none; margin-top: 1rem; }
+    .funnel-points li { font-size: 0.875rem; color: var(--muted); padding: 0.3rem 0 0.3rem 1.2rem; position: relative; line-height: 1.6; }
+    .funnel-points li::before { content: '→'; position: absolute; left: 0; color: var(--warm); font-size: 0.8rem; }
+    .funnel-points li strong { color: var(--text); font-weight: 600; }
+    .funnel-connector { display: flex; justify-content: center; height: 22px; align-items: center; }
+    .funnel-connector::before { content: ''; width: 1px; height: 100%; background: var(--border); }
+
+    /* RESULTS DASHBOARD */
+    .results-dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+      margin-bottom: 2.5rem;
+    }
+    .result-card { background: var(--card); padding: 1.4rem 1.5rem; }
+    .result-card.primary { background: var(--highlight); }
+    .result-val {
+      font-family: 'Instrument Serif', serif;
+      font-size: 2.2rem; letter-spacing: -0.03em;
+      color: var(--text); line-height: 1; margin-bottom: 0.3rem;
+    }
+    .result-card.primary .result-val { color: #F5EFE8; }
+    .result-label { font-size: 0.72rem; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.4px; }
+    .result-card.primary .result-label { color: #7A6E65; }
+    .result-delta { font-size: 0.7rem; font-weight: 700; color: #4A8C5C; background: #E8F5ED; padding: 0.15rem 0.45rem; border-radius: 4px; margin-top: 0.4rem; display: inline-block; }
+    .result-card.primary .result-delta { color: var(--warm); background: rgba(200,168,130,0.15); }
+
+    /* CHANNEL BREAKDOWN */
+    .channel-table { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 2rem; }
+    .channel-table-head { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; background: var(--accent); }
+    .ch-col { padding: 0.8rem 1.2rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--muted); }
+    .channel-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; border-top: 1px solid var(--border); transition: background 0.15s; }
+    .channel-row:hover { background: var(--bg); }
+    .ch-cell { padding: 0.85rem 1.2rem; font-size: 0.85rem; color: var(--muted); }
+    .ch-cell.name { color: var(--text); font-weight: 500; }
+    .ch-cell.roas { color: var(--text); font-weight: 700; font-family: 'Instrument Serif', serif; font-size: 1rem; }
+    .roas-bar { width: 100%; height: 4px; background: var(--accent); border-radius: 100px; margin-top: 0.3rem; overflow: hidden; }
+    .roas-fill { height: 100%; background: var(--warm); border-radius: 100px; }
+    @media (max-width: 600px) { .channel-table-head, .channel-row { grid-template-columns: 2fr 1fr 1fr; } .ch-col:last-child, .ch-cell:last-child { display: none; } }
+
+    /* OPTIMIZATIONS */
+    .optim-list { list-style: none; }
+    .optim-item { display: flex; gap: 1.2rem; padding: 1.2rem 0; border-bottom: 1px solid var(--border); }
+    .optim-item:last-child { border-bottom: none; }
+    .optim-num { font-family: 'Instrument Serif', serif; font-size: 1.8rem; color: #D4C4B0; flex-shrink: 0; width: 32px; line-height: 1.1; }
+    .optim-title { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.3rem; }
+    .optim-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+    .optim-impact { display: inline-block; margin-top: 0.4rem; font-size: 0.72rem; font-weight: 700; color: #4A8C5C; background: #E8F5ED; padding: 0.15rem 0.5rem; border-radius: 4px; }
+
+    /* LEARNINGS */
+    #learnings { background: var(--highlight); }
+    #learnings .section-eyebrow { color: #C8A882; }
+    #learnings .section-eyebrow::after { background: #C8A882; }
+    #learnings .section-title { color: #F5EFE8; }
+    #learnings .section-lead { color: #94867A; }
+    .learning-list { list-style: none; }
+    .learning-item { display: flex; gap: 1.2rem; padding: 1.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .learning-item:last-child { border-bottom: none; }
+    .learning-num { font-family: 'Instrument Serif', serif; font-size: 2.2rem; color: rgba(200,168,130,0.25); flex-shrink: 0; width: 36px; line-height: 1; }
+    .learning-title { font-size: 0.9rem; font-weight: 600; color: #F0E8DF; margin-bottom: 0.4rem; }
+    .learning-desc { font-size: 0.85rem; color: #7A6E65; line-height: 1.7; }
+
+    /* FOOTER */
+    .case-footer { border-top: 1px solid var(--border); padding: 3rem 6%; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2rem; }
+    @media (max-width: 600px) { .case-footer { grid-template-columns: 1fr; } }
+    .case-footer-author { font-size: 0.85rem; color: var(--text); font-weight: 600; margin-bottom: 0.3rem; }
+    .case-footer-sub { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.6rem; }
+    .case-footer-note { font-size: 0.72rem; color: var(--muted-light, #aaa); font-style: italic; max-width: 480px; line-height: 1.6; margin-top: 0.5rem; }
+    .case-footer-links { display: flex; gap: 1.2rem; margin-top: 0.6rem; }
+    .case-footer-links a { font-size: 0.8rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .case-footer-links a:hover { color: var(--text); }
+    .footer-nav { display: flex; gap: 2rem; align-items: center; }
+    .footer-nav-link { text-decoration: none; display: flex; flex-direction: column; gap: 0.2rem; }
+    .footer-nav-link .fnl { font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+    .footer-nav-link .fnt { font-family: 'Instrument Serif', serif; font-size: 1.1rem; color: var(--text); transition: color 0.2s; }
+    .footer-nav-link:hover .fnt { color: var(--warm); }
+    @media (max-width: 600px) { .footer-nav { flex-direction: column; align-items: flex-start; gap: 1rem; } }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M5 12l7-7M5 12l7 7"/>
+      </svg>
+      Portfolio
+    </a>
+    <ul class="nav-sections">
+      <li><a href="#brief">The Brief</a></li>
+      <li><a href="#strategy">My Strategy</a></li>
+      <li><a href="#execution">Execution</a></li>
+      <li><a href="#funnel">Funnel & Creative</a></li>
+      <li><a href="#results">Results</a></li>
+      <li><a href="#learnings">Learnings</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero reveal">
+    <div class="hero-label">Campaign I Led</div>
+    <h1>Personal Touch<br><em>Skincare.</em></h1>
+    <div class="hero-meta-row">
+      <span>Chethan S — Performance Marketer</span>
+      <span class="dot"></span>
+      <span>Insane Labs</span>
+      <span class="dot"></span>
+      <span>Meta + Google Ads</span>
+      <span class="dot"></span>
+      <span>D2C Skincare</span>
+    </div>
+    <p class="hero-tagline">
+      I managed the end-to-end paid performance for Personal Touch Skincare — a science-backed D2C skincare brand —
+      scaling from ₹30L to ₹60L/month in ad spend while building the full acquisition funnel from scratch.
+      Here's exactly what I did, how I did it, and what it delivered.
+    </p>
+    <div class="stat-bar">
+      <div class="stat-bar-item highlight-stat">
+        <div class="stat-bar-val">₹60L</div>
+        <div class="stat-bar-label">Monthly Ad Spend</div>
+        <div class="stat-bar-note">Peak budget managed</div>
+      </div>
+      <div class="stat-bar-item">
+        <div class="stat-bar-val">₹50L</div>
+        <div class="stat-bar-label">Meta Ads / Month</div>
+      </div>
+      <div class="stat-bar-item">
+        <div class="stat-bar-val">₹10L</div>
+        <div class="stat-bar-label">Google Ads / Month</div>
+      </div>
+      <div class="stat-bar-item highlight-stat">
+        <div class="stat-bar-val">4.2x</div>
+        <div class="stat-bar-label">Blended ROAS</div>
+        <div class="stat-bar-note">Across Meta + Google</div>
+      </div>
+      <div class="stat-bar-item">
+        <div class="stat-bar-val">35%</div>
+        <div class="stat-bar-label">CAC Reduction</div>
+      </div>
+      <div class="stat-bar-item">
+        <div class="stat-bar-val">63%</div>
+        <div class="stat-bar-label">AOV Increase</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- THE BRIEF -->
+  <section id="brief">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">01 — The Brief</div>
+        <h2 class="section-title">What I was handed, and what I was asked to build.</h2>
+        <p class="section-lead">
+          Personal Touch Skincare came to Insane Labs with a clear goal: scale D2C sales profitably.
+          Here's the account I inherited and the challenge I was set.
+        </p>
+      </div>
+
+      <div class="brief-grid reveal reveal-delay-1">
+        <div class="brief-card">
+          <div class="brief-label">Brand</div>
+          <div class="brief-val">Personal Touch Skincare (PTS) — skincarepersonaltouch.com</div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-label">Founders</div>
+          <div class="brief-val">Ashish Jawa (12+ yrs pharma expertise) &amp; Aditi Jawa (luxury branding, ex-Salvatore Ferragamo)</div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-label">Positioning</div>
+          <div class="brief-val">'Every skin needs a personal touch' — science-backed, globally-patented ingredients formulated for Indian skin. Patented actives like <strong>SabiWhite</strong> and <strong>Clair Blanche II</strong>, Korean-inspired snail mucin range, dermatologically tested, cruelty-free, vegan, sulfate-free, paraben-free.</div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-label">Scale at Handover</div>
+          <div class="brief-val">3.5 Lakh+ customers. Shopify D2C site + Nykaa, Amazon, Flipkart, Swiggy Instamart. Price range ₹249–₹1,399.</div>
+        </div>
+        <div class="brief-card span-2">
+          <div class="brief-label">Hero Products (Focus of Ad Spend)</div>
+          <div class="product-tags">
+            <span class="ptag hero-product">Facebath Facewash — 1,264 reviews</span>
+            <span class="ptag hero-product">Sunstalker SPF 50 — 465 reviews</span>
+            <span class="ptag hero-product">Youthburst Moisturizer — 325 reviews</span>
+            <span class="ptag hero-product">Mucin Hydrating Serum — 179 reviews</span>
+            <span class="ptag">Melakey Spot Corrector</span>
+            <span class="ptag">Zitsit Acne Range</span>
+            <span class="ptag">Cetabath Facewash</span>
+            <span class="ptag">Thatmatt Sunscreen SPF 50</span>
+            <span class="ptag">C-Byond Vitamin C</span>
+            <span class="ptag">Skindam Barrier Repair</span>
+            <span class="ptag">PT Homme (Men's Line)</span>
+          </div>
+        </div>
+        <div class="brief-card span-2">
+          <div class="brief-label">Key Commercial Levers Available</div>
+          <div class="brief-val muted" style="margin-top:0.3rem;">Aggressive combo pricing: <strong>Buy Any 3 at ₹899</strong> · Buy Any 5 at ₹2,499 · 7-day money-back guarantee · Concern-based collections (acne, pigmentation, anti-ageing, eczema, rosacea, open pores) · GoKwik fast checkout · COD available</div>
+        </div>
+      </div>
+
+      <div class="insight-block reveal reveal-delay-2">
+        <strong>The competitive context I was working in:</strong> Personal Touch was competing directly against Minimalist, Mamaearth, Dot &amp; Key, and Plum — all with larger brand recognition and bigger marketing budgets. The edge I had to find wasn't budget; it was precision — better creative, smarter segmentation, and a funnel architecture that made the math work at scale.
+      </div>
+
+      <div class="reveal reveal-delay-3">
+        <h3 style="font-size:1.1rem; font-family:'DM Sans',sans-serif; font-weight:600; color:var(--text); margin-bottom:1rem;">What I was tasked with</h3>
+        <ul class="challenge-list">
+          <li><strong>Scale D2C sales</strong> through Meta and Google — from ₹30L to ₹60L/month in managed ad spend over 3 months</li>
+          <li><strong>Build a full-funnel acquisition strategy</strong> from cold prospecting to retargeting to post-purchase retention — not just run ads</li>
+          <li><strong>Drive profitable ROAS</strong> — not just volume. The target was 4x blended ROAS at scale</li>
+          <li><strong>Reduce CAC</strong> through continuous creative testing and audience refinement — CAC was a key reporting metric to the client</li>
+          <li><strong>Increase AOV</strong> — single-product purchases at ₹349 don't make the unit economics work at ₹50L/month spend. Combo offer adoption was a KPI I owned</li>
+          <li><strong>Improve prepaid order ratio</strong> — COD orders with 25–30% RTO rates were bleeding true ROAS. Shifting the ratio was part of my brief</li>
+          <li><strong>Compete effectively</strong> against established competitors with stronger brand recognition and larger overall budgets</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- MY STRATEGY -->
+  <section id="strategy">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">02 — My Strategy</div>
+        <h2 class="section-title">How I approached it before spending a rupee.</h2>
+        <p class="section-lead">
+          The first thing I did wasn't launch ads. It was understand exactly where the account
+          was wasting money and build the infrastructure to spend smarter.
+        </p>
+      </div>
+
+      <div class="strategy-block reveal reveal-delay-1">
+        <div class="strategy-block-title">
+          <div class="strategy-icon">🔍</div>
+          Account Audit &amp; Infrastructure Setup
+        </div>
+        <ul class="strategy-list">
+          <li><strong>Meta Pixel audit:</strong> identified missing and misfiring events — ViewContent, AddToCart, InitiateCheckout, and Purchase weren't all firing correctly with value parameters. Fixed this before scaling spend, as inaccurate data was poisoning the algorithm's optimization.</li>
+          <li><strong>Campaign consolidation:</strong> inherited 12+ fragmented campaigns, multiple overlapping ad sets, and duplicated audiences — a classic sign of an account that was built reactively, not strategically. I consolidated to 3 core campaigns so Meta's algorithm could learn from pooled data rather than competing against itself.</li>
+          <li><strong>Google conversion tracking:</strong> implemented enhanced conversions for web on the Shopify store. Set up Google Merchant Center and optimized the product feed with keyword-rich titles, accurate pricing, and high-quality images.</li>
+          <li><strong>Audience architecture:</strong> built a complete audience stack before touching creative — website visitors (7/14/30/60/90 day windows), cart abandoners, past purchasers segmented by recency and product, email list custom audiences, and lookalikes at 1%, 2%, 5% seeded from purchase events.</li>
+          <li><strong>Exclusion mapping:</strong> set up proper exclusion logic — past purchasers excluded from cold prospecting, recent buyers excluded from retargeting. Obvious in theory, rarely done correctly in practice.</li>
+        </ul>
+      </div>
+
+      <div class="budget-grid reveal reveal-delay-2">
+        <div class="budget-card">
+          <div class="budget-card-head">
+            <div class="budget-card-title">Meta Budget Split (₹50L/mo)</div>
+          </div>
+          <div class="budget-row">
+            <div class="budget-label">Cold Prospecting</div>
+            <div class="budget-track"><div class="budget-fill" style="width:58%"></div></div>
+            <div class="budget-pct">58%</div>
+          </div>
+          <div class="budget-row">
+            <div class="budget-label">Retargeting</div>
+            <div class="budget-track"><div class="budget-fill" style="width:28%"></div></div>
+            <div class="budget-pct">28%</div>
+          </div>
+          <div class="budget-row">
+            <div class="budget-label">Retention / Cross-sell</div>
+            <div class="budget-track"><div class="budget-fill" style="width:12%"></div></div>
+            <div class="budget-pct">12%</div>
+          </div>
+        </div>
+        <div class="budget-card">
+          <div class="budget-card-head">
+            <div class="budget-card-title">Google Budget Split (₹10L/mo)</div>
+          </div>
+          <div class="budget-row">
+            <div class="budget-label">Brand Search</div>
+            <div class="budget-track"><div class="budget-fill" style="width:35%"></div></div>
+            <div class="budget-pct">35%</div>
+          </div>
+          <div class="budget-row">
+            <div class="budget-label">Shopping</div>
+            <div class="budget-track"><div class="budget-fill" style="width:30%"></div></div>
+            <div class="budget-pct">30%</div>
+          </div>
+          <div class="budget-row">
+            <div class="budget-label">Non-Brand Search</div>
+            <div class="budget-track"><div class="budget-fill" style="width:20%"></div></div>
+            <div class="budget-pct">20%</div>
+          </div>
+          <div class="budget-row">
+            <div class="budget-label">Performance Max</div>
+            <div class="budget-track"><div class="budget-fill" style="width:15%"></div></div>
+            <div class="budget-pct">15%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="strategy-block reveal reveal-delay-3">
+        <div class="strategy-block-title">
+          <div class="strategy-icon">📱</div>
+          Meta Campaigns I Built
+        </div>
+        <ul class="strategy-list">
+          <li><strong>Advantage+ Shopping Campaign (ASC) as the scaling engine:</strong> consolidated the majority of prospecting budget into 2 ASC campaigns — one for hero products (Facebath, Sunstalker, Youthburst), one for the full catalogue. Fed diverse creative and let Meta's algorithm identify buyers at scale. ASC's broad reach paired with strong creative outperformed manual interest stacking at high spend levels.</li>
+          <li><strong>Creative testing campaign (10–15% of budget):</strong> dedicated budget to testing 8–10 new creatives per week. Winners identified in 3–5 days by CTR + cost-per-ATC threshold before graduating to the scaling campaign. This kept the scaling campaign fed with proven creative and maintained CPM efficiency.</li>
+          <li><strong>Retargeting campaign — 3 segmented ad sets:</strong> (1) cart abandoners 0–7 days with urgency messaging and 7-day money-back guarantee, (2) product page viewers 7–14 days with social proof and review highlights, (3) Instagram/Facebook engagers 14–30 days with combo offer creative. Each segment got distinct creative and messaging — not the same ad to everyone.</li>
+          <li><strong>Dynamic Product Ads (DPA):</strong> showing the exact product someone browsed with real pricing, star ratings, and review counts pulled from the product catalogue. High-relevance retargeting that consistently delivered 8–12x ROAS in this segment.</li>
+          <li><strong>Retention campaign:</strong> past purchaser audiences segmented by last purchase date and product category. New launch ads, cross-sell bundles ('bought sunscreen → show moisturizer'), and replenishment reminders at 30–45 day intervals for consumable products.</li>
+        </ul>
+      </div>
+
+      <div class="strategy-block reveal">
+        <div class="strategy-block-title">
+          <div class="strategy-icon">🔍</div>
+          Google Ads — Capturing Demand Meta Created
+        </div>
+        <ul class="strategy-list">
+          <li><strong>Brand search protection:</strong> competitors were actively bidding on 'personal touch skincare', 'sunstalker sunscreen', 'facebath facewash'. I locked these down and delivered 10x+ ROAS — these campaigns were the highest-efficiency spend on the account and non-negotiable at any budget level.</li>
+          <li><strong>Google Shopping:</strong> product feed optimized with keyword-rich titles (e.g., 'Facebath Gentle Facewash for Oily Skin — Niacinamide, SLS-free, 100ml'), competitive pricing, and review count visible in listing. Shopping campaigns captured high-intent product-specific searches and delivered 4–5x ROAS.</li>
+          <li><strong>Non-brand search:</strong> bidding on 'best sunscreen for oily skin India', 'niacinamide face wash', 'snail mucin serum India', 'dark spot corrector for face'. These drove new customer acquisition at 2–3x ROAS — lower than brand search but strategically necessary to expand reach beyond the existing audience pool.</li>
+          <li><strong>Performance Max:</strong> fed with Meta-proven creative assets and purchase-event audience signals. Treated as a supplementary reach campaign — useful for filling gaps in Google's reach at modest budget allocation.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CAMPAIGN EXECUTION -->
+  <section id="execution">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">03 — Campaign Execution</div>
+        <h2 class="section-title">What I actually did, week after week.</h2>
+        <p class="section-lead">
+          Strategy is easy. Execution at ₹60L/month — where every wasted rupee costs real money — is where the work actually happens.
+        </p>
+      </div>
+
+      <div class="reveal reveal-delay-1">
+        <h3 style="font-size:1.1rem; font-family:'DM Sans',sans-serif; font-weight:600; color:var(--text); margin-bottom:1rem;">Creative Framework I Built</h3>
+        <p style="font-size:0.9rem; color:var(--muted); line-height:1.7; margin-bottom:1.5rem;">
+          At ₹50L/month on Meta, creative is everything. I developed a systematic testing framework: 8–10 new creatives per week, identified winners in 3–5 days based on CTR and cost-per-ATC, graduated winners to the scaling campaign, and rotated 60–70% of the creative library every 2–3 weeks to combat frequency-driven fatigue.
+        </p>
+      </div>
+
+      <div class="creative-types reveal reveal-delay-2">
+        <div class="creative-type">
+          <div class="creative-type-icon">🧴</div>
+          <div class="creative-type-title">Product-Hero Statics</div>
+          <div class="creative-type-desc">Clean product shots with ingredient callouts (SabiWhite, Snail Mucin, Niacinamide) and price. Highest volume format — used in Shopping and prospecting.</div>
+        </div>
+        <div class="creative-type">
+          <div class="creative-type-icon">✨</div>
+          <div class="creative-type-title">Before-After UGC</div>
+          <div class="creative-type-desc">Real customer transformations for Melakey (pigmentation) and Zitsit (acne). Most powerful proof format — drove highest CTR in retargeting.</div>
+        </div>
+        <div class="creative-type">
+          <div class="creative-type-icon">🧪</div>
+          <div class="creative-type-title">Ingredient Education Reels</div>
+          <div class="creative-type-desc">15–30 sec explainers: 'What is SabiWhite?', 'Why snail mucin works'. Built brand authority and differentiation from generic skincare brands.</div>
+        </div>
+        <div class="creative-type">
+          <div class="creative-type-icon">👨‍🔬</div>
+          <div class="creative-type-title">Founder Story Ads</div>
+          <div class="creative-type-desc">Ashish explaining the pharma science behind formulations. Trust-building creative that outperformed brand statics in cold prospecting CTR.</div>
+        </div>
+        <div class="creative-type">
+          <div class="creative-type-icon">🎁</div>
+          <div class="creative-type-title">Offer-Driven Ads</div>
+          <div class="creative-type-desc">'Buy Any 3 at ₹899' combo deals. Highest order volume driver — required careful ROAS monitoring to ensure combo margin held above target.</div>
+        </div>
+        <div class="creative-type">
+          <div class="creative-type-icon">⭐</div>
+          <div class="creative-type-title">Review Compilations</div>
+          <div class="creative-type-desc">Top customer reviews stitched with product shots. Social proof creative used in 7–14 day retargeting window — 'Trust the 3.5L+ customers' messaging.</div>
+        </div>
+        <div class="creative-type">
+          <div class="creative-type-icon">🎯</div>
+          <div class="creative-type-title">Concern-Based Ads</div>
+          <div class="creative-type-desc">Separate creatives for acne, pigmentation, dryness — matched to concern-based landing pages. Improved relevance scores and CTR by 40% vs generic ads.</div>
+        </div>
+        <div class="creative-type">
+          <div class="creative-type-icon">🎬</div>
+          <div class="creative-type-title">Texture / Unboxing Reels</div>
+          <div class="creative-type-desc">Close-up product texture, swatch, and application videos. High organic-feel engagement — worked as top-of-funnel awareness and social proof simultaneously.</div>
+        </div>
+      </div>
+
+      <div class="format-mix reveal reveal-delay-3">
+        <h4>Creative Format Mix</h4>
+        <div class="format-bar-row">
+          <div class="format-label">Video / Reels</div>
+          <div class="format-track"><div class="format-fill" style="width:40%"></div></div>
+          <div class="format-pct">40%</div>
+        </div>
+        <div class="format-bar-row">
+          <div class="format-label">Static Images</div>
+          <div class="format-track"><div class="format-fill" style="width:35%"></div></div>
+          <div class="format-pct">35%</div>
+        </div>
+        <div class="format-bar-row">
+          <div class="format-label">Carousels</div>
+          <div class="format-track"><div class="format-fill" style="width:15%"></div></div>
+          <div class="format-pct">15%</div>
+        </div>
+        <div class="format-bar-row">
+          <div class="format-label">Collection Ads</div>
+          <div class="format-track"><div class="format-fill" style="width:10%"></div></div>
+          <div class="format-pct">10%</div>
+        </div>
+      </div>
+
+      <div class="strategy-block reveal">
+        <div class="strategy-block-title">
+          <div class="strategy-icon">🔧</div>
+          Funnel &amp; Conversion Optimizations I Owned
+        </div>
+        <ul class="strategy-list">
+          <li><strong>Landing page strategy:</strong> cold traffic went to the bestsellers collection page, retargeting traffic went to the exact product page they viewed, offer campaigns went to the combo deal landing page. Matching landing page to ad intent reduced bounce rate and improved purchase conversion rate.</li>
+          <li><strong>AOV push with combo offers:</strong> 'Buy Any 3 at ₹899' was the single most impactful lever I pulled. It increased AOV from ~₹399 to ₹649+ and made the unit economics of ₹50L/month Meta spend viable. I structured ad creative and landing pages to make combos the default CTA, not an afterthought.</li>
+          <li><strong>GoKwik checkout integration:</strong> worked with the brand to enable GoKwik for faster, trust-verified checkout. Reducing checkout friction at ₹60L/month spend translated to meaningful revenue recovery.</li>
+          <li><strong>Prepaid incentivization:</strong> implemented 'FREE wipes on all prepaid orders above ₹750' — shifted prepaid ratio from 45% to 68%. With 25–30% COD RTO eating into true ROAS, this single initiative improved effective ROAS by an estimated 12–15%.</li>
+          <li><strong>Scaling approach:</strong> used horizontal scaling — duplicating winning ad sets with slight creative variations rather than increasing budgets (which triggers algorithm re-learning). Daily CPA monitoring at ad set level with a 48-hour pause rule for anything exceeding 1.5x target CPA.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FUNNEL & CREATIVE -->
+  <section id="funnel">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">04 — Funnel &amp; Creative Architecture</div>
+        <h2 class="section-title">The full structure I built and managed.</h2>
+        <p class="section-lead">
+          Every rupee had a job. Here's the exact funnel architecture I designed —
+          how budget was allocated, what creative ran where, and what each stage was optimized for.
+        </p>
+      </div>
+
+      <div class="funnel-wrap reveal reveal-delay-1">
+
+        <div class="funnel-stage">
+          <div class="funnel-stage-inner open" onclick="toggleFunnel(this)">
+            <div class="funnel-header">
+              <div class="funnel-left">
+                <div class="funnel-dot dot-1"></div>
+                <div>
+                  <div class="funnel-stage-label">Cold Prospecting · Meta</div>
+                  <div class="funnel-stage-title">Awareness &amp; New Customer Acquisition</div>
+                </div>
+              </div>
+              <div style="display:flex; align-items:center; gap:0.8rem;">
+                <span class="funnel-budget">55–60% of Meta budget · ~₹28–30L/mo</span>
+                <div class="funnel-toggle">+</div>
+              </div>
+            </div>
+            <div class="funnel-body" style="max-height:600px;">
+              <div class="funnel-body-inner">
+                <ul class="funnel-points">
+                  <li><strong>Advantage+ Shopping Campaigns (ASC):</strong> primary scaling engine. Broad targeting (India, 18–45, female) — fed with diverse creative library and let Meta's AI find buyers. Consolidated from 12+ campaigns into 2 ASC campaigns: one for hero products, one for full catalogue.</li>
+                  <li><strong>Interest-based ad sets:</strong> tested stacks including skincare enthusiasts, K-beauty fans, dermatology followers, competitor brand interests (Minimalist, The Ordinary, Dot &amp; Key). Winning interest combinations moved into the ASC audience signal.</li>
+                  <li><strong>Lookalike audiences:</strong> 1% purchase LAL (highest quality), 2% ATC LAL, 5% website visitor LAL. Built from accurate pixel data post-audit. 1% purchase LAL was the highest-converting prospecting audience at scale.</li>
+                  <li><strong>Creative for this stage:</strong> educational Reels (ingredient science, founder story), product-hero statics with ingredient callouts, concern-based ad sets (acne/pigmentation/anti-ageing separately). Goal was relevance, not just reach.</li>
+                  <li><strong>Goal:</strong> drive website traffic and add-to-carts at target CPM. ROAS expectation at this stage: 2.5–3x — knowingly below overall target, as this stage fills the retargeting pool that profits the whole funnel.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="funnel-connector"></div>
+
+        <div class="funnel-stage">
+          <div class="funnel-stage-inner" onclick="toggleFunnel(this)">
+            <div class="funnel-header">
+              <div class="funnel-left">
+                <div class="funnel-dot dot-2"></div>
+                <div>
+                  <div class="funnel-stage-label">Retargeting · Meta</div>
+                  <div class="funnel-stage-title">Warm Audience Conversion — The Profit Centre</div>
+                </div>
+              </div>
+              <div style="display:flex; align-items:center; gap:0.8rem;">
+                <span class="funnel-budget">25–30% of Meta budget · ~₹12–15L/mo</span>
+                <div class="funnel-toggle">+</div>
+              </div>
+            </div>
+            <div class="funnel-body">
+              <div class="funnel-body-inner">
+                <ul class="funnel-points">
+                  <li><strong>Cart abandoners (0–7 days):</strong> urgency-driven creative — 'Still thinking? Your cart is waiting' + '7-day money-back guarantee' + limited stock messaging. Highest priority segment. Creative featured exact product left in cart alongside social proof.</li>
+                  <li><strong>Product page viewers (7–14 days):</strong> social proof-driven — review compilations, '3.5L+ customers trust us', before-after UGC for specific products. Star ratings and review counts front and centre. Also ran DPA (Dynamic Product Ads) showing exact products browsed with real pricing.</li>
+                  <li><strong>Instagram/Facebook engagers (14–30 days):</strong> offer-driven — 'Buy Any 3 at ₹899' combo deals, first-purchase incentives, collection page ads. These were warm but not product-specific, so offer creative with broad appeal worked best.</li>
+                  <li><strong>Dynamic Product Ads (DPA):</strong> running continuously across all retargeting segments — product image, price, star rating, review count pulled dynamically from catalogue. Consistently delivered 8–12x ROAS. Best-performing segment on the entire account.</li>
+                  <li><strong>Goal:</strong> convert warm audiences into paying customers at 8–12x ROAS. This segment subsidized prospecting and is where the account's profitability lived.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="funnel-connector"></div>
+
+        <div class="funnel-stage">
+          <div class="funnel-stage-inner" onclick="toggleFunnel(this)">
+            <div class="funnel-header">
+              <div class="funnel-left">
+                <div class="funnel-dot dot-3"></div>
+                <div>
+                  <div class="funnel-stage-label">Google Ads</div>
+                  <div class="funnel-stage-title">High-Intent Demand Capture — ₹10L/mo</div>
+                </div>
+              </div>
+              <div style="display:flex; align-items:center; gap:0.8rem;">
+                <span class="funnel-budget">₹10L/mo — 100% Google</span>
+                <div class="funnel-toggle">+</div>
+              </div>
+            </div>
+            <div class="funnel-body">
+              <div class="funnel-body-inner">
+                <ul class="funnel-points">
+                  <li><strong>Brand Search (35% of Google budget):</strong> protected 'personal touch skincare', 'PTS skincare', 'sunstalker sunscreen', 'facebath facewash' — competitors were bidding on these terms. Brand search delivered 10x+ ROAS and was non-negotiable at any budget level. Every Meta impression that drives brand recognition needs a Google brand ad to capture the resulting search.</li>
+                  <li><strong>Google Shopping (30%):</strong> product feed with keyword-rich titles, competitive pricing, and review ratings visible. Captured high-intent product searches — 'SPF 50 sunscreen oily skin', 'niacinamide facewash India'. Delivered 4–5x ROAS with high purchase intent conversion.</li>
+                  <li><strong>Non-Brand Search (20%):</strong> generic high-intent terms: 'best sunscreen for oily skin India', 'snail mucin serum India', 'dark spot corrector for face'. Lower ROAS (2–3x) but strategically important for acquiring customers who haven't yet been exposed to Meta ads.</li>
+                  <li><strong>Performance Max (15%):</strong> fed with proven creative from Meta, audience signals from purchase event data. Supplementary reach — improving efficiency over time as audience signals accumulated. Treated as the Google equivalent of Meta's Advantage+ at small scale.</li>
+                  <li><strong>The Meta-Google relationship:</strong> Meta created demand; Google captured it. The 83/17 spend split (₹50L Meta, ₹10L Google) was deliberate — every Meta impression that reaches someone who then Googles the brand converts via brand search at near-zero CPC. The two channels have to be planned together.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="funnel-connector"></div>
+
+        <div class="funnel-stage">
+          <div class="funnel-stage-inner" onclick="toggleFunnel(this)">
+            <div class="funnel-header">
+              <div class="funnel-left">
+                <div class="funnel-dot dot-4"></div>
+                <div>
+                  <div class="funnel-stage-label">Retention &amp; Cross-sell · Meta</div>
+                  <div class="funnel-stage-title">Past Purchaser LTV Maximisation</div>
+                </div>
+              </div>
+              <div style="display:flex; align-items:center; gap:0.8rem;">
+                <span class="funnel-budget">10–15% of Meta budget · ~₹5–7L/mo</span>
+                <div class="funnel-toggle">+</div>
+              </div>
+            </div>
+            <div class="funnel-body">
+              <div class="funnel-body-inner">
+                <ul class="funnel-points">
+                  <li><strong>Cross-sell sequences:</strong> bought sunscreen → show moisturizer at a combo price. Bought facewash → show serum. Bought Facebath → show the 'complete routine' bundle. Matched based on product category purchased and time since last order.</li>
+                  <li><strong>Replenishment reminders:</strong> automated at 30–45 days post-purchase for consumable products. 'Running low on Facebath? Reorder and save 15%' — timed to the product's likely usage cycle. Delivered 5–6x ROAS at minimal incremental spend.</li>
+                  <li><strong>New product launch ads:</strong> past purchasers were the first audience for every new SKU launch. Existing customers convert on new products at dramatically higher rates than cold audiences — and trust the brand enough to try something unfamiliar.</li>
+                  <li><strong>Bundle/routine upsell:</strong> 'Complete your skincare routine' — facewash + sunscreen + moisturizer combo at ₹1,299. Higher AOV and higher LTV per customer. Positioned as a routine recommendation, not a hard upsell.</li>
+                  <li><strong>Goal:</strong> increase repeat purchase rate and LTV. 5–6x ROAS with minimal incremental spend — this was the highest-efficiency segment on the account after DPA retargeting.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- RESULTS -->
+  <section id="results">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">05 — Results &amp; Impact</div>
+        <h2 class="section-title">What I delivered.</h2>
+        <p class="section-lead">
+          Numbers I'm proud to put in a portfolio — not because they're inflated, but because
+          I know exactly which decisions drove each one.
+        </p>
+      </div>
+
+      <div class="results-dashboard reveal reveal-delay-1">
+        <div class="result-card primary">
+          <div class="result-val">4.2x</div>
+          <div class="result-label">Blended ROAS</div>
+          <div class="result-delta">₹60L spend → ₹2.52 Cr/mo</div>
+        </div>
+        <div class="result-card primary">
+          <div class="result-val">₹2.52 Cr</div>
+          <div class="result-label">Monthly Revenue from Paid</div>
+          <div class="result-delta">at peak</div>
+        </div>
+        <div class="result-card">
+          <div class="result-val">35%</div>
+          <div class="result-label">CAC Reduction</div>
+          <div class="result-delta">Over 6 months</div>
+        </div>
+        <div class="result-card">
+          <div class="result-val">63%</div>
+          <div class="result-label">AOV Increase</div>
+          <div class="result-delta">₹399 → ₹649</div>
+        </div>
+        <div class="result-card">
+          <div class="result-val">3×</div>
+          <div class="result-label">Order Volume Scale</div>
+          <div class="result-delta">4K → 12K orders/mo</div>
+        </div>
+        <div class="result-card">
+          <div class="result-val">68%</div>
+          <div class="result-label">Prepaid Order Ratio</div>
+          <div class="result-delta">Was 45% — +23pp</div>
+        </div>
+        <div class="result-card">
+          <div class="result-val">300+</div>
+          <div class="result-label">Creatives Tested</div>
+          <div class="result-delta">40+ winners identified</div>
+        </div>
+        <div class="result-card">
+          <div class="result-val">22%</div>
+          <div class="result-label">Cart Abandonment ↓</div>
+          <div class="result-delta">Retargeting + checkout</div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <h3 style="font-size:1.1rem; font-family:'DM Sans',sans-serif; font-weight:600; color:var(--text); margin-bottom:1.2rem;">Channel-Level ROAS Breakdown</h3>
+        <div class="channel-table">
+          <div class="channel-table-head">
+            <div class="ch-col">Channel</div>
+            <div class="ch-col">ROAS</div>
+            <div class="ch-col">Budget Share</div>
+            <div class="ch-col">Role</div>
+          </div>
+          <div class="channel-row">
+            <div class="ch-cell name">Meta — Retargeting (DPA)</div>
+            <div class="ch-cell roas">8–12x<div class="roas-bar"><div class="roas-fill" style="width:100%"></div></div></div>
+            <div class="ch-cell">25–30%</div>
+            <div class="ch-cell">Profit centre</div>
+          </div>
+          <div class="channel-row">
+            <div class="ch-cell name">Google — Brand Search</div>
+            <div class="ch-cell roas">10x+<div class="roas-bar"><div class="roas-fill" style="width:95%"></div></div></div>
+            <div class="ch-cell">~6%</div>
+            <div class="ch-cell">Demand capture</div>
+          </div>
+          <div class="channel-row">
+            <div class="ch-cell name">Meta — Retention / Cross-sell</div>
+            <div class="ch-cell roas">5–6x<div class="roas-bar"><div class="roas-fill" style="width:55%"></div></div></div>
+            <div class="ch-cell">10–15%</div>
+            <div class="ch-cell">LTV engine</div>
+          </div>
+          <div class="channel-row">
+            <div class="ch-cell name">Google — Shopping</div>
+            <div class="ch-cell roas">4–5x<div class="roas-bar"><div class="roas-fill" style="width:45%"></div></div></div>
+            <div class="ch-cell">~5%</div>
+            <div class="ch-cell">High-intent capture</div>
+          </div>
+          <div class="channel-row">
+            <div class="ch-cell name">Blended ROAS</div>
+            <div class="ch-cell roas">4.2x<div class="roas-bar"><div class="roas-fill" style="width:40%"></div></div></div>
+            <div class="ch-cell">100%</div>
+            <div class="ch-cell">Overall account</div>
+          </div>
+          <div class="channel-row">
+            <div class="ch-cell name">Meta — Cold Prospecting</div>
+            <div class="ch-cell roas">2.5–3x<div class="roas-bar"><div class="roas-fill" style="width:28%"></div></div></div>
+            <div class="ch-cell">55–60%</div>
+            <div class="ch-cell">Fills retargeting pool</div>
+          </div>
+          <div class="channel-row">
+            <div class="ch-cell name">Google — Non-Brand / PMax</div>
+            <div class="ch-cell roas">2–3.5x<div class="roas-bar"><div class="roas-fill" style="width:25%"></div></div></div>
+            <div class="ch-cell">~6%</div>
+            <div class="ch-cell">New user acquisition</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="insight-block reveal reveal-delay-3">
+        <strong>Top 3 products drove 55% of paid ad revenue:</strong> Facebath facewash, Sunstalker sunscreen, and Mucin Hydrating Serum were the consistent winners across prospecting and retargeting. I kept creative for these three in constant rotation and used their ROAS data to guide the broader creative testing roadmap.
+      </div>
+
+      <div class="reveal reveal-delay-4">
+        <h3 style="font-size:1.1rem; font-family:'DM Sans',sans-serif; font-weight:600; color:var(--text); margin-bottom:1.2rem;">Key Optimizations That Moved the Needle</h3>
+        <ul class="optim-list">
+          <li class="optim-item">
+            <div class="optim-num">01</div>
+            <div>
+              <div class="optim-title">Advantage+ Campaign Consolidation</div>
+              <div class="optim-desc">Consolidating from 12+ fragmented campaigns to 2–3 ASC campaigns improved Meta's algorithm efficiency by giving it more data per campaign to optimize against. The algorithm learns faster with pooled budget — CPM dropped 18% within 3 weeks of consolidation.</div>
+              <span class="optim-impact">↓ 18% CPM reduction</span>
+            </div>
+          </li>
+          <li class="optim-item">
+            <div class="optim-num">02</div>
+            <div>
+              <div class="optim-title">Creative Diversity Protocol</div>
+              <div class="optim-desc">Ensuring no two ads in the same ad set looked visually alike — mixing statics, videos, carousels, and UGC within each campaign. Creative diversity is the primary lever against CPM inflation from frequency fatigue at high spend levels. Combined with a 2–3 week rotation cycle, this kept CPMs stable as spend scaled from ₹30L to ₹60L/month.</div>
+              <span class="optim-impact">CPM stability maintained through scale-up</span>
+            </div>
+          </li>
+          <li class="optim-item">
+            <div class="optim-num">03</div>
+            <div>
+              <div class="optim-title">Combo Offer AOV Strategy</div>
+              <div class="optim-desc">The 'Buy Any 3 at ₹899' offer restructured the entire unit economics of the account. At ₹399 AOV, a 4x ROAS target requires a ₹100 CPA — extremely tight at scale. At ₹649 AOV, the same ROAS target allows ₹162 CPA — far more achievable. This wasn't just a promotions decision; it was a fundamental change to what performance marketing could achieve profitably.</div>
+              <span class="optim-impact">↑ 63% AOV · ₹399 → ₹649</span>
+            </div>
+          </li>
+          <li class="optim-item">
+            <div class="optim-num">04</div>
+            <div>
+              <div class="optim-title">Prepaid Incentivization</div>
+              <div class="optim-desc">COD orders in Indian D2C carry 25–30% RTO rates. An order that returns has negative ROAS — you've paid for the customer acquisition AND the return logistics. Shifting from 45% to 68% prepaid ratio through the 'free wipes on prepaid' offer improved true ROAS (accounting for returns) by an estimated 12–15%, without changing a single ad or targeting parameter.</div>
+              <span class="optim-impact">↑ 23pp prepaid ratio · ~12–15% true ROAS improvement</span>
+            </div>
+          </li>
+          <li class="optim-item">
+            <div class="optim-num">05</div>
+            <div>
+              <div class="optim-title">Concern-Based Creative Segmentation</div>
+              <div class="optim-desc">Running separate creative for acne-prone, pigmentation-concerned, and dry skin audiences — each matched to the relevant concern-based product collection page on the Shopify site. Ad relevance score improvement translated directly to lower CPCs and higher CTR. A generic skincare ad talks to everyone; a pigmentation-specific ad with Melakey before-after talks to exactly the person who needs it.</div>
+              <span class="optim-impact">↑ 40% CTR improvement vs generic ads</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- LEARNINGS -->
+  <section id="learnings">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">06 — What I Learned</div>
+        <h2 class="section-title">What managing ₹60L/month taught me.</h2>
+        <p class="section-lead">
+          Five things I know now that I wish I'd known at the start — and that I carry into every account I manage.
+        </p>
+      </div>
+
+      <ul class="learning-list reveal reveal-delay-1">
+        <li class="learning-item">
+          <div class="learning-num">01</div>
+          <div>
+            <div class="learning-title">At scale, creative is the media buy</div>
+            <div class="learning-desc">At ₹60L/month, I spent about 80% of my strategic thinking on creative and 20% on media buying. Meta's algorithm at this spend level is smart enough to find buyers if you feed it good creative. The constraint is almost never targeting or bidding — it's creative quality, diversity, and refresh rate. I became a creative strategist who also happened to manage a media budget.</div>
+          </div>
+        </li>
+        <li class="learning-item">
+          <div class="learning-num">02</div>
+          <div>
+            <div class="learning-title">AOV is the silent ROAS killer — and fixer</div>
+            <div class="learning-desc">In a category where products cost ₹299–₹599, you cannot profitably acquire customers on single-product purchases at scale. The math simply doesn't work. Combo offers weren't a sales gimmick — they were a unit economics necessity. I now evaluate every new D2C account's AOV potential before I look at any targeting or creative, because nothing else matters as much to whether profitable scale is achievable.</div>
+          </div>
+        </li>
+        <li class="learning-item">
+          <div class="learning-num">03</div>
+          <div>
+            <div class="learning-title">Google is the net, Meta is the fishing rod</div>
+            <div class="learning-desc">Meta creates demand; Google captures it. The 83/17 spend split (₹50L Meta, ₹10L Google) wasn't arbitrary — it reflected where each channel delivered value in the funnel. Every Meta impression that builds brand awareness generates branded search queries that convert at 10x+ ROAS on Google brand campaigns. Planning both channels together as a system is fundamentally different from managing them separately.</div>
+          </div>
+        </li>
+        <li class="learning-item">
+          <div class="learning-num">04</div>
+          <div>
+            <div class="learning-title">Retargeting is the profit centre; prospecting is the investment</div>
+            <div class="learning-desc">Prospecting at scale will almost always deliver thin or below-target ROAS. That's not a problem — it's the design. Prospecting's job is to fill the retargeting pool with warm audiences who will then convert at 8–12x ROAS. I structured the entire budget and reporting framework around this reality. When leadership sees prospecting ROAS, I show them retargeting ROAS alongside it. The whole system has to be evaluated together.</div>
+          </div>
+        </li>
+        <li class="learning-item">
+          <div class="learning-num">05</div>
+          <div>
+            <div class="learning-title">Prepaid vs COD is a performance marketing problem, not just ops</div>
+            <div class="learning-desc">In Indian D2C, a COD order with 25–30% RTO effectively cuts your ROAS in half on that segment. The prepaid incentivization strategy I implemented was as impactful to true ROAS as any ad optimization I ran. Performance marketers who ignore the post-click, post-purchase journey are optimizing an incomplete system. The ad's job isn't done at the purchase — it's done when the product is delivered and kept.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="divider"></div>
+  <footer class="case-footer">
+    <div>
+      <div class="case-footer-author">Led by Chethan S at Insane Labs — Performance Marketing Specialist</div>
+      <div class="case-footer-sub">Meta Ads · Google Ads · D2C Skincare · ₹60L/month Ad Spend</div>
+      <div class="case-footer-links">
+        <a href="index.html">← Portfolio</a>
+        <a href="case-study-minimalist.html">Minimalist Teardown</a>
+        <a href="case-study-mamaearth.html">Mamaearth Teardown</a>
+      </div>
+      <div class="case-footer-note">
+        All metrics are representative of campaign performance during my tenure at Insane Labs. Specific numbers may be approximated to respect client confidentiality.
+      </div>
+    </div>
+    <div class="footer-nav">
+      <a href="case-study-minimalist.html" class="footer-nav-link">
+        <span class="fnl">Brand Teardown</span>
+        <span class="fnt">Minimalist →</span>
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    function toggleFunnel(el) {
+      const body = el.querySelector('.funnel-body');
+      const isOpen = el.classList.contains('open');
+      document.querySelectorAll('.funnel-stage-inner').forEach(s => {
+        s.classList.remove('open');
+        s.querySelector('.funnel-body').style.maxHeight = '0';
+      });
+      if (!isOpen) {
+        el.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + 40 + 'px';
+      }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      const first = document.querySelector('.funnel-stage-inner.open');
+      if (first) { const b = first.querySelector('.funnel-body'); b.style.maxHeight = b.scrollHeight + 40 + 'px'; }
+    });
+  </script>
+</body>
+</html>

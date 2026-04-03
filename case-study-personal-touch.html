@@ -159,6 +159,66 @@
     .format-fill { height: 100%; background: var(--warm); border-radius: 100px; }
     .format-pct { font-size: 0.75rem; font-weight: 600; color: var(--muted); width: 36px; text-align: right; flex-shrink: 0; }
 
+    /* META AD LIBRARY */
+    .adlib-sub-title { font-family: 'DM Sans', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.8rem; }
+    .adlib-sub-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    .adlib-volume-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 1.5rem; }
+    .adlib-vol-card { background: var(--card); padding: 1.3rem 1.5rem; }
+    .adlib-vol-card.primary { background: var(--highlight); }
+    .adlib-vol-num { font-family: 'Instrument Serif', serif; font-size: 2rem; letter-spacing: -0.03em; color: var(--text); line-height: 1; margin-bottom: 0.3rem; }
+    .adlib-vol-card.primary .adlib-vol-num { color: #F5EFE8; }
+    .adlib-vol-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); }
+    .adlib-vol-card.primary .adlib-vol-label { color: #7A6E65; }
+
+    .adlib-fatigue-note { background: var(--warm-bg); border: 1px solid #D4B896; border-radius: 10px; padding: 1rem 1.3rem; font-size: 0.85rem; color: var(--highlight); line-height: 1.7; margin-bottom: 3rem; }
+    .adlib-fatigue-note strong { font-weight: 600; }
+
+    .adlib-creative-grid { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 3rem; }
+    .adlib-creative-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .adlib-card-header { display: flex; align-items: flex-start; gap: 1rem; padding: 1.4rem 1.6rem 1rem; }
+    .adlib-rank { font-family: 'Instrument Serif', serif; font-size: 2.8rem; color: var(--accent); line-height: 1; flex-shrink: 0; width: 48px; }
+    .adlib-rank.top { color: var(--warm); }
+    .adlib-card-head-right { flex: 1; }
+    .adlib-card-tag { font-size: 0.65rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--warm); margin-bottom: 0.3rem; }
+    .adlib-card-title { font-size: 1rem; font-weight: 600; color: var(--text); line-height: 1.3; margin-bottom: 0.2rem; }
+    .adlib-card-subtitle { font-size: 0.8rem; color: var(--muted); }
+    .adlib-card-body { padding: 0 1.6rem 1.4rem; display: flex; flex-direction: column; gap: 0.8rem; }
+    .adlib-card-section { font-size: 0.68rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; margin-top: 0.2rem; }
+    .adlib-detail { font-size: 0.87rem; color: var(--muted); line-height: 1.65; }
+    .adlib-detail strong { color: var(--text); font-weight: 600; }
+    .adlib-hooks { list-style: none; margin: 0.4rem 0; }
+    .adlib-hooks li { font-size: 0.82rem; color: var(--muted); padding: 0.3rem 0 0.3rem 1.1rem; position: relative; line-height: 1.5; font-style: italic; border-bottom: 1px solid var(--border); }
+    .adlib-hooks li:last-child { border-bottom: none; }
+    .adlib-hooks li::before { content: '"'; position: absolute; left: 0; color: var(--warm); font-style: normal; font-weight: 700; }
+    .adlib-why { background: var(--warm-bg); border-radius: 8px; padding: 0.8rem 1rem; font-size: 0.83rem; color: var(--highlight); line-height: 1.6; }
+    .adlib-why strong { font-weight: 600; }
+    .adlib-review-quote { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 0.6rem 0.9rem; font-size: 0.8rem; color: var(--muted); line-height: 1.55; font-style: italic; margin: 0.3rem 0; }
+    .adlib-review-quote span { color: var(--text); font-style: normal; font-weight: 500; font-size: 0.72rem; display: block; margin-top: 0.3rem; padding-top: 0.3rem; border-top: 1px solid var(--border); }
+
+    .adlib-concern-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.6rem; }
+    .adlib-concern { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem 1rem; }
+    .adlib-concern-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--warm); margin-bottom: 0.25rem; }
+    .adlib-concern-product { font-size: 0.8rem; font-weight: 600; color: var(--text); margin-bottom: 0.2rem; }
+    .adlib-concern-headline { font-size: 0.75rem; color: var(--muted); line-height: 1.45; font-style: italic; }
+
+    .adlib-format-notes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.7rem; margin-bottom: 3rem; }
+    @media (max-width: 700px) { .adlib-format-notes { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .adlib-format-notes { grid-template-columns: 1fr; } }
+    .adlib-format-note { font-size: 0.78rem; color: var(--muted); padding: 0.8rem 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; line-height: 1.5; }
+    .adlib-format-note strong { color: var(--text); display: block; margin-bottom: 0.2rem; font-size: 0.82rem; }
+
+    .adlib-testing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+    @media (max-width: 600px) { .adlib-testing-grid { grid-template-columns: 1fr; } }
+    .adlib-testing-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem 1.4rem; }
+    .adlib-testing-card-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+    .adlib-testing-card-val { font-family: 'Instrument Serif', serif; font-size: 1.8rem; color: var(--warm); letter-spacing: -0.02em; margin-bottom: 0.3rem; line-height: 1; }
+    .adlib-testing-card-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
+
+    .adlib-closing { background: var(--highlight); border-radius: 12px; padding: 2.5rem 2rem; text-align: center; margin-top: 3rem; }
+    .adlib-closing p { font-family: 'Instrument Serif', serif; font-size: clamp(1.15rem, 2.5vw, 1.55rem); color: #F5EFE8; line-height: 1.55; letter-spacing: -0.02em; }
+    .adlib-closing em { color: var(--warm); font-style: italic; }
+
     /* FUNNEL */
     .funnel-wrap { max-width: 760px; margin: 0 auto; }
     .funnel-stage { position: relative; margin-bottom: 2px; }
@@ -272,6 +332,7 @@
       <li><a href="#brief">The Brief</a></li>
       <li><a href="#strategy">My Strategy</a></li>
       <li><a href="#execution">Execution</a></li>
+      <li><a href="#adlibrary">Ad Library</a></li>
       <li><a href="#funnel">Funnel & Creative</a></li>
       <li><a href="#results">Results</a></li>
       <li><a href="#learnings">Learnings</a></li>
@@ -608,11 +669,348 @@
 
   <div class="divider"></div>
 
+  <!-- META AD LIBRARY BREAKDOWN -->
+  <section id="adlibrary">
+    <div class="container">
+
+      <div class="reveal">
+        <div class="section-eyebrow">04 — Meta Ad Library Breakdown</div>
+        <h2 class="section-title">What I Ran &amp; Why.</h2>
+        <p class="section-lead">
+          Here's a walkthrough of the ad creative system I built for Personal Touch Skincare. At any given time,
+          I maintained 40–60 active ads across prospecting, retargeting, and retention campaigns. Below is the breakdown
+          of the creative categories, formats, and specific approaches that drove performance at ₹50 Lakhs/month on Meta.
+        </p>
+      </div>
+
+      <!-- Active Ad Volume & Structure -->
+      <div class="reveal">
+        <div class="adlib-sub-title">Active Ad Volume &amp; Structure</div>
+        <div class="adlib-volume-grid">
+          <div class="adlib-vol-card primary">
+            <div class="adlib-vol-num">50–65</div>
+            <div class="adlib-vol-label">Active Ads at Peak</div>
+          </div>
+          <div class="adlib-vol-card">
+            <div class="adlib-vol-num">15–20</div>
+            <div class="adlib-vol-label">Testing — Weekly Cycle</div>
+          </div>
+          <div class="adlib-vol-card">
+            <div class="adlib-vol-num">20–25</div>
+            <div class="adlib-vol-label">Scaling — ASC Winners</div>
+          </div>
+          <div class="adlib-vol-card">
+            <div class="adlib-vol-num">10–15</div>
+            <div class="adlib-vol-label">Retargeting — Funnel-Staged</div>
+          </div>
+          <div class="adlib-vol-card">
+            <div class="adlib-vol-num">5–8</div>
+            <div class="adlib-vol-label">Retention — Cross-Sell</div>
+          </div>
+        </div>
+        <div class="adlib-fatigue-note">
+          <strong>Creative refresh cadence:</strong> I refreshed 60–70% of creatives every 2–3 weeks to stay ahead of fatigue.
+          When CPM rose above ₹150 on any ad set, that was my signal to inject fresh creative — not to increase bids or budgets.
+        </div>
+      </div>
+
+      <!-- Top Performing Creative Categories -->
+      <div class="reveal">
+        <div class="adlib-sub-title">Top Performing Creative Categories — Ranked by ROAS Contribution</div>
+        <div class="adlib-creative-grid">
+
+          <!-- #1 Hero Product Statics -->
+          <div class="adlib-creative-card">
+            <div class="adlib-card-header">
+              <div class="adlib-rank top">#1</div>
+              <div class="adlib-card-head-right">
+                <div class="adlib-card-tag">Highest Volume Runner</div>
+                <div class="adlib-card-title">Hero Product Statics</div>
+                <div class="adlib-card-subtitle">1080×1080 Feed &nbsp;·&nbsp; 1080×1920 Stories / Reels</div>
+              </div>
+            </div>
+            <div class="adlib-card-body">
+              <div>
+                <div class="adlib-card-section">What I ran</div>
+                <p class="adlib-detail">Clean product-on-white shots of <strong>Facebath, Sunstalker, and Youthburst</strong> with ingredient callouts. Key elements every ad had: product image centred, price prominently displayed (₹399, ₹349), <strong>'24% OFF' badge</strong>, star rating with review count (<strong>★★★★★ 1,264 Reviews</strong>), patented ingredient callout (<strong>SabiWhite® Powered</strong>), and <strong>'Free Wipes on Prepaid'</strong> strip at bottom.</p>
+              </div>
+              <div class="adlib-why">
+                <strong>Why it worked:</strong> At ₹349–₹599 price points, showing the price upfront filtered for purchase-intent clicks and cut wasted spend on window shoppers. The review count built instant social proof without any additional copy needed.
+              </div>
+            </div>
+          </div>
+
+          <!-- #2 Combo/Offer -->
+          <div class="adlib-creative-card">
+            <div class="adlib-card-header">
+              <div class="adlib-rank top">#2</div>
+              <div class="adlib-card-head-right">
+                <div class="adlib-card-tag">Highest Order Volume</div>
+                <div class="adlib-card-title">Combo / Offer Creatives</div>
+                <div class="adlib-card-subtitle">Carousel + Static compilation &nbsp;·&nbsp; Retargeting primary</div>
+              </div>
+            </div>
+            <div class="adlib-card-body">
+              <div>
+                <div class="adlib-card-section">What I ran</div>
+                <p class="adlib-detail">Bold graphic showing 3 or 5 products in a grid with a giant price tag: <strong>'ANY 3 FOR ₹899'</strong> or <strong>'ANY 5 FOR ₹2,499'</strong>. Flash Combo creative: Facebath + Sunstalker side by side, original price ₹1,228 crossed out, combo price ₹699, <strong>'43% OFF'</strong> badge. Each carousel slide = one product option the customer could pick.</p>
+              </div>
+              <div class="adlib-why">
+                <strong>Why it worked — and the caveat:</strong> Drove the highest raw order volume. But I monitored ROAS carefully — discount-driven audiences can have lower LTV. I ran these primarily in retargeting and for first-purchase conversion pushes, not cold prospecting.
+              </div>
+            </div>
+          </div>
+
+          <!-- #3 UGC / Customer Testimonials -->
+          <div class="adlib-creative-card">
+            <div class="adlib-card-header">
+              <div class="adlib-rank top">#3</div>
+              <div class="adlib-card-head-right">
+                <div class="adlib-card-tag">Highest Trust &nbsp;·&nbsp; Best for Cold Audiences</div>
+                <div class="adlib-card-title">UGC / Customer Testimonial Ads</div>
+                <div class="adlib-card-subtitle">15–30 sec Reels with animated text &nbsp;·&nbsp; Static quote cards</div>
+              </div>
+            </div>
+            <div class="adlib-card-body">
+              <div>
+                <div class="adlib-card-section">Real reviews I turned into ad copy</div>
+                <div class="adlib-review-quote">"This is the bestest facewash I had used in my life and don't feel like switching to any other facewash ever"<span>→ Used as text-overlay on Facebath product video Reel</span></div>
+                <div class="adlib-review-quote">"I had a burn mark on my hand — it started fading off with Silkmood"<span>→ Paired with before-after imagery</span></div>
+                <div class="adlib-review-quote">"My open pores started minimizing within a week"<span>→ Used for Skintext / pore-concern ad sets</span></div>
+                <div class="adlib-review-quote">"I am using this product from last 3 years, my skin is less tanned and has become healthy glowing"<span>→ Used for Sunstalker as long-term loyalty proof</span></div>
+              </div>
+              <div class="adlib-why">
+                <strong>Why it worked:</strong> In skincare, people trust other customers more than brand claims. UGC outperformed polished brand creatives <strong>2–3× on CTR</strong> and delivered <strong>40% lower CPA</strong>. The format — animated review text over product B-roll — looked native to Reels and didn't trigger the "this is an ad" scroll-past.
+              </div>
+            </div>
+          </div>
+
+          <!-- #4 Ingredient Education Reels -->
+          <div class="adlib-creative-card">
+            <div class="adlib-card-header">
+              <div class="adlib-rank">#4</div>
+              <div class="adlib-card-head-right">
+                <div class="adlib-card-tag">Best for Top-of-Funnel Discovery</div>
+                <div class="adlib-card-title">Ingredient Education Reels</div>
+                <div class="adlib-card-subtitle">15–30 sec vertical 9:16 &nbsp;·&nbsp; Quick cuts &nbsp;·&nbsp; Product reveal at end</div>
+              </div>
+            </div>
+            <div class="adlib-card-body">
+              <div>
+                <div class="adlib-card-section">Hooks I tested</div>
+                <ul class="adlib-hooks">
+                  <li>Your sunscreen is doing 1 job. Sunstalker does 3.</li>
+                  <li>SabiWhite is 6000× more potent than regular Vitamin C. Here's why that matters for your skin.</li>
+                  <li>Snail Mucin went viral in Korea. Here's what it actually does.</li>
+                  <li>Your face wash is stripping your skin. Facebath is different.</li>
+                  <li>Dermatologists use Azelaic Acid for dark spots. Now you can too — for ₹491.</li>
+                </ul>
+              </div>
+              <div class="adlib-why">
+                <strong>Lowest CPM I saw — ₹60–90.</strong> But longest conversion path. These built the retargeting pool rather than converting directly. I accepted the longer payback window because audience quality in retargeting was significantly higher when primed by an education Reel first.
+              </div>
+            </div>
+          </div>
+
+          <!-- #5 Founder Story -->
+          <div class="adlib-creative-card">
+            <div class="adlib-card-header">
+              <div class="adlib-rank">#5</div>
+              <div class="adlib-card-head-right">
+                <div class="adlib-card-tag">Trust Differentiator</div>
+                <div class="adlib-card-title">Founder Story / Science Credibility Ads</div>
+                <div class="adlib-card-subtitle">45–90 sec video for Feed/Reels &nbsp;·&nbsp; 15 sec bumper cuts</div>
+              </div>
+            </div>
+            <div class="adlib-card-body">
+              <div>
+                <div class="adlib-card-section">Angles I ran</div>
+                <p class="adlib-detail">Founder <strong>Ashish Jawa</strong> explaining the pharmaceutical science behind formulations. Behind-the-scenes factory footage showing actual manufacturing — lab equipment, testing, quality control. Copy: <em>"Built by a pharmacist with 12+ years experience, not a marketing team."</em></p>
+                <p class="adlib-detail" style="margin-top:0.5rem;">Also ran co-founder Aditi's luxury branding background: <em>"From Salvatore Ferragamo to skincare — why we obsess over every detail."</em></p>
+              </div>
+              <div class="adlib-why">
+                <strong>The strongest differentiator I had.</strong> While competitors like Minimalist, Mamaearth, and Dot & Key all use contract manufacturers, PTS's own pharma facility was a genuine trust signal I leaned into heavily — especially for cold audiences high in skepticism about D2C skincare brands.
+              </div>
+            </div>
+          </div>
+
+          <!-- #6 Concern-Based Targeting -->
+          <div class="adlib-creative-card">
+            <div class="adlib-card-header">
+              <div class="adlib-rank">#6</div>
+              <div class="adlib-card-head-right">
+                <div class="adlib-card-tag">Best Relevance Scores — 8–10/10</div>
+                <div class="adlib-card-title">Concern-Based Targeting Creatives</div>
+                <div class="adlib-card-subtitle">Separate ad sets per skin concern → matched collection landing pages</div>
+              </div>
+            </div>
+            <div class="adlib-card-body">
+              <div>
+                <div class="adlib-card-section">Concern → Product → Headline</div>
+                <div class="adlib-concern-grid">
+                  <div class="adlib-concern">
+                    <div class="adlib-concern-label">Acne</div>
+                    <div class="adlib-concern-product">Zitsit Spot Corrector + Foaming Wash</div>
+                    <div class="adlib-concern-headline">"Active breakout? Zitsit targets acne at the source — Salicylic + Niacinamide + Zinc"</div>
+                  </div>
+                  <div class="adlib-concern">
+                    <div class="adlib-concern-label">Pigmentation</div>
+                    <div class="adlib-concern-product">Melakey Dark Spot Corrector</div>
+                    <div class="adlib-concern-headline">"Dark spots that won't fade? Azelaic Acid works where Vitamin C stops"</div>
+                  </div>
+                  <div class="adlib-concern">
+                    <div class="adlib-concern-label">Dryness / Eczema</div>
+                    <div class="adlib-concern-product">Intenseal Repair Balm + Skindam</div>
+                    <div class="adlib-concern-headline">"Eczema-prone skin needs barrier repair, not just moisture. Intenseal does both"</div>
+                  </div>
+                  <div class="adlib-concern">
+                    <div class="adlib-concern-label">Anti-Aging</div>
+                    <div class="adlib-concern-product">C-Byond Serum + Youthburst</div>
+                    <div class="adlib-concern-headline">"C-Byond is 6000× more potent. Fine lines don't stand a chance"</div>
+                  </div>
+                  <div class="adlib-concern">
+                    <div class="adlib-concern-label">Open Pores</div>
+                    <div class="adlib-concern-product">Facebath + Toner Combo</div>
+                    <div class="adlib-concern-headline">"Shrink pores without harsh acids — Niacinamide + SabiWhite"</div>
+                  </div>
+                </div>
+              </div>
+              <div class="adlib-why">
+                <strong>Best relevance scores across all creative types.</strong> Each concern ad set linked directly to its matching skin-concern collection page on the website. Perfect ad-to-landing-page match = lowest CPC I ran anywhere in the account.
+              </div>
+            </div>
+          </div>
+
+          <!-- #7 Korean Range -->
+          <div class="adlib-creative-card">
+            <div class="adlib-card-header">
+              <div class="adlib-rank">#7</div>
+              <div class="adlib-card-head-right">
+                <div class="adlib-card-tag">Trend-Riding &nbsp;·&nbsp; 2× Higher CTR</div>
+                <div class="adlib-card-title">Korean Range Creatives</div>
+                <div class="adlib-card-subtitle">Mucin Hydrating Serum + Mucin SPF &nbsp;·&nbsp; K-beauty positioning</div>
+              </div>
+            </div>
+            <div class="adlib-card-body">
+              <div>
+                <div class="adlib-card-section">Hooks I ran</div>
+                <ul class="adlib-hooks">
+                  <li>Korea's #1 skincare ingredient is now available in India — at ₹499.</li>
+                  <li>Why snail mucin is the only moisturiser you need.</li>
+                </ul>
+                <p class="adlib-detail" style="margin-top:0.6rem;">Targeted K-beauty interest audiences on Instagram and rode the Reels trend wave. <strong>2× higher CTR</strong> than standard product ads. The K-beauty angle created curiosity and social shareability — people were sharing these in skincare groups, which drove organic amplification beyond paid reach.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- #8 Money Back Guarantee -->
+          <div class="adlib-creative-card">
+            <div class="adlib-card-header">
+              <div class="adlib-rank">#8</div>
+              <div class="adlib-card-head-right">
+                <div class="adlib-card-tag">Conversion Unlock for Hesitant Buyers</div>
+                <div class="adlib-card-title">7-Day Money Back Guarantee Ads</div>
+                <div class="adlib-card-subtitle">Badge overlay on existing ads + standalone trust creatives</div>
+              </div>
+            </div>
+            <div class="adlib-card-body">
+              <div>
+                <div class="adlib-card-section">How I deployed it</div>
+                <p class="adlib-detail">Added the guarantee badge to every retargeting ad as a persistent trust element. Also ran standalone guarantee-focused creatives: <em>"Not sure? Try it risk-free. 7-day money back guarantee on everything."</em></p>
+              </div>
+              <div class="adlib-why">
+                <strong>Est. 18% improvement in retargeting conversion rate.</strong> The lowest-effort creative update in the entire account — adding a badge to existing ads — with one of the highest impact-per-hour ratios. Reducing purchase hesitation at the bottom of funnel compounds directly into ROAS.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Format Mix -->
+      <div class="reveal">
+        <div class="adlib-sub-title">Format Mix That Worked</div>
+        <div class="format-mix">
+          <h4>Distribution of Active Ads by Format</h4>
+          <div class="format-bar-row">
+            <div class="format-label">Video (Reels / Stories)</div>
+            <div class="format-track"><div class="format-fill" style="width:40%"></div></div>
+            <div class="format-pct">40%</div>
+          </div>
+          <div class="format-bar-row">
+            <div class="format-label">Static Images</div>
+            <div class="format-track"><div class="format-fill" style="width:35%"></div></div>
+            <div class="format-pct">35%</div>
+          </div>
+          <div class="format-bar-row">
+            <div class="format-label">Carousels</div>
+            <div class="format-track"><div class="format-fill" style="width:15%"></div></div>
+            <div class="format-pct">15%</div>
+          </div>
+          <div class="format-bar-row">
+            <div class="format-label">Collection / DPA</div>
+            <div class="format-track"><div class="format-fill" style="width:10%"></div></div>
+            <div class="format-pct">10%</div>
+          </div>
+        </div>
+        <div class="adlib-format-notes">
+          <div class="adlib-format-note"><strong>Video 40%</strong>Best for reach and top-of-funnel discovery. Fed the retargeting pool.</div>
+          <div class="adlib-format-note"><strong>Static 35%</strong>Best for direct response and retargeting. Price-forward, review-heavy.</div>
+          <div class="adlib-format-note"><strong>Carousel 15%</strong>Best for combo offers and skin-routine builders. Each slide = one choice.</div>
+          <div class="adlib-format-note"><strong>DPA 10%</strong>Best for dynamic retargeting showing the exact product each user browsed.</div>
+        </div>
+      </div>
+
+      <!-- Creative Testing Framework -->
+      <div class="reveal">
+        <div class="adlib-sub-title">Creative Testing Framework</div>
+        <div class="adlib-testing-grid">
+          <div class="adlib-testing-card">
+            <div class="adlib-testing-card-label">Weekly Test Volume</div>
+            <div class="adlib-testing-card-val">8–10</div>
+            <div class="adlib-testing-card-desc">New creatives entered the testing campaign weekly at 10–15% of total budget. No creative skipped testing — including iterations of proven winners.</div>
+          </div>
+          <div class="adlib-testing-card">
+            <div class="adlib-testing-card-label">Minimum Evaluation Window</div>
+            <div class="adlib-testing-card-val">48 hrs</div>
+            <div class="adlib-testing-card-desc">Every creative got a minimum 48-hour run before a kill-or-scale decision. Killing too early on a slow-start creative was a mistake I made once — then built the 48-hour rule.</div>
+          </div>
+          <div class="adlib-testing-card">
+            <div class="adlib-testing-card-label">Winner Threshold — All 3 Required</div>
+            <div class="adlib-testing-card-val">3 KPIs</div>
+            <div class="adlib-testing-card-desc">CTR above 1.5% &nbsp;·&nbsp; Cost-per-ATC below ₹80 &nbsp;·&nbsp; Thumb-stop rate above 25% for video. Winners graduated to the Advantage+ scaling campaign.</div>
+          </div>
+          <div class="adlib-testing-card">
+            <div class="adlib-testing-card-label">Frequency Kill Switch</div>
+            <div class="adlib-testing-card-val">3.5×</div>
+            <div class="adlib-testing-card-desc">Monthly creative audit: any active ad with frequency above 3.5 was paused and replaced with a fresh variant. High frequency = CPM spikes = wasted spend.</div>
+          </div>
+        </div>
+        <div class="adlib-fatigue-note" style="margin-bottom:0;">
+          <strong>The creative scoreboard:</strong> I maintained a spreadsheet tracking every active ad across CTR, CPC, CPA, ROAS, and frequency updated daily.
+          Losers were killed within 72 hours. There was no emotional attachment to creative — only the numbers decided what stayed alive.
+        </div>
+      </div>
+
+      <!-- Closing -->
+      <div class="reveal">
+        <div class="adlib-closing">
+          <p>The creative library became the single biggest competitive advantage.<br>
+          At ₹50L/month, you can't outspend Meta's algorithm —<br>
+          <em>you can only out-create your competitors.</em></p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
   <!-- FUNNEL & CREATIVE -->
   <section id="funnel">
     <div class="container">
       <div class="reveal">
-        <div class="section-eyebrow">04 — Funnel &amp; Creative Architecture</div>
+        <div class="section-eyebrow">05 — Funnel &amp; Creative Architecture</div>
         <h2 class="section-title">The full structure I built and managed.</h2>
         <p class="section-lead">
           Every rupee had a job. Here's the exact funnel architecture I designed —
@@ -754,7 +1152,7 @@
   <section id="results">
     <div class="container">
       <div class="reveal">
-        <div class="section-eyebrow">05 — Results &amp; Impact</div>
+        <div class="section-eyebrow">06 — Results &amp; Impact</div>
         <h2 class="section-title">What I delivered.</h2>
         <p class="section-lead">
           Numbers I'm proud to put in a portfolio — not because they're inflated, but because
@@ -917,7 +1315,7 @@
   <section id="learnings">
     <div class="container">
       <div class="reveal">
-        <div class="section-eyebrow">06 — What I Learned</div>
+        <div class="section-eyebrow">07 — What I Learned</div>
         <h2 class="section-title">What managing ₹60L/month taught me.</h2>
         <p class="section-lead">
           Five things I know now that I wish I'd known at the start — and that I carry into every account I manage.

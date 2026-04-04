@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRED vs PhonePe — 12-Ad Creative Breakdown · Chethan S</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #FAFAF8;
+      --card:       #FFFFFF;
+      --text:       #1A1A1A;
+      --muted:      #6B6B6B;
+      --accent:     #E8E4DF;
+      --border:     #E5E3DE;
+      --highlight:  #2C2C2C;
+      --warm:       #C8A882;
+      --warm-bg:    #F5EFE8;
+      --cred:       #1A237E;
+      --cred-mid:   #3949AB;
+      --cred-bg:    #E8EAF6;
+      --phonepe:    #5C35A8;
+      --phonepe-mid:#7B52C6;
+      --phonepe-bg: #EDE7F6;
+      --green:      #4A8C5C;
+      --green-bg:   #E8F5ED;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    h1, h2, h3, h4 { font-family: 'Instrument Serif', serif; font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; }
+
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(250,250,248,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 0 6%; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .nav-back { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--muted); font-size: 0.82rem; font-weight: 500; transition: color 0.2s; }
+    .nav-back:hover { color: var(--text); }
+    .nav-back svg { width: 14px; height: 14px; }
+    .nav-sections { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-sections a { text-decoration: none; color: var(--muted); font-size: 0.78rem; font-weight: 500; transition: color 0.2s; white-space: nowrap; }
+    .nav-sections a:hover { color: var(--text); }
+    @media (max-width: 768px) { .nav-sections { display: none; } }
+
+    /* HERO */
+    .hero { padding: 5rem 6% 4rem; border-bottom: 1px solid var(--border); }
+    .hero-label { display: inline-flex; align-items: center; gap: 0.6rem; background: var(--highlight); color: #F5EFE8; padding: 0.3rem 1rem; border-radius: 100px; font-size: 0.72rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1.8rem; }
+    .hero-label::before { content: '◆'; font-size: 0.5rem; color: var(--warm); }
+    .hero h1 { font-size: clamp(2.8rem, 6.5vw, 5.5rem); letter-spacing: -0.04em; line-height: 1.0; margin-bottom: 0.5rem; }
+    .hero h1 em { font-style: italic; color: var(--muted); }
+    .hero-meta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 1.4rem 0 2rem; font-size: 0.82rem; color: var(--muted); }
+    .hero-meta-row .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--border); }
+    .hero-tagline { font-size: clamp(1rem, 2vw, 1.15rem); color: var(--muted); max-width: 640px; line-height: 1.7; margin-bottom: 3rem; }
+    .stat-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .stat-bar-item { background: var(--card); padding: 1.3rem 1.5rem; }
+    .stat-bar-item.s-cred { background: var(--cred); }
+    .stat-bar-item.s-phonepe { background: var(--phonepe); }
+    .stat-bar-val { font-family: 'Instrument Serif', serif; font-size: 2rem; letter-spacing: -0.03em; color: var(--text); line-height: 1; margin-bottom: 0.3rem; }
+    .s-cred .stat-bar-val, .s-phonepe .stat-bar-val { color: #F5EFE8; }
+    .stat-bar-label { font-size: 0.7rem; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+    .s-cred .stat-bar-label, .s-phonepe .stat-bar-label { color: rgba(255,255,255,0.45); }
+
+    /* LAYOUT */
+    .container { max-width: 920px; margin: 0 auto; padding: 5rem 6%; }
+    .divider { width: 100%; height: 1px; background: var(--border); }
+    .section-eyebrow { display: flex; align-items: center; gap: 0.8rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--warm); margin-bottom: 1.2rem; }
+    .section-eyebrow::after { content: ''; flex: 1; max-width: 40px; height: 1px; background: var(--warm); }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 1rem; color: var(--text); }
+    .section-lead { font-size: 1.05rem; color: var(--muted); max-width: 660px; line-height: 1.75; margin-bottom: 3rem; }
+    .insight-block { border-left: 3px solid var(--warm); background: var(--warm-bg); border-radius: 0 8px 8px 0; padding: 1.1rem 1.4rem; font-size: 0.87rem; color: var(--highlight); line-height: 1.7; margin: 1.5rem 0; }
+    .insight-block strong { font-weight: 600; }
+
+    /* BRAND OVERVIEW CARDS */
+    .brand-compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 2.5rem; }
+    @media (max-width: 600px) { .brand-compare-grid { grid-template-columns: 1fr; } }
+    .brand-card { border-radius: 12px; padding: 2rem; }
+    .brand-card.bc-cred { background: var(--cred); }
+    .brand-card.bc-phonepe { background: var(--phonepe); }
+    .brand-pill { display: inline-block; font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 0.2rem 0.7rem; border-radius: 100px; background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.8); margin-bottom: 0.8rem; }
+    .brand-name-lg { font-family: 'Instrument Serif', serif; font-size: 2.2rem; color: #FFF; margin-bottom: 0.7rem; letter-spacing: -0.03em; line-height: 1; }
+    .brand-desc { font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.65; margin-bottom: 1.4rem; }
+    .brand-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .btag { font-size: 0.7rem; font-weight: 500; padding: 0.2rem 0.65rem; border-radius: 100px; background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.75); }
+
+    /* AD CARD GRID */
+    .sub-label { font-family: 'DM Sans', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.8rem; }
+    .sub-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    .ad-cards-grid { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 3rem; }
+
+    .ad-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .ad-card-head { padding: 1.3rem 1.6rem 0.8rem; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+    .ad-num-badge { font-family: 'Instrument Serif', serif; font-size: 2rem; color: var(--accent); line-height: 1; flex-shrink: 0; width: 40px; }
+    .ad-num-badge.cred-num { color: var(--cred-bg); }
+    .ad-num-badge.phonepe-num { color: var(--phonepe-bg); }
+    .ad-head-info { flex: 1; }
+    .ad-brand-badge { display: inline-flex; align-items: center; font-size: 0.62rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 0.2rem 0.7rem; border-radius: 100px; margin-bottom: 0.5rem; }
+    .bb-cred { background: var(--cred-bg); color: var(--cred); }
+    .bb-phonepe { background: var(--phonepe-bg); color: var(--phonepe); }
+    .ad-headline-text { font-size: 1rem; font-weight: 600; color: var(--text); line-height: 1.3; margin-bottom: 0.2rem; }
+    .ad-lib-id { font-size: 0.68rem; color: var(--muted); font-family: monospace; }
+    .ad-format-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.6rem; }
+    .ftag { font-size: 0.68rem; font-weight: 500; background: var(--bg); border: 1px solid var(--border); padding: 0.12rem 0.55rem; border-radius: 100px; color: var(--muted); }
+    .ftag.video { background: #FFF8E1; border-color: #FFD54F; color: #7A5C00; }
+    .ftag.hindi { background: #E8F5E9; border-color: #A5D6A7; color: #2E7D32; }
+    .ftag.ai-gen { background: #F3E5F5; border-color: #CE93D8; color: #6A1B9A; }
+    .ftag.competitive { background: #FFEBEE; border-color: #EF9A9A; color: #C62828; }
+
+    .ad-card-body { display: grid; grid-template-columns: 160px 1fr 1fr; }
+    @media (max-width: 820px) { .ad-card-body { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 580px) { .ad-card-body { grid-template-columns: 1fr; } }
+    .ad-img-col { border-right: 1px solid var(--border); padding: 1rem; background: #EDEBE7; display: flex; align-items: flex-start; justify-content: center; min-height: 200px; }
+    .ad-img-col img { width: 100%; max-width: 138px; border-radius: 8px; box-shadow: 0 2px 16px rgba(0,0,0,0.12); display: block; }
+    @media (max-width: 820px) { .ad-img-col { display: none; } }
+    .ad-copy-col { padding: 1.2rem 1.6rem; border-right: 1px solid var(--border); background: var(--bg); }
+    @media (max-width: 580px) { .ad-copy-col { border-right: none; border-bottom: 1px solid var(--border); } }
+    .copy-section-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; margin-top: 0.8rem; }
+    .copy-section-label:first-child { margin-top: 0; }
+    .primary-copy { font-size: 0.8rem; color: var(--muted); font-style: italic; line-height: 1.6; }
+    .headline-copy { font-size: 0.95rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+    .sub-copy { font-size: 0.75rem; color: var(--muted); line-height: 1.5; text-transform: uppercase; letter-spacing: 0.3px; }
+    .cta-pill { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 6px; margin-top: 0.4rem; }
+    .cp-cred { background: var(--cred); color: #fff; }
+    .cp-phonepe { background: var(--phonepe); color: #fff; }
+
+    .ad-analysis-col { padding: 1.2rem 1.6rem; display: flex; flex-direction: column; gap: 0.9rem; }
+    .analysis-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+    .analysis-text { font-size: 0.84rem; color: var(--muted); line-height: 1.65; }
+    .analysis-text strong { color: var(--text); font-weight: 600; }
+    .analysis-text em { color: var(--warm); font-style: italic; }
+    .mini-score-row { display: flex; align-items: center; gap: 0.7rem; margin-top: 0.3rem; }
+    .mini-score-label { font-size: 0.72rem; color: var(--muted); width: 100px; flex-shrink: 0; }
+    .mini-track { flex: 1; height: 5px; background: var(--accent); border-radius: 100px; overflow: hidden; }
+    .mf-cred { height: 100%; background: var(--cred); border-radius: 100px; }
+    .mf-phonepe { height: 100%; background: var(--phonepe); border-radius: 100px; }
+    .mini-score-val { font-size: 0.72rem; font-weight: 700; color: var(--text); width: 26px; text-align: right; flex-shrink: 0; }
+
+    /* PATTERN ANALYSIS BOX */
+    .pattern-box { background: var(--highlight); border-radius: 12px; padding: 2rem; margin-bottom: 3rem; }
+    .pattern-box-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--warm); margin-bottom: 1.5rem; }
+    .pattern-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; }
+    .pattern-item { }
+    .pattern-item-title { font-size: 0.85rem; font-weight: 600; color: #F0E8DF; margin-bottom: 0.3rem; }
+    .pattern-item-desc { font-size: 0.8rem; color: #7A6E65; line-height: 1.6; }
+
+    /* HEAD TO HEAD */
+    .hth-table { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 2rem; }
+    .hth-head { display: grid; grid-template-columns: 1.4fr 1fr 1fr; background: var(--highlight); }
+    .hth-hcol { padding: 0.9rem 1.3rem; font-size: 0.68rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+    .hth-hcol.cc { color: #90CAF9; }
+    .hth-hcol.pc { color: #CE93D8; }
+    .hth-row { display: grid; grid-template-columns: 1.4fr 1fr 1fr; border-top: 1px solid var(--border); }
+    .hth-row:hover { background: var(--bg); }
+    .hth-cell { padding: 0.9rem 1.3rem; font-size: 0.83rem; color: var(--muted); line-height: 1.5; }
+    .hth-cell.dim { color: var(--text); font-weight: 600; font-size: 0.78rem; }
+    .hth-cell.cv { color: var(--cred-mid); font-weight: 500; }
+    .hth-cell.pv { color: var(--phonepe-mid); font-weight: 500; }
+    @media (max-width: 580px) { .hth-head, .hth-row { grid-template-columns: 1fr 1fr; } .hth-hcol:first-child, .hth-cell.dim { display: none; } }
+
+    /* SCORECARD */
+    .scorecard-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 2rem; }
+    .sc-card { background: var(--card); padding: 1.3rem; }
+    .sc-dim { font-size: 0.65rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+    .sc-brand-row { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.5rem; }
+    .sc-name { font-size: 0.7rem; font-weight: 700; width: 58px; flex-shrink: 0; }
+    .sc-name.scn-cred { color: var(--cred); }
+    .sc-name.scn-phonepe { color: var(--phonepe); }
+    .sc-track { flex: 1; height: 5px; background: var(--accent); border-radius: 100px; overflow: hidden; }
+    .sc-fill-cred { height: 100%; background: var(--cred); border-radius: 100px; }
+    .sc-fill-phonepe { height: 100%; background: var(--phonepe); border-radius: 100px; }
+    .sc-val { font-size: 0.78rem; font-weight: 700; color: var(--text); width: 26px; text-align: right; flex-shrink: 0; }
+    .sc-winner { display: inline-block; font-size: 0.6rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 0.12rem 0.5rem; border-radius: 4px; margin-top: 0.5rem; }
+    .w-cred { background: var(--cred-bg); color: var(--cred); }
+    .w-phonepe { background: var(--phonepe-bg); color: var(--phonepe); }
+    .w-tie { background: var(--accent); color: var(--muted); }
+
+    .final-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 3rem; }
+    @media (max-width: 600px) { .final-grid { grid-template-columns: 1fr; } }
+    .final-card { border-radius: 12px; padding: 2.2rem; text-align: center; }
+    .fc-cred { background: var(--cred); }
+    .fc-phonepe { background: var(--phonepe); }
+    .fc-brand { font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 0.4rem; }
+    .fc-score { font-family: 'Instrument Serif', serif; font-size: 4.5rem; color: #FFF; letter-spacing: -0.05em; line-height: 1; margin-bottom: 0.2rem; }
+    .fc-max { font-size: 0.75rem; color: rgba(255,255,255,0.45); margin-bottom: 1rem; }
+    .fc-verdict { font-size: 0.82rem; color: rgba(255,255,255,0.65); line-height: 1.6; }
+
+    /* TAKEAWAYS */
+    #takeaways { background: var(--highlight); }
+    #takeaways .section-eyebrow { color: #C8A882; }
+    #takeaways .section-eyebrow::after { background: #C8A882; }
+    #takeaways .section-title { color: #F5EFE8; }
+    #takeaways .section-lead { color: #94867A; }
+    .tw-list { list-style: none; }
+    .tw-item { display: flex; gap: 1.2rem; padding: 1.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .tw-item:last-child { border-bottom: none; }
+    .tw-num { font-family: 'Instrument Serif', serif; font-size: 2.2rem; color: rgba(200,168,130,0.25); flex-shrink: 0; width: 36px; line-height: 1; }
+    .tw-title { font-size: 0.9rem; font-weight: 600; color: #F0E8DF; margin-bottom: 0.4rem; }
+    .tw-desc { font-size: 0.85rem; color: #7A6E65; line-height: 1.7; }
+
+    /* FOOTER */
+    .case-footer { border-top: 1px solid var(--border); padding: 3rem 6%; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2rem; }
+    @media (max-width: 600px) { .case-footer { grid-template-columns: 1fr; } }
+    .cf-author { font-size: 0.85rem; color: var(--text); font-weight: 600; margin-bottom: 0.3rem; }
+    .cf-sub { font-size: 0.78rem; color: var(--muted); }
+    .footer-nav { display: flex; gap: 2rem; align-items: center; }
+    .fnl-link { text-decoration: none; display: flex; flex-direction: column; gap: 0.2rem; }
+    .fnl-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+    .fnl-text { font-family: 'Instrument Serif', serif; font-size: 1.1rem; color: var(--text); transition: color 0.2s; }
+    .fnl-link:hover .fnl-text { color: var(--warm); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+      Portfolio
+    </a>
+    <ul class="nav-sections">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#cred-ads">CRED Ads</a></li>
+      <li><a href="#phonepe-ads">PhonePe Ads</a></li>
+      <li><a href="#headtohead">Head-to-Head</a></li>
+      <li><a href="#scorecard">Scorecard</a></li>
+      <li><a href="#takeaways">Takeaways</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero reveal">
+    <div class="hero-label">Ad Creative Analysis</div>
+    <h1>CRED vs <em>PhonePe.</em></h1>
+    <div class="hero-meta-row">
+      <span>Chethan S</span>
+      <span class="dot"></span>
+      <span>12 Ads Analysed</span>
+      <span class="dot"></span>
+      <span>Meta Ads Library</span>
+      <span class="dot"></span>
+      <span>Fintech · India</span>
+    </div>
+    <p class="hero-tagline">
+      Six ads each. Same platform. Two radically different creative philosophies.
+      CRED whispers in dark luxury; PhonePe shouts in bright purple.
+      Here's a full breakdown of every ad, the patterns behind them, and what any media buyer can steal from each.
+    </p>
+    <div class="stat-bar">
+      <div class="stat-bar-item s-cred">
+        <div class="stat-bar-val">6</div>
+        <div class="stat-bar-label">CRED Ads</div>
+      </div>
+      <div class="stat-bar-item">
+        <div class="stat-bar-val">Dark</div>
+        <div class="stat-bar-label">CRED Tone — All 6</div>
+      </div>
+      <div class="stat-bar-item">
+        <div class="stat-bar-val">₹50–₹100</div>
+        <div class="stat-bar-label">Every CRED Offer</div>
+      </div>
+      <div class="stat-bar-item s-phonepe">
+        <div class="stat-bar-val">6</div>
+        <div class="stat-bar-label">PhonePe Ads</div>
+      </div>
+      <div class="stat-bar-item">
+        <div class="stat-bar-val">6</div>
+        <div class="stat-bar-label">Different Products</div>
+      </div>
+      <div class="stat-bar-item">
+        <div class="stat-bar-val">1</div>
+        <div class="stat-bar-label">Hindi Language Ad</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">01 — Brand Philosophy</div>
+        <h2 class="section-title">One brand, two theories of acquisition.</h2>
+        <p class="section-lead">
+          Before the ads, you need to understand what each brand is actually selling — because it isn't the same thing,
+          even when the product categories overlap.
+        </p>
+      </div>
+      <div class="brand-compare-grid reveal">
+        <div class="brand-card bc-cred">
+          <div class="brand-pill">Premium Fintech · Exclusive</div>
+          <div class="brand-name-lg">CRED</div>
+          <p class="brand-desc">CRED only admits credit card users with a 750+ CIBIL score. The brand itself is the status signal. Every ad reinforces this: dark, minimal, restrained. The cashback offers (₹50–₹100) are just activation triggers — small enough to be non-desperate, big enough to justify the install.</p>
+          <div class="brand-tags">
+            <span class="btag">Credit Card Holders</span>
+            <span class="btag">750+ CIBIL</span>
+            <span class="btag">Urban Professionals</span>
+            <span class="btag">Cashback Activation</span>
+          </div>
+        </div>
+        <div class="brand-card bc-phonepe">
+          <div class="brand-pill">Mass-Market Fintech · Volume</div>
+          <div class="brand-name-lg">PhonePe</div>
+          <p class="brand-desc">PhonePe serves 500M+ users across India's full economic spectrum. Ads are designed to interrupt, grab, and convert immediately. Six ads = six different products (UPI, loans, recharge, bills, credit card) — because PhonePe needs to monetise every segment with the right product, not one message for all.</p>
+          <div class="brand-tags">
+            <span class="btag">All Digital India</span>
+            <span class="btag">Tier 1–3 Cities</span>
+            <span class="btag">Multi-Product</span>
+            <span class="btag">Pre-Approval Funnel</span>
+          </div>
+        </div>
+      </div>
+      <div class="insight-block reveal">
+        <strong>The most interesting competitive overlap:</strong> PhonePe's Ad #5 — "EARN 5%* REWARDS on PhonePe HDFC Bank Credit Card" — is a direct attack on CRED's core territory. A credit card rewards ad in CRED's aesthetic category (gold, premium product shot) targeting the exact same CIBIL-qualified audience. Two brands, same battlefield, from opposite directions.
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CRED ADS -->
+  <section id="cred-ads">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">02 — CRED Creative Breakdown</div>
+        <h2 class="section-title">Six ads, one aesthetic, one message.</h2>
+        <p class="section-lead">
+          Every CRED ad is dark. Every offer is cashback. Every CTA is soft. This isn't laziness — it's a
+          deliberate system where visual consistency IS the brand-building, and the cashback is just the rational
+          excuse for an emotional decision.
+        </p>
+      </div>
+
+      <div class="ad-cards-grid">
+
+        <!-- CRED Ad 1 -->
+        <div class="ad-card reveal">
+          <div class="ad-card-head">
+            <div class="ad-num-badge cred-num">#1</div>
+            <div class="ad-head-info">
+              <div class="ad-brand-badge bb-cred">CRED · Static</div>
+              <div class="ad-headline-text">"unlocked: assured ₹50 cashback"</div>
+              <div class="ad-lib-id">Library ID: 1599174857961247</div>
+              <div class="ad-format-tags">
+                <span class="ftag">Static Image</span>
+                <span class="ftag">CC Bill Payment</span>
+                <span class="ftag">App Install</span>
+                <span class="ftag">Guarantee Hook</span>
+              </div>
+            </div>
+          </div>
+          <div class="ad-card-body">
+            <div class="ad-img-col"><img src="cred-2.png" alt="CRED Ad 1" loading="lazy" /></div>
+            <div class="ad-copy-col">
+              <div class="copy-section-label">Primary Text</div>
+              <div class="primary-copy">"Pay your credit card bills on CRED and get assured ₹50 cashback."</div>
+              <div class="copy-section-label">In-Creative</div>
+              <div class="headline-copy">unlocked: assured ₹50 cashback</div>
+              <div class="sub-copy">Claim it when you pay your next bill on CRED</div>
+              <span class="cta-pill cp-cred">claim now</span>
+              <div class="copy-section-label">Visual</div>
+              <div class="primary-copy">Dark navy gradient · Phone + stacked cash/currency notes · Credit cards visible on screen</div>
+            </div>
+            <div class="ad-analysis-col">
+              <div>
+                <div class="analysis-label">Hook Type</div>
+                <p class="analysis-text"><strong>Certainty framing.</strong> "Assured" removes the #1 objection before it forms — "will I actually get it?" The word "unlocked" is gamification language implying the reward was dormant, waiting specifically for you. Not a promise; a release.</p>
+              </div>
+              <div>
+                <div class="analysis-label">Visual Strategy</div>
+                <p class="analysis-text">Physical cash stacked under the digital phone bridges the abstract (cashback) with the tangible (real money). In a category full of bright ads, dark navy creates <strong>scroll-stop through contrast</strong> — it simply doesn't look like anything else in the feed.</p>
+              </div>
+              <div>
+                <div class="analysis-label">Scores</div>
+                <div class="mini-score-row"><div class="mini-score-label">Hook Strength</div><div class="mini-track"><div class="mf-cred" style="width:82%"></div></div><div class="mini-score-val">8.2</div></div>
+                <div class="mini-score-row"><div class="mini-score-label">Visual Clarity</div><div class="mini-track"><div class="mf-cred" style="width:90%"></div></div><div class="mini-score-val">9.0</div></div>
+                <div class="mini-score-row"><div class="mini-score-label">Brand Alignment</div><div class="mini-track"><div class="mf-cred" style="width:95%"></div></div><div class="mini-score-val">9.5</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CRED Ad 2 -->
+        <div class="ad-card reveal">
+          <div class="ad-card-head">
+            <div class="ad-num-badge cred-num">#2</div>
+            <div class="ad-head-info">
+              <div class="ad-brand-badge bb-cred">CRED · Video</div>
+              <div class="ad-headline-text">"5 payments. ₹100 cashback."</div>
+              <div class="ad-lib-id">Library ID: 914163861538470</div>
+              <div class="ad-format-tags">
+                <span class="ftag video">Video Ad</span>
+                <span class="ftag">UPI Payments</span>
+                <span class="ftag">Milestone Reward</span>
+                <span class="ftag">Repeat Behaviour</span>
+              </div>
+            </div>
+          </div>
+          <div class="ad-card-body">
+            <div class="ad-img-col"><img src="cred-1.png" alt="CRED Ad 2" loading="lazy" /></div>
+            <div class="ad-copy-col">
+              <div class="copy-section-label">Primary Text</div>
+              <div class="primary-copy">"Your first 5 UPI transactions on CRED come with assured cashback"</div>
+              <div class="copy-section-label">In-Creative</div>
+              <div class="headline-copy">5 payments. ₹100 cashback.</div>
+              <div class="sub-copy">Earn ₹20 cashback every time you use CRED UPI!</div>
+              <span class="cta-pill cp-cred">Claim now</span>
+              <div class="copy-section-label">Below Creative</div>
+              <div class="primary-copy">₹20 cashback on each payment</div>
+              <div class="copy-section-label">Visual</div>
+              <div class="primary-copy">Dark green-tint background · UPI QR terminal + phone · Stacked cash · Video format</div>
+            </div>
+            <div class="ad-analysis-col">
+              <div>
+                <div class="analysis-label">Strategic Intent</div>
+                <p class="analysis-text">This is a <strong>habit formation ad</strong>, not just acquisition. 5 transactions = building a UPI usage pattern. ₹20/transaction makes the reward feel recurring and predictable. CRED is competing directly with GPay, PhonePe, and Paytm for UPI share — and doing it without celebrity endorsements.</p>
+              </div>
+              <div>
+                <div class="analysis-label">Copy Mechanics</div>
+                <p class="analysis-text"><em>"5 payments. ₹100 cashback."</em> — four words, complete value proposition. The math is transparent (₹20 × 5) which builds trust. Specificity of "first 5" creates a clear commitment window that reduces decision fatigue.</p>
+              </div>
+              <div>
+                <div class="analysis-label">Scores</div>
+                <div class="mini-score-row"><div class="mini-score-label">Hook Strength</div><div class="mini-track"><div class="mf-cred" style="width:85%"></div></div><div class="mini-score-val">8.5</div></div>
+                <div class="mini-score-row"><div class="mini-score-label">Visual Clarity</div><div class="mini-track"><div class="mf-cred" style="width:85%"></div></div><div class="mini-score-val">8.5</div></div>
+                <div class="mini-score-row"><div class="mini-score-label">Brand Alignment</div><div class="mini-track"><div class="mf-cred" style="width:92%"></div></div><div class="mini-score-val">9.2</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CRED Ad 3 -->
+        <div class="ad-card reveal">
+          <div class="ad-card-head">
+            <div class="ad-num-badge cred-num">#3</div>
+            <div class="ad-head-info">
+              <div class="ad-brand-badge bb-cred">CRED · Video</div>
+              <div class="ad-headline-text">"pay bills. earn ₹50 cashback."</div>
+              <div class="ad-lib-id">Library ID: 1981363379405227</div>
+              <div class="ad-format-tags">
+                <span class="ftag video">Video Ad</span>
+                <span class="ftag">Utility Bills</span>
+                <span class="ftag">Electricity / Gas / Water</span>
+                <span class="ftag">Behaviour Shift</span>
+              </div>
+            </div>
+          </div>
+          <div class="ad-card-body">
+            <div class="ad-img-col"><img src="cred-3.png" alt="CRED Ad 3" loading="lazy" /></div>
+            <div class="ad-copy-col">
+              <div class="copy-section-label">Primary Text</div>
+              <div class="primary-copy">"use CRED for your next electricity, gas or water bill and unlock ₹50 cashback"</div>
+              <div class="copy-section-label">In-Creative</div>
+              <div class="headline-copy">pay bills. earn ₹50 cashback.</div>
+              <div class="sub-copy">Pay electricity, gas, water or mobile bills on CRED and get assured ₹50 cashback</div>
+              <span class="cta-pill cp-cred">Claim now</span>
+              <div class="copy-section-label">Below Creative</div>
+              <div class="primary-copy">₹50 cashback on bills</div>
+              <div class="copy-section-label">Visual</div>
+              <div class="primary-copy">Dark charcoal/black bg · Minimal phone UI · Short video (0:08)</div>
+            </div>
+            <div class="ad-analysis-col">
+              <div>
+                <div class="analysis-label">Audience Targeting Logic</div>
+                <p class="analysis-text">Electricity, gas, and water bills are <strong>mandatory monthly expenses</strong> — CRED is targeting the behaviour that already exists (bill payment) and inserting itself into it. The user doesn't change their life; they just pay the same bills in a different app and get ₹50 back.</p>
+              </div>
+              <div>
+                <div class="analysis-label">Copy Simplicity</div>
+                <p class="analysis-text"><em>"pay bills. earn ₹50 cashback."</em> — three words + three words. The full stop between them is deliberate — it creates rhythm and equal weight between action and reward. This is writing with design intent, not just copy.</p>
+              </div>
+              <div>
+                <div class="analysis-label">Scores</div>
+                <div class="mini-score-row"><div class="mini-score-label">Hook Strength</div><div class="mini-track"><div class="mf-cred" style="width:80%"></div></div><div class="mini-score-val">8.0</div></div>
+                <div class="mini-score-row"><div class="mini-score-label">Visual Clarity</div><div class="mini-track"><div class="mf-cred" style="width:82%"></div></div><div class="mini-score-val">8.2</div></div>
+                <div class="mini-score-row"><div class="mini-score-label">Brand Alignment</div><div class="mini-track"><div class="mf-cred" style="width:93%"></div></div><div class="mini-score-val">9.3</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CRED Ad 4 -->
+        <div class="ad-card reveal">
+          <div class="ad-card-head">
+            <div class="ad-num-badge cred-num">#4</div>
+            <div class="ad-head-info">
+              <div class="ad-brand-badge bb-cred">CRED · Static</div>
+              <div class="ad-headline-text">"still switching apps to pay each bill?"</div>
+              <div class="ad-lib-id">Library ID: 1640827457223828</div>
+              <div class="ad-format-tags">
+                <span class="ftag">Static Image</span>
+                <span class="ftag">Multi-Card Management</span>
+                <span class="ftag">Problem-Agitate Hook</span>
+                <span class="ftag">App Download</span>
+              </div>
+            </div>
+          </div>
+          <div class="ad-card-body">
+            <div class="ad-img-col"><img src="cred-4.png" alt="CRED Ad 4" loading="lazy" /></div>
+            <div class="ad-copy-col">
+              <div class="copy-section-label">Primary Text</div>
+              <div class="primary-copy">"Manage every card payment in one place with CRED"</div>
+              <div class="copy-section-label">In-Creative</div>
+              <div class="headline-copy">still switching apps to pay each bill?</div>
+              <div class="sub-copy">Manage every card in one place with CRED.</div>
+              <span class="cta-pill cp-cred">Download now</span>
+              <div class="copy-section-label">Below Creative</div>
+              <div class="primary-copy">Stop switching apps.</div>
+              <div class="copy-section-label">Visual</div>
+              <div class="primary-copy">Dark purple-black gradient · Multiple phones floating · Various credit cards visible · CRED app UI showing multiple card balances</div>
+            </div>
+            <div class="ad-analysis-col">
+              <div>
+                <div class="analysis-label">Hook Type — Different From All Others</div>
+                <p class="analysis-text">This is CRED's only <strong>problem-agitate hook</strong> in the set. Instead of offering a reward, it identifies a pain point ("still switching apps") and positions CRED as the solution. The word "still" implies everyone else has already solved this — subtle FOMO.</p>
+              </div>
+              <div>
+                <div class="analysis-label">Target Audience Signal</div>
+                <p class="analysis-text">This ad targets <strong>multi-card holders</strong> — not just any credit card user, but someone managing 2+ cards across different apps. The visual showing multiple cards on screen reinforces this. Precise audience targeting embedded directly in the creative.</p>
+              </div>
+              <div>
+                <div class="analysis-label">Scores</div>
+                <div class="mini-score-row"><div class="mini-score-label">Hook Strength</div><div class="mini-track"><div class="mf-cred" style="width:87%"></div></div><div class="mini-score-val">8.7</div></div>
+                <div class="mini-score-row"><div class="mini-score-label">Visual Clarity</div><div class="mini-track"><div class="mf-cred" style="width:83%"></div></div><div class="mini-score-val">8.3</div></div>
+                <div class="mini-score-row"><div class="mini-score-label">Brand Alignment</div><div class="mini-track"><div class="mf-cred" style="width:90%"></div></div><div class="mini-score-val">9.0</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CRED Ad 5 -->
+        <div class="ad-card reveal">
+          <div class="ad-card-head">
+            <div class="ad-num-badge cred-num">#5</div>
+            <div class="ad-head-info">
+              <div class="ad-brand-badge bb-cred">CRED · Static</div>
+              <div class="ad-headline-text">"sign up, earn ₹50 cashback."</div>
+              <div class="ad-lib-id">Library ID: 2122010263292120</div>
+              <div class="ad-format-tags">
+                <span class="ftag">Static Image</span>
+                <span class="ftag">New User Acquisition</span>
+                <span class="ftag">Sign-Up Incentive</span>
+                <span class="ftag">Instant Reward Hook</span>
+              </div>
+            </div>
+          </div>
+          <div class="ad-card-body">
+            <div class="ad-img-col"><img src="cred-5.png" alt="CRED Ad 5" loading="lazy" /></div>
+            <div class="ad-copy-col">
+              <div class="copy-section-label">Primary Text</div>
+              <div class="primary-copy">"claim instant cashback. Get timely reminders and faster payments."</div>
+              <div class="copy-section-label">In-Creative</div>
+              <div class="headline-copy">sign up, earn ₹50 cashback.</div>
+              <div class="sub-copy">Claim your first ₹50 cashback by joining CRED</div>
+              <span class="cta-pill cp-cred">Claim now</span>
+              <div class="copy-section-label">Below Creative</div>
+              <div class="primary-copy">join & earn ₹50 cashback</div>
+              <div class="copy-section-label">Visual</div>
+              <div class="primary-copy">Dark minimal bg · Phone with credit card · Gold coins · ₹50 badge visible</div>
+            </div>
+            <div class="ad-analysis-col">
+              <div>
+                <div class="analysis-label">Pure Acquisition Ad</div>
+                <p class="analysis-text">The only ad in CRED's set explicitly targeting <strong>new users who haven't joined yet</strong>. The primary text adds two functional benefits beyond cashback — "timely reminders" and "faster payments" — suggesting this ad targets people who have heard of CRED but haven't converted, needing multiple utility reasons to sign up.</p>
+              </div>
+              <div>
+                <div class="analysis-label">Multi-Benefit Primary Copy</div>
+                <p class="analysis-text">Unlike other CRED ads (single-benefit, one line), this primary text lists three things: instant cashback + reminders + faster payments. Suggests this is targeted at a <strong>more consideration-stage audience</strong> that needs more reasons than just the cashback offer.</p>
+              </div>
+              <div>
+                <div class="analysis-label">Scores</div>
+                <div class="mini-score-row"><div class="mini-score-label">Hook Strength</div><div class="mini-track"><div class="mf-cred" style="width:78%"></div></div><div class="mini-score-val">7.8</div></div>
+                <div class="mini-score-row"><div class="mini-score-label">Visual Clarity</div><div class="mini-track"><div class="mf-cred" style="width:80%"></div></div><div class="mini-score-val">8.0</div></div>
+                <div class="mini-score-row"><div class="mini-score-label">Brand Alignment</div><div class="mini-track"><div class="mf-cred" style="width:88%"></div></div><div class="mini-score-val">8.8</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CRED Ad 6 -->
+        <div class="ad-card reveal">
+          <div class="ad-card-head">
+            <div class="ad-num-badge cred-num">#6</div>
+            <div class="ad-head-info">
+              <div class="ad-brand-badge bb-cred">CRED · Video</div>
+              <div class="ad-headline-text">"get ₹100 cashback instantly"</div>
+              <div class="ad-lib-id">Library ID: 1246699824267622</div>
+              <div class="ad-format-tags">
+                <span class="ftag video">Video Ad</span>
+                <span class="ftag">UPI QR Scan</span>
+                <span class="ftag">Higher Cashback</span>
+                <span class="ftag">Speed Hook</span>
+              </div>
+            </div>
+          </div>
+          <div class="ad-card-body">
+            <div class="ad-img-col"><img src="cred-6.png" alt="CRED Ad 6" loading="lazy" /></div>
+            <div class="ad-copy-col">
+              <div class="copy-section-label">Primary Text</div>
+              <div class="primary-copy">"Earn assured ₹100 cashback on your next UPI transaction made via CRED."</div>
+              <div class="copy-section-label">In-Creative</div>
+              <div class="headline-copy">get ₹100 cashback instantly</div>
+              <div class="sub-copy">Scan only QR and pay with CRED UPI</div>
+              <span class="cta-pill cp-cred">Download CRED</span>
+              <div class="copy-section-label">Below Creative</div>
+              <div class="primary-copy">Earn ₹100 cashback on CRED UPI</div>
+              <div class="copy-section-label">Visual</div>
+              <div class="primary-copy">Dark bg · Phone with UPI QR scan UI · ₹100 cashback badge · Colourful abstract elements</div>
+            </div>
+            <div class="ad-analysis-col">
+              <div>
+                <div class="analysis-label">Higher Offer = Lower Funnel</div>
+                <p class="analysis-text">The only CRED ad offering ₹100 (vs ₹50 elsewhere). Higher cashback for a specific action (QR scan UPI) signals <strong>this is a competitive acquisition play against PhonePe and GPay for offline QR payments</strong> — a high-volume, high-value segment CRED needs to penetrate. The bigger offer matches the harder behaviour change.</p>
+              </div>
+              <div>
+                <div class="analysis-label">Instruction-Clarity</div>
+                <p class="analysis-text">"Scan only QR and pay" is unusually specific — it tells users exactly what gesture to perform. Reducing instructional friction at the action level increases conversion rate for users who are genuinely interested but don't know how to start.</p>
+              </div>
+              <div>
+                <div class="analysis-label">Scores</div>
+                <div class="mini-score-row"><div class="mini-score-label">Hook Strength</div><div class="mini-track"><div class="mf-cred" style="width:84%"></div></div><div class="mini-score-val">8.4</div></div>
+                <div class="mini-score-row"><div class="mini-score-label">Visual Clarity</div><div class="mini-track"><div class="mf-cred" style="width:78%"></div></div><div class="mini-score-val">7.8</div></div>
+                <div class="mini-score-row"><div class="mini-score-label">Brand Alignment</div><div class="mini-track"><div class="mf-cred" style="width:91%"></div></div><div class="mini-score-val">9.1</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CRED Pattern Analysis -->
+      <div class="pattern-box reveal">
+        <div class="pattern-box-title">CRED — 6-Ad Creative Patterns</div>
+        <div class="pattern-grid">
+          <div class="pattern-item">
+            <div class="pattern-item-title">100% Dark Aesthetic</div>
+            <div class="pattern-item-desc">Every single ad uses a dark background — navy, charcoal, dark purple. Not one bright ad. Visual consistency across the full creative library is the brand-building. You recognise it in 0.3 seconds before reading a word.</div>
+          </div>
+          <div class="pattern-item">
+            <div class="pattern-item-title">Cashback Is the Only Hook</div>
+            <div class="pattern-item-desc">₹50 or ₹100. That's the entire reward vocabulary across 6 ads. No BNPL, no EMI, no loans. CRED owns one reward mechanism and repeats it relentlessly — building associative memory between "CRED" and "guaranteed cashback."</div>
+          </div>
+          <div class="pattern-item">
+            <div class="pattern-item-title">Soft CTA — Always</div>
+            <div class="pattern-item-desc">"claim now", "Download now", "Claim now" — lowercase, calm, no exclamation marks. CRED never yells at its audience. The brand is confident the offer is good enough; urgency would undermine the premium positioning.</div>
+          </div>
+          <div class="pattern-item">
+            <div class="pattern-item-title">Physical Cash as Visual Anchor</div>
+            <div class="pattern-item-desc">Three of six ads show stacked physical cash/currency notes beneath or alongside the phone. Cashback is digital, but showing physical money makes the reward feel tangible and real — not abstract points or invisible discounts.</div>
+          </div>
+          <div class="pattern-item">
+            <div class="pattern-item-title">Mix of Video + Static Across Use Cases</div>
+            <div class="pattern-item-desc">Videos for UPI (behaviour change = more explanation needed), statics for bill payments (single message = no explanation needed). Format choice tracks the complexity of the action being asked.</div>
+          </div>
+          <div class="pattern-item">
+            <div class="pattern-item-title">No People, Ever</div>
+            <div class="pattern-item-desc">Not a single face or lifestyle shot across 6 ads. CRED's world is products, phones, cards, and money — not people. This is a deliberate choice: abstract aspiration, not relatable scenario. The audience projects themselves into the premium world rather than identifying with a model.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PHONEPE ADS -->
+  <section id="phonepe-ads">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">03 — PhonePe Creative Breakdown</div>
+        <h2 class="section-title">Six products, six approaches, one brand.</h2>
+        <p class="section-lead">
+          No two PhonePe ads are the same product. This is a portfolio strategy — each ad is optimised
+          for a specific product, audience segment, and conversion action. The creative quality varies
+          deliberately: premium for credit cards, bold for loans, relatable for recharge.
+        </p>
+      </div>
+
+      <div class="ad-cards-grid">
+
+        <!-- PhonePe Ad 1 -->
+        <div class="ad-card reveal">
+          <div class="ad-card-head">
+            <div class="ad-num-badge phonepe-num">#1</div>
+            <div class="ad-head-info">
+              <div class="ad-brand-badge bb-phonepe">PhonePe · Static</div>
+              <div class="ad-headline-text">"Your loan offer is waiting for you!"</div>
+              <div class="ad-lib-id">Library ID: 769346075499079</div>
+              <div class="ad-format-tags">
+                <span class="ftag">Static Image</span>
+                <span class="ftag">Personal Loan</span>
+                <span class="ftag">Pre-Approval Hook</span>
+                <span class="ftag">Triple Objection Removal</span>
+              </div>
+            </div>
+          </div>
+          <div class="ad-card-body">
+            <div class="ad-img-col"><img src="Phonepe-5.png" alt="PhonePe Ad 1" loading="lazy" /></div>
+            <div class="ad-copy-col">
+              <div class="copy-section-label">Primary Text</div>
+              <div class="primary-copy">"Get a pre-approved loan of up to ₹5 Lakh in just 2 minutes*"</div>
+              <div class="copy-section-label">In-Creative</div>
+              <div class="headline-copy">Your loan offer is waiting for you!</div>
+              <div class="sub-copy">Get up to ₹5,00,000 in 2 minutes*</div>
+              <span class="cta-pill cp-phonepe">ACT NOW</span>
+              <div class="copy-section-label">Phone Screen</div>
+              <div class="primary-copy">Loan Offer: ₹3,50,000 · Interest rate: 0.99% p.m. · "APPLY NOW" button</div>
+              <div class="copy-section-label">Below Creative</div>
+              <div class="primary-copy">Say goodbye to paperwork</div>
+            </div>
+            <div class="ad-analysis-col">
+              <div>
+                <div class="analysis-label">Best Hook in the Set</div>
+                <p class="analysis-text"><strong>Three objections demolished in one sentence:</strong> "Will I qualify?" → "pre-approved." "How much?" → "₹5 Lakh." "How long?" → "2 minutes." Then the in-creative headline adds personalisation ("Your") and urgency ("waiting") without a countdown timer. And the below-creative line removes the paperwork objection. <em>Four separate friction points handled before the click.</em></p>
+              </div>
+              <div>
+                <div class="analysis-label">Specificity Trick</div>
+                <p class="analysis-text">The phone screen shows ₹3,50,000 — not ₹5,00,000. A specific, slightly-less-than-maximum number feels <strong>real and personalised</strong> even though it isn't. This is the same psychology behind pricing at ₹999 vs ₹1,000.</p>
+              </div>
+              <div>
+                <div class="analysis-label">Scores</div>
+                <div class="mini-score-row"><div class="mini-score-label">Hook Strength</div><div class="mini-track"><div class="mf-phonepe" style="width:95%"></div></div><div class="mini-score-val">9.5</div></div>
+                <div class="mini-score-row"><div class="mini-score-label">Visual Clarity</div><div class="mini-track"><div class="mf-phonepe" style="width:73%"></div></div><div class="mini-score-val">7.3</div></div>
+                <div class="mini-score-row"><div class="mini-score-label">Brand Alignment</div><div class="mini-track"><div class="mf-phonepe" style="width:80%"></div></div><div class="mini-score-val">8.0</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PhonePe Ad 2 -->
+        <div class="ad-card reveal">
+          <div class="ad-card-head">
+            <div class="ad-num-badge phonepe-num">#2</div>
+            <div class="ad-head-info">
+              <div class="ad-brand-badge bb-phonepe">PhonePe · Video</div>
+              <div class="ad-headline-text">"Naa balance khatam ho, naa baatien."</div>
+              <div class="ad-lib-id">Library ID: 1230074265741814</div>
+              <div class="ad-format-tags">
+                <span class="ftag video">Video Ad</span>
+                <span class="ftag hindi">Hindi Language</span>
+                <span class="ftag ai-gen">AI-Generated Visual</span>
+                <span class="ftag">Mobile Recharge</span>
+              </div>
+            </div>
+          </div>
+          <div class="ad-card-body">
+            <div class="ad-img-col"><img src="Phonepe-1.png" alt="PhonePe Ad 2" loading="lazy" /></div>
+            <div class="ad-copy-col">
+              <div class="copy-section-label">Primary Text</div>
+              <div class="primary-copy">"Running out of data at the worst time? Recharge instantly on PhonePe. Quick, easy, and secure."</div>
+              <div class="copy-section-label">In-Creative (Hindi)</div>
+              <div class="headline-copy">Naa balance khatam ho, naa baatien.</div>
+              <div class="sub-copy">Recharge in seconds.</div>
+              <div class="copy-section-label">Translation</div>
+              <div class="primary-copy">"No balance running out, no conversations cut short."</div>
+              <div class="copy-section-label">Visual</div>
+              <div class="primary-copy">AI-generated lifestyle: woman talking on phone + man lying down relaxing · PhonePe notification: "Mobile recharge successful!"</div>
+            </div>
+            <div class="ad-analysis-col">
+              <div>
+                <div class="analysis-label">Language Strategy</div>
+                <p class="analysis-text">The only Hindi-language ad in the set. PhonePe is <strong>explicitly targeting Tier 2–3 India</strong> with this creative — markets where CRED doesn't compete and where mobile recharge is a daily-life feature, not a premium service. Switching to Hindi for a recharge ad is a deliberate audience targeting decision baked into the creative itself.</p>
+              </div>
+              <div>
+                <div class="analysis-label">AI Lifestyle Imagery</div>
+                <p class="analysis-text">Both people are AI-generated — visible in the slightly uncanny quality. PhonePe is clearly using AI to produce <strong>market-specific lifestyle imagery without a full production shoot</strong>. Efficient for running multiple regional variants at scale. The relatable scenario (running out of data mid-conversation) works emotionally despite the AI origin.</p>
+              </div>
+              <div>
+                <div class="analysis-label">Scores</div>
+                <div class="mini-score-row"><div class="mini-score-label">Hook Strength</div><div class="mini-track"><div class="mf-phonepe" style="width:85%"></div></div><div class="mini-score-val">8.5</div></div>
+                <div class="mini-score-row"><div class="mini-score-label">Visual Clarity</div><div class="mini-track"><div class="mf-phonepe" style="width:80%"></div></div><div class="mini-score-val">8.0</div></div>
+                <div class="mini-score-row"><div class="mini-score-label">Brand Alignment</div><div class="mini-track"><div class="mf-phonepe" style="width:82%"></div></div><div class="mini-score-val">8.2</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PhonePe Ad 3 -->
+        <div class="ad-card reveal">
+          <div class="ad-card-head">
+            <div class="ad-num-badge phonepe-num">#3</div>
+            <div class="ad-head-info">
+              <div class="ad-brand-badge bb-phonepe">PhonePe · Static</div>
+              <div class="ad-headline-text">"All Bills. One App. Pay 25+ bills."</div>
+              <div class="ad-lib-id">Library ID: 1652245569548789</div>
+              <div class="ad-format-tags">
+                <span class="ftag">Static Image</span>
+                <span class="ftag ai-gen">AI-Generated Visual</span>
+                <span class="ftag">Bill Payments</span>
+                <span class="ftag">Consolidation Hook</span>
+              </div>
+            </div>
+          </div>
+          <div class="ad-card-body">
+            <div class="ad-img-col"><img src="Phonepe-2.png" alt="PhonePe Ad 3" loading="lazy" /></div>
+            <div class="ad-copy-col">
+              <div class="copy-section-label">Primary Text</div>
+              <div class="primary-copy">"Scattered bills? Too many due dates? Skip the hassle with PhonePe. Pay 25+ bills from one app."</div>
+              <div class="copy-section-label">In-Creative</div>
+              <div class="headline-copy">All Bills. One App.</div>
+              <div class="sub-copy">Pay 25+ bills.</div>
+              <span class="cta-pill cp-phonepe">Install now</span>
+              <div class="copy-section-label">Below Creative</div>
+              <div class="primary-copy">Every Bill. One App.</div>
+              <div class="copy-section-label">Visual</div>
+              <div class="primary-copy">AI-generated man on pool float with phone · App UI showing bill categories · Bharat Connect logo · Bright, sunny, relaxed</div>
+            </div>
+            <div class="ad-analysis-col">
+              <div>
+                <div class="analysis-label">Pain-Point Primary Copy</div>
+                <p class="analysis-text">The primary text opens with two pain-point questions: <em>"Scattered bills? Too many due dates?"</em> — classic PAS (Problem-Agitate-Solve) structure. Immediately followed by the solution. <strong>This mirrors the CRED Ad #4 ("still switching apps") approach</strong> — interesting that both brands run problem-agitate hooks for the same category (consolidating payments).</p>
+              </div>
+              <div>
+                <div class="analysis-label">Specificity: "25+"</div>
+                <p class="analysis-text">"Pay 25+ bills" is the kind of specific number that converts better than "pay all bills." It's verifiable, it's impressive, and it makes the app feel comprehensive without being vague. The "25+" appears on the app UI in the creative too — double-anchoring the claim.</p>
+              </div>
+              <div>
+                <div class="analysis-label">Scores</div>
+                <div class="mini-score-row"><div class="mini-score-label">Hook Strength</div><div class="mini-track"><div class="mf-phonepe" style="width:83%"></div></div><div class="mini-score-val">8.3</div></div>
+                <div class="mini-score-row"><div class="mini-score-label">Visual Clarity</div><div class="mini-track"><div class="mf-phonepe" style="width:78%"></div></div><div class="mini-score-val">7.8</div></div>
+                <div class="mini-score-row"><div class="mini-score-label">Brand Alignment</div><div class="mini-track"><div class="mf-phonepe" style="width:82%"></div></div><div class="mini-score-val">8.2</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PhonePe Ad 4 -->
+        <div class="ad-card reveal">
+          <div class="ad-card-head">
+            <div class="ad-num-badge phonepe-num">#4</div>
+            <div class="ad-head-info">
+              <div class="ad-brand-badge bb-phonepe">PhonePe · Static</div>
+              <div class="ad-headline-text">"Make UPI Payments in a blink"</div>
+              <div class="ad-lib-id">Library ID: 1430080301760025</div>
+              <div class="ad-format-tags">
+                <span class="ftag">Static Image</span>
+                <span class="ftag">UPI Basics</span>
+                <span class="ftag">Minimal Design</span>
+                <span class="ftag">Awareness</span>
+              </div>
+            </div>
+          </div>
+          <div class="ad-card-body">
+            <div class="ad-img-col"><img src="Phonepe-3.png" alt="PhonePe Ad 4" loading="lazy" /></div>
+            <div class="ad-copy-col">
+              <div class="copy-section-label">Primary Text</div>
+              <div class="primary-copy">"Send money instantly with UPI"</div>
+              <div class="copy-section-label">In-Creative</div>
+              <div class="headline-copy">Make UPI Payments in a blink anytime, anywhere!</div>
+              <span class="cta-pill cp-phonepe" style="margin-top:0.5rem;">Download App</span>
+              <div class="copy-section-label">Below Creative</div>
+              <div class="primary-copy">Instant money transfer</div>
+              <div class="copy-section-label">Visual</div>
+              <div class="primary-copy">Clean white/light background · Phone with UPI logo · Minimal, simple design · No people, no coins</div>
+            </div>
+            <div class="ad-analysis-col">
+              <div>
+                <div class="analysis-label">Simplest Ad in the Set</div>
+                <p class="analysis-text">The most stripped-back ad from either brand in this analysis. White background, one phone, UPI logo, one headline. This is a <strong>top-of-funnel awareness ad</strong> targeting users who haven't used digital payments yet — the complexity of other ads would overwhelm them. The simplest UX possible: see PhonePe = UPI = fast transfers.</p>
+              </div>
+              <div>
+                <div class="analysis-label">Audience Read</div>
+                <p class="analysis-text">The broad, non-specific primary text ("Send money instantly with UPI") suggests this ad is served to <strong>very cold, low-intent audiences</strong> — possibly first-time smartphone users or late digital adopters. No assumed knowledge, no jargon. The in-app "Download App" button rather than "Install Now" also feels friendlier for hesitant users.</p>
+              </div>
+              <div>
+                <div class="analysis-label">Scores</div>
+                <div class="mini-score-row"><div class="mini-score-label">Hook Strength</div><div class="mini-track"><div class="mf-phonepe" style="width:70%"></div></div><div class="mini-score-val">7.0</div></div>
+                <div class="mini-score-row"><div class="mini-score-label">Visual Clarity</div><div class="mini-track"><div class="mf-phonepe" style="width:90%"></div></div><div class="mini-score-val">9.0</div></div>
+                <div class="mini-score-row"><div class="mini-score-label">Brand Alignment</div><div class="mini-track"><div class="mf-phonepe" style="width:78%"></div></div><div class="mini-score-val">7.8</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PhonePe Ad 5 -->
+        <div class="ad-card reveal">
+          <div class="ad-card-head">
+            <div class="ad-num-badge phonepe-num">#5</div>
+            <div class="ad-head-info">
+              <div class="ad-brand-badge bb-phonepe">PhonePe · Static</div>
+              <div class="ad-headline-text">"EARN 5%* REWARDS — PhonePe HDFC Bank Credit Card"</div>
+              <div class="ad-lib-id">Library ID: 3301392176700728</div>
+              <div class="ad-format-tags">
+                <span class="ftag">Static Image</span>
+                <span class="ftag competitive">CRED Territory</span>
+                <span class="ftag">Credit Card Product</span>
+                <span class="ftag">Premium Aesthetic</span>
+              </div>
+            </div>
+          </div>
+          <div class="ad-card-body">
+            <div class="ad-img-col"><img src="Phonepe-4.png" alt="PhonePe Ad 5" loading="lazy" /></div>
+            <div class="ad-copy-col">
+              <div class="copy-section-label">Primary Text</div>
+              <div class="primary-copy">"Earn 5%* rewards on everyday online spends with the PhonePe HDFC Bank Credit Card. Apply now and start saving daily."</div>
+              <div class="copy-section-label">In-Creative</div>
+              <div class="headline-copy">EARN 5%* REWARDS</div>
+              <div class="sub-copy">On PhonePe HDFC Bank Card · "The best of UPI in a credit card"</div>
+              <div class="copy-section-label">Brand Logos Shown</div>
+              <div class="primary-copy">Amazon · Flipkart · Meesho · Ather · Swiggy · Uber</div>
+              <div class="copy-section-label">Visual</div>
+              <div class="primary-copy">Gold/beige premium background · Credit card product shot · "ULTIMO" card visible · RuPay logo</div>
+            </div>
+            <div class="ad-analysis-col">
+              <div>
+                <div class="analysis-label">Direct Attack on CRED's Turf</div>
+                <p class="analysis-text">This is the most strategically interesting ad in the entire set. PhonePe is <strong>running a credit card rewards ad in a premium aesthetic</strong> — gold background, product shot, no people — targeting the exact same audience CRED owns. "The best of UPI in a credit card" positions it as a CRED alternative: you get UPI convenience AND credit card rewards in one.</p>
+              </div>
+              <div>
+                <div class="analysis-label">The Brand Logos Are the Copy</div>
+                <p class="analysis-text">Showing Amazon, Flipkart, Swiggy, Uber tells the audience "you already use these — now earn 5% back on them." <strong>The logos function as use-case proof without writing a single description.</strong> This is economy-of-copy at the visual layer.</p>
+              </div>
+              <div>
+                <div class="analysis-label">Scores</div>
+                <div class="mini-score-row"><div class="mini-score-label">Hook Strength</div><div class="mini-track"><div class="mf-phonepe" style="width:85%"></div></div><div class="mini-score-val">8.5</div></div>
+                <div class="mini-score-row"><div class="mini-score-label">Visual Clarity</div><div class="mini-track"><div class="mf-phonepe" style="width:90%"></div></div><div class="mini-score-val">9.0</div></div>
+                <div class="mini-score-row"><div class="mini-score-label">Brand Alignment</div><div class="mini-track"><div class="mf-phonepe" style="width:75%"></div></div><div class="mini-score-val">7.5</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PhonePe Ad 6 -->
+        <div class="ad-card reveal">
+          <div class="ad-card-head">
+            <div class="ad-num-badge phonepe-num">#6</div>
+            <div class="ad-head-info">
+              <div class="ad-brand-badge bb-phonepe">PhonePe · Static</div>
+              <div class="ad-headline-text">"Personal loan — Wedding. Travel. Emergency."</div>
+              <div class="ad-lib-id">Library ID: 2047476475246993</div>
+              <div class="ad-format-tags">
+                <span class="ftag">Static Image</span>
+                <span class="ftag">Personal Loan</span>
+                <span class="ftag">Use-Case Hook</span>
+                <span class="ftag">Emotional Framing</span>
+              </div>
+            </div>
+          </div>
+          <div class="ad-card-body">
+            <div class="ad-img-col"><img src="Phonepe-6.png" alt="PhonePe Ad 6" loading="lazy" /></div>
+            <div class="ad-copy-col">
+              <div class="copy-section-label">Primary Text</div>
+              <div class="primary-copy">"Dream weddings to urgent needs, get a loan up to ₹5,00,000 for it"</div>
+              <div class="copy-section-label">In-Creative</div>
+              <div class="headline-copy">Personal loan</div>
+              <div class="sub-copy">Wedding · Travel · Emergency (with checkmarks) · Pre-approved loan offer up to ₹5,00,000</div>
+              <span class="cta-pill cp-phonepe">Sign Up</span>
+              <div class="copy-section-label">Below Creative</div>
+              <div class="primary-copy">Up to ₹5 Lakh of pre-approved loan offers</div>
+              <div class="copy-section-label">Visual</div>
+              <div class="primary-copy">Purple bg · Phone with coin/money imagery · Clean structured layout</div>
+            </div>
+            <div class="ad-analysis-col">
+              <div>
+                <div class="analysis-label">Use-Case Framing vs Feature Framing</div>
+                <p class="analysis-text">Compare this to Ad #1 (same loan product): Ad #1 leads with <em>process benefits</em> (pre-approved, 2 minutes, no paperwork). Ad #6 leads with <em>life situations</em> (wedding, travel, emergency). Two completely different hooks for the same product, likely <strong>A/B tested against different audience segments</strong> — emotionally-driven vs practically-driven buyers.</p>
+              </div>
+              <div>
+                <div class="analysis-label">The Word "Emergency" Does Heavy Lifting</div>
+                <p class="analysis-text">"Emergency" alongside "Wedding" and "Travel" shifts the product from aspirational to essential. It signals PhonePe understands that many loan applicants are in urgent financial need — and the app is framed as a <strong>safety net, not just a product</strong>. This builds deep psychological trust.</p>
+              </div>
+              <div>
+                <div class="analysis-label">Scores</div>
+                <div class="mini-score-row"><div class="mini-score-label">Hook Strength</div><div class="mini-track"><div class="mf-phonepe" style="width:83%"></div></div><div class="mini-score-val">8.3</div></div>
+                <div class="mini-score-row"><div class="mini-score-label">Visual Clarity</div><div class="mini-track"><div class="mf-phonepe" style="width:82%"></div></div><div class="mini-score-val">8.2</div></div>
+                <div class="mini-score-row"><div class="mini-score-label">Brand Alignment</div><div class="mini-track"><div class="mf-phonepe" style="width:85%"></div></div><div class="mini-score-val">8.5</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- PhonePe Pattern Analysis -->
+      <div class="pattern-box reveal">
+        <div class="pattern-box-title">PhonePe — 6-Ad Creative Patterns</div>
+        <div class="pattern-grid">
+          <div class="pattern-item">
+            <div class="pattern-item-title">Product Portfolio Strategy</div>
+            <div class="pattern-item-desc">Every ad promotes a different product: loan ×2, recharge, bills, UPI, credit card. PhonePe's creative library is a product catalogue, not a brand campaign. Each ad is optimised for a specific audience with a specific offer — maximum coverage across the customer base.</div>
+          </div>
+          <div class="pattern-item">
+            <div class="pattern-item-title">Creative Quality Varies by Product</div>
+            <div class="pattern-item-desc">Premium gold aesthetic for credit card (high-ticket acquisition), AI lifestyle for recharge (mass low-ticket), bold coins for loans (high-urgency). Creative investment deliberately matches product economics — not a standardised template across all ads.</div>
+          </div>
+          <div class="pattern-item">
+            <div class="pattern-item-title">AI-Generated Imagery at Scale</div>
+            <div class="pattern-item-desc">At least 2 ads use AI-generated visuals. For a brand running dozens of product variants across regional markets, AI imagery enables rapid creative production without per-shoot costs — a volume strategy that a massive brand at PhonePe's scale makes sense to adopt.</div>
+          </div>
+          <div class="pattern-item">
+            <div class="pattern-item-title">Hindi Language for Tier 2/3</div>
+            <div class="pattern-item-desc">The recharge ad uses Hindi — the most mass-market, low-ticket product in the set. This maps to the audience geography precisely: Tier 2/3 India, Hindi belt, where recharge frequency is high and English-language ads may underperform.</div>
+          </div>
+          <div class="pattern-item">
+            <div class="pattern-item-title">Specific Numbers as Default Hooks</div>
+            <div class="pattern-item-desc">₹5 Lakh, 2 minutes, 25+ bills, 5% rewards, ₹3,50,000 on screen — PhonePe defaults to specificity in every ad. Numbers are credible, scannable, and work in every language. This is the simplest high-performing creative principle applied consistently.</div>
+          </div>
+          <div class="pattern-item">
+            <div class="pattern-item-title">Pre-Approval as Conversion Engine</div>
+            <div class="pattern-item-desc">Both loan ads lead with "pre-approved." This isn't copy — it's a CRM strategy deployed in creative. PhonePe already knows who qualifies; the ad just tells them so. Converting a known-qualified audience is fundamentally different from acquiring a new one. The highest conversion ads aren't the best-written — they're the most targeted.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- HEAD TO HEAD -->
+  <section id="headtohead">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">04 — Head-to-Head</div>
+        <h2 class="section-title">Every dimension, directly compared.</h2>
+        <p class="section-lead">
+          Across 6 ads each, the strategic differences are even sharper than a single ad comparison reveals.
+        </p>
+      </div>
+      <div class="hth-table reveal">
+        <div class="hth-head">
+          <div class="hth-hcol">Dimension</div>
+          <div class="hth-hcol cc">CRED (6 Ads)</div>
+          <div class="hth-hcol pc">PhonePe (6 Ads)</div>
+        </div>
+        <div class="hth-row">
+          <div class="hth-cell dim">Visual Consistency</div>
+          <div class="hth-cell cv">100% dark backgrounds. Immediate brand recognition across all 6.</div>
+          <div class="hth-cell pv">Varies by product — gold, purple, white, AI-lifestyle. Product-first, brand-second.</div>
+        </div>
+        <div class="hth-row">
+          <div class="hth-cell dim">Product Range</div>
+          <div class="hth-cell cv">1 product category (bill/UPI payments) with 3 sub-types. Single-minded.</div>
+          <div class="hth-cell pv">6 different products across 6 ads. Portfolio depth shown upfront.</div>
+        </div>
+        <div class="hth-row">
+          <div class="hth-cell dim">Reward/Offer Language</div>
+          <div class="hth-cell cv">Only cashback. ₹50 or ₹100. Repeated across every ad.</div>
+          <div class="hth-cell pv">Pre-approved loan, 5% rewards, no explicit reward on recharge/UPI ads.</div>
+        </div>
+        <div class="hth-row">
+          <div class="hth-cell dim">CTA Intensity</div>
+          <div class="hth-cell cv">Always soft — "claim now", "Download now". Never aggressive.</div>
+          <div class="hth-cell pv">Varies — "ACT NOW" (loans) to "Install now" to "Learn More" (card). Product-specific.</div>
+        </div>
+        <div class="hth-row">
+          <div class="hth-cell dim">People in Ads</div>
+          <div class="hth-cell cv">Zero. Not a single face in 6 ads. Pure product/visual abstraction.</div>
+          <div class="hth-cell pv">2 ads use AI-generated people (recharge, bills). 4 ads are product-only.</div>
+        </div>
+        <div class="hth-row">
+          <div class="hth-cell dim">Language</div>
+          <div class="hth-cell cv">English only across all 6 ads.</div>
+          <div class="hth-cell pv">5 English + 1 Hindi (recharge). Regional strategy visible in the set.</div>
+        </div>
+        <div class="hth-row">
+          <div class="hth-cell dim">Primary Text Length</div>
+          <div class="hth-cell cv">1 sentence, minimal. Rarely exceeds 15 words.</div>
+          <div class="hth-cell pv">1–2 sentences, packs more. Recharge ad uses 3 sentences.</div>
+        </div>
+        <div class="hth-row">
+          <div class="hth-cell dim">Funnel Stage Mix</div>
+          <div class="hth-cell cv">Mix of acquisition (#5 sign-up) and activation (UPI, bills). Mostly warm audience activation.</div>
+          <div class="hth-cell pv">Mix of cold (UPI basics, recharge) and warm (pre-approved loans, credit card).</div>
+        </div>
+        <div class="hth-row">
+          <div class="hth-cell dim">AI-Generated Content</div>
+          <div class="hth-cell cv">None detected. All product photography or rendered 3D visuals.</div>
+          <div class="hth-cell pv">At least 2 ads confirmed AI-generated lifestyle imagery.</div>
+        </div>
+        <div class="hth-row">
+          <div class="hth-cell dim">Competitive Positioning</div>
+          <div class="hth-cell cv">Ad #4 implicitly attacks GPay/Paytm ("still switching apps"). Otherwise brand-positive.</div>
+          <div class="hth-cell pv">Ad #5 (credit card) directly targets CRED's core audience with a competing product.</div>
+        </div>
+        <div class="hth-row">
+          <div class="hth-cell dim">Video vs Static Ratio</div>
+          <div class="hth-cell cv">3 videos, 3 statics. Videos for UPI/QR (new behaviour), statics for bills (familiar action).</div>
+          <div class="hth-cell pv">1 video (recharge), 5 statics. Format choice less strategic, more production-driven.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SCORECARD -->
+  <section id="scorecard">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">05 — Creative Scorecard</div>
+        <h2 class="section-title">Average scores across all 6 ads per brand.</h2>
+        <p class="section-lead">
+          Averaged across the full set of 6 ads. Individual ad quality varies significantly within PhonePe's set.
+        </p>
+      </div>
+      <div class="scorecard-wrap reveal">
+        <div class="sc-card">
+          <div class="sc-dim">Hook Strength</div>
+          <div class="sc-brand-row"><div class="sc-name scn-cred">CRED</div><div class="sc-track"><div class="sc-fill-cred" style="width:83%"></div></div><div class="sc-val">8.3</div></div>
+          <div class="sc-brand-row"><div class="sc-name scn-phonepe">PhonePe</div><div class="sc-track"><div class="sc-fill-phonepe" style="width:85%"></div></div><div class="sc-val">8.5</div></div>
+          <div class="sc-winner w-phonepe">PhonePe +0.2</div>
+        </div>
+        <div class="sc-card">
+          <div class="sc-dim">Visual Clarity</div>
+          <div class="sc-brand-row"><div class="sc-name scn-cred">CRED</div><div class="sc-track"><div class="sc-fill-cred" style="width:86%"></div></div><div class="sc-val">8.6</div></div>
+          <div class="sc-brand-row"><div class="sc-name scn-phonepe">PhonePe</div><div class="sc-track"><div class="sc-fill-phonepe" style="width:82%"></div></div><div class="sc-val">8.2</div></div>
+          <div class="sc-winner w-cred">CRED +0.4</div>
+        </div>
+        <div class="sc-card">
+          <div class="sc-dim">Copy Quality</div>
+          <div class="sc-brand-row"><div class="sc-name scn-cred">CRED</div><div class="sc-track"><div class="sc-fill-cred" style="width:87%"></div></div><div class="sc-val">8.7</div></div>
+          <div class="sc-brand-row"><div class="sc-name scn-phonepe">PhonePe</div><div class="sc-track"><div class="sc-fill-phonepe" style="width:85%"></div></div><div class="sc-val">8.5</div></div>
+          <div class="sc-winner w-cred">CRED +0.2</div>
+        </div>
+        <div class="sc-card">
+          <div class="sc-dim">CTA Effectiveness</div>
+          <div class="sc-brand-row"><div class="sc-name scn-cred">CRED</div><div class="sc-track"><div class="sc-fill-cred" style="width:80%"></div></div><div class="sc-val">8.0</div></div>
+          <div class="sc-brand-row"><div class="sc-name scn-phonepe">PhonePe</div><div class="sc-track"><div class="sc-fill-phonepe" style="width:85%"></div></div><div class="sc-val">8.5</div></div>
+          <div class="sc-winner w-phonepe">PhonePe +0.5</div>
+        </div>
+        <div class="sc-card">
+          <div class="sc-dim">Brand Alignment</div>
+          <div class="sc-brand-row"><div class="sc-name scn-cred">CRED</div><div class="sc-track"><div class="sc-fill-cred" style="width:92%"></div></div><div class="sc-val">9.2</div></div>
+          <div class="sc-brand-row"><div class="sc-name scn-phonepe">PhonePe</div><div class="sc-track"><div class="sc-fill-phonepe" style="width:80%"></div></div><div class="sc-val">8.0</div></div>
+          <div class="sc-winner w-cred">CRED +1.2</div>
+        </div>
+        <div class="sc-card">
+          <div class="sc-dim">Creative Consistency</div>
+          <div class="sc-brand-row"><div class="sc-name scn-cred">CRED</div><div class="sc-track"><div class="sc-fill-cred" style="width:96%"></div></div><div class="sc-val">9.6</div></div>
+          <div class="sc-brand-row"><div class="sc-name scn-phonepe">PhonePe</div><div class="sc-track"><div class="sc-fill-phonepe" style="width:68%"></div></div><div class="sc-val">6.8</div></div>
+          <div class="sc-winner w-cred">CRED +2.8</div>
+        </div>
+      </div>
+      <div class="final-grid reveal">
+        <div class="final-card fc-cred">
+          <div class="fc-brand">CRED — Avg across 6 ads</div>
+          <div class="fc-score">52.4</div>
+          <div class="fc-max">out of 60 · avg 8.73 / 10</div>
+          <div class="fc-verdict">Wins on visual clarity, copy quality, brand alignment, and creative consistency. The dark aesthetic is a masterclass in system-level brand building. Loses on CTA urgency — intentionally.</div>
+        </div>
+        <div class="final-card fc-phonepe">
+          <div class="fc-brand">PhonePe — Avg across 6 ads</div>
+          <div class="fc-score">50.5</div>
+          <div class="fc-max">out of 60 · avg 8.42 / 10</div>
+          <div class="fc-verdict">Wins on hook strength and CTA effectiveness. The product portfolio approach captures more audience segments. Loses on consistency — intentionally. Breadth over depth is the strategic choice.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- TAKEAWAYS -->
+  <section id="takeaways">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">06 — Takeaways for Media Buyers</div>
+        <h2 class="section-title">What 12 ads actually teach you.</h2>
+        <p class="section-lead">
+          Looking at 6 ads per brand reveals system-level strategic choices that a single ad hides.
+          Here's what matters when you're building a creative library at scale.
+        </p>
+      </div>
+      <ul class="tw-list">
+        <li class="tw-item reveal">
+          <div class="tw-num">1</div>
+          <div>
+            <div class="tw-title">Creative consistency IS brand-building — not a constraint on creativity</div>
+            <div class="tw-desc">Every CRED ad is dark. Not one exception across 6 ads. That's not a limitation — it's compounding brand memory. Every time a user scrolls past a CRED ad (without clicking), the dark-navy-cashback association gets stronger. At scale, brand recall before the ad is even read is worth more than an individual click. CRED is building a brand asset with every impression, not just chasing a conversion.</div>
+          </div>
+        </li>
+        <li class="tw-item reveal">
+          <div class="tw-num">2</div>
+          <div>
+            <div class="tw-title">PhonePe's product portfolio strategy is a CPA optimisation tactic, not just coverage</div>
+            <div class="tw-desc">Running 6 different products isn't about showing range — it's about showing the right product to the right user. A loan-eligible user sees the pre-approved loan ad. A new user with no digital payments sees the UPI basics ad. A Hindi-speaking recharge user sees "Naa balance khatam ho." The personalisation happens in the targeting, but the segmentation logic is visible in the creative set itself. Build creative libraries that match audience segments, not just demographics.</div>
+          </div>
+        </li>
+        <li class="tw-item reveal">
+          <div class="tw-num">3</div>
+          <div>
+            <div class="tw-title">Never show people — or always show people. Pick a lane and own it</div>
+            <div class="tw-desc">CRED: zero people across 6 ads. PhonePe: people in 2 ads, products in 4. CRED's choice is deliberate — abstract aspiration lets the audience self-project. But PhonePe's inconsistency (some people, some not) doesn't build either an emotional brand or a pure product identity. The most successful creative libraries have a clear POV on this. Mixed approaches dilute both strategies.</div>
+          </div>
+        </li>
+        <li class="tw-item reveal">
+          <div class="tw-num">4</div>
+          <div>
+            <div class="tw-title">The word "pre-approved" is the most powerful word in Indian fintech advertising</div>
+            <div class="tw-desc">Both PhonePe loan ads use it. It changes the psychological framing from "applying for a loan" (effort, risk of rejection) to "claiming something you already have" (entitlement, zero effort). "Pre-approved" converts at dramatically higher rates because it's not selling a product — it's informing someone of a decision that's already been made in their favour. If your product category allows pre-qualification, lead with it in every ad.</div>
+          </div>
+        </li>
+        <li class="tw-item reveal">
+          <div class="tw-num">5</div>
+          <div>
+            <div class="tw-title">AI-generated lifestyle imagery is now production infrastructure, not a creative shortcut</div>
+            <div class="tw-desc">PhonePe's recharge and bill payment ads use AI-generated people. These aren't cheap-looking — they're functional and emotionally resonant. For a brand running product-specific ads across 6 products × multiple languages × multiple audience segments, AI imagery enables 50× creative volume at a fraction of shoot costs. The question isn't "should we use AI images?" It's "which segments and products justify a real shoot vs AI production?"</div>
+          </div>
+        </li>
+        <li class="tw-item reveal">
+          <div class="tw-num">6</div>
+          <div>
+            <div class="tw-title">CRED's ₹50 offer is strategically small — and that's the point</div>
+            <div class="tw-desc">₹50 cashback for installing an app and paying a bill is objectively a small incentive. But CRED's brand positioning means a large cashback would undermine exclusivity — it would feel desperate, like a brand that has to bribe people to use it. The ₹50 is just large enough to justify the action, small enough to maintain brand dignity. Understanding the relationship between offer size and brand positioning is as important as understanding conversion mechanics.</div>
+          </div>
+        </li>
+        <li class="tw-item reveal">
+          <div class="tw-num">7</div>
+          <div>
+            <div class="tw-title">PhonePe's credit card ad is a direct competitive attack — and CRED should notice</div>
+            <div class="tw-desc">Ad #5 — "Earn 5% rewards, PhonePe HDFC Bank Credit Card" — uses a premium gold aesthetic and targets exactly the high-CIBIL audience CRED owns. PhonePe isn't just monetising its existing user base; it's actively expanding into premium fintech with a product that makes CRED's value proposition redundant. The competitive intelligence embedded in this creative set is: PhonePe wants CRED's audience. Watch what products appear in your competitors' ad libraries — that's the most honest signal of where they're moving next.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="case-footer">
+    <div>
+      <div class="cf-author">Chethan S — Performance Marketer</div>
+      <div class="cf-sub">Ad Creative Analysis · CRED vs PhonePe · 12 Ads · Meta Ads Library</div>
+    </div>
+    <div class="footer-nav">
+      <a href="index.html" class="fnl-link">
+        <span class="fnl-label">← Back</span>
+        <span class="fnl-text">Portfolio</span>
+      </a>
+      <a href="case-study-personal-touch.html" class="fnl-link">
+        <span class="fnl-label">Next →</span>
+        <span class="fnl-text">Personal Touch</span>
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workout Session Sequencer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; background: #e9e7e1; font-family: 'Inter', system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
+  * { box-sizing: border-box; }
+  button { font-family: inherit; cursor: pointer; }
+  input { font-family: inherit; }
+  .shell { min-height: 100vh; display: flex; justify-content: center; background: #e9e7e1; }
+  .phone { width: 100%; max-width: 460px; min-height: 100vh; background: #fbfaf8; box-shadow: 0 0 60px rgba(0,0,0,.08); position: relative; display: flex; flex-direction: column; }
+
+  /* ---- form guide rigs ---- */
+  .rig .thigh, .rig .shin, .rig .torso, .rig .upperarm, .rig .forearm, .rig .bob { transform: rotate(0deg); }
+
+  @keyframes sqThigh { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(38deg)} }
+  @keyframes sqShin { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(-68deg)} }
+  @keyframes sqBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(9px)} }
+  .rig-squat .thigh{animation:sqThigh 2.2s ease-in-out infinite}
+  .rig-squat .shin{animation:sqShin 2.2s ease-in-out infinite}
+  .rig-squat .bob{animation:sqBob 2.2s ease-in-out infinite}
+
+  @keyframes hgTorso { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(46deg)} }
+  @keyframes hgThigh { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(14deg)} }
+  .rig-hinge .torso{animation:hgTorso 2.2s ease-in-out infinite; transform-origin:56px 82px}
+  .rig-hinge .thigh{animation:hgThigh 2.2s ease-in-out infinite}
+
+  @keyframes phUpper { 0%,100%{transform:rotate(70deg)} 50%{transform:rotate(70deg)} }
+  @keyframes phFore { 0%,100%{transform:rotate(-150deg)} 50%{transform:rotate(-58deg)} }
+  .rig-pressh .upperarm{animation:phUpper 2.2s ease-in-out infinite}
+  .rig-pressh .forearm{animation:phFore 2.2s ease-in-out infinite}
+
+  @keyframes pvUpper { 0%,100%{transform:rotate(-8deg)} 50%{transform:rotate(-172deg)} }
+  @keyframes pvFore { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(8deg)} }
+  .rig-pressv .upperarm{animation:pvUpper 2.2s ease-in-out infinite}
+  .rig-pressv .forearm{animation:pvFore 2.2s ease-in-out infinite}
+
+  @keyframes pullUpper { 0%,100%{transform:rotate(24deg)} 50%{transform:rotate(-42deg)} }
+  @keyframes pullFore { 0%,100%{transform:rotate(-8deg)} 50%{transform:rotate(-22deg)} }
+  .rig-pull .upperarm{animation:pullUpper 2.2s ease-in-out infinite}
+  .rig-pull .forearm{animation:pullFore 2.2s ease-in-out infinite}
+
+  @keyframes curlUpper { 0%,100%{transform:rotate(14deg)} 50%{transform:rotate(14deg)} }
+  @keyframes curlFore { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(-128deg)} }
+  .rig-curl .upperarm{animation:curlUpper 2.2s ease-in-out infinite}
+  .rig-curl .forearm{animation:curlFore 2.2s ease-in-out infinite}
+
+  @keyframes raiseUpper { 0%,100%{transform:rotate(6deg)} 50%{transform:rotate(-96deg)} }
+  @keyframes raiseFore { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(0deg)} }
+  .rig-raise .upperarm{animation:raiseUpper 2.2s ease-in-out infinite}
+  .rig-raise .forearm{animation:raiseFore 2.2s ease-in-out infinite}
+
+  @keyframes tricepUpper { 0%,100%{transform:rotate(-168deg)} 50%{transform:rotate(-168deg)} }
+  @keyframes tricepFore { 0%,100%{transform:rotate(146deg)} 50%{transform:rotate(24deg)} }
+  .rig-tricep .upperarm{animation:tricepUpper 2.2s ease-in-out infinite}
+  .rig-tricep .forearm{animation:tricepFore 2.2s ease-in-out infinite}
+
+  @keyframes cfBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+  .rig-calf .bob{animation:cfBob 1.6s ease-in-out infinite}
+
+  @keyframes corePulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.025)} }
+  .rig-core .torso{animation:corePulse 2.6s ease-in-out infinite; transform-origin:58px 62px}
+</style>
+</head>
+<body>
+<div class="shell"><div class="phone" id="root"></div></div>
+
+<script>
+const DAY_KEYS_ORDER = ['mon','tue','wed','thu','fri','sat','sun'];
+const DAY_ABBR = { sun:'SUN', mon:'MON', tue:'TUE', wed:'WED', thu:'THU', fri:'FRI', sat:'SAT' };
+const DOW = ['sun','mon','tue','wed','thu','fri','sat'];
+
+const DEFAULT_ROUTINES = {
+  lowerA: { title: 'Lower A', subtitle: 'Squat/quad + unilateral', type: 'lift', custom: false, exercises: [
+    { name: 'Goblet squat', subtitle: 'heel-elevated option for ankle', sets: 4, reps: '8–12', rpe: '8', rest: 100 },
+    { name: 'DB Bulgarian split squat', subtitle: 'rear foot on sofa edge', sets: 3, reps: '10–12/leg', rpe: '8', rest: 90 },
+    { name: 'DB RDL', subtitle: '', sets: 3, reps: '10–12', rpe: '7–8', rest: 90 },
+    { name: 'Single-leg calf raise', subtitle: 'full ROM, extra left', sets: 4, reps: '12–15/side', rpe: '—', rest: 45 },
+    { name: 'Reverse lunge', subtitle: 'ankle ROM work', sets: 3, reps: '10/leg', rpe: '7', rest: 75 },
+    { name: 'Side plank', subtitle: '', sets: 3, reps: '40s/side', rpe: '—', rest: 45 },
+  ]},
+  upperA: { title: 'Upper A', subtitle: 'Horizontal push/pull + arms', type: 'lift', custom: false, exercises: [
+    { name: 'DB floor press', subtitle: '', sets: 4, reps: '8–12', rpe: '8', rest: 100 },
+    { name: 'Bent-over one-arm DB row', subtitle: '', sets: 4, reps: '10–12/side', rpe: '8', rest: 90 },
+    { name: 'DB squeeze press', subtitle: 'floor, or sofa-edge incline', sets: 3, reps: '10–12', rpe: '7–8', rest: 75 },
+    { name: 'DB lateral raise', subtitle: '', sets: 3, reps: '12–15', rpe: '—', rest: 45 },
+    { name: 'DB curl', subtitle: 'last set rest-pause', sets: 3, reps: '10', rpe: '8–9', rest: 60 },
+    { name: 'Overhead tricep extension', subtitle: 'last set drop set', sets: 3, reps: '12', rpe: '8–9', rest: 60 },
+  ]},
+  zone2_35: { title: 'Zone 2', subtitle: '35 min · HR enforced', type: 'cardio', custom: false, duration: 35 },
+  lowerB: { title: 'Lower B', subtitle: 'Hinge/posterior + unilateral', type: 'lift', custom: false, exercises: [
+    { name: 'Barbell RDL', subtitle: '', sets: 4, reps: '6–10', rpe: '8', rest: 120 },
+    { name: 'Floor glute bridge', subtitle: 'DB on hips', sets: 3, reps: '12–15', rpe: '8', rest: 75 },
+    { name: 'DB Bulgarian split squat', subtitle: 'other emphasis', sets: 3, reps: '10/leg', rpe: '7–8', rest: 90 },
+    { name: 'Goblet squat', subtitle: 'maintenance', sets: 3, reps: '10', rpe: '6–7', rest: 75 },
+    { name: 'Standing double-leg calf raise', subtitle: '', sets: 4, reps: '15', rpe: '—', rest: 45 },
+    { name: 'Hollow hold', subtitle: '', sets: 3, reps: '30–40s', rpe: '—', rest: 45 },
+  ]},
+  upperB: { title: 'Upper B', subtitle: 'Vertical push/pull + arms', type: 'lift', custom: false, exercises: [
+    { name: 'Standing DB overhead press', subtitle: '', sets: 4, reps: '8–10', rpe: '8', rest: 100 },
+    { name: 'Pull-up', subtitle: 'banded sub, or bent-over row 4×10', sets: 4, reps: 'max or 8', rpe: '8', rest: 100 },
+    { name: 'Barbell row', subtitle: '', sets: 4, reps: '8–10', rpe: '7–8', rest: 90 },
+    { name: 'Band face pull', subtitle: '', sets: 3, reps: '15', rpe: '—', rest: 45 },
+    { name: 'Hammer curl', subtitle: 'last set rest-pause', sets: 3, reps: '10', rpe: '8–9', rest: 60 },
+    { name: 'Close-grip floor press', subtitle: 'or skull crusher, last set drop', sets: 3, reps: '10', rpe: '8–9', rest: 60 },
+  ]},
+  zone2_45: { title: 'Zone 2', subtitle: '40–45 min · HR enforced', type: 'cardio', custom: false, duration: 42 },
+  restday: { title: 'Rest', subtitle: 'Weekly review', type: 'review', custom: false },
+};
+
+const DEFAULT_SCHEDULE = { mon: 'lowerA', tue: 'upperA', wed: 'zone2_35', thu: 'lowerB', fri: 'upperB', sat: 'zone2_45', sun: 'restday' };
+const MONTH_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+/* ---------- helpers ---------- */
+
+const todayKey = () => DOW[new Date().getDay()];
+const dateStr = (d) => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+function fmtTime(sec) {
+  sec = Math.max(0, Math.round(sec));
+  return Math.floor(sec / 60) + ':' + String(sec % 60).padStart(2, '0');
+}
+const esc = (s) => String(s ?? '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+function slugify(s) {
+  return 'r_' + (s || 'set').toLowerCase().replace(/[^a-z0-9]+/g, '_').slice(0, 20) + '_' + Date.now().toString(36).slice(-5);
+}
+function mondayOf(d) {
+  const day = (d.getDay() + 6) % 7;
+  const m = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  m.setDate(m.getDate() - day);
+  return m;
+}
+function addDays(d, n) { const r = new Date(d); r.setDate(r.getDate() + n); return r; }
+function isoWeekNumber(d) {
+  const target = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  const dayNr = (target.getDay() + 6) % 7;
+  target.setDate(target.getDate() - dayNr + 3);
+  const firstThursday = target.valueOf();
+  target.setMonth(0, 1);
+  if (target.getDay() !== 4) target.setMonth(0, 1 + ((4 - target.getDay()) + 7) % 7);
+  return 1 + Math.round((firstThursday - target.valueOf()) / 604800000);
+}
+const fmtShort = (d) => MONTH_SHORT[d.getMonth()] + ' ' + d.getDate();
+function categorize(name) {
+  const n = (name || '').toLowerCase();
+  if (n.includes('calf')) return 'calf';
+  if (n.includes('lateral raise')) return 'raise';
+  if (n.includes('tricep') || n.includes('skull')) return 'tricep';
+  if (n.includes('curl')) return 'curl';
+  if (n.includes('overhead') && n.includes('press')) return 'pressv';
+  if (n.includes('press')) return 'pressh';
+  if (n.includes('row') || n.includes('pull-up') || n.includes('pull up') || n.includes('face pull')) return 'pull';
+  if (n.includes('rdl') || n.includes('hinge') || n.includes('bridge') || n.includes('deadlift')) return 'hinge';
+  if (n.includes('squat') || n.includes('lunge')) return 'squat';
+  return 'core';
+}
+
+/* ---------- state ---------- */
+
+const state = {
+  screen: 'week',
+  dayKey: null,
+  exIndex: 0,
+  setsDone: 0,
+  resting: false,
+  restRemaining: 0,
+  restTotal: 0,
+  zone2Running: false,
+  zone2Remaining: 0,
+  hrLow: 120,
+  hrHigh: 140,
+  completed: {},
+  calYear: new Date().getFullYear(),
+  calMonth: new Date().getMonth(),
+  calSelected: null,
+  routines: DEFAULT_ROUTINES,
+  weekSchedules: {},
+  planWeekOffset: 0,
+  pickerDay: null,
+  editingRoutine: null,
+};
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem('wss-completed-v1');
+    if (raw) state.completed = JSON.parse(raw);
+    const hr = localStorage.getItem('wss-hr-v1');
+    if (hr) { const p = JSON.parse(hr); state.hrLow = p.low; state.hrHigh = p.high; }
+    const routinesRaw = localStorage.getItem('wss-routines-v1');
+    if (routinesRaw) state.routines = { ...DEFAULT_ROUTINES, ...JSON.parse(routinesRaw) };
+    const weekSchedulesRaw = localStorage.getItem('wss-weekschedules-v1');
+    if (weekSchedulesRaw) state.weekSchedules = JSON.parse(weekSchedulesRaw);
+  } catch (e) {}
+  migrateCompleted();
+}
+
+// Older versions stored completed[date][day] = true with detail in wss-log-v1.
+// v2 stores a snapshot object. Convert booleans once so calendar detail keeps working.
+function migrateCompleted() {
+  let dirty = false;
+  let oldLog = {};
+  try { oldLog = JSON.parse(localStorage.getItem('wss-log-v1') || '{}'); } catch (e) {}
+  Object.keys(state.completed).forEach((ds) => {
+    Object.keys(state.completed[ds]).forEach((day) => {
+      if (state.completed[ds][day] !== true) return;
+      dirty = true;
+      const entry = (oldLog[ds] || []).find((e) => e.key === day);
+      const fallback = DEFAULT_ROUTINES[DEFAULT_SCHEDULE[day]] || DEFAULT_ROUTINES.restday;
+      state.completed[ds][day] = {
+        title: entry?.title || fallback.title,
+        type: entry?.type || fallback.type,
+        exercises: entry?.exercises || (fallback.exercises ? fallback.exercises.map((e) => ({ name: e.name, sets: e.sets, reps: e.reps })) : undefined),
+        duration: entry?.duration ?? fallback.duration,
+      };
+    });
+  });
+  if (dirty) saveCompleted();
+}
+
+const saveCompleted = () => { try { localStorage.setItem('wss-completed-v1', JSON.stringify(state.completed)); } catch (e) {} };
+const saveHr = () => { try { localStorage.setItem('wss-hr-v1', JSON.stringify({ low: state.hrLow, high: state.hrHigh })); } catch (e) {} };
+const saveRoutines = () => { try { localStorage.setItem('wss-routines-v1', JSON.stringify(state.routines)); } catch (e) {} };
+const saveWeekSchedules = () => { try { localStorage.setItem('wss-weekschedules-v1', JSON.stringify(state.weekSchedules)); } catch (e) {} };
+
+const getWeekSchedule = (weekKeyStr) => ({ ...DEFAULT_SCHEDULE, ...(state.weekSchedules[weekKeyStr] || {}) });
+
+function getRoutine(dayKey) {
+  const wk = dateStr(mondayOf(new Date()));
+  const sched = getWeekSchedule(wk);
+  return state.routines[sched[dayKey]] || DEFAULT_ROUTINES.restday;
+}
+
+/* ---------- actions ---------- */
+
+function completeDay(key) {
+  const routine = getRoutine(key);
+  const ds = dateStr(new Date());
+  const snapshot = {
+    title: routine.title,
+    type: routine.type,
+    exercises: routine.exercises ? routine.exercises.map((e) => ({ name: e.name, sets: e.sets, reps: e.reps })) : undefined,
+    duration: routine.duration,
+  };
+  state.completed[ds] = { ...(state.completed[ds] || {}), [key]: snapshot };
+  saveCompleted();
+}
+
+function openDay(key) {
+  const routine = getRoutine(key);
+  state.dayKey = key;
+  if (routine.type === 'lift') {
+    state.exIndex = 0;
+    state.setsDone = 0;
+    state.resting = false;
+    state.screen = 'session';
+  } else if (routine.type === 'cardio') {
+    state.zone2Running = false;
+    state.zone2Remaining = routine.duration * 60;
+    state.screen = 'zone2';
+  } else {
+    state.screen = 'review';
+  }
+  render();
+}
+
+function backToWeek() {
+  state.screen = 'week';
+  state.zone2Running = false;
+  state.pickerDay = null;
+  state.editingRoutine = null;
+  render();
+}
+
+function markSetDone() {
+  const routine = getRoutine(state.dayKey);
+  const ex = routine.exercises[state.exIndex];
+  const newSetsDone = state.setsDone + 1;
+  const isLastSetOfEx = newSetsDone >= ex.sets;
+  const isLastEx = state.exIndex >= routine.exercises.length - 1;
+
+  if (isLastSetOfEx && isLastEx) {
+    completeDay(state.dayKey);
+    state.screen = 'done';
+    render();
+    return;
+  }
+  if (isLastSetOfEx) { state.exIndex += 1; state.setsDone = 0; }
+  else { state.setsDone = newSetsDone; }
+  state.resting = true;
+  state.restTotal = ex.rest;
+  state.restRemaining = ex.rest;
+  render();
+}
+
+function skipRest() { state.resting = false; render(); }
+function zone2Toggle() { state.zone2Running = !state.zone2Running; render(); }
+function incHr() { state.hrLow += 5; state.hrHigh += 5; saveHr(); render(); }
+function decHr() { state.hrLow -= 5; state.hrHigh -= 5; saveHr(); render(); }
+
+function tick() {
+  let changed = false;
+  if (state.resting && state.restRemaining > 0) {
+    state.restRemaining -= 1;
+    changed = true;
+    if (state.restRemaining <= 0) state.resting = false;
+  }
+  if (state.zone2Running && state.zone2Remaining > 0) {
+    state.zone2Remaining -= 1;
+    changed = true;
+    if (state.zone2Remaining <= 0) {
+      state.zone2Running = false;
+      completeDay(state.dayKey);
+      state.screen = 'done';
+    }
+  }
+  if (changed) render();
+}
+setInterval(tick, 1000);
+
+/* calendar */
+function openCalendar() {
+  const now = new Date();
+  state.calYear = now.getFullYear();
+  state.calMonth = now.getMonth();
+  state.calSelected = null;
+  state.screen = 'calendar';
+  render();
+}
+function calPrev() { state.calMonth -= 1; if (state.calMonth < 0) { state.calMonth = 11; state.calYear -= 1; } state.calSelected = null; render(); }
+function calNext() { state.calMonth += 1; if (state.calMonth > 11) { state.calMonth = 0; state.calYear += 1; } state.calSelected = null; render(); }
+function selectCalDate(ds) { state.calSelected = state.calSelected === ds ? null : ds; render(); }
+
+/* plan */
+function openPlan() { state.pickerDay = null; state.planWeekOffset = 0; state.screen = 'plan'; render(); }
+function planPrevWeek() { state.planWeekOffset -= 1; state.pickerDay = null; render(); }
+function planNextWeek() { state.planWeekOffset += 1; state.pickerDay = null; render(); }
+function togglePicker(day) { state.pickerDay = state.pickerDay === day ? null : day; render(); }
+function assignRoutine(weekKeyStr, day, routineId) {
+  const current = getWeekSchedule(weekKeyStr);
+  current[day] = routineId;
+  state.weekSchedules[weekKeyStr] = current;
+  state.pickerDay = null;
+  saveWeekSchedules();
+  render();
+}
+function deleteRoutine(id) {
+  Object.keys(state.weekSchedules).forEach((wk) => {
+    const sched = state.weekSchedules[wk];
+    Object.keys(sched).forEach((d) => { if (sched[d] === id) sched[d] = 'restday'; });
+  });
+  saveWeekSchedules();
+  const { [id]: removed, ...rest } = state.routines;
+  state.routines = rest;
+  saveRoutines();
+  render();
+}
+
+/* routine editor */
+function openNewRoutine() {
+  state.editingRoutine = { id: null, title: '', subtitle: '', type: 'lift', duration: 30, exercises: [
+    { name: '', reps: '', sets: 3, rpe: '', rest: 60 },
+  ]};
+  state.screen = 'routineEditor';
+  render();
+}
+function openEditRoutine(id) {
+  const r = state.routines[id];
+  state.editingRoutine = {
+    id, title: r.title, subtitle: r.subtitle || '', type: r.type === 'cardio' ? 'cardio' : 'lift',
+    duration: r.duration || 30,
+    exercises: r.exercises ? r.exercises.map((e) => ({ ...e })) : [{ name: '', reps: '', sets: 3, rpe: '', rest: 60 }],
+  };
+  state.screen = 'routineEditor';
+  render();
+}
+function cancelEditor() { state.editingRoutine = null; state.screen = 'plan'; render(); }
+function edField(field, value) { state.editingRoutine[field] = value; }
+function edType(t) { state.editingRoutine.type = t; render(); }
+function edEx(idx, field, value) { state.editingRoutine.exercises[idx][field] = value; }
+function addExerciseRow() { state.editingRoutine.exercises.push({ name: '', reps: '', sets: 3, rpe: '', rest: 60 }); render(); }
+function removeExerciseRow(idx) { state.editingRoutine.exercises.splice(idx, 1); render(); }
+function saveRoutine() {
+  const e = state.editingRoutine;
+  const id = e.id || slugify(e.title);
+  const routine = { title: e.title.trim() || 'Untitled set', subtitle: e.subtitle.trim(), type: e.type, custom: true };
+  if (e.type === 'cardio') routine.duration = Math.max(1, Number(e.duration) || 30);
+  else routine.exercises = e.exercises.filter((x) => x.name.trim()).map((x) => ({
+    name: x.name.trim(), subtitle: '', sets: Math.max(1, Number(x.sets) || 1), reps: x.reps || '—', rpe: x.rpe || '—', rest: Math.max(0, Number(x.rest) || 60),
+  }));
+  state.routines = { ...state.routines, [id]: routine };
+  saveRoutines();
+  state.editingRoutine = null;
+  state.screen = 'plan';
+  render();
+}
+
+/* ---------- views ---------- */
+
+function dayTitleUpper() {
+  const routine = getRoutine(state.dayKey);
+  return (DAY_ABBR[state.dayKey] + ' · ' + routine.title).toUpperCase();
+}
+
+function weekView() {
+  const today = todayKey();
+  const completedToday = state.completed[dateStr(new Date())] || {};
+  const rows = DAY_KEYS_ORDER.map((key) => {
+    const routine = getRoutine(key);
+    const isToday = key === today;
+    const done = !!completedToday[key];
+    const statusLabel = done ? 'DONE' : isToday ? 'TODAY' : '';
+    const statusColor = done ? '#111' : isToday ? '#d6603f' : '#c9c3b2';
+    return `
+      <button onclick="openDay('${key}')" style="all:unset;display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:16px;background:${isToday ? '#f3f1eb' : '#fff'};border:1px solid ${isToday ? '#e2ddd0' : '#f0eee7'};cursor:pointer">
+        <div style="width:44px;height:44px;border-radius:12px;background:${isToday ? '#111' : '#f3f1eb'};color:${isToday ? '#fff' : '#9a968a'};display:flex;align-items:center;justify-content:center;font:700 12px 'JetBrains Mono',monospace;flex:none">${DAY_ABBR[key]}</div>
+        <div style="flex:1;min-width:0">
+          <div style="font:700 15px 'Inter',sans-serif;color:#141311">${esc(routine.title)}</div>
+          <div style="font:500 12px 'Inter',sans-serif;color:#9a968a;margin-top:1px">${esc(routine.subtitle)}</div>
+        </div>
+        <div style="font:700 11px 'Inter',sans-serif;color:${statusColor};flex:none">${statusLabel}</div>
+      </button>`;
+  }).join('');
+
+  return `
+    <div style="padding:28px 24px 24px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div>
+          <div style="font:600 12px/1 'JetBrains Mono',monospace;letter-spacing:.08em;color:#9a968a">PLAN</div>
+          <div style="font:800 26px/1.2 'Inter',sans-serif;margin-top:6px;color:#111">This Week</div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:2px">
+          <button onclick="openPlan()" style="all:unset;display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;background:#f3f1eb;border:1px solid #ece9e2;cursor:pointer">
+            <div style="width:12px;height:12px;border-radius:3px;border:1.6px solid #9a968a;position:relative"><div style="position:absolute;left:2px;right:2px;top:4px;height:1.6px;background:#9a968a"></div></div>
+            <span style="font:700 12px 'Inter',sans-serif;color:#141311">Plan</span>
+          </button>
+          <button onclick="openCalendar()" style="all:unset;display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;background:#f3f1eb;border:1px solid #ece9e2;cursor:pointer">
+            <div style="display:grid;grid-template-columns:repeat(3,4px);grid-template-rows:repeat(3,4px);gap:2px">
+              ${[0,1,2,3,4,5,6,7,8].map((i) => `<div style="width:4px;height:4px;background:${i === 4 ? '#111' : '#9a968a'};border-radius:1px"></div>`).join('')}
+            </div>
+            <span style="font:700 12px 'Inter',sans-serif;color:#141311">Calendar</span>
+          </button>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:22px">${rows}</div>
+      <div style="margin-top:30px;padding-top:20px;border-top:1px solid #ece9e2">
+        <div style="font:600 11px 'Inter',sans-serif;color:#9a968a">Progress resets each calendar day · tap a day to open it</div>
+      </div>
+    </div>`;
+}
+
+function rigSvg(category) {
+  return `
+    <svg viewBox="0 0 120 140" width="130" height="150" class="rig rig-${category}">
+      <line x1="8" y1="128" x2="112" y2="128" stroke="#e5e3de" stroke-width="2"></line>
+      <g class="bob">
+        <g class="hipgroup">
+          <g class="thigh" style="transform-origin:56px 82px">
+            <line x1="56" y1="82" x2="50" y2="112" stroke="#111" stroke-width="5" stroke-linecap="round"></line>
+            <g class="shin" style="transform-origin:50px 112px">
+              <line x1="50" y1="112" x2="52" y2="128" stroke="#111" stroke-width="5" stroke-linecap="round"></line>
+            </g>
+          </g>
+          <g class="torso" style="transform-origin:56px 82px">
+            <line x1="56" y1="82" x2="60" y2="42" stroke="#111" stroke-width="5" stroke-linecap="round"></line>
+            <circle cx="61" cy="31" r="10" fill="#111"></circle>
+            <g class="upperarm" style="transform-origin:60px 46px">
+              <line x1="60" y1="46" x2="60" y2="68" stroke="#111" stroke-width="5" stroke-linecap="round"></line>
+              <g class="forearm" style="transform-origin:60px 68px">
+                <line x1="60" y1="68" x2="60" y2="90" stroke="#111" stroke-width="5" stroke-linecap="round"></line>
+                <circle cx="60" cy="92" r="4" fill="#9a968a"></circle>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>`;
+}
+
+function sessionView() {
+  const routine = getRoutine(state.dayKey);
+  const ex = routine.exercises[state.exIndex];
+  const nextEx = routine.exercises[state.exIndex + 1];
+  const isLastSetOfEx = (state.setsDone + 1) >= ex.sets;
+  const isLastEx = state.exIndex >= routine.exercises.length - 1;
+
+  const dots = routine.exercises.map((_, i) =>
+    `<div style="height:3px;flex:1;background:${i <= state.exIndex ? '#111' : '#e5e3de'};border-radius:2px"></div>`).join('');
+
+  const header = `
+    <div style="padding:20px 22px 0;display:flex;justify-content:space-between;align-items:center">
+      <button onclick="backToWeek()" style="all:unset;font:700 13px 'Inter',sans-serif;color:#9a968a;padding:6px 0;cursor:pointer">← Week</button>
+      <div style="font:700 12px/1 'JetBrains Mono',monospace;letter-spacing:.06em;color:#9a968a">${dayTitleUpper()}</div>
+      <div style="font:700 12px/1 'JetBrains Mono',monospace;color:#9a968a">${state.exIndex + 1} / ${routine.exercises.length}</div>
+    </div>
+    <div style="padding:16px 22px 0;display:flex;gap:4px">${dots}</div>`;
+
+  if (state.resting) {
+    const restNextLabel = isLastSetOfEx
+      ? ((nextEx && nextEx.name) || 'finish')
+      : ex.name + ' · set ' + (state.setsDone + 1);
+    return `
+      <div style="display:flex;flex-direction:column;flex:1">
+        ${header}
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 22px">
+          <div style="font:600 13px 'Inter',sans-serif;color:#9a968a;letter-spacing:.08em">RESTING</div>
+          <div style="font:800 64px/1 'JetBrains Mono',monospace;color:#111;margin-top:10px">${fmtTime(state.restRemaining)}</div>
+          <div style="font:500 13px 'Inter',sans-serif;color:#a19d8f;margin-top:14px">next: ${esc(restNextLabel)}</div>
+        </div>
+        <div style="padding:22px 22px 30px">
+          <button onclick="skipRest()" style="all:unset;width:100%;background:#f3f1eb;color:#111;border:1px solid #e2ddd0;border-radius:18px;height:56px;display:flex;align-items:center;justify-content:center;font:700 15px 'Inter',sans-serif;cursor:pointer">Skip rest</button>
+        </div>
+      </div>`;
+  }
+
+  const upcoming = routine.exercises.slice(state.exIndex + 1).map((e, i) => `
+    <div style="background:#f3f1eb;border-radius:14px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border:1px solid #ece9e2">
+      <div style="font:600 10px 'JetBrains Mono',monospace;color:#b5b09f;flex:none;margin-right:10px">${state.exIndex + 2 + i}</div>
+      <div style="font:600 13px 'Inter',sans-serif;color:#141311;flex:1">${esc(e.name)}</div>
+      <div style="font:500 12px 'JetBrains Mono',monospace;color:#9a968a;flex:none">${e.sets}×${esc(e.reps)}</div>
+    </div>`).join('');
+
+  return `
+    <div style="display:flex;flex-direction:column;flex:1">
+      ${header}
+      <div style="padding:30px 22px 0;flex:1;overflow-y:auto">
+        <div style="font:600 13px/1.3 'Inter',sans-serif;color:#9a968a;letter-spacing:.02em">EXERCISE ${state.exIndex + 1}</div>
+        <div style="font:800 30px/1.15 'Inter',sans-serif;margin-top:6px;color:#111">${esc(ex.name)}</div>
+        ${ex.subtitle ? `<div style="font:500 13px/1.4 'Inter',sans-serif;color:#a19d8f;margin-top:4px">${esc(ex.subtitle)}</div>` : ''}
+        <div style="display:flex;gap:22px;margin-top:22px">
+          <div>
+            <div style="font:600 10px 'JetBrains Mono',monospace;color:#9a968a;letter-spacing:.06em">REPS</div>
+            <div style="font:700 22px 'JetBrains Mono',monospace;margin-top:3px;color:#111">${esc(ex.reps)}</div>
+          </div>
+          <div>
+            <div style="font:600 10px 'JetBrains Mono',monospace;color:#9a968a;letter-spacing:.06em">RPE</div>
+            <div style="font:700 22px 'JetBrains Mono',monospace;margin-top:3px;color:#111">${esc(ex.rpe)}</div>
+          </div>
+          <div>
+            <div style="font:600 10px 'JetBrains Mono',monospace;color:#9a968a;letter-spacing:.06em">SET</div>
+            <div style="font:700 22px 'JetBrains Mono',monospace;margin-top:3px;color:#111">${state.setsDone + 1}/${ex.sets}</div>
+          </div>
+        </div>
+        <div style="margin-top:20px;background:#f7f6f2;border-radius:18px;border:1px solid #ece9e2;padding:12px 0 6px;display:flex;flex-direction:column;align-items:center">
+          ${rigSvg(categorize(ex.name))}
+          <div style="font:600 10px 'Inter',sans-serif;color:#a19d8f;letter-spacing:.05em;margin-top:2px;margin-bottom:8px">FORM GUIDE · SCHEMATIC</div>
+        </div>
+        ${nextEx ? `
+        <div style="margin-top:22px">
+          <div style="font:600 11px 'Inter',sans-serif;color:#9a968a;letter-spacing:.04em;margin-bottom:10px">UP NEXT</div>
+          <div style="display:flex;flex-direction:column;gap:8px">${upcoming}</div>
+        </div>` : ''}
+      </div>
+      <div style="padding:22px 22px 30px">
+        <button onclick="markSetDone()" style="all:unset;width:100%;background:#111;color:#fff;border-radius:18px;height:64px;display:flex;align-items:center;justify-content:center;font:800 17px 'Inter',sans-serif;letter-spacing:.02em;cursor:pointer">${isLastSetOfEx && isLastEx ? 'FINISH SESSION' : 'MARK SET DONE'}</button>
+      </div>
+    </div>`;
+}
+
+function zone2View() {
+  const routine = getRoutine(state.dayKey);
+  const stateLabel = state.zone2Running ? 'IN PROGRESS' : state.zone2Remaining <= 0 ? 'DONE' : 'READY';
+  const btnLabel = state.zone2Running ? 'Pause' : state.zone2Remaining === routine.duration * 60 ? 'Start' : 'Resume';
+  return `
+    <div style="display:flex;flex-direction:column;flex:1">
+      <div style="padding:20px 22px 0;display:flex;justify-content:space-between;align-items:center">
+        <button onclick="backToWeek()" style="all:unset;font:700 13px 'Inter',sans-serif;color:#9a968a;padding:6px 0;cursor:pointer">← Week</button>
+        <div style="font:700 12px/1 'JetBrains Mono',monospace;letter-spacing:.06em;color:#9a968a">${dayTitleUpper()}</div>
+        <div style="width:44px"></div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 22px">
+        <div style="font:600 13px 'Inter',sans-serif;color:#9a968a;letter-spacing:.08em">${stateLabel}</div>
+        <div style="font:800 72px/1 'JetBrains Mono',monospace;color:#111;margin-top:14px">${fmtTime(state.zone2Remaining)}</div>
+        <div style="font:500 13px 'Inter',sans-serif;color:#a19d8f;margin-top:8px">Target duration ${routine.duration} min</div>
+        <div style="margin-top:22px;display:flex;align-items:center;gap:10px">
+          <button onclick="decHr()" style="all:unset;width:30px;height:30px;border-radius:8px;background:#f3f1eb;display:flex;align-items:center;justify-content:center;font:700 15px 'Inter',sans-serif;color:#111;cursor:pointer">−</button>
+          <div style="font:700 13px 'JetBrains Mono',monospace;color:#111">${state.hrLow}–${state.hrHigh} bpm</div>
+          <button onclick="incHr()" style="all:unset;width:30px;height:30px;border-radius:8px;background:#f3f1eb;display:flex;align-items:center;justify-content:center;font:700 15px 'Inter',sans-serif;color:#111;cursor:pointer">+</button>
+        </div>
+      </div>
+      <div style="padding:22px 22px 30px;display:flex;gap:10px">
+        <button onclick="zone2Toggle()" style="all:unset;flex:1;background:#111;color:#fff;border-radius:18px;height:64px;display:flex;align-items:center;justify-content:center;font:800 17px 'Inter',sans-serif;cursor:pointer">${btnLabel}</button>
+      </div>
+    </div>`;
+}
+
+function doneView() {
+  return `
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 30px;text-align:center">
+      <div style="width:64px;height:64px;border-radius:50%;background:#111;color:#fff;display:flex;align-items:center;justify-content:center;font:700 28px 'Inter',sans-serif">✓</div>
+      <div style="font:800 24px 'Inter',sans-serif;color:#111;margin-top:20px">Session complete</div>
+      <div style="font:500 14px 'Inter',sans-serif;color:#9a968a;margin-top:6px">${dayTitleUpper()}</div>
+      <button onclick="backToWeek()" style="all:unset;margin-top:30px;background:#111;color:#fff;border-radius:16px;padding:16px 32px;font:700 15px 'Inter',sans-serif;cursor:pointer">Back to week</button>
+    </div>`;
+}
+
+function calendarView() {
+  const s = state;
+  const first = new Date(s.calYear, s.calMonth, 1);
+  const firstWeekday = (first.getDay() + 6) % 7;
+  const daysInMonth = new Date(s.calYear, s.calMonth + 1, 0).getDate();
+  const totalCells = Math.ceil((firstWeekday + daysInMonth) / 7) * 7;
+  const todayDs = dateStr(new Date());
+
+  const weekdayLabels = ['M','T','W','T','F','S','S'].map((t) =>
+    `<div style="text-align:center;font:600 10px 'JetBrains Mono',monospace;color:#b5b09f;padding-bottom:6px">${t}</div>`).join('');
+
+  let cells = '';
+  for (let i = 0; i < totalCells; i++) {
+    const dayNum = i - firstWeekday + 1;
+    const inMonth = dayNum >= 1 && dayNum <= daysInMonth;
+    if (!inMonth) { cells += '<div style="aspect-ratio:1"></div>'; continue; }
+    const ds = dateStr(new Date(s.calYear, s.calMonth, dayNum));
+    const logged = !!s.completed[ds] && Object.keys(s.completed[ds]).length > 0;
+    const isToday = ds === todayDs;
+    const isSelected = ds === s.calSelected;
+    cells += `
+      <button onclick="selectCalDate('${ds}')" style="all:unset;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:12px;background:${isSelected ? '#111' : isToday ? '#f3f1eb' : '#fff'};border:1px solid ${isSelected ? '#111' : isToday ? '#e2ddd0' : '#f0eee7'};cursor:pointer">
+        <div style="font:700 13px 'Inter',sans-serif;color:${isSelected ? '#fff' : '#141311'}">${dayNum}</div>
+        <div style="width:5px;height:5px;border-radius:50%;background:${logged ? (isSelected ? '#7ac48a' : '#3f9b52') : 'transparent'};margin-top:3px"></div>
+      </button>`;
+  }
+
+  let detail = '';
+  if (s.calSelected) {
+    const [y, m, d] = s.calSelected.split('-').map(Number);
+    const dObj = new Date(y, m - 1, d);
+    const dateLabel = dObj.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+    const logsForDate = s.completed[s.calSelected] || {};
+    const keys = Object.keys(logsForDate).filter((k) => logsForDate[k]);
+    const logs = keys.map((key) => {
+      const snap = logsForDate[key];
+      const items = snap.type === 'lift' && snap.exercises
+        ? snap.exercises.map((e) => ({ name: e.name, setsReps: e.sets + '×' + e.reps }))
+        : [{ name: 'Zone 2 cardio', setsReps: (snap.duration || '') + ' min' }];
+      return `
+        <div style="margin-top:14px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="width:20px;height:20px;border-radius:50%;background:#111;color:#fff;display:flex;align-items:center;justify-content:center;font:700 11px 'Inter',sans-serif">✓</div>
+            <div style="font:700 16px 'Inter',sans-serif;color:#111">${DAY_ABBR[key]} · ${esc(snap.title)}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-top:10px">
+            ${items.map((it) => `
+              <div style="display:flex;justify-content:space-between;padding:10px 14px;background:#f3f1eb;border-radius:12px">
+                <div style="font:600 13px 'Inter',sans-serif;color:#141311">${esc(it.name)}</div>
+                <div style="font:500 12px 'JetBrains Mono',monospace;color:#9a968a">${esc(it.setsReps)}</div>
+              </div>`).join('')}
+          </div>
+        </div>`;
+    }).join('');
+    detail = `
+      <div style="margin-top:24px;padding-top:20px;border-top:1px solid #ece9e2">
+        <div style="font:600 11px 'Inter',sans-serif;color:#9a968a;letter-spacing:.04em">${dateLabel}</div>
+        ${keys.length ? logs : '<div style="font:600 14px \'Inter\',sans-serif;color:#c9c3b2;margin-top:12px">No session logged</div>'}
+      </div>`;
+  }
+
+  return `
+    <div style="padding:20px 22px 24px;flex:1">
+      <button onclick="backToWeek()" style="all:unset;font:700 13px 'Inter',sans-serif;color:#9a968a;cursor:pointer">← Week</button>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px">
+        <button onclick="calPrev()" style="all:unset;width:32px;height:32px;border-radius:9px;background:#f3f1eb;display:flex;align-items:center;justify-content:center;font:700 15px 'Inter',sans-serif;color:#111;cursor:pointer">‹</button>
+        <div style="font:800 18px 'Inter',sans-serif;color:#111">${MONTH_NAMES[s.calMonth]} ${s.calYear}</div>
+        <button onclick="calNext()" style="all:unset;width:32px;height:32px;border-radius:9px;background:#f3f1eb;display:flex;align-items:center;justify-content:center;font:700 15px 'Inter',sans-serif;color:#111;cursor:pointer">›</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:18px">${weekdayLabels}${cells}</div>
+      ${detail}
+    </div>`;
+}
+
+function reviewView() {
+  const liftDays = ['mon','tue','wed','thu','fri','sat'];
+  const doneAny = (k) => Object.values(state.completed).some((day) => day[k]);
+  const doneCount = liftDays.filter(doneAny).length;
+  const rows = liftDays.map((key) => {
+    const routine = getRoutine(key);
+    const isDone = doneAny(key);
+    return `
+      <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:${isDone ? '#f3f1eb' : '#fff'}">
+        <div style="width:24px;height:24px;border-radius:50%;background:${isDone ? '#111' : '#efece4'};color:#fff;display:flex;align-items:center;justify-content:center;font:700 12px 'Inter',sans-serif;flex:none">${isDone ? '✓' : ''}</div>
+        <div style="flex:1;font:600 14px 'Inter',sans-serif;color:#141311">${esc(routine.title)} — ${esc(routine.subtitle)}</div>
+        <div style="font:600 11px 'JetBrains Mono',monospace;color:#9a968a">${DAY_ABBR[key]}</div>
+      </div>`;
+  }).join('');
+  return `
+    <div style="padding:28px 24px 24px;flex:1">
+      <button onclick="backToWeek()" style="all:unset;font:700 13px 'Inter',sans-serif;color:#9a968a;cursor:pointer">← Week</button>
+      <div style="font:800 26px/1.2 'Inter',sans-serif;margin-top:14px;color:#111">Weekly review</div>
+      <div style="font:500 13px 'Inter',sans-serif;color:#9a968a;margin-top:4px">${doneCount} of ${liftDays.length} sessions logged this week</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:22px">${rows}</div>
+    </div>`;
+}
+
+function planView() {
+  const s = state;
+  const routineIds = Object.keys(s.routines);
+  const realToday = new Date();
+  const todayDs = dateStr(realToday);
+  const viewedMonday = addDays(mondayOf(realToday), s.planWeekOffset * 7);
+  const viewedSunday = addDays(viewedMonday, 6);
+  const weekKeyStr = dateStr(viewedMonday);
+  const weekSched = getWeekSchedule(weekKeyStr);
+  const isPastWeek = dateStr(viewedSunday) < todayDs;
+
+  const weekLabel = fmtShort(viewedMonday) + ' – ' + fmtShort(viewedSunday) + (viewedMonday.getFullYear() !== realToday.getFullYear() ? ', ' + viewedMonday.getFullYear() : '');
+
+  const scheduleRows = DAY_KEYS_ORDER.map((day, i) => {
+    const dayDate = addDays(viewedMonday, i);
+    const dayDs = dateStr(dayDate);
+    const routineId = weekSched[day];
+    const routine = s.routines[routineId] || DEFAULT_ROUTINES.restday;
+    const isDone = Object.keys(s.completed[dayDs] || {}).some((k) => k === day);
+    const isPastDay = dayDs < todayDs;
+    const editable = !isPastWeek && !isPastDay && !isDone;
+    const pickerOpen = s.pickerDay === day && editable;
+    let lockLabel = '';
+    if (isDone) lockLabel = 'Done';
+    else if (isPastDay || isPastWeek) lockLabel = 'Locked';
+    const options = !pickerOpen ? '' : `
+      <div style="display:flex;flex-wrap:wrap;gap:6px;padding:10px 4px 4px">
+        ${routineIds.map((id) => `
+          <button onclick="assignRoutine('${weekKeyStr}','${day}','${id}')" style="all:unset;padding:8px 12px;border-radius:10px;font:600 12px 'Inter',sans-serif;background:${routineId === id ? '#111' : '#f3f1eb'};color:${routineId === id ? '#fff' : '#141311'};border:1px solid ${routineId === id ? '#111' : '#ece9e2'};cursor:pointer">${esc(s.routines[id].title)}${s.routines[id].subtitle ? ' · ' + esc(s.routines[id].subtitle) : ''}</button>`).join('')}
+      </div>`;
+    return `
+      <div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:#fff;border:1px solid #f0eee7;opacity:${(isPastDay && !isDone) || isPastWeek ? 0.55 : 1}">
+          <div style="width:38px;height:38px;border-radius:10px;background:#f3f1eb;display:flex;align-items:center;justify-content:center;font:700 11px 'JetBrains Mono',monospace;color:#9a968a;flex:none">${DAY_ABBR[day]}</div>
+          <div style="flex:1;min-width:0">
+            <div style="font:700 14px 'Inter',sans-serif;color:#141311">${esc(routine.title)}</div>
+            <div style="font:500 12px 'Inter',sans-serif;color:#9a968a">${fmtShort(dayDate)} · ${esc(routine.subtitle)}</div>
+          </div>
+          <button ${editable ? `onclick="togglePicker('${day}')"` : ''} style="all:unset;font:700 12px 'Inter',sans-serif;color:${editable ? '#111' : isDone ? '#3f9b52' : '#b5b09f'};padding:8px 12px;border-radius:10px;background:${editable ? '#f3f1eb' : 'transparent'};flex:none;cursor:${editable ? 'pointer' : 'default'}">${editable ? (pickerOpen ? 'Close' : 'Change') : lockLabel}</button>
+        </div>
+        ${options}
+      </div>`;
+  }).join('');
+
+  const libraryRows = routineIds.map((id) => {
+    const r = s.routines[id];
+    const meta = r.type === 'cardio' ? (r.duration + ' min · Cardio') : ((r.exercises ? r.exercises.length : 0) + ' exercises');
+    return `
+      <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:#fff;border:1px solid #f0eee7">
+        <div style="flex:1;min-width:0">
+          <div style="font:700 14px 'Inter',sans-serif;color:#141311">${esc(r.title)}</div>
+          <div style="font:500 12px 'Inter',sans-serif;color:#9a968a">${meta}</div>
+        </div>
+        <button onclick="openEditRoutine('${id}')" style="all:unset;font:700 12px 'Inter',sans-serif;color:#111;padding:8px 12px;border-radius:10px;background:#f3f1eb;flex:none;cursor:pointer">Edit</button>
+        ${r.custom ? `<button onclick="deleteRoutine('${id}')" style="all:unset;font:700 12px 'Inter',sans-serif;color:#b5453a;padding:8px 10px;flex:none;cursor:pointer">Delete</button>` : ''}
+      </div>`;
+  }).join('');
+
+  return `
+    <div style="padding:20px 22px 30px;flex:1">
+      <button onclick="backToWeek()" style="all:unset;font:700 13px 'Inter',sans-serif;color:#9a968a;cursor:pointer">← Week</button>
+      <div style="font:800 26px/1.2 'Inter',sans-serif;margin-top:14px;color:#111">Plan</div>
+      <div style="font:500 13px 'Inter',sans-serif;color:#9a968a;margin-top:4px">Choose what runs on each day, or build a new set</div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:26px">
+        <div>
+          <div style="font:700 11px 'Inter',sans-serif;color:#9a968a;letter-spacing:.06em">WEEKLY SCHEDULE</div>
+          <div style="display:flex;align-items:baseline;gap:8px;margin-top:4px">
+            <div style="font:800 15px 'Inter',sans-serif;color:#111">${weekLabel}</div>
+            <div style="font:600 11px 'JetBrains Mono',monospace;color:#9a968a">Week ${isoWeekNumber(viewedMonday)}</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:6px">
+          <button onclick="planPrevWeek()" style="all:unset;width:28px;height:28px;border-radius:8px;background:#f3f1eb;display:flex;align-items:center;justify-content:center;font:700 14px 'Inter',sans-serif;color:#111;cursor:pointer">‹</button>
+          <button onclick="planNextWeek()" style="all:unset;width:28px;height:28px;border-radius:8px;background:#f3f1eb;display:flex;align-items:center;justify-content:center;font:700 14px 'Inter',sans-serif;color:#111;cursor:pointer">›</button>
+        </div>
+      </div>
+      ${isPastWeek ? '<div style="font:600 11px \'Inter\',sans-serif;color:#b5453a;margin-top:6px">Past week — schedule is locked</div>' : ''}
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">${scheduleRows}</div>
+
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:28px">
+        <div style="font:700 11px 'Inter',sans-serif;color:#9a968a;letter-spacing:.06em">EXERCISE SETS</div>
+        <button onclick="openNewRoutine()" style="all:unset;font:700 12px 'Inter',sans-serif;color:#111;cursor:pointer">+ New set</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">${libraryRows}</div>
+    </div>`;
+}
+
+function editorView() {
+  const e = state.editingRoutine;
+  const liftSel = e.type === 'lift';
+  const exRows = e.exercises.map((ex, idx) => `
+    <div style="background:#fff;border:1px solid #f0eee7;border-radius:14px;padding:12px">
+      <div style="display:flex;align-items:center;gap:8px">
+        <input value="${esc(ex.name)}" oninput="edEx(${idx},'name',this.value)" placeholder="Exercise name" style="all:unset;flex:1;min-width:0;font:700 14px 'Inter',sans-serif;color:#111">
+        <button onclick="removeExerciseRow(${idx})" style="all:unset;font:700 14px 'Inter',sans-serif;color:#c9c3b2;flex:none;cursor:pointer">✕</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-top:10px">
+        <div>
+          <div style="font:600 9px 'JetBrains Mono',monospace;color:#b5b09f">SETS</div>
+          <input type="number" value="${esc(ex.sets)}" oninput="edEx(${idx},'sets',this.value)" style="all:unset;display:block;width:100%;margin-top:3px;padding:6px 8px;border-radius:8px;background:#f3f1eb;font:700 12px 'JetBrains Mono',monospace;color:#111">
+        </div>
+        <div>
+          <div style="font:600 9px 'JetBrains Mono',monospace;color:#b5b09f">REPS</div>
+          <input value="${esc(ex.reps)}" oninput="edEx(${idx},'reps',this.value)" style="all:unset;display:block;width:100%;margin-top:3px;padding:6px 8px;border-radius:8px;background:#f3f1eb;font:700 12px 'JetBrains Mono',monospace;color:#111">
+        </div>
+        <div>
+          <div style="font:600 9px 'JetBrains Mono',monospace;color:#b5b09f">RPE</div>
+          <input value="${esc(ex.rpe)}" oninput="edEx(${idx},'rpe',this.value)" style="all:unset;display:block;width:100%;margin-top:3px;padding:6px 8px;border-radius:8px;background:#f3f1eb;font:700 12px 'JetBrains Mono',monospace;color:#111">
+        </div>
+        <div>
+          <div style="font:600 9px 'JetBrains Mono',monospace;color:#b5b09f">REST S</div>
+          <input type="number" value="${esc(ex.rest)}" oninput="edEx(${idx},'rest',this.value)" style="all:unset;display:block;width:100%;margin-top:3px;padding:6px 8px;border-radius:8px;background:#f3f1eb;font:700 12px 'JetBrains Mono',monospace;color:#111">
+        </div>
+      </div>
+    </div>`).join('');
+
+  return `
+    <div style="padding:20px 22px 30px;flex:1">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <button onclick="cancelEditor()" style="all:unset;font:700 13px 'Inter',sans-serif;color:#9a968a;cursor:pointer">Cancel</button>
+        <div style="font:700 13px 'Inter',sans-serif;color:#111">${e.id ? 'Edit set' : 'New set'}</div>
+        <button onclick="saveRoutine()" style="all:unset;font:800 13px 'Inter',sans-serif;color:#111;cursor:pointer">Save</button>
+      </div>
+      <div style="margin-top:22px">
+        <div style="font:600 11px 'Inter',sans-serif;color:#9a968a;letter-spacing:.04em">NAME</div>
+        <input value="${esc(e.title)}" oninput="edField('title',this.value)" placeholder="e.g. Lower C" style="all:unset;display:block;width:100%;margin-top:8px;padding:12px 14px;border-radius:12px;background:#f3f1eb;font:600 15px 'Inter',sans-serif;color:#111">
+      </div>
+      <div style="margin-top:16px">
+        <div style="font:600 11px 'Inter',sans-serif;color:#9a968a;letter-spacing:.04em">NOTE</div>
+        <input value="${esc(e.subtitle)}" oninput="edField('subtitle',this.value)" placeholder="e.g. Squat/quad + unilateral" style="all:unset;display:block;width:100%;margin-top:8px;padding:12px 14px;border-radius:12px;background:#f3f1eb;font:500 14px 'Inter',sans-serif;color:#111">
+      </div>
+      <div style="margin-top:16px;display:flex;gap:8px">
+        <button onclick="edType('lift')" style="all:unset;flex:1;text-align:center;padding:10px;border-radius:12px;font:700 13px 'Inter',sans-serif;background:${liftSel ? '#111' : '#f3f1eb'};color:${liftSel ? '#fff' : '#141311'};cursor:pointer">Lift</button>
+        <button onclick="edType('cardio')" style="all:unset;flex:1;text-align:center;padding:10px;border-radius:12px;font:700 13px 'Inter',sans-serif;background:${!liftSel ? '#111' : '#f3f1eb'};color:${!liftSel ? '#fff' : '#141311'};cursor:pointer">Cardio</button>
+      </div>
+      ${liftSel ? `
+      <div style="margin-top:22px">
+        <div style="font:600 11px 'Inter',sans-serif;color:#9a968a;letter-spacing:.04em;margin-bottom:10px">EXERCISES</div>
+        <div style="display:flex;flex-direction:column;gap:10px">${exRows}</div>
+        <button onclick="addExerciseRow()" style="all:unset;display:block;width:100%;text-align:center;margin-top:12px;padding:12px;border-radius:12px;border:1px dashed #d8d3c4;font:700 13px 'Inter',sans-serif;color:#9a968a;cursor:pointer">+ Add exercise</button>
+      </div>` : `
+      <div style="margin-top:22px">
+        <div style="font:600 11px 'Inter',sans-serif;color:#9a968a;letter-spacing:.04em">DURATION (MIN)</div>
+        <input type="number" value="${esc(e.duration)}" oninput="edField('duration',this.value)" style="all:unset;display:block;width:100%;margin-top:8px;padding:12px 14px;border-radius:12px;background:#f3f1eb;font:700 15px 'JetBrains Mono',monospace;color:#111">
+      </div>`}
+    </div>`;
+}
+
+function render() {
+  const root = document.getElementById('root');
+  const s = state.screen;
+  if (s === 'week') root.innerHTML = weekView();
+  else if (s === 'session') root.innerHTML = sessionView();
+  else if (s === 'zone2') root.innerHTML = zone2View();
+  else if (s === 'done') root.innerHTML = doneView();
+  else if (s === 'calendar') root.innerHTML = calendarView();
+  else if (s === 'plan') root.innerHTML = planView();
+  else if (s === 'routineEditor') root.innerHTML = editorView();
+  else root.innerHTML = reviewView();
+}
+
+loadState();
+render();
+</script>
+</body>
+</html>

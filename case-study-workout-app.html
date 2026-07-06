@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workout Session Sequencer — Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; background: #fbfaf8; font-family: 'Inter', system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
+  * { box-sizing: border-box; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .aside { display: grid; grid-template-columns: 220px 1fr; gap: 40px; }
+  @media (max-width: 820px) {
+    .split, .aside { grid-template-columns: 1fr; gap: 28px; }
+    .split .shot { order: 2 !important; }
+  }
+</style>
+</head>
+<body>
+
+<div style="max-width:1180px;margin:0 auto;padding:0 32px">
+
+  <!-- NAV -->
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:28px 0">
+    <div style="font:700 13px 'JetBrains Mono',monospace;letter-spacing:.06em;color:#111">WORKOUT SEQUENCER</div>
+    <div style="font:600 12px 'Inter',sans-serif;color:#9a968a">Personal project · 2026</div>
+  </div>
+
+  <!-- HERO -->
+  <div style="padding:60px 0 50px;border-top:1px solid #ece9e2">
+    <div style="font:700 12px 'JetBrains Mono',monospace;letter-spacing:.08em;color:#d6603f;margin-bottom:16px">CASE STUDY</div>
+    <div style="font:800 clamp(40px,6vw,72px)/1.05 'Inter',sans-serif;color:#111;max-width:820px;letter-spacing:-.01em">A workout app built to be looked at as little as possible.</div>
+    <div style="font:500 18px/1.6 'Inter',sans-serif;color:#7a766a;max-width:640px;margin-top:22px">A weekly lifting + Zone 2 plan, sequenced into one tap-to-advance flow — so the phone stays out of the way and the plan stays in view.</div>
+    <div style="display:flex;gap:8px;margin-top:28px;flex-wrap:wrap">
+      <div style="padding:8px 14px;border-radius:20px;background:#f3f1eb;font:600 12px 'Inter',sans-serif;color:#5c574c">Design Component</div>
+      <div style="padding:8px 14px;border-radius:20px;background:#f3f1eb;font:600 12px 'Inter',sans-serif;color:#5c574c">Mobile-first</div>
+      <div style="padding:8px 14px;border-radius:20px;background:#f3f1eb;font:600 12px 'Inter',sans-serif;color:#5c574c">Local persistence, no backend</div>
+    </div>
+  </div>
+
+  <!-- HERO IMAGE STRIP -->
+  <div style="display:flex;gap:18px;padding-bottom:70px;overflow-x:auto">
+    <div style="flex:none;width:230px;border-radius:22px;border:1px solid #ece9e2;box-shadow:0 20px 50px rgba(0,0,0,.08);overflow:hidden">
+      <img src="workout-shots/week.png" alt="Week view" style="display:block;width:100%">
+    </div>
+    <div style="flex:none;width:230px;border-radius:22px;border:1px solid #ece9e2;box-shadow:0 20px 50px rgba(0,0,0,.08);overflow:hidden;margin-top:24px">
+      <img src="workout-shots/02-session.png" alt="Session view" style="display:block;width:100%">
+    </div>
+    <div style="flex:none;width:230px;border-radius:22px;border:1px solid #ece9e2;box-shadow:0 20px 50px rgba(0,0,0,.08);overflow:hidden">
+      <img src="workout-shots/zone2.png" alt="Zone 2 view" style="display:block;width:100%">
+    </div>
+    <div style="flex:none;width:230px;border-radius:22px;border:1px solid #ece9e2;box-shadow:0 20px 50px rgba(0,0,0,.08);overflow:hidden;margin-top:24px">
+      <img src="workout-shots/02-calendar.png" alt="Calendar view" style="display:block;width:100%">
+    </div>
+  </div>
+
+  <!-- THE BRIEF -->
+  <div class="aside" style="padding:50px 0;border-top:1px solid #ece9e2">
+    <div style="font:700 12px 'JetBrains Mono',monospace;letter-spacing:.08em;color:#9a968a">01 — THE BRIEF</div>
+    <div style="max-width:640px">
+      <div style="font:800 28px/1.3 'Inter',sans-serif;color:#111">A fixed 7-day plan already existed — lower/upper splits plus Zone 2 cardio. The app's only job was to sequence it.</div>
+      <div style="font:500 16px/1.7 'Inter',sans-serif;color:#7a766a;margin-top:16px">No logging screens, no rep-by-rep data entry. Used mid-set with sweaty hands, so the core loop had to be one deliberate tap: mark the set done, and the app tells you what's next — exercise, reps, RPE, rest.</div>
+    </div>
+  </div>
+
+  <!-- WHAT WE BUILT -->
+  <div style="padding:50px 0;border-top:1px solid #ece9e2">
+    <div style="font:700 12px 'JetBrains Mono',monospace;letter-spacing:.08em;color:#9a968a;margin-bottom:36px">02 — WHAT WE BUILT</div>
+
+    <div class="split" style="margin-bottom:70px">
+      <div>
+        <div style="font:700 11px 'Inter',sans-serif;color:#d6603f;letter-spacing:.05em;margin-bottom:10px">SEQUENCED SESSIONS</div>
+        <div style="font:800 26px/1.3 'Inter',sans-serif;color:#111">What follows what, always visible</div>
+        <div style="font:500 15px/1.7 'Inter',sans-serif;color:#7a766a;margin-top:14px">Every session shows the current exercise's sets, reps and RPE up top, with the full remaining order queued below as "Up next" — never just one step ahead. A progress dial across the top tracks position in the session at a glance.</div>
+        <div style="font:500 15px/1.7 'Inter',sans-serif;color:#7a766a;margin-top:14px">Finishing a set auto-starts a rest countdown sized to that exercise, then hands the same screen back — no navigating, no re-finding your place.</div>
+      </div>
+      <div class="shot" style="border-radius:26px;border:1px solid #ece9e2;box-shadow:0 24px 60px rgba(0,0,0,.1);overflow:hidden;justify-self:center;width:300px">
+        <img src="workout-shots/02-session.png" alt="Session sequencing" style="display:block;width:100%">
+      </div>
+    </div>
+
+    <div class="split" style="margin-bottom:70px">
+      <div>
+        <div style="font:700 11px 'Inter',sans-serif;color:#d6603f;letter-spacing:.05em;margin-bottom:10px">GENERATED FORM GUIDE</div>
+        <div style="font:800 26px/1.3 'Inter',sans-serif;color:#111">A movement diagram, with no photoshoot required</div>
+        <div style="font:500 15px/1.7 'Inter',sans-serif;color:#7a766a;margin-top:14px">Rather than leave a blank spot for a demo photo, each exercise name is matched to one of nine movement families — squat, hinge, horizontal press, overhead press, pull, curl, lateral raise, tricep extension, calf raise, core brace — and rendered as a small looping stick-figure animation, generated live from CSS.</div>
+        <div style="font:500 15px/1.7 'Inter',sans-serif;color:#7a766a;margin-top:14px">It's schematic on purpose: a directional cue for the movement pattern, not a replacement for real coaching.</div>
+      </div>
+      <div class="shot" style="border-radius:26px;border:1px solid #ece9e2;box-shadow:0 24px 60px rgba(0,0,0,.1);overflow:hidden;justify-self:center;width:300px">
+        <img src="workout-shots/02-session.png" alt="Form guide" style="display:block;width:100%">
+      </div>
+    </div>
+
+    <div class="split" style="margin-bottom:70px">
+      <div>
+        <div style="font:700 11px 'Inter',sans-serif;color:#d6603f;letter-spacing:.05em;margin-bottom:10px">ZONE 2, NOT ZONE 5</div>
+        <div style="font:800 26px/1.3 'Inter',sans-serif;color:#111">A different mode for a different kind of day</div>
+        <div style="font:500 15px/1.7 'Inter',sans-serif;color:#7a766a;margin-top:14px">Cardio days swap the set-by-set flow for one large countdown and an adjustable target heart-rate band — nothing to tap until the timer runs out.</div>
+      </div>
+      <div class="shot" style="border-radius:26px;border:1px solid #ece9e2;box-shadow:0 24px 60px rgba(0,0,0,.1);overflow:hidden;justify-self:center;width:300px">
+        <img src="workout-shots/zone2.png" alt="Zone 2 mode" style="display:block;width:100%">
+      </div>
+    </div>
+
+    <div class="split" style="margin-bottom:70px">
+      <div class="shot" style="border-radius:26px;border:1px solid #ece9e2;box-shadow:0 24px 60px rgba(0,0,0,.1);overflow:hidden;justify-self:center;width:300px;order:2">
+        <img src="workout-shots/02-calendar.png" alt="Calendar log" style="display:block;width:100%">
+      </div>
+      <div style="order:1">
+        <div style="font:700 11px 'Inter',sans-serif;color:#d6603f;letter-spacing:.05em;margin-bottom:10px">A HISTORY THAT DOESN'T LIE</div>
+        <div style="font:800 26px/1.3 'Inter',sans-serif;color:#111">Calendar log, snapshotted per day</div>
+        <div style="font:500 15px/1.7 'Inter',sans-serif;color:#7a766a;margin-top:14px">Every completed day is stamped green on a real month calendar. Tapping a date shows exactly what ran that day — a frozen snapshot of the routine at completion time, so editing a routine later never rewrites history.</div>
+      </div>
+    </div>
+
+    <div class="split">
+      <div>
+        <div style="font:700 11px 'Inter',sans-serif;color:#d6603f;letter-spacing:.05em;margin-bottom:10px">WEEK-AWARE PLANNING</div>
+        <div style="font:800 26px/1.3 'Inter',sans-serif;color:#111">Plan the week ahead, lock the week behind</div>
+        <div style="font:500 15px/1.7 'Inter',sans-serif;color:#7a766a;margin-top:14px">The Plan screen reassigns which routine runs on which day — for a specific, dated week, not a floating template. Past weeks lock outright; within the live week, any day already lifted or already gone is locked too. A library of routines can be edited or extended with a simple set builder.</div>
+      </div>
+      <div class="shot" style="border-radius:26px;border:1px solid #ece9e2;box-shadow:0 24px 60px rgba(0,0,0,.1);overflow:hidden;justify-self:center;width:300px">
+        <img src="workout-shots/02-plan.png" alt="Plan screen" style="display:block;width:100%">
+      </div>
+    </div>
+  </div>
+
+  <!-- PRINCIPLES -->
+  <div class="aside" style="padding:50px 0;border-top:1px solid #ece9e2">
+    <div style="font:700 12px 'JetBrains Mono',monospace;letter-spacing:.08em;color:#9a968a">03 — PRINCIPLES</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:760px">
+      <div>
+        <div style="font:800 15px 'Inter',sans-serif;color:#111">One tap, always forward</div>
+        <div style="font:500 14px/1.6 'Inter',sans-serif;color:#7a766a;margin-top:6px">Mark set done is the only required action in a lift session.</div>
+      </div>
+      <div>
+        <div style="font:800 15px 'Inter',sans-serif;color:#111">Zero manual logging</div>
+        <div style="font:500 14px/1.6 'Inter',sans-serif;color:#7a766a;margin-top:6px">No weight fields, no rep counters to fill in — completion is inferred from progress through the plan.</div>
+      </div>
+      <div>
+        <div style="font:800 15px 'Inter',sans-serif;color:#111">Stark, high-contrast type</div>
+        <div style="font:500 14px/1.6 'Inter',sans-serif;color:#7a766a;margin-top:6px">Inter for copy, JetBrains Mono for numbers — legible at arm's length, mid-set.</div>
+      </div>
+      <div>
+        <div style="font:800 15px 'Inter',sans-serif;color:#111">History can't be rewritten</div>
+        <div style="font:500 14px/1.6 'Inter',sans-serif;color:#7a766a;margin-top:6px">Snapshots, locks, and past-week guards keep the record honest.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="padding:50px 0 70px;border-top:1px solid #ece9e2;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px">
+    <div style="font:500 14px 'Inter',sans-serif;color:#9a968a">Built as a single streaming Design Component — no backend, progress kept on-device.</div>
+    <a href="workout/" style="text-decoration:none;background:#111;color:#fff;padding:14px 26px;border-radius:14px;font:700 14px 'Inter',sans-serif">Open the live app →</a>
+  </div>
+
+</div>
+
+</body>
+</html>

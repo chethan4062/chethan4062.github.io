@@ -46,6 +46,7 @@ Write for a hiring manager or recruiter, not a buyer. The contact section reads
 | `case-study-mamaearth.html` | Brand Teardown |
 | `case-study-cultfit.html` | Brand Teardown |
 | `case-study-cred-phonepe.html` | Brand Teardown — CRED vs PhonePe, 12 ads |
+| `tools.html` | Tools — Marketing Calculators (ROAS & break-even, CAC & LTV, budget pacing). Tabs are addressed by hash: `#roas`, `#cac`, `#pacing` |
 | `case-study-workout-app.html` | Workout Session Sequencer write-up; links to `workout/index.html`. Not currently linked from the homepage |
 | `workout/index.html` | Live workout app demo |
 | `templates/` | Page templates. `noindex`, never linked from the site |
@@ -62,13 +63,15 @@ In page order, with the ids the nav links to:
 | Skills & Tools | `skills` | — |
 | Selected Work | `work` | Work |
 | Brand Teardowns | `teardowns` | Teardowns |
+| Tools | `tools` | Tools |
 | AI Lab | `ai-lab` | AI Lab |
 | Experience | `experience` | Experience |
 | Certifications & Education | `certifications` | — |
 | Contact | `contact` | Contact |
 
-Nav is: name on the left, those five links, LinkedIn button on the right. Keep
-section order matching nav order.
+Nav is: name on the left, those six links, LinkedIn button on the right. Keep
+section order matching nav order. Every other page carries a `Tools` link to
+`tools.html` in its nav as well.
 
 ## Section rules
 
@@ -87,6 +90,14 @@ section order matching nav order.
 - **AI Lab** — my own AI tools and workflows. Each card carries an `In Progress`
   badge and no link until the thing is actually finished and has a page to point at.
   Use the `.cases-grid` / `.case-card` markup so cards can be added by copy-paste.
+- **Tools** — free calculators and utilities for performance marketers. **Every tool
+  must be plain HTML and vanilla JavaScript in a single self-contained file: no
+  libraries, no API keys, no external calls (the Google Fonts stylesheet is the only
+  external resource, as on every page), no cookies, no `localStorage` or any other
+  data storage, no analytics.** Everything runs in the browser on the values the
+  visitor types. Invalid, empty, zero or negative inputs show `—`, never `NaN` or
+  `Infinity`. Money is formatted with `en-IN` (`₹1,20,000`). Each tool page reuses
+  the homepage nav and footer and gets a card in `#tools`.
 
 ## Facts to keep consistent everywhere
 
@@ -131,13 +142,16 @@ should open in a new tab.
 1. Copy the matching template:
    - A campaign or teardown → `templates/case-study-template.html`
    - An AI Lab project → `templates/ai-lab-template.html`
+   - A calculator or utility → a new single-file page modelled on `tools.html`
+     (or a new tab inside it), following the Tools rule above
 2. Save it in the repo root as `case-study-<slug>.html` or `ai-lab-<slug>.html`.
 3. Replace every `[PLACEHOLDER]`, set `<title>` and the meta description, and
    **remove the `noindex` meta tag**.
-4. Add a card to the matching homepage section (`#work`, `#teardowns` or `#ai-lab`)
-   by copying an existing `.case-card` in that grid. Teardown and Work cards are
-   `<a>` elements with three metrics and a "Read case study" arrow; AI Lab cards are
-   `<div>` elements with an `In Progress` badge and no metrics.
+4. Add a card to the matching homepage section (`#work`, `#teardowns`, `#tools` or
+   `#ai-lab`) by copying an existing `.case-card` in that grid. Teardown and Work
+   cards are `<a>` elements with three metrics and a "Read case study" arrow; Tools
+   cards are `<a>` elements with a tag, title, description and "Open tool" arrow;
+   AI Lab cards are `<div>` elements with an `In Progress` badge and no metrics.
 5. Check the back-link to `index.html` and any footer cross-links resolve.
 
 ## Before finishing a change

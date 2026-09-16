@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<!--
+  CASE STUDY TEMPLATE
+
+  1. Copy to the repo root as case-study-<slug>.html
+  2. Replace every [PLACEHOLDER]
+  3. Set the title and meta description
+  4. REMOVE the noindex meta tag below before publishing
+  5. Add a card to #work (campaign I managed) or #teardowns (third-person
+     analysis) on index.html
+
+  Selected Work pages: first person, client anonymised, keep the footer
+  confidentiality note. Brand Teardowns: third person, public information only,
+  drop the confidentiality note.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>[PAGE TITLE] · Chethan Shankar</title>
+  <meta name="description" content="[ONE SENTENCE DESCRIPTION]" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #FAFAF8;
+      --card:      #FFFFFF;
+      --text:      #1A1A1A;
+      --muted:     #6B6B6B;
+      --accent:    #E8E4DF;
+      --border:    #E5E3DE;
+      --highlight: #2C2C2C;
+      --warm:      #C8A882;
+      --warm-bg:   #F5EFE8;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'DM Sans', sans-serif; font-size: 16px;
+      line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+    h1, h2, h3, h4 { font-family: 'Instrument Serif', serif; font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; }
+
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(250,250,248,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 0 6%; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .nav-back { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--muted); font-size: 0.82rem; font-weight: 500; transition: color 0.2s; }
+    .nav-back:hover { color: var(--text); }
+    .nav-back svg { width: 14px; height: 14px; }
+    .nav-sections { display: flex; gap: 1.6rem; list-style: none; }
+    .nav-sections a { text-decoration: none; color: var(--muted); font-size: 0.8rem; font-weight: 500; transition: color 0.2s; white-space: nowrap; }
+    .nav-sections a:hover { color: var(--text); }
+    @media (max-width: 768px) { .nav-sections { display: none; } }
+
+    /* HERO */
+    .hero { padding: 5rem 6% 4rem; border-bottom: 1px solid var(--border); }
+    .hero-label {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: var(--highlight); color: #F5EFE8;
+      padding: 0.3rem 1rem; border-radius: 100px;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 1.5px;
+      text-transform: uppercase; margin-bottom: 1.8rem;
+    }
+    .hero-label::before { content: '◆'; font-size: 0.5rem; color: var(--warm); }
+    .hero h1 { font-size: clamp(2.8rem, 6.5vw, 5.5rem); letter-spacing: -0.04em; line-height: 1.0; margin-bottom: 0.5rem; }
+    .hero h1 em { font-style: italic; color: var(--muted); }
+    .hero-meta-row {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;
+      margin: 1.4rem 0 2rem; font-size: 0.82rem; color: var(--muted);
+    }
+    .hero-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+    .hero-meta-row .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--border); }
+    .hero-tagline { font-size: clamp(1rem, 2vw, 1.15rem); color: var(--muted); max-width: 620px; line-height: 1.7; margin-bottom: 3rem; }
+
+    /* STAT BAR */
+    .stat-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+    }
+    .stat-bar-item { background: var(--card); padding: 1.3rem 1.5rem; }
+    .stat-bar-item.highlight-stat { background: var(--highlight); }
+    .stat-bar-val {
+      font-family: 'Instrument Serif', serif;
+      font-size: 2rem; letter-spacing: -0.03em;
+      color: var(--text); line-height: 1; margin-bottom: 0.3rem;
+    }
+    .stat-bar-item.highlight-stat .stat-bar-val { color: #F5EFE8; }
+    .stat-bar-label { font-size: 0.72rem; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat-bar-item.highlight-stat .stat-bar-label { color: #7A6E65; }
+    .stat-bar-note { font-size: 0.68rem; color: var(--warm); font-weight: 600; margin-top: 0.2rem; }
+
+    /* LAYOUT */
+    .container { max-width: 860px; margin: 0 auto; padding: 5rem 6%; }
+    .divider { width: 100%; height: 1px; background: var(--border); }
+
+    /* SECTION */
+    .section-eyebrow { display: flex; align-items: center; gap: 0.8rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--warm); margin-bottom: 1.2rem; }
+    .section-eyebrow::after { content: ''; flex: 1; max-width: 40px; height: 1px; background: var(--warm); }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 1rem; color: var(--text); }
+    .section-lead { font-size: 1.05rem; color: var(--muted); max-width: 640px; line-height: 1.75; margin-bottom: 3rem; }
+    .sub-title { font-family: 'DM Sans', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--text); margin-bottom: 1rem; }
+
+    .prose p { font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+    .prose p:last-child { margin-bottom: 0; }
+    .prose strong { color: var(--text); font-weight: 600; }
+
+    .insight-block { border-left: 3px solid var(--warm); background: var(--warm-bg); border-radius: 0 8px 8px 0; padding: 1.2rem 1.5rem; margin: 2rem 0; font-size: 0.95rem; color: var(--highlight); line-height: 1.7; }
+    .insight-block strong { font-weight: 600; }
+
+    /* OVERVIEW CARDS */
+    .brief-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 2rem; }
+    @media (max-width: 600px) { .brief-grid { grid-template-columns: 1fr; } }
+    .brief-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.3rem 1.5rem; }
+    .brief-card.span-2 { grid-column: 1 / -1; }
+    .brief-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+    .brief-val { font-size: 0.9rem; font-weight: 500; color: var(--text); line-height: 1.6; }
+    .brief-val.muted { font-weight: 400; color: var(--muted); }
+
+    .product-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; }
+    .ptag { background: var(--bg); border: 1px solid var(--border); padding: 0.2rem 0.65rem; border-radius: 100px; font-size: 0.72rem; color: var(--muted); font-weight: 500; }
+
+    /* CHALLENGE LIST */
+    .challenge-list { list-style: none; margin-top: 1rem; }
+    .challenge-list li { display: flex; gap: 0.9rem; padding: 0.7rem 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+    .challenge-list li:last-child { border-bottom: none; }
+    .challenge-list li::before { content: '→'; color: var(--warm); flex-shrink: 0; margin-top: 0.05rem; }
+    .challenge-list li strong { color: var(--text); font-weight: 600; }
+
+    /* APPROACH / EXECUTION BLOCKS */
+    .strategy-block { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.6rem; margin-bottom: 1.2rem; }
+    .strategy-block-title { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.9rem; }
+    .strategy-list { list-style: none; }
+    .strategy-list li { font-size: 0.875rem; color: var(--muted); padding: 0.28rem 0 0.28rem 1.1rem; position: relative; line-height: 1.65; }
+    .strategy-list li::before { content: '–'; position: absolute; left: 0; color: #D4C4B0; }
+    .strategy-list li strong { color: var(--text); font-weight: 600; }
+
+    /* RESULTS DASHBOARD */
+    .results-dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+      margin-bottom: 2.5rem;
+    }
+    .result-card { background: var(--card); padding: 1.4rem 1.5rem; }
+    .result-card.primary { background: var(--highlight); }
+    .result-val {
+      font-family: 'Instrument Serif', serif;
+      font-size: 2.2rem; letter-spacing: -0.03em;
+      color: var(--text); line-height: 1; margin-bottom: 0.3rem;
+    }
+    .result-card.primary .result-val { color: #F5EFE8; }
+    .result-label { font-size: 0.72rem; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.4px; }
+    .result-card.primary .result-label { color: #7A6E65; }
+    .result-delta { font-size: 0.7rem; font-weight: 700; color: #4A8C5C; background: #E8F5ED; padding: 0.15rem 0.45rem; border-radius: 4px; margin-top: 0.4rem; display: inline-block; }
+    .result-card.primary .result-delta { color: var(--warm); background: rgba(200,168,130,0.15); }
+
+    /* NUMBERED OPTIMISATION LIST */
+    .optim-list { list-style: none; }
+    .optim-item { display: flex; gap: 1.2rem; padding: 1.2rem 0; border-bottom: 1px solid var(--border); }
+    .optim-item:last-child { border-bottom: none; }
+    .optim-num { font-family: 'Instrument Serif', serif; font-size: 1.8rem; color: #D4C4B0; flex-shrink: 0; width: 32px; line-height: 1.1; }
+    .optim-title { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.3rem; }
+    .optim-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+    .optim-impact { display: inline-block; margin-top: 0.4rem; font-size: 0.72rem; font-weight: 700; color: #4A8C5C; background: #E8F5ED; padding: 0.15rem 0.5rem; border-radius: 4px; }
+
+    /* LEARNINGS */
+    #learnings { background: var(--highlight); }
+    #learnings .section-eyebrow { color: #C8A882; }
+    #learnings .section-eyebrow::after { background: #C8A882; }
+    #learnings .section-title { color: #F5EFE8; }
+    #learnings .section-lead { color: #94867A; }
+    .learning-list { list-style: none; }
+    .learning-item { display: flex; gap: 1.2rem; padding: 1.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .learning-item:last-child { border-bottom: none; }
+    .learning-num { font-family: 'Instrument Serif', serif; font-size: 2.2rem; color: rgba(200,168,130,0.25); flex-shrink: 0; width: 36px; line-height: 1; }
+    .learning-title { font-size: 0.9rem; font-weight: 600; color: #F0E8DF; margin-bottom: 0.4rem; }
+    .learning-desc { font-size: 0.85rem; color: #7A6E65; line-height: 1.7; }
+
+    /* FOOTER */
+    .case-footer { border-top: 1px solid var(--border); padding: 3rem 6%; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2rem; }
+    @media (max-width: 600px) { .case-footer { grid-template-columns: 1fr; } }
+    .case-footer-author { font-size: 0.85rem; color: var(--text); font-weight: 600; margin-bottom: 0.3rem; }
+    .case-footer-sub { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.6rem; }
+    .case-footer-note { font-size: 0.72rem; color: var(--muted); font-style: italic; max-width: 480px; line-height: 1.6; margin-top: 0.5rem; }
+    .case-footer-links { display: flex; gap: 1.2rem; margin-top: 0.6rem; }
+    .case-footer-links a { font-size: 0.8rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .case-footer-links a:hover { color: var(--text); }
+    .footer-nav { display: flex; gap: 2rem; align-items: center; }
+    .footer-nav-link { text-decoration: none; display: flex; flex-direction: column; gap: 0.2rem; }
+    .footer-nav-link .fnl { font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+    .footer-nav-link .fnt { font-family: 'Instrument Serif', serif; font-size: 1.1rem; color: var(--text); transition: color 0.2s; }
+    .footer-nav-link:hover .fnt { color: var(--warm); }
+    @media (max-width: 600px) { .footer-nav { flex-direction: column; align-items: flex-start; gap: 1rem; } }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M5 12l7-7M5 12l7 7"/>
+      </svg>
+      Portfolio
+    </a>
+    <ul class="nav-sections">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#challenge">Challenge</a></li>
+      <li><a href="#approach">Approach</a></li>
+      <li><a href="#execution">Execution</a></li>
+      <li><a href="#results">Results</a></li>
+      <li><a href="#learnings">Learnings</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero reveal">
+    <div class="hero-label">[Campaign I Managed / Brand Teardown]</div>
+    <h1>[Subject]<br><em>[Second line.]</em></h1>
+    <div class="hero-meta-row">
+      <span>Chethan Shankar — Performance Marketer</span>
+      <span class="dot"></span>
+      <span>[Company or Independent Analysis]</span>
+      <span class="dot"></span>
+      <span>[Channels, e.g. Meta + Google Ads]</span>
+      <span class="dot"></span>
+      <span>[Category]</span>
+    </div>
+    <p class="hero-tagline">
+      [Two or three sentences: what this is, what the scope was, and what it delivered.
+      Keep it to figures that already exist on the site or in the resume.]
+    </p>
+    <div class="stat-bar">
+      <div class="stat-bar-item highlight-stat">
+        <div class="stat-bar-val">[VALUE]</div>
+        <div class="stat-bar-label">[Headline Metric]</div>
+        <div class="stat-bar-note">[Optional note]</div>
+      </div>
+      <div class="stat-bar-item">
+        <div class="stat-bar-val">[VALUE]</div>
+        <div class="stat-bar-label">[Metric]</div>
+      </div>
+      <div class="stat-bar-item">
+        <div class="stat-bar-val">[VALUE]</div>
+        <div class="stat-bar-label">[Metric]</div>
+      </div>
+      <div class="stat-bar-item highlight-stat">
+        <div class="stat-bar-val">[VALUE]</div>
+        <div class="stat-bar-label">[Metric]</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 01 OVERVIEW -->
+  <section id="overview">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">01 — Overview</div>
+        <h2 class="section-title">[What this was, in one line.]</h2>
+        <p class="section-lead">
+          [Set the context: the brand or account, its category and scale, and what
+          the engagement or analysis covered.]
+        </p>
+      </div>
+
+      <div class="brief-grid reveal reveal-delay-1">
+        <div class="brief-card">
+          <div class="brief-label">Brand</div>
+          <div class="brief-val">[Anonymised descriptor for Selected Work, e.g. "A D2C skincare brand (name withheld)". Brand name is fine for a teardown.]</div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-label">Category</div>
+          <div class="brief-val">[Category]</div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-label">Channels</div>
+          <div class="brief-val">[Meta Ads, Google Ads, …]</div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-label">My Role</div>
+          <div class="brief-val">[Scope of what I owned, or "Independent analysis" for a teardown.]</div>
+        </div>
+        <div class="brief-card span-2">
+          <div class="brief-label">Focus Areas</div>
+          <div class="product-tags">
+            <span class="ptag">[Generic descriptor]</span>
+            <span class="ptag">[Generic descriptor]</span>
+            <span class="ptag">[Generic descriptor]</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="insight-block reveal reveal-delay-2">
+        <strong>[The framing insight:]</strong> [One or two sentences on what made this
+        problem interesting or non-obvious.]
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 02 CHALLENGE -->
+  <section id="challenge">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">02 — Challenge</div>
+        <h2 class="section-title">[The problem in one line.]</h2>
+        <p class="section-lead">
+          [What was broken, constrained or being left on the table before the work started.]
+        </p>
+      </div>
+
+      <div class="reveal reveal-delay-1">
+        <div class="sub-title">What I was up against</div>
+        <ul class="challenge-list">
+          <li><strong>[Constraint]</strong> — [why it mattered and what it cost]</li>
+          <li><strong>[Constraint]</strong> — [why it mattered and what it cost]</li>
+          <li><strong>[Constraint]</strong> — [why it mattered and what it cost]</li>
+          <li><strong>[Constraint]</strong> — [why it mattered and what it cost]</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 03 APPROACH -->
+  <section id="approach">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">03 — Approach</div>
+        <h2 class="section-title">[How I decided to attack it.]</h2>
+        <p class="section-lead">
+          [The thinking before the spending: what the plan was and why this one over
+          the alternatives.]
+        </p>
+      </div>
+
+      <div class="strategy-block reveal reveal-delay-1">
+        <div class="strategy-block-title">[Workstream one]</div>
+        <ul class="strategy-list">
+          <li><strong>[Decision]:</strong> [what I did and the reasoning behind it]</li>
+          <li><strong>[Decision]:</strong> [what I did and the reasoning behind it]</li>
+          <li><strong>[Decision]:</strong> [what I did and the reasoning behind it]</li>
+        </ul>
+      </div>
+
+      <div class="strategy-block reveal reveal-delay-2">
+        <div class="strategy-block-title">[Workstream two]</div>
+        <ul class="strategy-list">
+          <li><strong>[Decision]:</strong> [what I did and the reasoning behind it]</li>
+          <li><strong>[Decision]:</strong> [what I did and the reasoning behind it]</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 04 EXECUTION -->
+  <section id="execution">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">04 — Execution</div>
+        <h2 class="section-title">[What actually shipped.]</h2>
+        <p class="section-lead">
+          [The week-to-week work: structure, creative, testing cadence, optimisation rules.]
+        </p>
+      </div>
+
+      <div class="reveal reveal-delay-1">
+        <div class="sub-title">[Sub-section, e.g. Creative framework]</div>
+        <div class="prose">
+          <p>[What the system was and how it ran. Be specific about process.]</p>
+        </div>
+      </div>
+
+      <div class="strategy-block reveal reveal-delay-2" style="margin-top:1.5rem;">
+        <div class="strategy-block-title">[What I ran]</div>
+        <ul class="strategy-list">
+          <li><strong>[Tactic]:</strong> [detail, and the rule or threshold behind it]</li>
+          <li><strong>[Tactic]:</strong> [detail, and the rule or threshold behind it]</li>
+          <li><strong>[Tactic]:</strong> [detail, and the rule or threshold behind it]</li>
+        </ul>
+      </div>
+
+      <div class="insight-block reveal reveal-delay-3">
+        <strong>[What this changed:]</strong> [The mechanism — why this execution
+        produced the result in the next section.]
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 05 RESULTS -->
+  <section id="results">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">05 — Results</div>
+        <h2 class="section-title">[What it delivered.]</h2>
+        <p class="section-lead">
+          [One or two sentences framing the numbers. Only use figures that already
+          exist on the site or in the resume.]
+        </p>
+      </div>
+
+      <div class="results-dashboard reveal reveal-delay-1">
+        <div class="result-card primary">
+          <div class="result-val">[VALUE]</div>
+          <div class="result-label">[Metric]</div>
+          <div class="result-delta">[Before → after]</div>
+        </div>
+        <div class="result-card primary">
+          <div class="result-val">[VALUE]</div>
+          <div class="result-label">[Metric]</div>
+          <div class="result-delta">[Context]</div>
+        </div>
+        <div class="result-card">
+          <div class="result-val">[VALUE]</div>
+          <div class="result-label">[Metric]</div>
+          <div class="result-delta">[Context]</div>
+        </div>
+        <div class="result-card">
+          <div class="result-val">[VALUE]</div>
+          <div class="result-label">[Metric]</div>
+          <div class="result-delta">[Context]</div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <div class="sub-title">What moved the needle</div>
+        <ul class="optim-list">
+          <li class="optim-item">
+            <div class="optim-num">01</div>
+            <div>
+              <div class="optim-title">[Optimisation]</div>
+              <div class="optim-desc">[What I changed, why it worked, and how it showed up in the numbers.]</div>
+              <span class="optim-impact">[Measured impact]</span>
+            </div>
+          </li>
+          <li class="optim-item">
+            <div class="optim-num">02</div>
+            <div>
+              <div class="optim-title">[Optimisation]</div>
+              <div class="optim-desc">[What I changed, why it worked, and how it showed up in the numbers.]</div>
+              <span class="optim-impact">[Measured impact]</span>
+            </div>
+          </li>
+          <li class="optim-item">
+            <div class="optim-num">03</div>
+            <div>
+              <div class="optim-title">[Optimisation]</div>
+              <div class="optim-desc">[What I changed, why it worked, and how it showed up in the numbers.]</div>
+              <span class="optim-impact">[Measured impact]</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 06 LEARNINGS -->
+  <section id="learnings">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">06 — Learnings</div>
+        <h2 class="section-title">[What this taught me.]</h2>
+        <p class="section-lead">
+          [The transferable lessons — what I carry into the next account.]
+        </p>
+      </div>
+
+      <ul class="learning-list reveal reveal-delay-1">
+        <li class="learning-item">
+          <div class="learning-num">01</div>
+          <div>
+            <div class="learning-title">[Lesson as a claim]</div>
+            <div class="learning-desc">[Why I believe it, grounded in what happened here.]</div>
+          </div>
+        </li>
+        <li class="learning-item">
+          <div class="learning-num">02</div>
+          <div>
+            <div class="learning-title">[Lesson as a claim]</div>
+            <div class="learning-desc">[Why I believe it, grounded in what happened here.]</div>
+          </div>
+        </li>
+        <li class="learning-item">
+          <div class="learning-num">03</div>
+          <div>
+            <div class="learning-title">[Lesson as a claim]</div>
+            <div class="learning-desc">[Why I believe it, grounded in what happened here.]</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="divider"></div>
+  <footer class="case-footer">
+    <div>
+      <div class="case-footer-author">Managed by Chethan Shankar at [Company]</div>
+      <div class="case-footer-sub">[Channels] · [Category] · [Scope]</div>
+      <div class="case-footer-links">
+        <a href="index.html">← Portfolio</a>
+        <a href="[related-page].html">[Related Page]</a>
+      </div>
+      <!-- Selected Work only. Delete for a teardown. -->
+      <div class="case-footer-note">
+        All metrics are representative of campaign performance during my tenure at
+        [Company]. Specific numbers may be approximated to respect client
+        confidentiality. Client name and product details have been anonymised.
+      </div>
+    </div>
+    <div class="footer-nav">
+      <a href="[next-page].html" class="footer-nav-link">
+        <span class="fnl">[Next Section Label]</span>
+        <span class="fnt">[Next Page] →</span>
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

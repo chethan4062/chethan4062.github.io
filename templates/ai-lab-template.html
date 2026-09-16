@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<!--
+  AI LAB TEMPLATE
+
+  1. Copy to the repo root as ai-lab-<slug>.html
+  2. Replace every [PLACEHOLDER]
+  3. Set the title and meta description
+  4. REMOVE the noindex meta tag below before publishing
+  5. Add a card to #ai-lab on index.html. The card keeps its "In Progress" badge
+     and no link until the project is finished and this page is ready.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>[PROJECT NAME] · Chethan Shankar</title>
+  <meta name="description" content="[ONE SENTENCE DESCRIPTION]" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #FAFAF8;
+      --card:      #FFFFFF;
+      --text:      #1A1A1A;
+      --muted:     #6B6B6B;
+      --accent:    #E8E4DF;
+      --border:    #E5E3DE;
+      --highlight: #2C2C2C;
+      --warm:      #C8A882;
+      --warm-bg:   #F5EFE8;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'DM Sans', sans-serif; font-size: 16px;
+      line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+    h1, h2, h3 { font-family: 'Instrument Serif', serif; font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; }
+
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(250,250,248,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 0 6%; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .nav-back { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--muted); font-size: 0.82rem; font-weight: 500; transition: color 0.2s; }
+    .nav-back:hover { color: var(--text); }
+    .nav-back svg { width: 14px; height: 14px; }
+    .nav-sections { display: flex; gap: 1.6rem; list-style: none; }
+    .nav-sections a { text-decoration: none; color: var(--muted); font-size: 0.8rem; font-weight: 500; transition: color 0.2s; white-space: nowrap; }
+    .nav-sections a:hover { color: var(--text); }
+    @media (max-width: 768px) { .nav-sections { display: none; } }
+
+    /* HERO */
+    .hero { padding: 5rem 6% 4rem; border-bottom: 1px solid var(--border); }
+    .hero-label {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: var(--accent); color: var(--muted);
+      padding: 0.3rem 1rem; border-radius: 100px;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 1.5px;
+      text-transform: uppercase; margin-bottom: 1.8rem;
+    }
+    .hero h1 { font-size: clamp(2.4rem, 5.5vw, 4rem); letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 0.5rem; }
+    .hero h1 em { font-style: italic; color: var(--muted); }
+    .hero-meta-row {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;
+      margin: 1.4rem 0 2rem; font-size: 0.82rem; color: var(--muted);
+    }
+    .hero-meta-row .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--border); }
+    .hero-tagline { font-size: clamp(1rem, 2vw, 1.15rem); color: var(--muted); max-width: 620px; line-height: 1.7; }
+
+    /* LAYOUT */
+    .container { max-width: 760px; margin: 0 auto; padding: 4.5rem 6%; }
+    .divider { width: 100%; height: 1px; background: var(--border); }
+
+    /* SECTION */
+    .section-eyebrow { display: flex; align-items: center; gap: 0.8rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--warm); margin-bottom: 1.2rem; }
+    .section-eyebrow::after { content: ''; flex: 1; max-width: 40px; height: 1px; background: var(--warm); }
+    .section-title { font-size: clamp(1.6rem, 3.5vw, 2.3rem); margin-bottom: 1rem; color: var(--text); }
+
+    .prose p { font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+    .prose p:last-child { margin-bottom: 0; }
+    .prose strong { color: var(--text); font-weight: 600; }
+
+    .insight-block { border-left: 3px solid var(--warm); background: var(--warm-bg); border-radius: 0 8px 8px 0; padding: 1.2rem 1.5rem; margin: 2rem 0 0; font-size: 0.95rem; color: var(--highlight); line-height: 1.7; }
+    .insight-block strong { font-weight: 600; }
+
+    /* TOOLS */
+    .tool-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tool-tag { background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 0.35rem 0.9rem; border-radius: 100px; font-size: 0.8rem; font-weight: 500; }
+
+    /* STEPS */
+    .step-list { list-style: none; counter-reset: step; }
+    .step-item { display: flex; gap: 1.2rem; padding: 1.2rem 0; border-bottom: 1px solid var(--border); }
+    .step-item:last-child { border-bottom: none; }
+    .step-num { font-family: 'Instrument Serif', serif; font-size: 1.8rem; color: #D4C4B0; flex-shrink: 0; width: 32px; line-height: 1.1; }
+    .step-title { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.3rem; }
+    .step-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+
+    /* OUTPUT / SCREENSHOTS */
+    .shot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 600px) { .shot-grid { grid-template-columns: 1fr; } }
+    .shot { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .shot img { width: 100%; display: block; }
+    .shot-placeholder {
+      aspect-ratio: 16 / 10; display: flex; align-items: center; justify-content: center;
+      background: var(--accent); color: var(--muted); font-size: 0.8rem; font-weight: 500;
+    }
+    .shot-caption { padding: 0.8rem 1rem; font-size: 0.78rem; color: var(--muted); border-top: 1px solid var(--border); }
+
+    /* LEARNINGS */
+    #learned { background: var(--highlight); }
+    #learned .section-eyebrow { color: #C8A882; }
+    #learned .section-eyebrow::after { background: #C8A882; }
+    #learned .section-title { color: #F5EFE8; }
+    .learning-list { list-style: none; }
+    .learning-item { display: flex; gap: 1.2rem; padding: 1.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .learning-item:last-child { border-bottom: none; }
+    .learning-num { font-family: 'Instrument Serif', serif; font-size: 2.2rem; color: rgba(200,168,130,0.25); flex-shrink: 0; width: 36px; line-height: 1; }
+    .learning-title { font-size: 0.9rem; font-weight: 600; color: #F0E8DF; margin-bottom: 0.4rem; }
+    .learning-desc { font-size: 0.85rem; color: #7A6E65; line-height: 1.7; }
+
+    /* FOOTER */
+    .case-footer { border-top: 1px solid var(--border); padding: 3rem 6%; }
+    .case-footer-author { font-size: 0.85rem; color: var(--text); font-weight: 600; margin-bottom: 0.3rem; }
+    .case-footer-sub { font-size: 0.78rem; color: var(--muted); }
+    .case-footer-links { display: flex; gap: 1.2rem; margin-top: 0.8rem; }
+    .case-footer-links a { font-size: 0.8rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .case-footer-links a:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M5 12l7-7M5 12l7 7"/>
+      </svg>
+      Portfolio
+    </a>
+    <ul class="nav-sections">
+      <li><a href="#problem">Problem</a></li>
+      <li><a href="#built">What I Built</a></li>
+      <li><a href="#tools">Tools</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#output">Output</a></li>
+      <li><a href="#learned">Learnings</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero reveal">
+    <div class="hero-label">[AI Lab / In Progress]</div>
+    <h1>[Project Name]<br><em>[Short qualifier.]</em></h1>
+    <div class="hero-meta-row">
+      <span>Chethan Shankar</span>
+      <span class="dot"></span>
+      <span>[Type, e.g. Claude Skill]</span>
+      <span class="dot"></span>
+      <span>[Use case, e.g. Competitor ad analysis]</span>
+    </div>
+    <p class="hero-tagline">
+      [One or two sentences: what it does, who it is for, and what it replaces.]
+    </p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 01 PROBLEM -->
+  <section id="problem">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">01 — Problem</div>
+        <h2 class="section-title">[The problem in one line.]</h2>
+        <div class="prose">
+          <p>[What was slow, manual or repetitive before this existed. Be concrete
+          about the actual task and how long it used to take.]</p>
+          <p>[Why existing options did not solve it.]</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 02 WHAT I BUILT -->
+  <section id="built">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">02 — What I Built</div>
+        <h2 class="section-title">[The thing, in one line.]</h2>
+        <div class="prose">
+          <p>[What it is and what it does end to end — the input it takes and the
+          output it returns.]</p>
+        </div>
+        <div class="insight-block">
+          <strong>[The core idea:]</strong> [The one design decision that makes it work.]
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 03 TOOLS USED -->
+  <section id="tools">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">03 — Tools Used</div>
+        <h2 class="section-title">What it is built on.</h2>
+        <div class="tool-tags">
+          <span class="tool-tag">[Tool]</span>
+          <span class="tool-tag">[Tool]</span>
+          <span class="tool-tag">[Tool]</span>
+          <span class="tool-tag">[Tool]</span>
+        </div>
+        <div class="prose" style="margin-top:1.5rem;">
+          <p>[Optional: why these tools and not the obvious alternatives.]</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 04 HOW IT WORKS -->
+  <section id="how">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">04 — How It Works</div>
+        <h2 class="section-title">[The mechanism.]</h2>
+      </div>
+      <ul class="step-list reveal reveal-delay-1">
+        <li class="step-item">
+          <div class="step-num">01</div>
+          <div>
+            <div class="step-title">[Step]</div>
+            <div class="step-desc">[What happens at this step and what it produces.]</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">02</div>
+          <div>
+            <div class="step-title">[Step]</div>
+            <div class="step-desc">[What happens at this step and what it produces.]</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">03</div>
+          <div>
+            <div class="step-title">[Step]</div>
+            <div class="step-desc">[What happens at this step and what it produces.]</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">04</div>
+          <div>
+            <div class="step-title">[Step]</div>
+            <div class="step-desc">[What happens at this step and what it produces.]</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 05 OUTPUT / SCREENSHOTS -->
+  <section id="output">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">05 — Output</div>
+        <h2 class="section-title">What it produces.</h2>
+        <div class="prose" style="margin-bottom:2rem;">
+          <p>[What the output looks like and how it gets used in real work.]</p>
+        </div>
+      </div>
+      <div class="shot-grid reveal reveal-delay-1">
+        <div class="shot">
+          <!-- Replace with: <img src="[image].png" alt="[description]" /> -->
+          <div class="shot-placeholder">[Screenshot]</div>
+          <div class="shot-caption">[What this shows]</div>
+        </div>
+        <div class="shot">
+          <div class="shot-placeholder">[Screenshot]</div>
+          <div class="shot-caption">[What this shows]</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 06 WHAT I LEARNED -->
+  <section id="learned">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">06 — What I Learned</div>
+        <h2 class="section-title">[What building this taught me.]</h2>
+      </div>
+      <ul class="learning-list reveal reveal-delay-1">
+        <li class="learning-item">
+          <div class="learning-num">01</div>
+          <div>
+            <div class="learning-title">[Lesson as a claim]</div>
+            <div class="learning-desc">[Why I believe it, grounded in what happened building this.]</div>
+          </div>
+        </li>
+        <li class="learning-item">
+          <div class="learning-num">02</div>
+          <div>
+            <div class="learning-title">[Lesson as a claim]</div>
+            <div class="learning-desc">[Why I believe it, grounded in what happened building this.]</div>
+          </div>
+        </li>
+        <li class="learning-item">
+          <div class="learning-num">03</div>
+          <div>
+            <div class="learning-title">[Lesson as a claim]</div>
+            <div class="learning-desc">[Why I believe it, grounded in what happened building this.]</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="divider"></div>
+  <footer class="case-footer">
+    <div class="case-footer-author">Built by Chethan Shankar</div>
+    <div class="case-footer-sub">AI Lab · [Type] · [Use case]</div>
+    <div class="case-footer-links">
+      <a href="index.html">← Portfolio</a>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

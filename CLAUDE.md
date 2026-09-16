@@ -95,9 +95,11 @@ section order matching nav order. Every other page carries a `Tools` link to
   libraries, no API keys, no external calls (the Google Fonts stylesheet is the only
   external resource, as on every page), no cookies, no `localStorage` or any other
   data storage, no analytics.** Everything runs in the browser on the values the
-  visitor types. Invalid, empty, zero or negative inputs show `—`, never `NaN` or
-  `Infinity`. Money is formatted with `en-IN` (`₹1,20,000`). Each tool page reuses
-  the homepage nav and footer and gets a card in `#tools`.
+  visitor types. Invalid, empty or negative inputs show `—`, never `NaN` or
+  `Infinity`. Zero is also treated as invalid, except where zero is a genuine state
+  (Revenue from Ads, Spend So Far), which compute normally. Money is formatted with
+  `en-IN` (`₹1,20,000`). Each tool page reuses the homepage nav and footer and gets
+  a card in `#tools`.
 
 ## Facts to keep consistent everywhere
 

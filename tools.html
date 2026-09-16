@@ -521,7 +521,7 @@
 
       function calcRoas() {
         var spend = num('roas-spend');
-        var revenue = num('roas-revenue');
+        var revenue = num('roas-revenue', { allowZero: true });
         var margin = marginOk('roas-margin', 'roas-margin-note');
         var target = num('roas-target');
 
@@ -575,7 +575,7 @@
 
       function calcPacing() {
         var budget = num('pacing-budget');
-        var spent = num('pacing-spent');
+        var spent = num('pacing-spent', { allowZero: true });
         var days = num('pacing-days', { integer: true });
         var month = num('pacing-month', { integer: true });
 

@@ -95,7 +95,6 @@
     @media (max-width: 600px) { .platform-grid { grid-template-columns: 1fr; } }
     .platform-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.4rem; }
     .platform-head { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.8rem; }
-    .platform-icon { width: 34px; height: 34px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
     .platform-name { font-size: 0.9rem; font-weight: 600; color: var(--text); }
     .platform-share { font-size: 0.75rem; color: var(--warm); font-weight: 600; }
     .platform-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
@@ -148,7 +147,6 @@
     @media (max-width: 600px) { .creative-grid { grid-template-columns: 1fr; } }
     .creative-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.4rem; }
     .creative-card.span-2 { grid-column: 1 / -1; }
-    .creative-card-icon { font-size: 1.4rem; margin-bottom: 0.7rem; }
     .creative-card-title { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.5rem; }
     .creative-card-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
 
@@ -181,7 +179,6 @@
     .optimize-list { list-style: none; }
     .optimize-item { display: flex; gap: 1.2rem; padding: 1.2rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
     .optimize-item:last-child { border-bottom: none; }
-    .optimize-icon { width: 36px; height: 36px; background: rgba(200,168,130,0.12); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
     .optimize-title { font-size: 0.9rem; font-weight: 600; color: #F0E8DF; margin-bottom: 0.3rem; }
     .optimize-desc { font-size: 0.83rem; color: #7A6E65; line-height: 1.65; }
 
@@ -377,7 +374,6 @@
       <div class="platform-grid reveal reveal-delay-1">
         <div class="platform-card">
           <div class="platform-head">
-            <div class="platform-icon">🔍</div>
             <div>
               <div class="platform-name">Google Ads + GMB</div>
               <div class="platform-share">~30–35% of budget</div>
@@ -397,7 +393,6 @@
 
         <div class="platform-card">
           <div class="platform-head">
-            <div class="platform-icon">📱</div>
             <div>
               <div class="platform-name">Meta Ads</div>
               <div class="platform-share">~25–30% of budget</div>
@@ -416,7 +411,6 @@
 
         <div class="platform-card">
           <div class="platform-head">
-            <div class="platform-icon">📲</div>
             <div>
               <div class="platform-name">App Install Campaigns</div>
               <div class="platform-share">~15–20% of budget</div>
@@ -435,7 +429,6 @@
 
         <div class="platform-card">
           <div class="platform-head">
-            <div class="platform-icon">▶️</div>
             <div>
               <div class="platform-name">YouTube + Outdoor</div>
               <div class="platform-share">~15–20% of budget</div>
@@ -657,32 +650,26 @@
 
       <div class="creative-grid reveal reveal-delay-1">
         <div class="creative-card">
-          <div class="creative-card-icon">🎬</div>
           <div class="creative-card-title">Instagram Reels (15–30 sec)</div>
           <div class="creative-card-desc">High-energy class clips with music, trainer callouts, and real member reactions. The best-performing format because it shows the actual product experience in native format. The hook is always a feeling, not a feature — 10 seconds of a packed HIIT class converts better than 30 seconds of voiceover about class types and pricing.</div>
         </div>
         <div class="creative-card">
-          <div class="creative-card-icon">📍</div>
           <div class="creative-card-title">Hyper-Local Google Search Ads</div>
           <div class="creative-card-desc">'HIIT Classes in Indiranagar — Free First Class' with location extensions, call extensions, and site links to specific class schedules. The copy is locality-first, not brand-first. Someone searching for a gym in Koramangala doesn't care about Cult.fit's national presence — they care about the Koramangala center's class schedule and availability.</div>
         </div>
         <div class="creative-card">
-          <div class="creative-card-icon">📲</div>
           <div class="creative-card-title">Stories Ads with Direct CTA</div>
           <div class="creative-card-desc">Swipe-up to book a free trial. Countdown timers for limited-time pricing offers. Poll stickers asking 'Which class would you try first?' — engagement mechanics that simultaneously build audience signal and drive soft conversions. Stories' full-screen format creates immersive class experience previews that feed ads can't replicate.</div>
         </div>
         <div class="creative-card">
-          <div class="creative-card-icon">⚡</div>
           <div class="creative-card-title">YouTube Bumper Ads (6 sec)</div>
           <div class="creative-card-desc">A trainer's countdown, music pumping, class cheering — in 6 seconds. These non-skippable bumpers don't sell; they create a feeling. 6 seconds of class energy is just enough to plant FOMO before the main video the user came to watch. They work best as a top-of-funnel frequency-building tool alongside longer format awareness ads.</div>
         </div>
         <div class="creative-card">
-          <div class="creative-card-icon">🏋️</div>
           <div class="creative-card-title">Transformation &amp; Community UGC</div>
           <div class="creative-card-desc">Member before-after stories, workout progress posts, class selfies, trainer shoutout compilations. Real people in real classes — not fitness models in a studio. The authenticity makes the aspiration feel achievable rather than unattainable. These also function as social proof for skeptical users in the consideration phase.</div>
         </div>
         <div class="creative-card">
-          <div class="creative-card-icon">🗺️</div>
           <div class="creative-card-title">Outdoor &amp; Society Gate Branding</div>
           <div class="creative-card-desc">Large-format hoardings near centers and society gate branding in catchment areas. 'First Class Free — Book on the App' with a QR code. Local outdoor creates walk-in trial conversions that no digital channel can capture — the person who lives 800 meters from a center and walks past the hoarding every morning is a high-conversion prospect that Meta and Google will never find.</div>
         </div>
@@ -788,28 +775,24 @@
         <div class="optimize-section-label">What I Would Optimize</div>
         <ul class="optimize-list">
           <li class="optimize-item">
-            <div class="optimize-icon">🎯</div>
             <div>
               <div class="optimize-title">Personalized Win-Back Campaigns for Lapsed Members</div>
               <div class="optimize-desc">80% of churned users want to come back — they just hit friction. The current retargeting likely treats all lapsed users the same. I would build dynamic audience segments based on churn reason: users who lapsed because of relocation see ads highlighting the new center in their area; users who lapsed during Ramadan get re-activation messaging in October; users whose most-attended class type is now available at expanded timings get that specific message. Personalized win-back based on behavioral history, not just 'We miss you' — the conversion rate difference would be significant.</div>
             </div>
           </li>
           <li class="optimize-item">
-            <div class="optimize-icon">🤝</div>
             <div>
               <div class="optimize-title">Referral-Powered Performance Marketing</div>
               <div class="optimize-desc">With a 90% recommendation rate, referrals should be treated as a paid acquisition channel with its own budget, creative, and reporting. I would run Meta ads featuring real members doing 'bring a friend free' offers — not a CTA card but actual user video saying 'I've been coming for 6 months, bring a friend this week and both your first classes are free'. Track referral-driven CAC separately and compare to cold acquisition. The hypothesis: referred users have lower CAC, higher trial-to-subscription conversion, and better long-term retention — because they came in with social accountability already built in.</div>
             </div>
           </li>
           <li class="optimize-item">
-            <div class="optimize-icon">📺</div>
             <div>
               <div class="optimize-title">YouTube Shorts as Primary Discovery Format</div>
               <div class="optimize-desc">15-second class experience clips on YouTube Shorts would reach fitness-curious users who haven't yet searched for a gym — people watching fitness content, workout videos, or health content organically. This is largely untapped top-of-funnel reach that bridges the gap between the high-intent Google Search user and the passive Instagram Reel viewer. Shorts' native discovery algorithm also means content with strong watch-through can earn organic reach on top of paid distribution — a content efficiency Reels can also deliver but Shorts specifically reaches a different, slightly older demographic on YouTube.</div>
             </div>
           </li>
           <li class="optimize-item">
-            <div class="optimize-icon">💰</div>
             <div>
               <div class="optimize-title">Per-Class Cost Framing in All Bottom-Funnel Ads</div>
               <div class="optimize-desc">Showing '₹1,999/month' makes the ask feel large in bottom-funnel ads. Showing '₹150/class for unlimited classes' makes the same price feel like a bargain — especially compared to a single PT session at ₹1,000+. I would A/B test per-class framing vs monthly pricing across all conversion-stage ads. The hypothesis is that per-class cost framing increases subscription conversion rate by making the value proposition immediately comparable to alternatives the user is already familiar with. This single copy change, if validated, would have significant impact on conversion rates at no additional media cost.</div>

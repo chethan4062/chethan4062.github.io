@@ -180,7 +180,6 @@
     @media (max-width: 600px) { .platform-grid { grid-template-columns: 1fr; } }
     .platform-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.4rem; }
     .platform-head { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.8rem; }
-    .platform-icon { width: 34px; height: 34px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
     .platform-name { font-size: 0.9rem; font-weight: 600; color: var(--text); }
     .platform-share { font-size: 0.75rem; color: var(--warm); font-weight: 600; }
     .platform-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
@@ -233,7 +232,6 @@
     @media (max-width: 600px) { .creative-grid { grid-template-columns: 1fr; } }
     .creative-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.4rem; }
     .creative-card.span-2 { grid-column: 1 / -1; }
-    .creative-card-icon { font-size: 1.4rem; margin-bottom: 0.7rem; }
     .creative-card-title { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.5rem; }
     .creative-card-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
 
@@ -266,7 +264,6 @@
     .optimize-list { list-style: none; }
     .optimize-item { display: flex; gap: 1.2rem; padding: 1.2rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
     .optimize-item:last-child { border-bottom: none; }
-    .optimize-icon { width: 36px; height: 36px; background: rgba(200,168,130,0.12); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
     .optimize-title { font-size: 0.9rem; font-weight: 600; color: #F0E8DF; margin-bottom: 0.3rem; }
     .optimize-desc { font-size: 0.83rem; color: #7A6E65; line-height: 1.65; }
 
@@ -450,7 +447,6 @@
       <div class="platform-grid reveal reveal-delay-1">
         <div class="platform-card">
           <div class="platform-head">
-            <div class="platform-icon">📱</div>
             <div>
               <div class="platform-name">Meta Ads</div>
               <div class="platform-share">~35–40% of budget</div>
@@ -470,7 +466,6 @@
 
         <div class="platform-card">
           <div class="platform-head">
-            <div class="platform-icon">🔍</div>
             <div>
               <div class="platform-name">Google Ads</div>
               <div class="platform-share">~20–25% of budget</div>
@@ -489,7 +484,6 @@
 
         <div class="platform-card">
           <div class="platform-head">
-            <div class="platform-icon">📺</div>
             <div>
               <div class="platform-name">TV / OTT / YouTube</div>
               <div class="platform-share">~15–20% of budget</div>
@@ -508,7 +502,6 @@
 
         <div class="platform-card">
           <div class="platform-head">
-            <div class="platform-icon">🛒</div>
             <div>
               <div class="platform-name">Marketplace Ads</div>
               <div class="platform-share">~10–15% of budget</div>
@@ -731,32 +724,26 @@
 
       <div class="creative-grid reveal reveal-delay-1">
         <div class="creative-card">
-          <div class="creative-card-icon">🎬</div>
           <div class="creative-card-title">TV-Style Brand Films (30–60 sec)</div>
           <div class="creative-card-desc">Celebrity-led emotional narratives — motherhood, self-care, natural living. Produced for broadcast quality, repurposed across YouTube pre-roll, Instagram, and OTT. One shoot generates assets across five channels. The emotional arc (problem → product → transformation) follows classic brand film structure but with 'Made Safe' certification as the rational closer.</div>
         </div>
         <div class="creative-card">
-          <div class="creative-card-icon">📱</div>
           <div class="creative-card-title">Instagram Reels (15–30 sec)</div>
           <div class="creative-card-desc">Fast-paced ingredient spotlights, quick product demos, and before-after skin/hair results. The hook is always a pain point: 'Struggling with hair fall?' or 'Oily skin but still dehydrated?' Mamaearth tests multiple hook variants per product and scales winning creatives quickly. High creative volume = fast learning loops.</div>
         </div>
         <div class="creative-card">
-          <div class="creative-card-icon">🃏</div>
           <div class="creative-card-title">Carousel Ads</div>
           <div class="creative-card-desc">Product range showcases ('Complete your hair care routine'), ingredient comparison cards, and regimen builders. Each slide earns attention independently. Used heavily in mid-funnel to move users from single-product awareness to routine consideration — increasing AOV in the process.</div>
         </div>
         <div class="creative-card">
-          <div class="creative-card-icon">👥</div>
           <div class="creative-card-title">UGC Compilation Ads</div>
           <div class="creative-card-desc">Real customer before-after footage, raw testimonials, and transformation stories stitched together with product shots. These outperform polished brand creative on conversion because authenticity reads as proof. Mamaearth actively collects UGC post-purchase and feeds it back into the ad creative pipeline.</div>
         </div>
         <div class="creative-card">
-          <div class="creative-card-icon">🏷️</div>
           <div class="creative-card-title">Static Product Ads with Trust Badges</div>
           <div class="creative-card-desc">Clean product photography with 'Made Safe Certified', '100% Toxin-Free', 'Dermatologically Tested' prominently displayed. These trust signals do heavy lifting in Google Shopping and static placements where there's no video to make the case. The certification is the creative.</div>
         </div>
         <div class="creative-card">
-          <div class="creative-card-icon">🎯</div>
           <div class="creative-card-title">Festival &amp; Offer Creatives</div>
           <div class="creative-card-desc">Entire creative calendar pivots 4–6 times a year for Diwali, Big Billion Days, Prime Day, and Holi. Offer-driven formats (combo packs, GWP, flash discounts) with bold typography and urgency cues. These seasonal campaigns drive disproportionate revenue and require a separate creative production track running in parallel to the always-on calendar.</div>
         </div>
@@ -862,28 +849,24 @@
         <div class="optimize-section-label">What I Would Optimize</div>
         <ul class="optimize-list">
           <li class="optimize-item">
-            <div class="optimize-icon">🎭</div>
             <div>
               <div class="optimize-title">Reduce Celebrity Dependency, Scale UGC</div>
               <div class="optimize-desc">Celebrity CPMs are inflating as more FMCG brands chase the same faces. The audience is also beginning to fatigue on endorsement-style ads where the celebrity's connection to the product is superficial. I would systematically shift 10–15% of the celebrity creative budget into UGC-first creative — real customers with real results, scaled via creator marketplace platforms. The conversion data already supports this: UGC consistently outperforms polished brand creative in bottom-funnel placement.</div>
             </div>
           </li>
           <li class="optimize-item">
-            <div class="optimize-icon">🗣️</div>
             <div>
               <div class="optimize-title">Vernacular-First Creative for Tier 2/3 Expansion</div>
               <div class="optimize-desc">Mamaearth's offline push into modern trade and pharmacy retail in smaller cities needs a matching paid media strategy in local languages. Hindi, Tamil, Telugu, and Kannada Reels and search ads — not just English creative translated. Tier 2/3 consumers scroll in their native language; ads that speak to them in it convert at measurably higher rates. This is the same education-first creative, just in the right language.</div>
             </div>
           </li>
           <li class="optimize-item">
-            <div class="optimize-icon">🔁</div>
             <div>
               <div class="optimize-title">Subscription Model for Core Replenishable SKUs</div>
               <div class="optimize-desc">Shampoo, face wash, and sunscreen have predictable 30–45 day usage cycles. A subscribe-and-save model (10–15% discount) would lock in LTV, smooth revenue predictability, and dramatically reduce re-acquisition costs. The customer who subscribes has already committed — the hardest and most expensive part of the acquisition funnel is done. For an IPO-listed brand managing quarter-on-quarter revenue expectations, subscription revenue is also structurally more attractive to investors.</div>
             </div>
           </li>
           <li class="optimize-item">
-            <div class="optimize-icon">🎯</div>
             <div>
               <div class="optimize-title">Sharper Sub-Brand Differentiation in Paid Media</div>
               <div class="optimize-desc">The Derma Co and Aqualogica ads currently feel too visually and tonally similar to Mamaearth's creative — the same warm colours, similar copy structures, overlapping celebrity faces. Sharper creative differentiation per sub-brand (The Derma Co should feel clinical and scientific; Aqualogica should feel light and fresh) would improve audience segmentation, reduce internal brand cannibalization, and allow each brand to own a distinct mental space in the consumer's mind.</div>

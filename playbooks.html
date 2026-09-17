@@ -1,0 +1,3204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campaign Launch Checklist — Chethan Shankar</title>
+  <meta name="description" content="Campaign Launch Checklist — Chethan Shankar" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #FAFAF8;
+      --card:      #FFFFFF;
+      --text:      #1A1A1A;
+      --muted:     #6B6B6B;
+      --accent:    #E8E4DF;
+      --border:    #E5E3DE;
+      --highlight: #2C2C2C;
+      --warm:      #C8A882;
+      --warm-bg:   #F5EFE8;
+      --good:      #4A8C5C;
+      --good-bg:   #E8F5ED;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3 { font-family: 'Instrument Serif', serif; font-weight: 400; }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ── NAV (same as the other pages) ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.1rem 6%;
+      background: rgba(250,250,248,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.3rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-cta {
+      background: transparent;
+      color: var(--text);
+      border: 1.5px solid var(--text);
+      padding: 0.5rem 1.3rem;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover { background: var(--text); color: var(--bg); }
+
+    /* ── PAGE ── */
+    main { max-width: 1000px; margin: 0 auto; padding: 7.5rem 6% 4rem; }
+    .section-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--warm);
+      margin-bottom: 0.9rem;
+    }
+    .section-eyebrow::after { content: ''; flex: 0 0 40px; height: 1px; background: var(--warm); }
+    .page-head h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 0.8rem; }
+    .page-sub { color: var(--muted); font-size: 1.05rem; max-width: 620px; line-height: 1.7; }
+    .page-stamp { font-size: 0.8rem; color: var(--muted); margin-top: 0.6rem; }
+
+    /* ── COLLAPSIBLE ── */
+    details.box {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--card);
+      padding: 0 1.2rem;
+      margin-top: 1.8rem;
+    }
+    details.box > summary {
+      cursor: pointer;
+      padding: 0.9rem 0;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    details.box > summary::-webkit-details-marker { display: none; }
+    details.box > summary::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-right: 1.5px solid var(--warm);
+      border-bottom: 1.5px solid var(--warm);
+      transform: rotate(-45deg);
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+    details.box[open] > summary::before { transform: rotate(45deg); }
+    details.box > summary:focus-visible { outline: 2px solid var(--warm); outline-offset: 2px; border-radius: 4px; }
+    .box-body { padding: 0 0 1.1rem; font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+    .box-body ul { list-style: none; }
+    .box-body li { padding: 0.2rem 0 0.2rem 1.1rem; position: relative; }
+    .box-body li::before { content: '\2013'; position: absolute; left: 0; color: var(--warm); }
+    .box-body strong { color: var(--text); font-weight: 600; }
+    .box-body a { color: var(--text); }
+    details.box.hint { margin-top: 0; }
+
+    .hint-table { width: 100%; border-collapse: collapse; margin-top: 0.4rem; }
+    .hint-table th, .hint-table td {
+      text-align: left;
+      padding: 0.45rem 0.8rem 0.45rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.82rem;
+    }
+    .hint-table th { font-weight: 600; color: var(--text); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .hint-table td { color: var(--muted); }
+    .hint-table tr:last-child td { border-bottom: 0; }
+
+    /* ── TABS (same as tools.html) ── */
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      margin: 2.5rem 0 2rem;
+    }
+    .tab {
+      background: none;
+      border: 0;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      padding: 0.7rem 0.1rem;
+      font: 500 0.9rem 'DM Sans', sans-serif;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .tab:hover { color: var(--text); }
+    .tab[aria-selected="true"] { color: var(--text); border-bottom-color: var(--text); }
+    .tab:focus-visible { outline: 2px solid var(--warm); outline-offset: 2px; border-radius: 4px; }
+
+    /* ── CARD (same as tools.html) ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.6rem;
+    }
+
+    /* ── FILTERS ── */
+    .filters {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem 1.5rem;
+      align-items: end;
+    }
+    .field { display: block; }
+    .field-label { display: block; font-size: 0.82rem; font-weight: 500; color: var(--text); margin-bottom: 0.4rem; }
+    .field select {
+      width: 100%;
+      padding: 0.7rem 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg);
+      color: var(--text);
+      font: 400 0.95rem 'DM Sans', sans-serif;
+      cursor: pointer;
+    }
+    .field select:focus { outline: none; border-color: var(--text); }
+    .filters-hint { grid-column: 1 / -1; }
+
+    /* ── TOOLBAR ── */
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.8rem 1.4rem;
+      margin: 1.5rem 0 2rem;
+      padding-bottom: 1.4rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .switch { display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.85rem; font-weight: 500; cursor: pointer; }
+    .switch input { width: 16px; height: 16px; accent-color: var(--highlight); cursor: pointer; }
+    .tool-btn {
+      background: transparent;
+      border: 1.5px solid var(--border);
+      border-radius: 100px;
+      padding: 0.45rem 1.1rem;
+      font: 600 0.82rem 'DM Sans', sans-serif;
+      color: var(--text);
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .tool-btn:hover { border-color: var(--text); }
+    .tool-btn:focus-visible { outline: 2px solid var(--warm); outline-offset: 2px; }
+    .progress { margin-left: auto; display: flex; align-items: center; gap: 0.8rem; min-width: 190px; }
+    .progress-track { flex: 1; height: 6px; background: var(--accent); border-radius: 100px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0; background: var(--warm); border-radius: 100px; transition: width 0.25s; }
+    .progress-text { font-size: 0.78rem; color: var(--muted); font-weight: 500; white-space: nowrap; }
+
+    /* ── BLOCKS ── */
+    .block { margin-bottom: 2.5rem; }
+    .block-head { margin-bottom: 1.2rem; }
+    .block-title { font-size: 1.6rem; line-height: 1.2; letter-spacing: -0.02em; }
+    .block-summary {
+      margin-top: 0.5rem;
+      padding: 0.7rem 1rem;
+      border-left: 3px solid var(--warm);
+      background: var(--warm-bg);
+      border-radius: 0 8px 8px 0;
+      font-size: 0.82rem;
+      color: var(--highlight);
+      line-height: 1.6;
+    }
+    .block-summary strong { font-weight: 600; }
+    .block-summary .sep { color: var(--warm); }
+
+    .phase { margin-top: 1.4rem; }
+    .phase-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 0.6rem;
+    }
+    .phase-name { font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); }
+    .phase-count { font-size: 0.75rem; color: var(--muted); font-weight: 500; }
+    .subgroup { margin-top: 1rem; }
+    .subgroup-name { font-size: 0.8rem; font-weight: 600; color: var(--muted); margin-bottom: 0.3rem; }
+
+    .items { list-style: none; }
+    .item { display: flex; align-items: flex-start; gap: 0.7rem; padding: 0.3rem 0; }
+    .item.is-hidden, .phase.is-hidden, .subgroup.is-hidden, .block.is-hidden { display: none; }
+    .item input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      flex-shrink: 0;
+      width: 17px; height: 17px;
+      margin-top: 0.3rem;
+      border: 1.5px solid #C9C4BB;
+      border-radius: 4px;
+      background: var(--card);
+      cursor: pointer;
+      position: relative;
+      transition: border-color 0.15s, background 0.15s;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+    .item input[type="checkbox"]:hover { border-color: var(--text); }
+    .item input[type="checkbox"]:focus-visible { outline: 2px solid var(--warm); outline-offset: 2px; }
+    .item input[type="checkbox"]:checked { background: var(--highlight); border-color: var(--highlight); }
+    .item input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      left: 4px; top: 1px;
+      width: 5px; height: 9px;
+      border-right: 2px solid #FFFFFF;
+      border-bottom: 2px solid #FFFFFF;
+      transform: rotate(40deg);
+    }
+    .item label {
+      font-size: 0.9rem;
+      line-height: 1.55;
+      color: var(--text);
+      cursor: pointer;
+    }
+    .item label a { color: var(--text); text-underline-offset: 3px; }
+    .item.done label { color: var(--muted); text-decoration: line-through; text-decoration-color: #C9C4BB; }
+    .ess {
+      color: var(--warm);
+      font-size: 0.8rem;
+      margin-left: 0.25rem;
+      cursor: help;
+    }
+
+    /* ── NOTES & SOURCES ── */
+    .notes { margin-top: 3rem; }
+    .notes-title { font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); margin-bottom: 0.7rem; }
+    .notes-list { list-style: none; font-size: 0.87rem; color: var(--muted); line-height: 1.7; }
+    .notes-list li { padding: 0.25rem 0 0.25rem 1.1rem; position: relative; }
+    .notes-list li::before { content: '\2013'; position: absolute; left: 0; color: var(--warm); }
+    .notes-list strong { color: var(--text); font-weight: 600; }
+
+    .page-note { margin-top: 2.5rem; font-size: 0.8rem; color: var(--muted); font-style: italic; }
+
+    /* ── FOOTER (same as the other pages) ── */
+    footer {
+      background: var(--highlight);
+      border-top: 1px solid rgba(245,239,232,0.1);
+      padding: 1.75rem 6%;
+      text-align: center;
+    }
+    .footer-copy { font-size: 0.82rem; color: #83786C; }
+
+    /* ── PRINT HEADER (screen-hidden) ── */
+    .print-head { display: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .filters { grid-template-columns: 1fr; }
+      .progress { margin-left: 0; width: 100%; }
+    }
+    @media (max-width: 480px) {
+      main { padding: 6.5rem 5% 3rem; }
+      nav { padding: 1rem 5%; }
+      .card { padding: 1.3rem; }
+      .tabs { gap: 0.25rem 1.1rem; }
+      .block-title { font-size: 1.35rem; }
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      nav, footer, .tabs, .toolbar, .filters, details.box, .page-stamp, .page-sub, .page-head .section-eyebrow, .page-note { display: none !important; }
+      body { background: #FFFFFF; color: #000000; }
+      main { max-width: none; padding: 0; }
+      .page-head h1 { display: none; }
+      .print-head { display: block; margin-bottom: 1.2rem; }
+      .print-title { font-family: 'Instrument Serif', serif; font-size: 1.8rem; }
+      .print-meta { font-size: 0.85rem; margin-top: 0.2rem; }
+      .print-ess { font-size: 0.85rem; font-weight: 600; margin-top: 0.2rem; }
+      .block { margin-bottom: 1.2rem; page-break-inside: auto; }
+      .block-title { font-size: 1.25rem; }
+      .block-summary { background: none; border-left: 2px solid #000000; color: #000000; padding: 0.3rem 0.6rem; }
+      .phase { page-break-inside: avoid; break-inside: avoid; margin-top: 0.9rem; }
+      .phase-head { border-bottom: 1px solid #000000; }
+      .phase-name, .phase-count, .item label, .notes-list, .notes-list li, .subgroup-name, .notes-title { color: #000000; }
+      .item { padding: 0.12rem 0; }
+      .item label { font-size: 0.82rem; }
+      .item.done label { text-decoration: none; color: #000000; }
+      .item input[type="checkbox"] { border: 1px solid #000000; background: #FFFFFF; }
+      .item input[type="checkbox"]:checked { background: #FFFFFF; border-color: #000000; }
+      .item input[type="checkbox"]:checked::after { border-right-color: #000000; border-bottom-color: #000000; }
+      .ess { color: #000000; }
+      .notes { margin-top: 1.2rem; page-break-inside: avoid; }
+      a { color: #000000; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Chethan Shankar</a>
+    <ul class="nav-links">
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#teardowns">Teardowns</a></li>
+      <li><a href="tools.html">Tools</a></li>
+      <li><a href="playbooks.html" class="active" aria-current="page">Playbooks</a></li>
+      <li><a href="index.html#ai-lab">AI Lab</a></li>
+      <li><a href="index.html#experience">Experience</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <a href="https://www.linkedin.com/in/chethanshankar" target="_blank" rel="noopener noreferrer" class="nav-cta">LinkedIn</a>
+  </nav>
+
+  <main>
+    <header class="page-head">
+      <div class="section-eyebrow">Playbooks</div>
+      <h1>Campaign Launch Checklist</h1>
+      <p class="page-sub">A launch checklist for Meta and Google Ads, built from platform documentation and industry best practice. India-first, with notes for global campaigns. Tick items as you go; progress is saved only in your browser.</p>
+      <p class="page-stamp" id="stamp"></p>
+    </header>
+
+    <div class="print-head">
+      <div class="print-title">Campaign Launch Checklist</div>
+      <div class="print-meta" id="print-meta"></div>
+      <div class="print-ess" id="print-ess"></div>
+    </div>
+
+    <details class="box" id="how-to-read">
+      <summary>How to read this checklist</summary>
+      <div class="box-body"><ul id="how-list"></ul></div>
+    </details>
+
+    <div class="tabs" role="tablist" aria-label="Platform">
+      <button class="tab" role="tab" id="tab-meta" data-platform="meta" aria-controls="panel" aria-selected="true">Meta Ads</button>
+      <button class="tab" role="tab" id="tab-google" data-platform="google" aria-controls="panel" aria-selected="false" tabindex="-1">Google Ads</button>
+    </div>
+
+    <div id="panel" role="tabpanel">
+      <div class="card">
+        <div class="filters">
+          <label class="field">
+            <span class="field-label" id="label-section">Campaign objective</span>
+            <select id="filter-section"></select>
+          </label>
+          <label class="field">
+            <span class="field-label">Business type</span>
+            <select id="filter-business"></select>
+          </label>
+          <details class="box hint filters-hint" id="fit-hint">
+            <summary id="fit-title">Which objective fits which business?</summary>
+            <div class="box-body">
+              <table class="hint-table">
+                <thead><tr><th>Business type</th><th>Usually runs</th></tr></thead>
+                <tbody id="fit-rows"></tbody>
+              </table>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <label class="switch">
+          <input type="checkbox" id="essentials" />
+          Show essentials only
+        </label>
+        <button type="button" class="tool-btn" id="btn-print">Print</button>
+        <button type="button" class="tool-btn" id="btn-reset">Reset this view</button>
+        <div class="progress">
+          <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+          <span class="progress-text" id="progress-text"></span>
+        </div>
+      </div>
+
+      <div id="blocks" aria-live="polite"></div>
+
+      <div class="notes">
+        <div class="notes-title">Notes for global campaigns</div>
+        <ul class="notes-list" id="global-notes"></ul>
+      </div>
+
+      <details class="box" id="sources-box">
+        <summary>Sources</summary>
+        <div class="box-body"><ul id="sources-list"></ul></div>
+      </details>
+
+      <p class="page-note">Progress is stored in this browser only and is never sent anywhere.</p>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-copy">© 2026 Chethan Shankar · Bengaluru, India</span>
+  </footer>
+
+  <script>
+    (function () {
+      var DATA = {
+        "lastUpdated": "September 2026",
+        "platforms": {
+          "meta": {
+            "howToRead": [
+              "<strong>Pick two filters:</strong> Campaign objective + Business type.",
+              "<strong>You see three blocks:</strong> Core (every campaign) → Objective → Business type.",
+              "<strong>Each block has three phases:</strong> Before launch → Launch day → First 14 days.",
+              "<strong>★ = essential.</strong> Skipping it usually breaks tracking, wastes budget or breaks policy. A \"Show essentials only\" toggle will show just these.",
+              "<strong>Every item starts with an action</strong> and fits on one line."
+            ],
+            "fitTableTitle": "Which objective fits which business?",
+            "fitTableRows": [
+              [
+                "D2C e-commerce",
+                "Sales, Traffic, Awareness"
+              ],
+              [
+                "Lead generation",
+                "Leads, Engagement (WhatsApp)"
+              ],
+              [
+                "Fintech app",
+                "App promotion, Leads"
+              ],
+              [
+                "Health &amp; fitness",
+                "Sales, App promotion, Awareness"
+              ]
+            ],
+            "core": {
+              "before": [
+                {
+                  "group": "Account",
+                  "items": [
+                    {
+                      "id": "m-core-before-01",
+                      "text": "Verify the business portfolio and turn on two-factor authentication",
+                      "essential": true
+                    },
+                    {
+                      "id": "m-core-before-02",
+                      "text": "Give admin access to at least two people",
+                      "essential": false
+                    },
+                    {
+                      "id": "m-core-before-03",
+                      "text": "Set ad account time zone and currency (INR) correctly — hard to change later",
+                      "essential": true
+                    },
+                    {
+                      "id": "m-core-before-04",
+                      "text": "Add a backup payment method and your GSTIN for GST invoices",
+                      "essential": false
+                    },
+                    {
+                      "id": "m-core-before-05",
+                      "text": "Verify your domain in Business settings",
+                      "essential": false
+                    },
+                    {
+                      "id": "m-core-before-06",
+                      "text": "Connect the Facebook Page and Instagram account",
+                      "essential": false
+                    }
+                  ]
+                },
+                {
+                  "group": "Tracking",
+                  "items": [
+                    {
+                      "id": "m-core-before-07",
+                      "text": "Install the Meta Pixel and check events with Meta Pixel Helper",
+                      "essential": true
+                    },
+                    {
+                      "id": "m-core-before-08",
+                      "text": "Set up Conversions API for the same key events",
+                      "essential": true
+                    },
+                    {
+                      "id": "m-core-before-09",
+                      "text": "Match event name and event ID in Pixel and Conversions API to avoid double counting",
+                      "essential": true
+                    },
+                    {
+                      "id": "m-core-before-10",
+                      "text": "Send hashed email and phone to improve Event Match Quality",
+                      "essential": false
+                    },
+                    {
+                      "id": "m-core-before-11",
+                      "text": "Pass value and currency (INR) with purchase and lead events",
+                      "essential": true
+                    },
+                    {
+                      "id": "m-core-before-12",
+                      "text": "Confirm every key event in the Test Events tool",
+                      "essential": false
+                    },
+                    {
+                      "id": "m-core-before-13",
+                      "text": "Check your data source category in Events Manager (health and finance can be restricted)",
+                      "essential": false
+                    },
+                    {
+                      "id": "m-core-before-14",
+                      "text": "Add UTM parameters to every ad using one naming format",
+                      "essential": true
+                    },
+                    {
+                      "id": "m-core-before-15",
+                      "text": "Confirm campaign traffic shows in GA4 or your analytics tool",
+                      "essential": false
+                    }
+                  ]
+                },
+                {
+                  "group": "Goals & budget",
+                  "items": [
+                    {
+                      "id": "m-core-before-16",
+                      "text": "Set target, acceptable and stop-loss CPA or ROAS — use the <a href=\"tools.html\">Marketing Calculators</a>",
+                      "essential": true
+                    },
+                    {
+                      "id": "m-core-before-17",
+                      "text": "Check the budget can reach around 50 optimisation events a week per ad set; if not, pick a higher-volume event or merge ad sets",
+                      "essential": true
+                    },
+                    {
+                      "id": "m-core-before-18",
+                      "text": "Choose the attribution setting on purpose and note it",
+                      "essential": false
+                    }
+                  ]
+                },
+                {
+                  "group": "Setup",
+                  "items": [
+                    {
+                      "id": "m-core-before-19",
+                      "text": "Match the objective to the real business goal",
+                      "essential": true
+                    },
+                    {
+                      "id": "m-core-before-20",
+                      "text": "Use fewer ad sets with more creatives in each",
+                      "essential": false
+                    },
+                    {
+                      "id": "m-core-before-21",
+                      "text": "Set Advantage+ audience controls: location, minimum age, language, exclusions",
+                      "essential": false
+                    },
+                    {
+                      "id": "m-core-before-22",
+                      "text": "Review placement settings — Meta is testing removal of placement exclusions; use value rules or account-level controls if needed",
+                      "essential": false
+                    },
+                    {
+                      "id": "m-core-before-23",
+                      "text": "Review each Advantage+ creative enhancement; turn off any that change brand text, claims or offers",
+                      "essential": true
+                    },
+                    {
+                      "id": "m-core-before-24",
+                      "text": "Set brand safety block lists and inventory filter",
+                      "essential": false
+                    },
+                    {
+                      "id": "m-core-before-25",
+                      "text": "Apply one naming convention to campaigns, ad sets and ads",
+                      "essential": false
+                    }
+                  ]
+                },
+                {
+                  "group": "Creative & landing page",
+                  "items": [
+                    {
+                      "id": "m-core-before-26",
+                      "text": "Prepare several different creative concepts (angle, format, hook), not small variations",
+                      "essential": true
+                    },
+                    {
+                      "id": "m-core-before-27",
+                      "text": "Make 9:16 and 4:5 versions with text inside safe zones",
+                      "essential": false
+                    },
+                    {
+                      "id": "m-core-before-28",
+                      "text": "Put the video hook in the first 3 seconds and add captions",
+                      "essential": false
+                    },
+                    {
+                      "id": "m-core-before-29",
+                      "text": "Check copy, offer and claims against Meta Advertising Standards",
+                      "essential": true
+                    },
+                    {
+                      "id": "m-core-before-30",
+                      "text": "Match the ad message to the landing page headline and offer",
+                      "essential": false
+                    },
+                    {
+                      "id": "m-core-before-31",
+                      "text": "Test the landing page on mobile: speed, forms and checkout",
+                      "essential": true
+                    },
+                    {
+                      "id": "m-core-before-32",
+                      "text": "Confirm customer lists have proper consent (India's DPDP consent rules are enforceable from 13 May 2027)",
+                      "essential": false
+                    }
+                  ]
+                },
+                {
+                  "group": "Final check",
+                  "items": [
+                    {
+                      "id": "m-core-before-33",
+                      "text": "Preview ads on a real phone in Feed, Stories and Reels",
+                      "essential": false
+                    },
+                    {
+                      "id": "m-core-before-34",
+                      "text": "Click every link",
+                      "essential": true
+                    },
+                    {
+                      "id": "m-core-before-35",
+                      "text": "Check dates, schedule and budget",
+                      "essential": false
+                    },
+                    {
+                      "id": "m-core-before-36",
+                      "text": "Complete one test conversion and see it in Events Manager",
+                      "essential": true
+                    }
+                  ]
+                }
+              ],
+              "launch": [
+                {
+                  "group": null,
+                  "items": [
+                    {
+                      "id": "m-core-launch-01",
+                      "text": "Confirm all ads are approved; fix or appeal rejections",
+                      "essential": true
+                    },
+                    {
+                      "id": "m-core-launch-02",
+                      "text": "Confirm delivery has started and spend is pacing",
+                      "essential": true
+                    },
+                    {
+                      "id": "m-core-launch-03",
+                      "text": "Check events arrive with correct values and no duplicates",
+                      "essential": true
+                    },
+                    {
+                      "id": "m-core-launch-04",
+                      "text": "Check UTMs show correctly in analytics",
+                      "essential": false
+                    },
+                    {
+                      "id": "m-core-launch-05",
+                      "text": "Assign someone to moderate and reply to comments",
+                      "essential": false
+                    },
+                    {
+                      "id": "m-core-launch-06",
+                      "text": "Record launch date, budget, settings and creatives",
+                      "essential": false
+                    },
+                    {
+                      "id": "m-core-launch-07",
+                      "text": "Avoid significant edits after launch",
+                      "essential": true
+                    }
+                  ]
+                }
+              ],
+              "first14": [
+                {
+                  "group": null,
+                  "items": [
+                    {
+                      "id": "m-core-first14-01",
+                      "text": "Days 1–3: check delivery, CPM, CTR and cost per result",
+                      "essential": false
+                    },
+                    {
+                      "id": "m-core-first14-02",
+                      "text": "Add \"Last significant edit\" and \"Optimization events\" columns to track learning",
+                      "essential": false
+                    },
+                    {
+                      "id": "m-core-first14-03",
+                      "text": "Avoid restarting learning: pausing, or changing optimisation event, audience or creative, resets it; big budget or bid changes can too",
+                      "essential": true
+                    },
+                    {
+                      "id": "m-core-first14-04",
+                      "text": "If cost per result is far above target, check tracking, landing page and creative first",
+                      "essential": false
+                    },
+                    {
+                      "id": "m-core-first14-05",
+                      "text": "Day 7+: pause clearly weak ads; add new creatives in batches",
+                      "essential": false
+                    },
+                    {
+                      "id": "m-core-first14-06",
+                      "text": "Watch frequency and negative feedback for creative fatigue",
+                      "essential": false
+                    },
+                    {
+                      "id": "m-core-first14-07",
+                      "text": "Compare Meta results with backend data (store, CRM or GA4)",
+                      "essential": true
+                    },
+                    {
+                      "id": "m-core-first14-08",
+                      "text": "Scale budget in steps once results are stable, and log each change",
+                      "essential": false
+                    },
+                    {
+                      "id": "m-core-first14-09",
+                      "text": "Day 14: write a short review — what worked, what didn't, next tests",
+                      "essential": false
+                    }
+                  ]
+                }
+              ]
+            },
+            "sections": {
+              "awareness": {
+                "label": "Awareness",
+                "heading": "Awareness",
+                "summary": [
+                  {
+                    "label": "Use it for",
+                    "value": "new launches and brand recall"
+                  },
+                  {
+                    "label": "Optimise for",
+                    "value": "reach or ad recall lift"
+                  },
+                  {
+                    "label": "Judge it by",
+                    "value": "reach, frequency, CPM"
+                  }
+                ],
+                "phases": {
+                  "before": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-awareness-before-01",
+                          "text": "Choose the goal: reach, impressions or ad recall lift",
+                          "essential": true
+                        },
+                        {
+                          "id": "m-awareness-before-02",
+                          "text": "Set a frequency cap that suits the campaign length",
+                          "essential": false
+                        },
+                        {
+                          "id": "m-awareness-before-03",
+                          "text": "Decide how to measure impact (brand lift study if eligible, branded search, direct traffic)",
+                          "essential": false
+                        },
+                        {
+                          "id": "m-awareness-before-04",
+                          "text": "Show the brand clearly in the first seconds of the creative",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "launch": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-awareness-launch-01",
+                          "text": "Check reach and frequency are delivering as planned",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "first14": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-awareness-first14-01",
+                          "text": "Track reach, frequency, CPM and ThruPlays against plan",
+                          "essential": false
+                        },
+                        {
+                          "id": "m-awareness-first14-02",
+                          "text": "Check whether branded search or direct traffic moved",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "traffic": {
+                "label": "Traffic",
+                "heading": "Traffic",
+                "summary": [
+                  {
+                    "label": "Use it for",
+                    "value": "sending visitors to content or pages"
+                  },
+                  {
+                    "label": "Optimise for",
+                    "value": "landing page views"
+                  },
+                  {
+                    "label": "Judge it by",
+                    "value": "cost per landing page view, engaged sessions"
+                  }
+                ],
+                "phases": {
+                  "before": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-traffic-before-01",
+                          "text": "Optimise for landing page views, not link clicks (needs a working Pixel)",
+                          "essential": true
+                        },
+                        {
+                          "id": "m-traffic-before-02",
+                          "text": "Make sure the page loads fast enough for clicks to become visits",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "launch": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-traffic-launch-01",
+                          "text": "Check landing page views are recording, not only link clicks",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "first14": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-traffic-first14-01",
+                          "text": "Compare link clicks with landing page views to spot load-time drop-off",
+                          "essential": false
+                        },
+                        {
+                          "id": "m-traffic-first14-02",
+                          "text": "Check engaged sessions and bounce rate, not just CPC",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "engagement": {
+                "label": "Engagement",
+                "heading": "Engagement",
+                "summary": [
+                  {
+                    "label": "Use it for",
+                    "value": "conversations, video views, post engagement"
+                  },
+                  {
+                    "label": "Optimise for",
+                    "value": "messages or ThruPlays"
+                  },
+                  {
+                    "label": "Judge it by",
+                    "value": "cost per conversation, conversations that convert"
+                  }
+                ],
+                "phases": {
+                  "before": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-engagement-before-01",
+                          "text": "Pick the conversion location: messages, video views, on-ad engagement or calls",
+                          "essential": true
+                        },
+                        {
+                          "id": "m-engagement-before-02",
+                          "text": "For click-to-WhatsApp ads: connect the WhatsApp Business number and set greeting and quick replies",
+                          "essential": true
+                        },
+                        {
+                          "id": "m-engagement-before-03",
+                          "text": "Assign someone to reply to messages quickly",
+                          "essential": false
+                        },
+                        {
+                          "id": "m-engagement-before-04",
+                          "text": "Use existing posts where social proof helps",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "launch": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-engagement-launch-01",
+                          "text": "Test one message conversation end to end",
+                          "essential": true
+                        }
+                      ]
+                    }
+                  ],
+                  "first14": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-engagement-first14-01",
+                          "text": "Track cost per conversation and reply time",
+                          "essential": false
+                        },
+                        {
+                          "id": "m-engagement-first14-02",
+                          "text": "Check how many conversations turn into leads or sales",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "leads": {
+                "label": "Leads",
+                "heading": "Leads",
+                "summary": [
+                  {
+                    "label": "Use it for",
+                    "value": "enquiries, sign-ups, bookings"
+                  },
+                  {
+                    "label": "Optimise for",
+                    "value": "leads or conversion leads"
+                  },
+                  {
+                    "label": "Judge it by",
+                    "value": "cost per qualified lead"
+                  }
+                ],
+                "phases": {
+                  "before": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-leads-before-01",
+                          "text": "Choose the lead source: instant form, website, messaging or calls",
+                          "essential": true
+                        },
+                        {
+                          "id": "m-leads-before-02",
+                          "text": "For instant forms, use the higher-intent form type and add qualifying questions",
+                          "essential": false
+                        },
+                        {
+                          "id": "m-leads-before-03",
+                          "text": "Add a privacy policy link and a thank-you screen with next steps",
+                          "essential": false
+                        },
+                        {
+                          "id": "m-leads-before-04",
+                          "text": "Send leads automatically to your CRM or sheet, and test with Meta's lead ads testing tool",
+                          "essential": true
+                        },
+                        {
+                          "id": "m-leads-before-05",
+                          "text": "Connect Conversions API for CRM to use the Conversion Leads goal (instant forms only)",
+                          "essential": false
+                        },
+                        {
+                          "id": "m-leads-before-06",
+                          "text": "Download or sync leads regularly — Meta keeps them for a limited time",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "launch": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-leads-launch-01",
+                          "text": "Confirm the first real leads reach the CRM and the sales team",
+                          "essential": true
+                        }
+                      ]
+                    }
+                  ],
+                  "first14": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-leads-first14-01",
+                          "text": "Track cost per qualified lead, not just cost per lead",
+                          "essential": true
+                        },
+                        {
+                          "id": "m-leads-first14-02",
+                          "text": "Send lead stages back to Meta if CRM integration is set up",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "app": {
+                "label": "App promotion",
+                "heading": "App promotion",
+                "summary": [
+                  {
+                    "label": "Use it for",
+                    "value": "installs and in-app actions"
+                  },
+                  {
+                    "label": "Optimise for",
+                    "value": "installs, app events or value"
+                  },
+                  {
+                    "label": "Judge it by",
+                    "value": "cost per key in-app event, early retention"
+                  }
+                ],
+                "phases": {
+                  "before": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-app-before-01",
+                          "text": "Integrate the Meta SDK or an MMP (AppsFlyer, Adjust, Branch)",
+                          "essential": true
+                        },
+                        {
+                          "id": "m-app-before-02",
+                          "text": "Set up and validate key in-app events (sign-up, purchase, subscription)",
+                          "essential": true
+                        },
+                        {
+                          "id": "m-app-before-03",
+                          "text": "Set up iOS measurement with your MMP",
+                          "essential": false
+                        },
+                        {
+                          "id": "m-app-before-04",
+                          "text": "Choose the optimisation: installs, app events or value",
+                          "essential": false
+                        },
+                        {
+                          "id": "m-app-before-05",
+                          "text": "Match the app store listing to the ad promise and test deep links",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "launch": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-app-launch-01",
+                          "text": "Confirm installs and in-app events appear in both Meta and the MMP",
+                          "essential": true
+                        }
+                      ]
+                    }
+                  ],
+                  "first14": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-app-first14-01",
+                          "text": "Judge on cost per key in-app event, not only cost per install",
+                          "essential": true
+                        },
+                        {
+                          "id": "m-app-first14-02",
+                          "text": "Check MMP fraud reports",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "sales": {
+                "label": "Sales",
+                "heading": "Sales",
+                "summary": [
+                  {
+                    "label": "Use it for",
+                    "value": "online purchases"
+                  },
+                  {
+                    "label": "Optimise for",
+                    "value": "purchase or purchase value"
+                  },
+                  {
+                    "label": "Judge it by",
+                    "value": "CPA and ROAS against break-even"
+                  }
+                ],
+                "phases": {
+                  "before": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-sales-before-01",
+                          "text": "Connect the catalog and fix product feed errors",
+                          "essential": true
+                        },
+                        {
+                          "id": "m-sales-before-02",
+                          "text": "Track Add to Cart and Initiate Checkout as well as Purchase",
+                          "essential": false
+                        },
+                        {
+                          "id": "m-sales-before-03",
+                          "text": "Define existing-customer and engaged-audience segments in Advantage+ settings",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "launch": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-sales-launch-01",
+                          "text": "Confirm purchases record with correct values",
+                          "essential": true
+                        }
+                      ]
+                    }
+                  ],
+                  "first14": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-sales-first14-01",
+                          "text": "Compare ROAS and CPA with break-even, not just platform ROAS",
+                          "essential": true
+                        },
+                        {
+                          "id": "m-sales-first14-02",
+                          "text": "Check the new vs returning customer split",
+                          "essential": false
+                        },
+                        {
+                          "id": "m-sales-first14-03",
+                          "text": "Check catalog ads for disapproved or out-of-stock products",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            },
+            "business": {
+              "d2c": {
+                "label": "D2C e-commerce",
+                "heading": "D2C e-commerce",
+                "summary": [
+                  {
+                    "label": "Key metric",
+                    "value": "contribution margin after ad spend"
+                  },
+                  {
+                    "label": "Watch out for",
+                    "value": "RTO and festive-season CPMs"
+                  }
+                ],
+                "phases": {
+                  "before": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-d2c-biz-before-01",
+                          "text": "Calculate break-even ROAS using real margin (shipping, discounts, returns)",
+                          "essential": true
+                        },
+                        {
+                          "id": "m-d2c-biz-before-02",
+                          "text": "Decide the COD vs prepaid plan; consider a prepaid incentive to cut RTO",
+                          "essential": false
+                        },
+                        {
+                          "id": "m-d2c-biz-before-03",
+                          "text": "Show shipping, returns and payment options (UPI, cards, COD) on the product page",
+                          "essential": false
+                        },
+                        {
+                          "id": "m-d2c-biz-before-04",
+                          "text": "Check the sale calendar — festive and marketplace sale days usually raise CPMs",
+                          "essential": false
+                        },
+                        {
+                          "id": "m-d2c-biz-before-05",
+                          "text": "Show reviews and ratings on the landing page",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "launch": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-d2c-biz-launch-01",
+                          "text": "Place one real order (prepaid and COD) and check it end to end",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "first14": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-d2c-biz-first14-01",
+                          "text": "Track RTO and cancellation rate alongside ROAS",
+                          "essential": true
+                        },
+                        {
+                          "id": "m-d2c-biz-first14-02",
+                          "text": "Check AOV and top-selling products from ads",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "leadgen": {
+                "label": "Lead generation",
+                "heading": "Lead generation",
+                "summary": [
+                  {
+                    "label": "Key metric",
+                    "value": "cost per qualified lead"
+                  },
+                  {
+                    "label": "Watch out for",
+                    "value": "junk leads and slow follow-up"
+                  }
+                ],
+                "phases": {
+                  "before": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-leadgen-biz-before-01",
+                          "text": "Agree on what a qualified lead is with the sales team",
+                          "essential": true
+                        },
+                        {
+                          "id": "m-leadgen-biz-before-02",
+                          "text": "Add phone/OTP verification or qualifying questions to cut junk leads",
+                          "essential": false
+                        },
+                        {
+                          "id": "m-leadgen-biz-before-03",
+                          "text": "Set a response-time target (for example, same-day call)",
+                          "essential": true
+                        }
+                      ]
+                    }
+                  ],
+                  "launch": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-leadgen-biz-launch-01",
+                          "text": "Confirm the sales team received and contacted the first leads",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "first14": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-leadgen-biz-first14-01",
+                          "text": "Review lead quality with sales every week",
+                          "essential": true
+                        },
+                        {
+                          "id": "m-leadgen-biz-first14-02",
+                          "text": "Track contact rate, junk-lead share and cost per closed deal",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "fintech": {
+                "label": "Fintech app",
+                "heading": "Fintech app",
+                "summary": [
+                  {
+                    "label": "Key metric",
+                    "value": "cost per KYC-completed or transacting user"
+                  },
+                  {
+                    "label": "Watch out for",
+                    "value": "regulatory rules and fake sign-ups"
+                  }
+                ],
+                "phases": {
+                  "before": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-fintech-biz-before-01",
+                          "text": "For securities and investment ads in India, verify payer and beneficiary with SEBI registration (or the alternative if exempt)",
+                          "essential": true
+                        },
+                        {
+                          "id": "m-fintech-biz-before-02",
+                          "text": "Include required disclosures and clear claims (returns, approvals) with compliance",
+                          "essential": true
+                        },
+                        {
+                          "id": "m-fintech-biz-before-03",
+                          "text": "Track deeper events: KYC completed, account funded, first transaction",
+                          "essential": false
+                        },
+                        {
+                          "id": "m-fintech-biz-before-04",
+                          "text": "Check whether a Special Ad Category applies in your target countries",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "launch": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-fintech-biz-launch-01",
+                          "text": "Confirm KYC and first-transaction events are recording",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "first14": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-fintech-biz-first14-01",
+                          "text": "Judge on cost per KYC-completed user or first transaction, not installs",
+                          "essential": true
+                        },
+                        {
+                          "id": "m-fintech-biz-first14-02",
+                          "text": "Check MMP reports for fraud and fake sign-ups",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "health": {
+                "label": "Health & fitness",
+                "heading": "Health &amp; fitness (wearables and apps like Ultrahuman, Whoop)",
+                "summary": [
+                  {
+                    "label": "Key metric",
+                    "value": "cost per device sale and subscription start"
+                  },
+                  {
+                    "label": "Watch out for",
+                    "value": "health-data event restrictions and claims"
+                  }
+                ],
+                "phases": {
+                  "before": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-health-biz-before-01",
+                          "text": "Check your data source category; plan for restricted lower-funnel events if flagged",
+                          "essential": true
+                        },
+                        {
+                          "id": "m-health-biz-before-02",
+                          "text": "Avoid ads that imply a user's health condition; keep claims accurate and supportable",
+                          "essential": true
+                        },
+                        {
+                          "id": "m-health-biz-before-03",
+                          "text": "Track device purchases and app subscriptions as separate events",
+                          "essential": false
+                        },
+                        {
+                          "id": "m-health-biz-before-04",
+                          "text": "Prepare reviews, comparisons and retargeting content for a longer buying decision",
+                          "essential": false
+                        },
+                        {
+                          "id": "m-health-biz-before-05",
+                          "text": "Set shipping countries and pricing per market for global launches",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "launch": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-health-biz-launch-01",
+                          "text": "Confirm no key events show as blocked in Events Manager",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "first14": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "m-health-biz-first14-01",
+                          "text": "Check for any new event restrictions",
+                          "essential": false
+                        },
+                        {
+                          "id": "m-health-biz-first14-02",
+                          "text": "Track device sales and subscription starts separately",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            },
+            "globalNotes": [
+              "<strong>EU:</strong> payer and beneficiary details are required for all ads targeting the EU, and user consent is needed before tracking fires.",
+              "<strong>Other countries:</strong> some (for example, Singapore and Taiwan) need extra advertiser details — check before targeting.",
+              "<strong>Structure:</strong> run separate campaigns by country or region when budget, pricing or rules differ.",
+              "<strong>Reporting:</strong> keep separate ad accounts per currency or region if needed."
+            ],
+            "sources": [
+              "Meta Conversions API best practices and deduplication — developers.facebook.com",
+              "Meta SEBI verification for India securities ads — developers.facebook.com (June 2025)",
+              "Meta Conversions API for CRM (Conversion Leads) — developers.facebook.com",
+              "DPDP Rules 2025 timeline — legal summaries (compliance deadline 13 May 2027)",
+              "Practitioner coverage: Jon Loomer, PPC Land, Social Media Today (placement exclusions test, Advantage+ changes)"
+            ],
+            "sectionFilterLabel": "Campaign objective",
+            "sectionOrder": [
+              "awareness",
+              "traffic",
+              "engagement",
+              "leads",
+              "app",
+              "sales"
+            ],
+            "businessOrder": [
+              "d2c",
+              "leadgen",
+              "fintech",
+              "health"
+            ],
+            "label": "Meta Ads",
+            "defaults": {
+              "section": "sales",
+              "business": "d2c"
+            }
+          },
+          "google": {
+            "howToRead": [
+              "<strong>Pick two filters:</strong> Campaign type + Business type.",
+              "<strong>You see three blocks:</strong> Core (every campaign) → Campaign type → Business type.",
+              "<strong>Each block has three phases:</strong> Before launch → Launch day → First 14 days.",
+              "<strong>★ = essential.</strong> Skipping it usually breaks tracking, wastes budget or breaks policy.",
+              "<strong>Every item starts with an action</strong> and fits on one line."
+            ],
+            "fitTableTitle": "Which campaign type fits which business?",
+            "fitTableRows": [
+              [
+                "D2C e-commerce",
+                "Search, Shopping, Performance Max, Demand Gen"
+              ],
+              [
+                "Lead generation",
+                "Search, Performance Max, Demand Gen"
+              ],
+              [
+                "Fintech app",
+                "App, Search, Video (YouTube)"
+              ],
+              [
+                "Health &amp; fitness",
+                "Search, Shopping, Performance Max, Video (YouTube), App"
+              ]
+            ],
+            "core": {
+              "before": [
+                {
+                  "group": "Account",
+                  "items": [
+                    {
+                      "id": "g-core-before-01",
+                      "text": "Turn on two-factor authentication and give admin access to at least two people",
+                      "essential": true
+                    },
+                    {
+                      "id": "g-core-before-02",
+                      "text": "Complete Google's advertiser verification if prompted",
+                      "essential": true
+                    },
+                    {
+                      "id": "g-core-before-03",
+                      "text": "Set time zone and currency (INR) correctly — hard to change later",
+                      "essential": true
+                    },
+                    {
+                      "id": "g-core-before-04",
+                      "text": "Add a payment method and your GSTIN for GST invoices",
+                      "essential": false
+                    },
+                    {
+                      "id": "g-core-before-05",
+                      "text": "Turn on auto-tagging",
+                      "essential": true
+                    },
+                    {
+                      "id": "g-core-before-06",
+                      "text": "Link GA4, and Merchant Center, YouTube channel or app accounts where relevant",
+                      "essential": false
+                    }
+                  ]
+                },
+                {
+                  "group": "Tracking",
+                  "items": [
+                    {
+                      "id": "g-core-before-07",
+                      "text": "Install the Google tag on every page (directly or through Google Tag Manager)",
+                      "essential": true
+                    },
+                    {
+                      "id": "g-core-before-08",
+                      "text": "Create conversion actions and set only one primary conversion per goal; keep the rest secondary",
+                      "essential": true
+                    },
+                    {
+                      "id": "g-core-before-09",
+                      "text": "Pass real conversion values, not a flat 1 for everything",
+                      "essential": true
+                    },
+                    {
+                      "id": "g-core-before-10",
+                      "text": "Set the count setting: \"One\" for leads, \"Every\" for purchases",
+                      "essential": false
+                    },
+                    {
+                      "id": "g-core-before-11",
+                      "text": "Set conversion windows to match how long customers take to convert",
+                      "essential": false
+                    },
+                    {
+                      "id": "g-core-before-12",
+                      "text": "Turn on enhanced conversions (accept the customer data terms first)",
+                      "essential": true
+                    },
+                    {
+                      "id": "g-core-before-13",
+                      "text": "Check tags with Tag Assistant before launch",
+                      "essential": false
+                    },
+                    {
+                      "id": "g-core-before-14",
+                      "text": "Use data-driven attribution unless you have a clear reason not to",
+                      "essential": false
+                    },
+                    {
+                      "id": "g-core-before-15",
+                      "text": "Add UTM parameters or confirm auto-tagging data shows in GA4",
+                      "essential": true
+                    }
+                  ]
+                },
+                {
+                  "group": "Goals & budget",
+                  "items": [
+                    {
+                      "id": "g-core-before-16",
+                      "text": "Set target, acceptable and stop-loss CPA or ROAS — use the <a href=\"tools.html\">Marketing Calculators</a>",
+                      "essential": true
+                    },
+                    {
+                      "id": "g-core-before-17",
+                      "text": "Choose a bid strategy that matches your conversion data (Smart Bidding needs enough conversions to learn)",
+                      "essential": true
+                    },
+                    {
+                      "id": "g-core-before-18",
+                      "text": "Remember Google can spend up to twice the average daily budget on some days",
+                      "essential": false
+                    },
+                    {
+                      "id": "g-core-before-19",
+                      "text": "Plan for the learning period: up to around 50 conversions or 3 conversion cycles",
+                      "essential": false
+                    }
+                  ]
+                },
+                {
+                  "group": "Setup",
+                  "items": [
+                    {
+                      "id": "g-core-before-20",
+                      "text": "Set locations to \"Presence\" (people in the area) unless you want people only interested in it",
+                      "essential": true
+                    },
+                    {
+                      "id": "g-core-before-21",
+                      "text": "Set languages and ad schedule",
+                      "essential": false
+                    },
+                    {
+                      "id": "g-core-before-22",
+                      "text": "Review auto-applied recommendations and turn off any you don't want",
+                      "essential": true
+                    },
+                    {
+                      "id": "g-core-before-23",
+                      "text": "Add account-level negative keywords (jobs, free, irrelevant terms)",
+                      "essential": false
+                    },
+                    {
+                      "id": "g-core-before-24",
+                      "text": "Set brand safety: content suitability, excluded content and placement exclusion lists",
+                      "essential": false
+                    },
+                    {
+                      "id": "g-core-before-25",
+                      "text": "Review every AI or automatically created asset setting before launch",
+                      "essential": false
+                    },
+                    {
+                      "id": "g-core-before-26",
+                      "text": "Apply one naming convention to campaigns, ad groups and assets",
+                      "essential": false
+                    }
+                  ]
+                },
+                {
+                  "group": "Creative & landing page",
+                  "items": [
+                    {
+                      "id": "g-core-before-27",
+                      "text": "Check ads, claims and landing pages against Google Ads policies",
+                      "essential": true
+                    },
+                    {
+                      "id": "g-core-before-28",
+                      "text": "Add business name, logo, sitelinks, callouts and images where available",
+                      "essential": false
+                    },
+                    {
+                      "id": "g-core-before-29",
+                      "text": "Match the ad message to the landing page headline and offer",
+                      "essential": false
+                    },
+                    {
+                      "id": "g-core-before-30",
+                      "text": "Test the landing page on mobile: speed, forms and checkout",
+                      "essential": true
+                    },
+                    {
+                      "id": "g-core-before-31",
+                      "text": "Confirm Customer Match lists have proper consent (India's DPDP consent rules are enforceable from 13 May 2027)",
+                      "essential": false
+                    }
+                  ]
+                },
+                {
+                  "group": "Final check",
+                  "items": [
+                    {
+                      "id": "g-core-before-32",
+                      "text": "Preview ads with the Ad Preview and Diagnosis tool",
+                      "essential": false
+                    },
+                    {
+                      "id": "g-core-before-33",
+                      "text": "Click every final URL and check tracking parameters",
+                      "essential": true
+                    },
+                    {
+                      "id": "g-core-before-34",
+                      "text": "Check dates, budgets and bid targets",
+                      "essential": false
+                    },
+                    {
+                      "id": "g-core-before-35",
+                      "text": "Complete one test conversion and confirm it records",
+                      "essential": true
+                    }
+                  ]
+                }
+              ],
+              "launch": [
+                {
+                  "group": null,
+                  "items": [
+                    {
+                      "id": "g-core-launch-01",
+                      "text": "Confirm ads are approved; fix any \"Disapproved\" or \"Approved (limited)\" issues",
+                      "essential": true
+                    },
+                    {
+                      "id": "g-core-launch-02",
+                      "text": "Confirm campaigns are serving and spend is pacing",
+                      "essential": true
+                    },
+                    {
+                      "id": "g-core-launch-03",
+                      "text": "Check conversion action status moves to recording",
+                      "essential": false
+                    },
+                    {
+                      "id": "g-core-launch-04",
+                      "text": "Check campaign status for \"Limited by budget\"",
+                      "essential": false
+                    },
+                    {
+                      "id": "g-core-launch-05",
+                      "text": "Record launch date, budget, settings and assets",
+                      "essential": false
+                    },
+                    {
+                      "id": "g-core-launch-06",
+                      "text": "Avoid bid strategy, target or budget changes after launch",
+                      "essential": true
+                    }
+                  ]
+                }
+              ],
+              "first14": [
+                {
+                  "group": null,
+                  "items": [
+                    {
+                      "id": "g-core-first14-01",
+                      "text": "Days 1–3: check impressions, CTR, CPC and conversion tracking",
+                      "essential": false
+                    },
+                    {
+                      "id": "g-core-first14-02",
+                      "text": "Wait out the \"Learning\" bid status before judging results",
+                      "essential": true
+                    },
+                    {
+                      "id": "g-core-first14-03",
+                      "text": "Review search terms (or search term insights) every few days and add negatives",
+                      "essential": true
+                    },
+                    {
+                      "id": "g-core-first14-04",
+                      "text": "Check impression share lost to budget and to rank",
+                      "essential": false
+                    },
+                    {
+                      "id": "g-core-first14-05",
+                      "text": "Review asset performance and replace weak assets",
+                      "essential": false
+                    },
+                    {
+                      "id": "g-core-first14-06",
+                      "text": "Compare Google results with backend data (store, CRM or GA4)",
+                      "essential": true
+                    },
+                    {
+                      "id": "g-core-first14-07",
+                      "text": "Adjust targets or budgets in steps, and log each change",
+                      "essential": false
+                    },
+                    {
+                      "id": "g-core-first14-08",
+                      "text": "Day 14: write a short review — what worked, what didn't, next tests",
+                      "essential": false
+                    }
+                  ]
+                }
+              ]
+            },
+            "sections": {
+              "search": {
+                "label": "Search",
+                "heading": "Search (including AI Max)",
+                "summary": [
+                  {
+                    "label": "Use it for",
+                    "value": "capturing people already searching"
+                  },
+                  {
+                    "label": "Optimise for",
+                    "value": "conversions or conversion value"
+                  },
+                  {
+                    "label": "Judge it by",
+                    "value": "CPA, ROAS, impression share"
+                  }
+                ],
+                "phases": {
+                  "before": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-search-before-01",
+                          "text": "Keep brand and non-brand in separate campaigns",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-search-before-02",
+                          "text": "Group keywords into tight intent themes, one theme per ad group",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-search-before-03",
+                          "text": "Build negative keyword lists before launch",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-search-before-04",
+                          "text": "Write responsive search ads with at least \"Good\" ad strength; pin only when needed",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-search-before-05",
+                          "text": "Decide on Search partners; turn off the Display network in Search campaigns",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-search-before-06",
+                          "text": "If using AI Max: set negatives, brand controls and URL exclusions first",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-search-before-07",
+                          "text": "Note that Google plans to auto-upgrade Dynamic Search Ads to AI Max (currently planned for February 2027)",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "launch": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-search-launch-01",
+                          "text": "Check keywords are eligible and not \"Low search volume\"",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "first14": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-search-first14-01",
+                          "text": "Review search terms and add negatives",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-search-first14-02",
+                          "text": "Review AI Max text and URL choices if enabled",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-search-first14-03",
+                          "text": "Check Quality Score and lost impression share",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "pmax": {
+                "label": "Performance Max",
+                "heading": "Performance Max",
+                "summary": [
+                  {
+                    "label": "Use it for",
+                    "value": "conversions across all Google channels"
+                  },
+                  {
+                    "label": "Optimise for",
+                    "value": "conversions or value"
+                  },
+                  {
+                    "label": "Judge it by",
+                    "value": "CPA or ROAS, non-brand performance"
+                  }
+                ],
+                "phases": {
+                  "before": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-pmax-before-01",
+                          "text": "Add brand exclusions so PMax doesn't take branded searches from your Search campaign",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-pmax-before-02",
+                          "text": "Add campaign-level negative keywords (they apply to Search and Shopping inventory only)",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-pmax-before-03",
+                          "text": "Build asset groups by theme or landing page, each with a full set of assets including video",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-pmax-before-04",
+                          "text": "Add audience signals (customer lists, website visitors) and search themes",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-pmax-before-05",
+                          "text": "Set URL expansion rules and exclude pages you don't want (thank-you, careers, blog)",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-pmax-before-06",
+                          "text": "Connect the product feed for e-commerce",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "launch": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-pmax-launch-01",
+                          "text": "Check every asset group is approved and serving",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "first14": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-pmax-first14-01",
+                          "text": "Avoid structural changes during early learning",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-pmax-first14-02",
+                          "text": "Check the channel performance report to see where spend goes",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-pmax-first14-03",
+                          "text": "Review search term insights and placements; add exclusions",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "display": {
+                "label": "Display",
+                "heading": "Display",
+                "summary": [
+                  {
+                    "label": "Use it for",
+                    "value": "remarketing and low-cost reach"
+                  },
+                  {
+                    "label": "Optimise for",
+                    "value": "conversions or viewable impressions"
+                  },
+                  {
+                    "label": "Judge it by",
+                    "value": "conversions, CPM, placement quality"
+                  }
+                ],
+                "phases": {
+                  "before": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-display-before-01",
+                          "text": "Choose one clear goal: remarketing or prospecting",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-display-before-02",
+                          "text": "Set audiences or content targeting; review the optimised targeting setting",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-display-before-03",
+                          "text": "Upload responsive display ads with several images, logos and headlines",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-display-before-04",
+                          "text": "Exclude low-quality placements (for example, mobile apps and kids' content) at account level",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-display-before-05",
+                          "text": "Set a frequency cap",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "launch": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-display-launch-01",
+                          "text": "Check ads preview well across sizes",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "first14": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-display-first14-01",
+                          "text": "Review the placements report and exclude junk sites and apps",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-display-first14-02",
+                          "text": "Separate view-through conversions from click conversions when judging results",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "demandgen": {
+                "label": "Demand Gen",
+                "heading": "Demand Gen",
+                "summary": [
+                  {
+                    "label": "Use it for",
+                    "value": "mid-funnel prospecting on YouTube, Discover and Gmail"
+                  },
+                  {
+                    "label": "Optimise for",
+                    "value": "conversions or clicks"
+                  },
+                  {
+                    "label": "Judge it by",
+                    "value": "CPA and new-customer reach"
+                  }
+                ],
+                "phases": {
+                  "before": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-demandgen-before-01",
+                          "text": "Use Demand Gen for conversion-focused video (it replaced Video action campaigns)",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-demandgen-before-02",
+                          "text": "Add image assets and vertical, square and horizontal videos",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-demandgen-before-03",
+                          "text": "Use customer lists and lookalike segments as audiences where allowed",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-demandgen-before-04",
+                          "text": "Set channel controls (YouTube only or all channels) on purpose",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-demandgen-before-05",
+                          "text": "Connect the product feed for e-commerce",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "launch": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-demandgen-launch-01",
+                          "text": "Check all ad formats preview correctly on mobile",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "first14": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-demandgen-first14-01",
+                          "text": "Plan a test of several weeks before judging results",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-demandgen-first14-02",
+                          "text": "Compare results with PMax to avoid overlap",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "video": {
+                "label": "Video (YouTube)",
+                "heading": "Video (YouTube)",
+                "summary": [
+                  {
+                    "label": "Use it for",
+                    "value": "reach, awareness and consideration"
+                  },
+                  {
+                    "label": "Optimise for",
+                    "value": "reach, views or impressions"
+                  },
+                  {
+                    "label": "Judge it by",
+                    "value": "CPM, CPV, view rate, brand lift"
+                  }
+                ],
+                "phases": {
+                  "before": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-video-before-01",
+                          "text": "Link the YouTube channel to the ad account",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-video-before-02",
+                          "text": "Choose the right format: skippable in-stream, non-skippable, Shorts or in-feed",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-video-before-03",
+                          "text": "Show the brand and key message before viewers can skip",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-video-before-04",
+                          "text": "Make vertical versions for Shorts",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-video-before-05",
+                          "text": "Set frequency caps and content suitability",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-video-before-06",
+                          "text": "Plan measurement (brand lift if eligible, branded search, site traffic)",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "launch": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-video-launch-01",
+                          "text": "Check videos are approved and not age-restricted",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "first14": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-video-first14-01",
+                          "text": "Track view rate, CPV and frequency",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-video-first14-02",
+                          "text": "Review where ads appeared and exclude unsuitable channels",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "shopping": {
+                "label": "Shopping",
+                "heading": "Shopping",
+                "summary": [
+                  {
+                    "label": "Use it for",
+                    "value": "product sales from search"
+                  },
+                  {
+                    "label": "Optimise for",
+                    "value": "conversion value"
+                  },
+                  {
+                    "label": "Judge it by",
+                    "value": "ROAS and product-level profit"
+                  }
+                ],
+                "phases": {
+                  "before": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-shopping-before-01",
+                          "text": "Link Merchant Center and fix all feed errors",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-shopping-before-02",
+                          "text": "Use strong product titles, correct GTINs and clear images",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-shopping-before-03",
+                          "text": "Set shipping and returns in Merchant Center",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-shopping-before-04",
+                          "text": "Make sure price and stock match the landing page",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-shopping-before-05",
+                          "text": "Group products by margin or priority",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "launch": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-shopping-launch-01",
+                          "text": "Check products show as approved and eligible",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "first14": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-shopping-first14-01",
+                          "text": "Check product diagnostics for new disapprovals",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-shopping-first14-02",
+                          "text": "Review search terms and top products; add negatives",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "app": {
+                "label": "App",
+                "heading": "App",
+                "summary": [
+                  {
+                    "label": "Use it for",
+                    "value": "installs and in-app actions"
+                  },
+                  {
+                    "label": "Optimise for",
+                    "value": "installs, in-app actions or value"
+                  },
+                  {
+                    "label": "Judge it by",
+                    "value": "cost per key in-app action, retention"
+                  }
+                ],
+                "phases": {
+                  "before": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-app-before-01",
+                          "text": "Link Firebase or your MMP and import in-app conversion events",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-app-before-02",
+                          "text": "Optimise each campaign for one in-app action",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-app-before-03",
+                          "text": "Set budget to at least 50x target CPI, 10x target CPA (installs) or 15x target CPA (engagement)",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-app-before-04",
+                          "text": "Upload enough assets for at least \"Good\" ad strength",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-app-before-05",
+                          "text": "Set up deep links and follow iOS best practices",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-app-before-06",
+                          "text": "Run one campaign per country and platform for clean reporting",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "launch": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-app-launch-01",
+                          "text": "Confirm installs and in-app events appear in Google Ads and the MMP",
+                          "essential": true
+                        }
+                      ]
+                    }
+                  ],
+                  "first14": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-app-first14-01",
+                          "text": "Avoid changes while the campaign is learning",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-app-first14-02",
+                          "text": "Judge on cost per key in-app action, not only cost per install",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            },
+            "business": {
+              "d2c": {
+                "label": "D2C e-commerce",
+                "heading": "D2C e-commerce",
+                "summary": [
+                  {
+                    "label": "Key metric",
+                    "value": "contribution margin after ad spend"
+                  },
+                  {
+                    "label": "Watch out for",
+                    "value": "RTO, feed errors and festive CPCs"
+                  }
+                ],
+                "phases": {
+                  "before": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-d2c-biz-before-01",
+                          "text": "Calculate break-even ROAS using real margin (shipping, discounts, returns)",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-d2c-biz-before-02",
+                          "text": "Run a brand Search campaign to protect branded searches",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-d2c-biz-before-03",
+                          "text": "Keep the Merchant Center feed accurate on price, stock and offers",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-d2c-biz-before-04",
+                          "text": "Decide the COD vs prepaid plan; consider a prepaid incentive to cut RTO",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-d2c-biz-before-05",
+                          "text": "Check the sale calendar for festive and marketplace sale days",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "launch": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-d2c-biz-launch-01",
+                          "text": "Place one real order and check the purchase value records correctly",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "first14": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-d2c-biz-first14-01",
+                          "text": "Track RTO and cancellation rate alongside ROAS",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-d2c-biz-first14-02",
+                          "text": "Use conversion adjustments for returns or cancellations if possible",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "leadgen": {
+                "label": "Lead generation",
+                "heading": "Lead generation",
+                "summary": [
+                  {
+                    "label": "Key metric",
+                    "value": "cost per qualified lead"
+                  },
+                  {
+                    "label": "Watch out for",
+                    "value": "spam leads and offline results not reaching Google"
+                  }
+                ],
+                "phases": {
+                  "before": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-leadgen-biz-before-01",
+                          "text": "Save the click ID (GCLID) with each lead in your CRM",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-leadgen-biz-before-02",
+                          "text": "Set up enhanced conversions for leads or offline conversion import",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-leadgen-biz-before-03",
+                          "text": "Keep new offline conversion actions as secondary for the first 2–3 weeks",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-leadgen-biz-before-04",
+                          "text": "Add spam protection (reCAPTCHA or phone verification) to forms",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-leadgen-biz-before-05",
+                          "text": "Set up call tracking if you run call ads or call assets",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "launch": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-leadgen-biz-launch-01",
+                          "text": "Confirm the sales team received and contacted the first leads",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "first14": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-leadgen-biz-first14-01",
+                          "text": "Review lead quality with sales every week",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-leadgen-biz-first14-02",
+                          "text": "Move qualified leads to primary once there's enough volume",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "fintech": {
+                "label": "Fintech app",
+                "heading": "Fintech app",
+                "summary": [
+                  {
+                    "label": "Key metric",
+                    "value": "cost per KYC-completed or transacting user"
+                  },
+                  {
+                    "label": "Watch out for",
+                    "value": "verification and policy blocks"
+                  }
+                ],
+                "phases": {
+                  "before": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-fintech-biz-before-01",
+                          "text": "Complete Google's Financial Services Verification for India (starts with G2RS third-party verification)",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-fintech-biz-before-02",
+                          "text": "Follow Google's financial products policy, including extra rules for loan products",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-fintech-biz-before-03",
+                          "text": "Include required disclosures and clear claims with compliance",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-fintech-biz-before-04",
+                          "text": "Import deeper events: KYC completed, account funded, first transaction",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "launch": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-fintech-biz-launch-01",
+                          "text": "Confirm KYC and first-transaction events are recording",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "first14": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-fintech-biz-first14-01",
+                          "text": "Judge on cost per KYC-completed user or first transaction, not installs",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-fintech-biz-first14-02",
+                          "text": "Check MMP reports for fraud and fake sign-ups",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "health": {
+                "label": "Health & fitness",
+                "heading": "Health &amp; fitness (wearables and apps like Ultrahuman, Whoop)",
+                "summary": [
+                  {
+                    "label": "Key metric",
+                    "value": "cost per device sale and subscription start"
+                  },
+                  {
+                    "label": "Watch out for",
+                    "value": "health targeting limits and claims"
+                  }
+                ],
+                "phases": {
+                  "before": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-health-biz-before-01",
+                          "text": "Check whether your products fall under Google's health sensitive category; if so, remarketing, Customer Match and lookalikes aren't allowed",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-health-biz-before-02",
+                          "text": "Keep health claims accurate and within Google's healthcare policy",
+                          "essential": true
+                        },
+                        {
+                          "id": "g-health-biz-before-03",
+                          "text": "Track device purchases and app subscriptions as separate conversions",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-health-biz-before-04",
+                          "text": "Keep the Merchant Center feed accurate for devices and accessories",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-health-biz-before-05",
+                          "text": "Plan for a longer buying decision with reviews and comparison content",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "launch": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-health-biz-launch-01",
+                          "text": "Confirm no ads or audiences are limited by the personalised advertising policy",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ],
+                  "first14": [
+                    {
+                      "group": null,
+                      "items": [
+                        {
+                          "id": "g-health-biz-first14-01",
+                          "text": "Check for new policy limits on ads or audiences",
+                          "essential": false
+                        },
+                        {
+                          "id": "g-health-biz-first14-02",
+                          "text": "Track device sales and subscription starts separately",
+                          "essential": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            },
+            "globalNotes": [
+              "<strong>EEA and UK:</strong> set up Consent Mode v2 and a consent banner before running ads.",
+              "<strong>Financial services:</strong> verification is needed separately for each country that requires it.",
+              "<strong>Structure:</strong> run separate campaigns by country when budget, pricing or rules differ.",
+              "<strong>Merchant Center:</strong> set up shipping, currency and feeds for each target country."
+            ],
+            "sources": [
+              "Google Ads Help: bid strategy learning period, App campaign best practices, enhanced conversions for leads checklist",
+              "Google Ads Policy Help: Financial Services Verification (India), restricted targeting in personalised advertising",
+              "Google Ads Help: Video Action Campaigns upgraded to Demand Gen",
+              "Google Ads announcements: PMax campaign-level negative keywords (10,000 limit)",
+              "Google Ads Developer Blog via PPC Land: DSA to AI Max auto-upgrade moved to February 2027",
+              "Practitioner coverage: Search Engine Land, PPC Land (PMax brand exclusions, AI Max setup)"
+            ],
+            "sectionFilterLabel": "Campaign type",
+            "sectionOrder": [
+              "search",
+              "pmax",
+              "display",
+              "demandgen",
+              "video",
+              "shopping",
+              "app"
+            ],
+            "businessOrder": [
+              "d2c",
+              "leadgen",
+              "fintech",
+              "health"
+            ],
+            "label": "Google Ads",
+            "defaults": {
+              "section": "search",
+              "business": "d2c"
+            }
+          }
+        }
+      };
+
+      var PHASES = [['before', 'Before launch'], ['launch', 'Launch day'], ['first14', 'First 14 days']];
+      var PLATFORMS = ['meta', 'google'];
+      var state = { platform: 'meta', section: null, business: null, essentials: false };
+
+      // Session fallback for when localStorage is unavailable or throws.
+      var memory = {};
+
+      function $(id) { return document.getElementById(id); }
+      function plat() { return DATA.platforms[state.platform]; }
+      function storageKey() { return 'checklist:v1:' + state.platform + ':' + state.section + ':' + state.business; }
+
+      function loadTicks() {
+        var key = storageKey();
+        try {
+          var raw = window.localStorage.getItem(key);
+          if (raw) {
+            var parsed = JSON.parse(raw);
+            if (parsed && parsed.length !== undefined) return parsed;
+          }
+        } catch (e) { /* storage blocked or corrupt — fall back to session memory */ }
+        return memory[key] || [];
+      }
+
+      function saveTicks(ids) {
+        var key = storageKey();
+        memory[key] = ids;
+        try { window.localStorage.setItem(key, JSON.stringify(ids)); } catch (e) { /* session only */ }
+      }
+
+      function clearTicks() {
+        var key = storageKey();
+        delete memory[key];
+        try { window.localStorage.removeItem(key); } catch (e) { /* nothing to do */ }
+      }
+
+      function currentTickedIds() {
+        var ids = [];
+        var boxes = $('blocks').querySelectorAll('input[type="checkbox"]');
+        for (var i = 0; i < boxes.length; i++) {
+          if (boxes[i].checked) ids.push(boxes[i].getAttribute('data-id'));
+        }
+        return ids;
+      }
+
+      function blockPhases(source) {
+        var out = '';
+        for (var p = 0; p < PHASES.length; p++) {
+          var key = PHASES[p][0];
+          var groups = source[key] || [];
+          var inner = '';
+          var total = 0;
+          for (var g = 0; g < groups.length; g++) {
+            var group = groups[g];
+            if (!group.items.length) continue;
+            total += group.items.length;
+            var lis = '';
+            for (var i = 0; i < group.items.length; i++) {
+              var it = group.items[i];
+              lis += '<li class="item" data-essential="' + (it.essential ? '1' : '0') + '">' +
+                '<input type="checkbox" id="' + it.id + '" data-id="' + it.id + '" />' +
+                '<label for="' + it.id + '">' + it.text +
+                (it.essential
+                  ? '<span class="ess" title="Essential" aria-hidden="true">★</span><span class="visually-hidden"> (essential)</span>'
+                  : '') +
+                '</label></li>';
+            }
+            var list = '<ul class="items">' + lis + '</ul>';
+            inner += group.group
+              ? '<div class="subgroup"><div class="subgroup-name">' + group.group + '</div>' + list + '</div>'
+              : list;
+          }
+          if (!total) continue;
+          out += '<div class="phase" data-phase="' + key + '">' +
+            '<div class="phase-head"><span class="phase-name">' + PHASES[p][1] + '</span>' +
+            '<span class="phase-count"></span></div>' + inner + '</div>';
+        }
+        return out;
+      }
+
+      function summaryHtml(pairs) {
+        if (!pairs || !pairs.length) return '';
+        var spans = '';
+        for (var i = 0; i < pairs.length; i++) {
+          if (i) spans += '<span class="sep"> · </span>';
+          spans += '<span><strong>' + pairs[i].label + ':</strong> ' + pairs[i].value + '</span>';
+        }
+        return '<div class="block-summary">' + spans + '</div>';
+      }
+
+      function renderBlocks() {
+        var p = plat();
+        var section = p.sections[state.section];
+        var business = p.business[state.business];
+        var html = '';
+
+        html += '<div class="block"><div class="block-head">' +
+          '<h2 class="block-title">Core — every campaign</h2></div>' +
+          blockPhases(p.core) + '</div>';
+
+        html += '<div class="block"><div class="block-head">' +
+          '<h2 class="block-title">' + section.heading + '</h2>' +
+          summaryHtml(section.summary) + '</div>' +
+          blockPhases(section.phases) + '</div>';
+
+        html += '<div class="block"><div class="block-head">' +
+          '<h2 class="block-title">' + business.heading + '</h2>' +
+          summaryHtml(business.summary) + '</div>' +
+          blockPhases(business.phases) + '</div>';
+
+        $('blocks').innerHTML = html;
+      }
+
+      function renderChrome() {
+        var p = plat();
+        $('stamp').textContent = 'Last updated: ' + DATA.lastUpdated;
+
+        var how = '';
+        for (var i = 0; i < p.howToRead.length; i++) how += '<li>' + p.howToRead[i] + '</li>';
+        $('how-list').innerHTML = how;
+
+        $('label-section').textContent = p.sectionFilterLabel;
+        $('fit-title').textContent = p.fitTableTitle;
+
+        var rows = '';
+        for (var r = 0; r < p.fitTableRows.length; r++) {
+          rows += '<tr><td>' + p.fitTableRows[r][0] + '</td><td>' + p.fitTableRows[r][1] + '</td></tr>';
+        }
+        $('fit-rows').innerHTML = rows;
+
+        var opts = '';
+        for (var s = 0; s < p.sectionOrder.length; s++) {
+          var slug = p.sectionOrder[s];
+          opts += '<option value="' + slug + '"' + (slug === state.section ? ' selected' : '') + '>' +
+            p.sections[slug].label + '</option>';
+        }
+        $('filter-section').innerHTML = opts;
+
+        var bopts = '';
+        for (var b = 0; b < p.businessOrder.length; b++) {
+          var bslug = p.businessOrder[b];
+          bopts += '<option value="' + bslug + '"' + (bslug === state.business ? ' selected' : '') + '>' +
+            p.business[bslug].label + '</option>';
+        }
+        $('filter-business').innerHTML = bopts;
+
+        var notes = '';
+        for (var n = 0; n < p.globalNotes.length; n++) notes += '<li>' + p.globalNotes[n] + '</li>';
+        $('global-notes').innerHTML = notes;
+
+        var src = '';
+        for (var c = 0; c < p.sources.length; c++) src += '<li>' + p.sources[c] + '</li>';
+        $('sources-list').innerHTML = src;
+
+        for (var t = 0; t < PLATFORMS.length; t++) {
+          var on = PLATFORMS[t] === state.platform;
+          var tab = $('tab-' + PLATFORMS[t]);
+          tab.setAttribute('aria-selected', on ? 'true' : 'false');
+          tab.tabIndex = on ? 0 : -1;
+        }
+
+        $('print-meta').textContent = [
+          p.label,
+          p.sections[state.section].label,
+          p.business[state.business].label,
+          'Last updated: ' + DATA.lastUpdated
+        ].join(' · ');
+        $('print-ess').textContent = state.essentials ? 'Essential items only' : '';
+        $('print-ess').style.display = state.essentials ? '' : 'none';
+      }
+
+      function applyTicks() {
+        var ticked = {};
+        var saved = loadTicks();
+        for (var i = 0; i < saved.length; i++) ticked[saved[i]] = true;
+        var items = $('blocks').querySelectorAll('.item');
+        for (var n = 0; n < items.length; n++) {
+          var box = items[n].querySelector('input[type="checkbox"]');
+          box.checked = !!ticked[box.getAttribute('data-id')];
+          items[n].classList.toggle('done', box.checked);
+        }
+      }
+
+      function applyVisibility() {
+        var items = $('blocks').querySelectorAll('.item');
+        for (var i = 0; i < items.length; i++) {
+          var hide = state.essentials && items[i].getAttribute('data-essential') !== '1';
+          items[i].classList.toggle('is-hidden', hide);
+        }
+        // Hide any sub-group, phase or block left with nothing visible.
+        var groups = $('blocks').querySelectorAll('.subgroup');
+        for (var g = 0; g < groups.length; g++) {
+          groups[g].classList.toggle('is-hidden', !groups[g].querySelectorAll('.item:not(.is-hidden)').length);
+        }
+        var phases = $('blocks').querySelectorAll('.phase');
+        for (var p = 0; p < phases.length; p++) {
+          phases[p].classList.toggle('is-hidden', !phases[p].querySelectorAll('.item:not(.is-hidden)').length);
+        }
+        var blocks = $('blocks').querySelectorAll('.block');
+        for (var b = 0; b < blocks.length; b++) {
+          blocks[b].classList.toggle('is-hidden', !blocks[b].querySelectorAll('.item:not(.is-hidden)').length);
+        }
+      }
+
+      function updateCounts() {
+        var phases = $('blocks').querySelectorAll('.phase');
+        for (var p = 0; p < phases.length; p++) {
+          var visible = phases[p].querySelectorAll('.item:not(.is-hidden)');
+          var done = 0;
+          for (var i = 0; i < visible.length; i++) {
+            if (visible[i].querySelector('input[type="checkbox"]').checked) done++;
+          }
+          phases[p].querySelector('.phase-count').textContent = '· ' + done + '/' + visible.length;
+        }
+        var all = $('blocks').querySelectorAll('.item:not(.is-hidden)');
+        var total = all.length, ticked = 0;
+        for (var n = 0; n < all.length; n++) {
+          if (all[n].querySelector('input[type="checkbox"]').checked) ticked++;
+        }
+        $('progress-text').textContent = ticked + ' of ' + total + ' done';
+        $('progress-fill').style.width = total ? (ticked / total * 100) + '%' : '0';
+      }
+
+      function refresh() {
+        applyVisibility();
+        updateCounts();
+      }
+
+      function writeHash() {
+        var hash = '#' + state.platform + '/' + state.section + '/' + state.business;
+        if (window.location.hash !== hash) {
+          window.history.replaceState(null, '', hash);
+        }
+      }
+
+      function readHash() {
+        var parts = window.location.hash.replace(/^#/, '').split('/');
+        var platform = PLATFORMS.indexOf(parts[0]) !== -1 ? parts[0] : 'meta';
+        var p = DATA.platforms[platform];
+        var section = p.sections[parts[1]] ? parts[1] : p.defaults.section;
+        var business = p.business[parts[2]] ? parts[2] : p.defaults.business;
+        return { platform: platform, section: section, business: business };
+      }
+
+      function render(writeUrl) {
+        renderChrome();
+        renderBlocks();
+        applyTicks();
+        refresh();
+        if (writeUrl) writeHash();
+      }
+
+      function setFromHash() {
+        var next = readHash();
+        state.platform = next.platform;
+        state.section = next.section;
+        state.business = next.business;
+        render(true);
+      }
+
+      // Events
+      $('blocks').addEventListener('change', function (e) {
+        var box = e.target;
+        if (!box || box.type !== 'checkbox') return;
+        var item = box.closest('.item');
+        if (item) item.classList.toggle('done', box.checked);
+        saveTicks(currentTickedIds());
+        updateCounts();
+      });
+
+      $('filter-section').addEventListener('change', function () {
+        state.section = this.value;
+        render(true);
+      });
+
+      $('filter-business').addEventListener('change', function () {
+        state.business = this.value;
+        render(true);
+      });
+
+      $('essentials').addEventListener('change', function () {
+        state.essentials = this.checked;
+        $('print-ess').textContent = state.essentials ? 'Essential items only' : '';
+        $('print-ess').style.display = state.essentials ? '' : 'none';
+        refresh();
+      });
+
+      $('btn-print').addEventListener('click', function () { window.print(); });
+
+      $('btn-reset').addEventListener('click', function () {
+        var p = plat();
+        var label = p.label + ' · ' + p.sections[state.section].label + ' · ' + p.business[state.business].label;
+        if (!window.confirm('Clear all ticks for ' + label + '? Other saved views are not affected.')) return;
+        clearTicks();
+        applyTicks();
+        refresh();
+      });
+
+      for (var t = 0; t < PLATFORMS.length; t++) {
+        (function (name) {
+          var tab = $('tab-' + name);
+          tab.addEventListener('click', function () {
+            if (state.platform === name) return;
+            state.platform = name;
+            var p = DATA.platforms[name];
+            state.section = p.defaults.section;
+            state.business = p.defaults.business;
+            render(true);
+          });
+          tab.addEventListener('keydown', function (e) {
+            if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+            var other = PLATFORMS[(PLATFORMS.indexOf(name) + 1) % PLATFORMS.length];
+            $('tab-' + other).click();
+            $('tab-' + other).focus();
+            e.preventDefault();
+          });
+        })(PLATFORMS[t]);
+      }
+
+      window.addEventListener('hashchange', setFromHash);
+
+      setFromHash();
+    })();
+  </script>
+
+</body>
+</html>

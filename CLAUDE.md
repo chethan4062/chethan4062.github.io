@@ -47,6 +47,7 @@ Write for a hiring manager or recruiter, not a buyer. The contact section reads
 | `case-study-cultfit.html` | Brand Teardown |
 | `case-study-cred-phonepe.html` | Brand Teardown — CRED vs PhonePe, 12 ads |
 | `tools.html` | Tools — Marketing Calculators (ROAS & break-even, CAC & LTV, budget pacing). Tabs are addressed by hash: `#roas`, `#cac`, `#pacing` |
+| `health-check.html` | Tools — Ad Performance Health Check. Reads a daily Meta or Google Ads CSV export with `FileReader`, entirely in the browser: the file is never uploaded or stored. Only thresholds and the goal type may be saved in `localStorage` (`healthcheck:v1:settings`); never data, targets or campaign names |
 | `playbooks.html` | Playbooks — Campaign Launch Checklist. Views are addressed by hash: `#<platform>/<objective-or-campaign-type>/<business-type>`, e.g. `#meta/sales/d2c` |
 | `content/playbooks/*.md` | Source markdown for the checklist content. Not published; the page carries its own copy of the items |
 | `case-study-workout-app.html` | Workout Session Sequencer write-up; links to `workout/index.html`. Not currently linked from the homepage |
@@ -102,7 +103,11 @@ section order matching nav order. Every other page carries `Tools` and
   `Infinity`. Zero is also treated as invalid, except where zero is a genuine state
   (Revenue from Ads, Spend So Far), which compute normally. Money is formatted with
   `en-IN` (`₹1,20,000`). Each tool page reuses the homepage nav and footer and gets
-  a card in `#tools`.
+  a card in `#tools`. **Exception for file-based tools** such as the Health Check:
+  an uploaded file is read with `FileReader` and processed only in the browser,
+  never uploaded, stored or sent anywhere, and the tool may save only its
+  thresholds and goal type in `localStorage` behind `try/catch` — never uploaded
+  data, targets, budgets or campaign names.
 - **Playbooks** — checklists and process guides for running campaigns. The content
   lives in `content/playbooks/*.md`: **when the content changes, edit the markdown
   file first, then update the page's data object to match.** Never let the two drift.

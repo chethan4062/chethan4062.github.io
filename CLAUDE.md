@@ -47,6 +47,8 @@ Write for a hiring manager or recruiter, not a buyer. The contact section reads
 | `case-study-cultfit.html` | Brand Teardown |
 | `case-study-cred-phonepe.html` | Brand Teardown — CRED vs PhonePe, 12 ads |
 | `tools.html` | Tools — Marketing Calculators (ROAS & break-even, CAC & LTV, budget pacing). Tabs are addressed by hash: `#roas`, `#cac`, `#pacing` |
+| `playbooks.html` | Playbooks — Campaign Launch Checklist. Views are addressed by hash: `#<platform>/<objective-or-campaign-type>/<business-type>`, e.g. `#meta/sales/d2c` |
+| `content/playbooks/*.md` | Source markdown for the checklist content. Not published; the page carries its own copy of the items |
 | `case-study-workout-app.html` | Workout Session Sequencer write-up; links to `workout/index.html`. Not currently linked from the homepage |
 | `workout/index.html` | Live workout app demo |
 | `templates/` | Page templates. `noindex`, never linked from the site |
@@ -64,14 +66,15 @@ In page order, with the ids the nav links to:
 | Selected Work | `work` | Work |
 | Brand Teardowns | `teardowns` | Teardowns |
 | Tools | `tools` | Tools |
+| Playbooks | `playbooks` | Playbooks |
 | AI Lab | `ai-lab` | AI Lab |
 | Experience | `experience` | Experience |
 | Certifications & Education | `certifications` | — |
 | Contact | `contact` | Contact |
 
-Nav is: name on the left, those six links, LinkedIn button on the right. Keep
-section order matching nav order. Every other page carries a `Tools` link to
-`tools.html` in its nav as well.
+Nav is: name on the left, those seven links, LinkedIn button on the right. Keep
+section order matching nav order. Every other page carries `Tools` and
+`Playbooks` links (to `tools.html` and `playbooks.html`) in its nav as well.
 
 ## Section rules
 
@@ -100,6 +103,16 @@ section order matching nav order. Every other page carries a `Tools` link to
   (Revenue from Ads, Spend So Far), which compute normally. Money is formatted with
   `en-IN` (`₹1,20,000`). Each tool page reuses the homepage nav and footer and gets
   a card in `#tools`.
+- **Playbooks** — checklists and process guides for running campaigns. The content
+  lives in `content/playbooks/*.md`: **when the content changes, edit the markdown
+  file first, then update the page's data object to match.** Never let the two drift.
+  **Keep item ids stable** (`m-core-before-01`, `g-search-launch-02`) so saved
+  progress survives edits — add new ids at the end of a phase rather than
+  renumbering. Update the "Last updated" date on any content change. Items marked
+  `★` in the markdown become `essential: true` in the data with the `★` stripped
+  from the text. The markdown's "Notes for the page build" sections and any review
+  tips are never shown on the page; "Sources" appears as a collapsed section with
+  the words "for your reference" dropped.
 
 ## Facts to keep consistent everywhere
 
@@ -126,6 +139,13 @@ carries it.
 
 - **Never show a phone number anywhere on the site**, in any page, meta tag,
   structured data or asset.
+- **No gaming, gambling or real-money gaming content anywhere on the site** — not as
+  a case study, client, example, checklist item or passing mention.
+- **Storage exception for playbooks.** Tools store nothing, but playbook tick boxes
+  may use `localStorage` for one visitor's own progress: key
+  `checklist:v1:<platform>:<objective>:<business>`, every read and write wrapped in
+  `try/catch` so the page still works when storage is unavailable, and nothing ever
+  sent to a server.
 - No emojis.
 - No resume link until asked — see below.
 - Keep `templates/` out of the site: `noindex` stays, and no page links to them.
@@ -146,19 +166,22 @@ should open in a new tab.
    - An AI Lab project → `templates/ai-lab-template.html`
    - A calculator or utility → a new single-file page modelled on `tools.html`
      (or a new tab inside it), following the Tools rule above
+   - A playbook or checklist → the markdown in `content/playbooks/` first, then a
+     page modelled on `playbooks.html`, following the Playbooks rule above
 2. Save it in the repo root as `case-study-<slug>.html` or `ai-lab-<slug>.html`.
 3. Replace every `[PLACEHOLDER]`, set `<title>` and the meta description, and
    **remove the `noindex` meta tag**.
-4. Add a card to the matching homepage section (`#work`, `#teardowns`, `#tools` or
-   `#ai-lab`) by copying an existing `.case-card` in that grid. Teardown and Work
-   cards are `<a>` elements with three metrics and a "Read case study" arrow; Tools
-   cards are `<a>` elements with a tag, title, description and "Open tool" arrow;
-   AI Lab cards are `<div>` elements with an `In Progress` badge and no metrics.
+4. Add a card to the matching homepage section (`#work`, `#teardowns`, `#tools`,
+   `#playbooks` or `#ai-lab`) by copying an existing `.case-card` in that grid.
+   Teardown and Work cards are `<a>` elements with three metrics and a "Read case
+   study" arrow; Tools and Playbooks cards are `<a>` elements with a tag, title,
+   description and an "Open tool" / "Open playbook" arrow; AI Lab cards are `<div>`
+   elements with an `In Progress` badge and no metrics.
 5. Check the back-link to `index.html` and any footer cross-links resolve.
 
 ## Before finishing a change
 
 - Verify internal links and anchors resolve across all HTML files.
 - Check the page at desktop and 390px width.
-- Confirm no emoji, no phone number, no freelance or hire-me language, and no new
-  unsourced numbers were introduced.
+- Confirm no emoji, no phone number, no freelance or hire-me language, no gaming or
+  gambling content, and no new unsourced numbers were introduced.

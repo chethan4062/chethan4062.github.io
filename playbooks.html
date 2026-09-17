@@ -21,6 +21,9 @@
       --warm-bg:   #F5EFE8;
       --good:      #4A8C5C;
       --good-bg:   #E8F5ED;
+      --tag-blue:  #3D5A80;
+      --tag-green: #3A6B4C;
+      --tag-grey:  #6B6B6B;
     }
 
     html { scroll-behavior: smooth; }
@@ -186,27 +189,30 @@
       padding: 1.6rem;
     }
 
-    /* ── FILTERS ── */
-    .filters {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem 1.5rem;
-      align-items: end;
-    }
-    .field { display: block; }
-    .field-label { display: block; font-size: 0.82rem; font-weight: 500; color: var(--text); margin-bottom: 0.4rem; }
-    .field select {
-      width: 100%;
-      padding: 0.7rem 0.9rem;
-      border: 1px solid var(--border);
-      border-radius: 8px;
+    /* ── FILTERS (pills) ── */
+    .filters { display: flex; flex-direction: column; gap: 1.1rem; }
+    .pill-row { display: flex; flex-direction: column; gap: 0.5rem; }
+    .field-label { display: block; font-size: 0.82rem; font-weight: 500; color: var(--text); }
+    .pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .pill {
+      min-height: 40px;
+      padding: 0.5rem 1.1rem;
+      border: 1.5px solid var(--border);
+      border-radius: 100px;
       background: var(--bg);
       color: var(--text);
-      font: 400 0.95rem 'DM Sans', sans-serif;
+      font: 500 0.85rem 'DM Sans', sans-serif;
       cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
     }
-    .field select:focus { outline: none; border-color: var(--text); }
-    .filters-hint { grid-column: 1 / -1; }
+    .pill:hover { border-color: var(--text); }
+    .pill:focus-visible { outline: 2px solid var(--warm); outline-offset: 2px; }
+    .pill[aria-pressed="true"] {
+      background: var(--highlight);
+      border-color: var(--highlight);
+      color: var(--warm-bg);
+      font-weight: 600;
+    }
 
     /* ── TOOLBAR ── */
     .toolbar {
@@ -237,10 +243,75 @@
     .progress-fill { height: 100%; width: 0; background: var(--warm); border-radius: 100px; transition: width 0.25s; }
     .progress-text { font-size: 0.78rem; color: var(--muted); font-weight: 500; white-space: nowrap; }
 
+    /* ── VIEW HEADING (updates with the filters) ── */
+    .view-head { margin-bottom: 1.8rem; }
+    .view-title {
+      font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+    .view-summary { font-size: 0.85rem; color: var(--muted); margin-top: 0.35rem; }
+
     /* ── BLOCKS ── */
-    .block { margin-bottom: 2.5rem; }
+    .block {
+      margin-bottom: 2.5rem;
+      border-left: 3px solid var(--border);
+      padding-left: 1.2rem;
+    }
     .block-head { margin-bottom: 1.2rem; }
+    .block-tag {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 0.35rem;
+    }
     .block-title { font-size: 1.6rem; line-height: 1.2; letter-spacing: -0.02em; }
+    .block-objective { border-left-color: var(--tag-blue); }
+    .block-objective .block-tag { color: var(--tag-blue); }
+    .block-business { border-left-color: var(--tag-green); }
+    .block-business .block-tag { color: var(--tag-green); }
+    .block-core { border-left-color: var(--tag-grey); }
+    .block-core .block-tag { color: var(--tag-grey); }
+
+    /* ── COLLAPSIBLE CORE ── */
+    .block-title-row { margin: 0; font-size: 1rem; }
+    .core-toggle {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      width: 100%;
+      padding: 0;
+      background: none;
+      border: 0;
+      color: var(--text);
+      text-align: left;
+      cursor: pointer;
+      font: inherit;
+    }
+    .core-toggle:focus-visible { outline: 2px solid var(--warm); outline-offset: 3px; border-radius: 4px; }
+    .core-toggle .block-title { font-family: 'Instrument Serif', serif; font-weight: 400; }
+    .core-toggle:hover .block-title { color: var(--highlight); }
+    .core-caret {
+      flex-shrink: 0;
+      width: 8px; height: 8px;
+      border-right: 1.5px solid var(--tag-grey);
+      border-bottom: 1.5px solid var(--tag-grey);
+      transform: rotate(-45deg);
+      transition: transform 0.2s;
+    }
+    .core-toggle[aria-expanded="true"] .core-caret { transform: rotate(45deg); }
+    .core-progress {
+      margin-left: auto;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .core-body[hidden] { display: none; }
     .block-summary {
       margin-top: 0.5rem;
       padding: 0.7rem 1rem;
@@ -339,7 +410,6 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       .nav-links { display: none; }
-      .filters { grid-template-columns: 1fr; }
       .progress { margin-left: 0; width: 100%; }
     }
     @media (max-width: 480px) {
@@ -348,11 +418,20 @@
       .card { padding: 1.3rem; }
       .tabs { gap: 0.25rem 1.1rem; }
       .block-title { font-size: 1.35rem; }
+      .block { padding-left: 0.9rem; }
+      .core-progress { margin-left: 0; width: 100%; }
     }
 
     /* ── PRINT ── */
     @media print {
-      nav, footer, .tabs, .toolbar, .filters, details.box, .page-stamp, .page-sub, .page-head .section-eyebrow, .page-note { display: none !important; }
+      nav, footer, .tabs, .toolbar, .filters, .pills, details.box, .page-stamp, .page-sub, .page-head .section-eyebrow, .page-note { display: none !important; }
+      /* Core is collapsed on screen but must print in full. */
+      .core-body[hidden] { display: block !important; }
+      .core-caret { display: none; }
+      .view-title { font-size: 1.1rem; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+      .view-summary { font-size: 0.8rem; color: #000000; }
+      .block { border-left: 2px solid #000000; padding-left: 0.7rem; }
+      .block-tag, .core-progress, .view-title { color: #000000 !important; }
       body { background: #FFFFFF; color: #000000; }
       main { max-width: none; padding: 0; }
       .page-head h1 { display: none; }
@@ -422,15 +501,15 @@
     <div id="panel" role="tabpanel">
       <div class="card">
         <div class="filters">
-          <label class="field">
+          <div class="pill-row">
             <span class="field-label" id="label-section">Campaign objective</span>
-            <select id="filter-section"></select>
-          </label>
-          <label class="field">
-            <span class="field-label">Business type</span>
-            <select id="filter-business"></select>
-          </label>
-          <details class="box hint filters-hint" id="fit-hint">
+            <div class="pills" id="pills-section" role="group" aria-labelledby="label-section"></div>
+          </div>
+          <div class="pill-row">
+            <span class="field-label" id="label-business">Business type</span>
+            <div class="pills" id="pills-business" role="group" aria-labelledby="label-business"></div>
+          </div>
+          <details class="box hint" id="fit-hint">
             <summary id="fit-title">Which objective fits which business?</summary>
             <div class="box-body">
               <table class="hint-table">
@@ -453,6 +532,11 @@
           <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
           <span class="progress-text" id="progress-text"></span>
         </div>
+      </div>
+
+      <div class="view-head">
+        <h2 class="view-title" id="view-title"></h2>
+        <p class="view-summary" id="view-summary"></p>
       </div>
 
       <div id="blocks" aria-live="polite"></div>
@@ -2878,7 +2962,9 @@
 
       var PHASES = [['before', 'Before launch'], ['launch', 'Launch day'], ['first14', 'First 14 days']];
       var PLATFORMS = ['meta', 'google'];
-      var state = { platform: 'meta', section: null, business: null, essentials: false };
+      var CORE_LABEL = { meta: 'Meta', google: 'Google Ads' };
+      var SECTION_TAG = { meta: 'Objective', google: 'Campaign type' };
+      var state = { platform: 'meta', section: null, business: null, essentials: false, coreOpen: false };
 
       // Session fallback for when localStorage is unavailable or throws.
       var memory = {};
@@ -2955,6 +3041,16 @@
         return out;
       }
 
+      function pillsHtml(order, lookup, selected) {
+        var html = '';
+        for (var i = 0; i < order.length; i++) {
+          var slug = order[i];
+          html += '<button type="button" class="pill" data-slug="' + slug + '" aria-pressed="' +
+            (slug === selected ? 'true' : 'false') + '">' + lookup[slug].label + '</button>';
+        }
+        return html;
+      }
+
       function summaryHtml(pairs) {
         if (!pairs || !pairs.length) return '';
         var spans = '';
@@ -2971,21 +3067,58 @@
         var business = p.business[state.business];
         var html = '';
 
-        html += '<div class="block"><div class="block-head">' +
-          '<h2 class="block-title">Core — every campaign</h2></div>' +
-          blockPhases(p.core) + '</div>';
-
-        html += '<div class="block"><div class="block-head">' +
+        // The two blocks that change with the filters come first.
+        html += '<div class="block block-objective" data-kind="objective"><div class="block-head">' +
+          '<span class="block-tag">' + SECTION_TAG[state.platform] + '</span>' +
           '<h2 class="block-title">' + section.heading + '</h2>' +
           summaryHtml(section.summary) + '</div>' +
           blockPhases(section.phases) + '</div>';
 
-        html += '<div class="block"><div class="block-head">' +
+        html += '<div class="block block-business" data-kind="business"><div class="block-head">' +
+          '<span class="block-tag">Business type</span>' +
           '<h2 class="block-title">' + business.heading + '</h2>' +
           summaryHtml(business.summary) + '</div>' +
           blockPhases(business.phases) + '</div>';
 
+        // Core is the same for every view, so it sits last and starts collapsed.
+        html += '<div class="block block-core" data-kind="core"><div class="block-head">' +
+          '<span class="block-tag">Core</span>' +
+          '<h2 class="block-title-row">' +
+          '<button type="button" class="core-toggle" id="core-toggle" aria-expanded="' +
+          (state.coreOpen ? 'true' : 'false') + '" aria-controls="core-body">' +
+          '<span class="core-caret"></span>' +
+          '<span class="block-title">Core setup — applies to every ' + CORE_LABEL[state.platform] + ' campaign</span>' +
+          '<span class="core-progress" id="core-progress"></span>' +
+          '</button></h2></div>' +
+          '<div class="core-body" id="core-body"' + (state.coreOpen ? '' : ' hidden') + '>' +
+          blockPhases(p.core) + '</div></div>';
+
         $('blocks').innerHTML = html;
+
+        $('core-toggle').addEventListener('click', function () {
+          state.coreOpen = !state.coreOpen;
+          this.setAttribute('aria-expanded', state.coreOpen ? 'true' : 'false');
+          $('core-body').hidden = !state.coreOpen;
+        });
+      }
+
+      function renderViewHead() {
+        var p = plat();
+        var section = p.sections[state.section];
+        var business = p.business[state.business];
+        $('view-title').textContent = 'For ' + section.label + ' · ' + business.label;
+      }
+
+      // Counts the items actually on show, so the line stays true under "essentials only".
+      function updateViewSummary() {
+        var p = plat();
+        function visible(kind) {
+          var block = $('blocks').querySelector('[data-kind="' + kind + '"]');
+          return block ? block.querySelectorAll('.item:not(.is-hidden)').length : 0;
+        }
+        $('view-summary').textContent = visible('objective') + ' ' + p.sections[state.section].label +
+          ' items + ' + visible('business') + ' ' + p.business[state.business].label +
+          ' items · plus ' + visible('core') + ' core items below';
       }
 
       function renderChrome() {
@@ -3005,21 +3138,8 @@
         }
         $('fit-rows').innerHTML = rows;
 
-        var opts = '';
-        for (var s = 0; s < p.sectionOrder.length; s++) {
-          var slug = p.sectionOrder[s];
-          opts += '<option value="' + slug + '"' + (slug === state.section ? ' selected' : '') + '>' +
-            p.sections[slug].label + '</option>';
-        }
-        $('filter-section').innerHTML = opts;
-
-        var bopts = '';
-        for (var b = 0; b < p.businessOrder.length; b++) {
-          var bslug = p.businessOrder[b];
-          bopts += '<option value="' + bslug + '"' + (bslug === state.business ? ' selected' : '') + '>' +
-            p.business[bslug].label + '</option>';
-        }
-        $('filter-business').innerHTML = bopts;
+        $('pills-section').innerHTML = pillsHtml(p.sectionOrder, p.sections, state.section);
+        $('pills-business').innerHTML = pillsHtml(p.businessOrder, p.business, state.business);
 
         var notes = '';
         for (var n = 0; n < p.globalNotes.length; n++) notes += '<li>' + p.globalNotes[n] + '</li>';
@@ -3089,6 +3209,7 @@
           }
           phases[p].querySelector('.phase-count').textContent = '· ' + done + '/' + visible.length;
         }
+        // The overall bar covers every item in the view, Core included even when collapsed.
         var all = $('blocks').querySelectorAll('.item:not(.is-hidden)');
         var total = all.length, ticked = 0;
         for (var n = 0; n < all.length; n++) {
@@ -3096,11 +3217,19 @@
         }
         $('progress-text').textContent = ticked + ' of ' + total + ' done';
         $('progress-fill').style.width = total ? (ticked / total * 100) + '%' : '0';
+
+        var coreItems = $('blocks').querySelectorAll('.block-core .item:not(.is-hidden)');
+        var coreDone = 0;
+        for (var c = 0; c < coreItems.length; c++) {
+          if (coreItems[c].querySelector('input[type="checkbox"]').checked) coreDone++;
+        }
+        $('core-progress').textContent = coreDone + ' / ' + coreItems.length + ' done';
       }
 
       function refresh() {
         applyVisibility();
         updateCounts();
+        updateViewSummary();
       }
 
       function writeHash() {
@@ -3121,6 +3250,7 @@
 
       function render(writeUrl) {
         renderChrome();
+        renderViewHead();
         renderBlocks();
         applyTicks();
         refresh();
@@ -3145,15 +3275,19 @@
         updateCounts();
       });
 
-      $('filter-section').addEventListener('change', function () {
-        state.section = this.value;
-        render(true);
-      });
-
-      $('filter-business').addEventListener('change', function () {
-        state.business = this.value;
-        render(true);
-      });
+      function pillHandler(containerId, key) {
+        $(containerId).addEventListener('click', function (e) {
+          var pill = e.target.closest('.pill');
+          if (!pill || pill.getAttribute('aria-pressed') === 'true') return;
+          state[key] = pill.getAttribute('data-slug');
+          render(true);
+          // Keep focus on the equivalent pill after the row is rebuilt.
+          var same = $(containerId).querySelector('[data-slug="' + state[key] + '"]');
+          if (same) same.focus();
+        });
+      }
+      pillHandler('pills-section', 'section');
+      pillHandler('pills-business', 'business');
 
       $('essentials').addEventListener('change', function () {
         state.essentials = this.checked;

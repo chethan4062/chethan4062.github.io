@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ad Copy Variants — Claude Skill · Chethan Shankar</title>
+  <meta name="description" content="Ad Copy Variants — Claude Skill · Chethan Shankar" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #FAFAF8;
+      --card:      #FFFFFF;
+      --text:      #1A1A1A;
+      --muted:     #6B6B6B;
+      --accent:    #E8E4DF;
+      --border:    #E5E3DE;
+      --highlight: #2C2C2C;
+      --warm:      #C8A882;
+      --warm-bg:   #F5EFE8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Instrument Serif', serif; font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.1rem 6%;
+      background: rgba(250,250,248,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.3rem;
+      color: var(--text);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-cta {
+      background: transparent;
+      color: var(--text);
+      border: 1.5px solid var(--text);
+      padding: 0.5rem 1.3rem;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover { background: var(--text); color: var(--bg); }
+
+    /* ── PAGE ── */
+    main { max-width: 1000px; margin: 0 auto; padding: 7.5rem 6% 4rem; }
+
+    .section-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--warm);
+      margin-bottom: 0.9rem;
+    }
+    .section-eyebrow::after { content: ''; flex: 0 0 40px; height: 1px; background: var(--warm); }
+
+    .page-head h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.05; margin-bottom: 0.8rem; }
+    .page-sub { color: var(--muted); font-size: 1.05rem; max-width: 620px; line-height: 1.7; }
+    .page-meta { margin-top: 1.1rem; font-size: 0.82rem; color: var(--muted); }
+
+    .head-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.8rem; }
+    .btn {
+      display: inline-block;
+      padding: 0.65rem 1.5rem;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1.5px solid var(--text);
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-primary { background: var(--text); color: var(--bg); }
+    .btn-primary:hover { background: transparent; color: var(--text); }
+    .btn-outline { background: transparent; color: var(--text); }
+    .btn-outline:hover { background: var(--text); color: var(--bg); }
+    .btn:focus-visible { outline: 2px solid var(--warm); outline-offset: 3px; }
+
+    /* ── SECTIONS ── */
+    section { padding-top: 3.5rem; }
+    .section-title { font-size: clamp(1.6rem, 3.5vw, 2.3rem); margin-bottom: 1rem; }
+    .prose { max-width: 720px; }
+    .prose p { font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+    .prose p:last-child { margin-bottom: 0; }
+
+    .bullets { list-style: none; max-width: 720px; margin-top: 1.2rem; }
+    .bullets li {
+      position: relative;
+      padding: 0.55rem 0 0.55rem 1.4rem;
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .bullets li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 1.25rem;
+      width: 6px; height: 1px;
+      background: var(--warm);
+    }
+
+    .divider { width: 100%; height: 1px; background: var(--border); margin-top: 3.5rem; }
+
+    /* ── TOOL TAGS ── */
+    .tool-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tool-tag {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.35rem 0.9rem;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    /* ── FLOW ── */
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+      margin-top: 1.8rem;
+      list-style: none;
+    }
+    .flow-step {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.3rem 1.2rem;
+    }
+    .flow-num {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--warm);
+      color: var(--warm);
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.05rem;
+      line-height: 1;
+      margin-bottom: 0.9rem;
+    }
+    .flow-title { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.35rem; }
+    .flow-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+
+    .infer-box {
+      margin-top: 1.8rem;
+      border-left: 3px solid var(--warm);
+      background: var(--warm-bg);
+      border-radius: 0 8px 8px 0;
+      padding: 1.1rem 1.4rem;
+      max-width: 720px;
+    }
+    .infer-box .infer-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.5px; color: var(--highlight); margin-bottom: 0.3rem; }
+    .infer-box p { font-size: 0.85rem; color: var(--highlight); line-height: 1.7; }
+
+    /* ── TABS ── */
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      margin: 2rem 0 0;
+    }
+    .tab {
+      background: none;
+      border: 0;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      padding: 0.7rem 0.1rem;
+      font: 500 0.9rem 'DM Sans', sans-serif;
+      color: var(--muted);
+      cursor: pointer;
+      text-align: left;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .tab:hover { color: var(--text); }
+    .tab[aria-selected="true"] { color: var(--text); border-bottom-color: var(--text); }
+    .tab:focus-visible { outline: 2px solid var(--warm); outline-offset: 2px; border-radius: 4px; }
+    .panel[hidden] { display: none; }
+    .panel:focus-visible { outline: 2px solid var(--warm); outline-offset: 4px; border-radius: 8px; }
+
+    /* ── REPORT DOCUMENT ── */
+    .report {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem 2.2rem 2.2rem;
+      margin-top: 2rem;
+      max-width: 760px;
+    }
+    .report h3 { font-size: 1.6rem; margin-bottom: 0.4rem; }
+    .report h4 {
+      font-size: 1.2rem;
+      margin: 2rem 0 0.7rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid var(--border);
+    }
+    .report h4:first-of-type { border-top: 0; padding-top: 0; margin-top: 1.6rem; }
+    .report-meta { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+    .report p { font-size: 0.9rem; color: var(--muted); line-height: 1.8; }
+    .report ul { list-style: none; }
+    .report ul li {
+      position: relative;
+      padding: 0.45rem 0 0.45rem 1.3rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .report ul li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 1.15rem;
+      width: 5px; height: 1px;
+      background: var(--warm);
+    }
+    .report strong { color: var(--text); font-weight: 600; }
+
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+    }
+
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0.6rem 0 0.4rem; }
+    .report table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 460px;
+      font-size: 0.85rem;
+    }
+    /* tables with 4 columns need more room before their container scrolls */
+    .report table.wide { min-width: 660px; }
+    .report th, .report td {
+      border-bottom: 1px solid var(--border);
+      padding: 0.6rem 0.9rem 0.6rem 0;
+      text-align: left;
+      vertical-align: top;
+      line-height: 1.6;
+    }
+    .report th {
+      font-weight: 600;
+      color: var(--text);
+      font-size: 0.75rem;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--text);
+      white-space: nowrap;
+    }
+    .report td { color: var(--muted); }
+    .report td:first-child { color: var(--text); }
+    .report tr:last-child td { border-bottom: 0; }
+
+    .limits { margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.2rem; }
+    .limits summary {
+      cursor: pointer;
+      list-style: none;
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.2rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .limits summary::-webkit-details-marker { display: none; }
+    .limits summary::after {
+      content: '+';
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      color: var(--muted);
+      margin-left: auto;
+    }
+    .limits[open] summary::after { content: '−'; }
+    .limits summary:focus-visible { outline: 2px solid var(--warm); outline-offset: 3px; border-radius: 4px; }
+
+    /* ── STATUS ── */
+    .status-box {
+      background: var(--highlight);
+      border-radius: 12px;
+      padding: 1.6rem 1.8rem;
+      max-width: 720px;
+      margin-top: 1.2rem;
+    }
+    .status-box p { font-size: 0.92rem; color: #E8E0D8; line-height: 1.8; }
+
+    .page-note { margin-top: 3rem; font-size: 0.8rem; color: var(--muted); font-style: italic; }
+
+    /* ── FOOTER (same as homepage) ── */
+    footer {
+      background: var(--highlight);
+      border-top: 1px solid rgba(245,239,232,0.1);
+      padding: 1.75rem 6%;
+      text-align: center;
+    }
+    .footer-copy { font-size: 0.82rem; color: #83786C; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .flow { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .flow { grid-template-columns: 1fr; }
+      .report { padding: 1.6rem 1.4rem 1.8rem; }
+    }
+    @media (max-width: 480px) {
+      main { padding: 6.5rem 5% 3rem; }
+      nav { padding: 1rem 5%; }
+      .tabs { gap: 0.25rem 1.1rem; }
+      .tab { font-size: 0.85rem; }
+      .report { padding: 1.4rem 1.1rem 1.6rem; border-radius: 12px; }
+      .btn { padding: 0.6rem 1.2rem; font-size: 0.82rem; }
+    }
+
+    /* ── COPY BAR ── */
+    .panel-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap; margin-top: 2rem;
+    }
+    .panel-head h3 { font-size: 1.5rem; margin: 0; }
+    .copy-btn {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.4rem 1rem;
+      font: 600 0.78rem 'DM Sans', sans-serif;
+      color: var(--muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .copy-btn:hover { color: var(--text); border-color: var(--text); }
+    .copy-btn.done { color: var(--text); border-color: var(--warm); background: var(--warm-bg); }
+    .copy-btn:focus-visible { outline: 2px solid var(--warm); outline-offset: 2px; }
+
+    /* ── COPY LINES ── */
+    .report h5 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 1.2px; text-transform: uppercase;
+      color: var(--text);
+      margin: 1.6rem 0 0.5rem;
+    }
+    ol.lines { list-style: none; counter-reset: ln; }
+    ol.lines > li {
+      counter-increment: ln;
+      position: relative;
+      padding: 0.5rem 0 0.5rem 1.9rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.7;
+    }
+    ol.lines > li:last-child { border-bottom: 0; }
+    ol.lines > li::before {
+      content: counter(ln);
+      position: absolute; left: 0; top: 0.5rem;
+      font-size: 0.75rem; color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+    .angle { color: var(--warm); font-weight: 600; margin-right: 0.15rem; }
+    .cc {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+      margin-left: 0.3rem;
+      white-space: nowrap;
+    }
+    .plain-line {
+      font-size: 0.9rem; color: var(--text); line-height: 1.7;
+      padding: 0.5rem 0; border-bottom: 1px solid var(--border);
+    }
+    .plain-line:last-child { border-bottom: 0; }
+    .note-italic {
+      font-style: italic; font-size: 0.85rem; color: var(--muted);
+      line-height: 1.7; margin: 0.9rem 0 0;
+      padding-left: 0.9rem; border-left: 2px solid var(--warm);
+    }
+    .script-block { margin-top: 1.2rem; }
+    .script-block ul { list-style: none; }
+    .script-block ul li {
+      padding: 0.4rem 0; border-bottom: 1px solid var(--border);
+      font-size: 0.88rem; color: var(--muted); line-height: 1.7;
+    }
+    .script-block ul li:last-child { border-bottom: 0; }
+    .script-block ul li::before { content: none; }
+    .onscreen {
+      margin-top: 0.7rem; font-size: 0.85rem; color: var(--highlight);
+      background: var(--warm-bg); border-radius: 8px; padding: 0.7rem 1rem;
+      line-height: 1.7;
+    }
+    .angles-line {
+      font-size: 0.88rem; color: var(--muted); line-height: 1.8;
+      margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);
+    }
+    .related {
+      margin-top: 1.2rem; font-size: 0.88rem;
+    }
+    .related a {
+      color: var(--text); font-weight: 600; text-decoration: none;
+      border-bottom: 1px solid var(--warm); padding-bottom: 2px;
+    }
+    .related a:hover { border-bottom-color: var(--text); }
+
+    @media (max-width: 480px) {
+      .panel-head h3 { font-size: 1.3rem; }
+    }
+  </style></head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Chethan Shankar</a>
+    <ul class="nav-links">
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#teardowns">Teardowns</a></li>
+      <li><a href="tools.html">Tools</a></li>
+      <li><a href="playbooks.html">Playbooks</a></li>
+      <li><a href="index.html#ai-lab" class="active" aria-current="page">AI Lab</a></li>
+      <li><a href="index.html#experience">Experience</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <a href="https://www.linkedin.com/in/chethanshankar" target="_blank" rel="noopener noreferrer" class="nav-cta">LinkedIn</a>
+  </nav>
+
+  <main>
+
+    <header class="page-head">
+      <div class="section-eyebrow">AI Lab · Claude Skill</div>
+      <h1>Ad Copy Variants</h1>
+      <p class="page-sub">A Claude skill that turns a product page or brief into ready-to-use ad copy for Meta, Google Search, Performance Max, Demand Gen and short video, with every line checked against character limits.</p>
+      <p class="page-meta">Built September 2026 · Works from a product page link or a short brief</p>
+      <div class="head-actions">
+        <a href="#sample" class="btn btn-primary">See sample output</a>
+        <a href="downloads/ad-copy-variants.skill" class="btn btn-outline" download>Download the skill</a>
+      </div>
+    </header>
+
+    <div class="divider"></div>
+
+    <!-- THE PROBLEM -->
+    <section id="problem">
+      <div class="section-eyebrow">01 — The problem</div>
+      <h2 class="section-title">Five platforms, five sets of limits, one idea.</h2>
+      <div class="prose">
+        <p>Writing ad copy for every platform means juggling different character limits, rewriting the same idea five ways, and checking claims by hand. Most variants end up as rewordings of one idea, which gives Meta's and Google's systems nothing real to test.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- WHAT I BUILT -->
+    <section id="built">
+      <div class="section-eyebrow">02 — What I built</div>
+      <h2 class="section-title">A full copy set from one product page.</h2>
+      <div class="prose">
+        <p>A Claude skill that builds a brief from a product page, confirms it with you, then writes a full copy set built on 5 distinct angles.</p>
+      </div>
+      <ul class="bullets">
+        <li>Meta: 5 primary texts, 5 headlines, 5 descriptions</li>
+        <li>Google Search: 15 headlines, 4 descriptions and 2 URL paths for a responsive search ad</li>
+        <li>Performance Max and Demand Gen: full text asset sets</li>
+        <li>Video: 5 hooks for the first 3 seconds and 2–3 short Reels/Shorts scripts</li>
+        <li>Character counts on every line, checked by a script</li>
+        <li>A fact check against the brief, a claims-to-verify list, and a first test plan</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- TOOLS USED -->
+    <section id="tools">
+      <div class="section-eyebrow">03 — Tools used</div>
+      <h2 class="section-title">What it is built on.</h2>
+      <div class="tool-tags">
+        <span class="tool-tag">Claude</span>
+        <span class="tool-tag">Claude Skills</span>
+        <span class="tool-tag">Python (length checker)</span>
+        <span class="tool-tag">Meta Ads</span>
+        <span class="tool-tag">Google Ads</span>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- HOW IT WORKS -->
+    <section id="how">
+      <div class="section-eyebrow">04 — How it works</div>
+      <h2 class="section-title">Four steps, product page to copy set.</h2>
+      <ol class="flow">
+        <li class="flow-step">
+          <div class="flow-num" aria-hidden="true">1</div>
+          <div class="flow-title">Share a product page</div>
+          <div class="flow-desc">Or a short brief: product, audience, offer, proof, tone.</div>
+        </li>
+        <li class="flow-step">
+          <div class="flow-num" aria-hidden="true">2</div>
+          <div class="flow-title">Confirm the brief</div>
+          <div class="flow-desc">Claude pulls the facts from the page and checks them with you first.</div>
+        </li>
+        <li class="flow-step">
+          <div class="flow-num" aria-hidden="true">3</div>
+          <div class="flow-title">Write on 5 angles</div>
+          <div class="flow-desc">For example: how it works, proof, objection handling, offer and lifestyle.</div>
+        </li>
+        <li class="flow-step">
+          <div class="flow-num" aria-hidden="true">4</div>
+          <div class="flow-title">Check and test</div>
+          <div class="flow-desc">Lengths, facts and claims are checked, then it suggests what to test first.</div>
+        </li>
+      </ol>
+      <div class="infer-box">
+        <div class="infer-label">Built-in rules</div>
+        <p>Different angles, not rewordings · Every fact traced to the brief · No invented reviews, ratings or discounts · Risky claims flagged for review.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SAMPLE OUTPUT -->
+    <section id="sample">
+      <div class="section-eyebrow">05 — Sample output</div>
+      <h2 class="section-title">What it produces.</h2>
+      <div class="prose">
+        <p>A real output from the skill, run on 21 September 2026 on Minimalist's Multi-Vitamin SPF 50 product page. Lightly edited for the web.</p>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Sample ad copy output">
+        <button class="tab" role="tab" id="tab-brief" data-tab="brief" aria-controls="panel-brief" aria-selected="true">Brief</button>
+        <button class="tab" role="tab" id="tab-meta" data-tab="meta" aria-controls="panel-meta" aria-selected="false" tabindex="-1">Meta</button>
+        <button class="tab" role="tab" id="tab-search" data-tab="search" aria-controls="panel-search" aria-selected="false" tabindex="-1">Google Search</button>
+        <button class="tab" role="tab" id="tab-pmax" data-tab="pmax" aria-controls="panel-pmax" aria-selected="false" tabindex="-1">Performance Max</button>
+        <button class="tab" role="tab" id="tab-demandgen" data-tab="demandgen" aria-controls="panel-demandgen" aria-selected="false" tabindex="-1">Demand Gen</button>
+        <button class="tab" role="tab" id="tab-video" data-tab="video" aria-controls="panel-video" aria-selected="false" tabindex="-1">Video</button>
+        <button class="tab" role="tab" id="tab-claims" data-tab="claims" aria-controls="panel-claims" aria-selected="false" tabindex="-1">Claims &amp; tests</button>
+      </div>
+
+      <!-- BRIEF -->
+      <section class="panel" id="panel-brief" role="tabpanel" aria-labelledby="tab-brief" tabindex="0">
+        <article class="report">
+          <div class="panel-head">
+            <h3>Ad copy — Minimalist Multi-Vitamin SPF 50</h3>
+            <button type="button" class="copy-btn" data-copy="brief">Copy</button>
+          </div>
+          <p class="report-meta"><strong>Input:</strong> the product page link. The skill built this brief from the page and it was confirmed before writing.</p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th scope="col">Brief</th><th scope="col"><span class="visually-hidden">Value</span></th></tr>
+              </thead>
+              <tbody>
+                <tr class="copy-line"><td>Product</td><td>Minimalist Multi-Vitamin SPF 50 Sunscreen (30g ₹224 · 50g ₹359 · 100g ₹629)</td></tr>
+                <tr class="copy-line"><td>Audience</td><td>Indian adults who want a daily sunscreen; all skin types, including oily and acne-prone</td></tr>
+                <tr class="copy-line"><td>Main benefit</td><td>Broad-spectrum SPF 50 / PA++++ that feels like a light moisturiser, with no white cast</td></tr>
+                <tr class="copy-line"><td>Proof points</td><td>In-vivo SPF 56.6 (ISO 24444:2019, independent lab) · 4 UV filters · photostable · Vitamins B3, B5, E, F · fragrance-free · non-comedogenic</td></tr>
+                <tr class="copy-line"><td>Offer</td><td>Buy 2, Get 3rd Free (B2G3RDFREE)</td></tr>
+                <tr class="copy-line"><td>Tone</td><td>Clinical, ingredient-first, no hype</td></tr>
+                <tr class="copy-line"><td>Avoid</td><td>"Complete protection", "repairs skin", pregnancy/lactation audiences, competitor names</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="angles-line"><strong>Angles used:</strong> 1. How it works (4 UV filters) · 2. Proof (lab-tested SPF 56.6) · 3. Objection handling (no white cast, no fragrance) · 4. Offer (Buy 2, Get 3rd Free) · 5. Lifestyle (moisturiser meets sunscreen)</p>
+        </article>
+      </section>
+
+      <!-- META -->
+      <section class="panel" id="panel-meta" role="tabpanel" aria-labelledby="tab-meta" tabindex="0" hidden>
+        <article class="report">
+          <div class="panel-head">
+            <h3>Meta ads</h3>
+            <button type="button" class="copy-btn" data-copy="meta">Copy</button>
+          </div>
+
+          <h5>Primary text (5 · aim ≤125)</h5>
+          <ol class="lines">
+            <li class="copy-line"><span class="angle">[How it works]</span> <span class="line">4 UV filters, one light layer. Uvinul T 150, Avobenzone, Octocrylene + Titanium Dioxide for broad-spectrum SPF 50, PA++++.</span> <span class="cc">(122)</span></li>
+            <li class="copy-line"><span class="angle">[Proof]</span> <span class="line">Labelled SPF 50. Lab-tested at SPF 56.6 (in-vivo, ISO 24444:2019, independent lab). Minimalist SPF 50, from ₹224.</span> <span class="cc">(113)</span></li>
+            <li class="copy-line"><span class="angle">[Objection]</span> <span class="line">No white cast. No fragrance. Non-comedogenic. A broad-spectrum SPF 50 sunscreen that spreads like a light moisturiser.</span> <span class="cc">(118)</span></li>
+            <li class="copy-line"><span class="angle">[Offer]</span> <span class="line">Buy 2, Get the 3rd Free. Stock up on Minimalist SPF 50 for home, bag and office. Use code B2G3RDFREE at checkout.</span> <span class="cc">(113)</span></li>
+            <li class="copy-line"><span class="angle">[Lifestyle]</span> <span class="line">Moisturiser meets sunscreen. SPF 50, PA++++ with Vitamins B3, B5, E and F in one step for your every-morning routine.</span> <span class="cc">(117)</span></li>
+          </ol>
+
+          <h5>Headlines (5 · ≤27 recommended)</h5>
+          <ol class="lines">
+            <li class="copy-line"><span class="line">4 UV Filters. One Layer.</span> <span class="cc">(24)</span></li>
+            <li class="copy-line"><span class="line">Lab-Tested at SPF 56.6</span> <span class="cc">(22)</span></li>
+            <li class="copy-line"><span class="line">SPF 50 With No White Cast</span> <span class="cc">(25)</span></li>
+            <li class="copy-line"><span class="line">Buy 2, Get the 3rd Free</span> <span class="cc">(23)</span></li>
+            <li class="copy-line"><span class="line">Moisturiser Meets SPF 50</span> <span class="cc">(24)</span></li>
+          </ol>
+
+          <h5>Descriptions (5 · ≤27 recommended)</h5>
+          <ol class="lines">
+            <li class="copy-line"><span class="line">Broad spectrum, PA++++</span> <span class="cc">(22)</span></li>
+            <li class="copy-line"><span class="line">Independent in-vivo test</span> <span class="cc">(24)</span></li>
+            <li class="copy-line"><span class="line">Fragrance-free formula</span> <span class="cc">(22)</span></li>
+            <li class="copy-line"><span class="line">Code: B2G3RDFREE</span> <span class="cc">(16)</span></li>
+            <li class="copy-line"><span class="line">With Vitamins B3, B5, E, F</span> <span class="cc">(26)</span></li>
+          </ol>
+        </article>
+      </section>
+
+      <!-- GOOGLE SEARCH -->
+      <section class="panel" id="panel-search" role="tabpanel" aria-labelledby="tab-search" tabindex="0" hidden>
+        <article class="report">
+          <div class="panel-head">
+            <h3>Google Search — responsive search ad</h3>
+            <button type="button" class="copy-btn" data-copy="search">Copy</button>
+          </div>
+
+          <h5>Headlines (≤30)</h5>
+          <ol class="lines">
+            <li class="copy-line"><span class="line">Minimalist SPF 50 Sunscreen</span> <span class="cc">(27)</span></li>
+            <li class="copy-line"><span class="line">Minimalist Multi-Vitamin SPF</span> <span class="cc">(28)</span></li>
+            <li class="copy-line"><span class="line">Shop Minimalist Sunscreen</span> <span class="cc">(25)</span></li>
+            <li class="copy-line"><span class="line">SPF 50 With PA++++ Rating</span> <span class="cc">(25)</span></li>
+            <li class="copy-line"><span class="line">No White Cast, No Fragrance</span> <span class="cc">(27)</span></li>
+            <li class="copy-line"><span class="line">Light, Moisturiser-Like Feel</span> <span class="cc">(28)</span></li>
+            <li class="copy-line"><span class="line">Non-Comedogenic Sunscreen</span> <span class="cc">(25)</span></li>
+            <li class="copy-line"><span class="line">Lab-Tested at SPF 56.6</span> <span class="cc">(22)</span></li>
+            <li class="copy-line"><span class="line">Independent In-Vivo SPF Test</span> <span class="cc">(28)</span></li>
+            <li class="copy-line"><span class="line">4 UV Filters, Photostable</span> <span class="cc">(25)</span></li>
+            <li class="copy-line"><span class="line">Buy 2, Get the 3rd Free</span> <span class="cc">(23)</span></li>
+            <li class="copy-line"><span class="line">Sunscreen From Rs. 224</span> <span class="cc">(22)</span></li>
+            <li class="copy-line"><span class="line">With Vitamins B3, B5, E &amp; F</span> <span class="cc">(27)</span></li>
+            <li class="copy-line"><span class="line">Filters From BASF and DSM</span> <span class="cc">(25)</span></li>
+          </ol>
+
+          <p class="note-italic">One headline was removed from this sample because it mentioned a detail that wasn't on the product page. The skill now fact-checks every detail against the brief.</p>
+
+          <h5>Descriptions (4 · ≤90)</h5>
+          <ol class="lines">
+            <li class="copy-line"><span class="line">Broad-spectrum SPF 50, PA++++ sunscreen with 4 UV filters. Light, fragrance-free, no cast.</span> <span class="cc">(90)</span></li>
+            <li class="copy-line"><span class="line">Tested in-vivo by an independent lab to ISO 24444:2019. SPF value obtained: 56.6.</span> <span class="cc">(81)</span></li>
+            <li class="copy-line"><span class="line">Buy 2, Get the 3rd Free with code B2G3RDFREE. 30g, 50g and 100g sizes. Shop now.</span> <span class="cc">(80)</span></li>
+            <li class="copy-line"><span class="line">Moisturiser-meets-sunscreen with Vitamins B3, B5, E and F. Non-comedogenic, pH 6.0-7.0.</span> <span class="cc">(87)</span></li>
+          </ol>
+
+          <h5>Paths (2 · ≤15)</h5>
+          <div class="plain-line copy-line"><span class="line">sunscreen</span> <span class="cc">(9)</span> / <span class="line">spf-50</span> <span class="cc">(6)</span></div>
+        </article>
+      </section>
+
+      <!-- PERFORMANCE MAX -->
+      <section class="panel" id="panel-pmax" role="tabpanel" aria-labelledby="tab-pmax" tabindex="0" hidden>
+        <article class="report">
+          <div class="panel-head">
+            <h3>Performance Max</h3>
+            <button type="button" class="copy-btn" data-copy="pmax">Copy</button>
+          </div>
+
+          <h5>Headlines (15 · ≤30, at least one ≤15)</h5>
+          <ol class="lines">
+            <li class="copy-line"><span class="line">Minimalist SPF 50</span> <span class="cc">(17)</span></li>
+            <li class="copy-line"><span class="line">SPF 50, PA++++</span> <span class="cc">(14)</span></li>
+            <li class="copy-line"><span class="line">No White Cast</span> <span class="cc">(13)</span></li>
+            <li class="copy-line"><span class="line">Lab-Tested at SPF 56.6</span> <span class="cc">(22)</span></li>
+            <li class="copy-line"><span class="line">4 UV Filters in One Layer</span> <span class="cc">(25)</span></li>
+            <li class="copy-line"><span class="line">Buy 2, Get the 3rd Free</span> <span class="cc">(23)</span></li>
+            <li class="copy-line"><span class="line">Fragrance-Free Sunscreen</span> <span class="cc">(24)</span></li>
+            <li class="copy-line"><span class="line">Non-Comedogenic SPF 50</span> <span class="cc">(22)</span></li>
+            <li class="copy-line"><span class="line">Moisturiser Meets Sunscreen</span> <span class="cc">(27)</span></li>
+            <li class="copy-line"><span class="line">With Vitamins B3, B5, E &amp; F</span> <span class="cc">(27)</span></li>
+            <li class="copy-line"><span class="line">Sunscreen From Rs. 224</span> <span class="cc">(22)</span></li>
+            <li class="copy-line"><span class="line">Photostable UV Protection</span> <span class="cc">(25)</span></li>
+            <li class="copy-line"><span class="line">Everyday Morning SPF</span> <span class="cc">(20)</span></li>
+            <li class="copy-line"><span class="line">Filters From BASF and DSM</span> <span class="cc">(25)</span></li>
+            <li class="copy-line"><span class="line">Shop Minimalist Sunscreen</span> <span class="cc">(25)</span></li>
+          </ol>
+
+          <h5>Long headlines (5 · ≤90)</h5>
+          <ol class="lines">
+            <li class="copy-line"><span class="line">Minimalist SPF 50 sunscreen: broad-spectrum PA++++ protection with no white cast</span> <span class="cc">(80)</span></li>
+            <li class="copy-line"><span class="line">Labelled SPF 50, lab-tested at SPF 56.6 in an independent in-vivo study</span> <span class="cc">(71)</span></li>
+            <li class="copy-line"><span class="line">4 UV filters, Vitamins B3, B5, E and F, and a feel like a light moisturiser</span> <span class="cc">(75)</span></li>
+            <li class="copy-line"><span class="line">Buy 2, Get the 3rd Free on Minimalist skincare with code B2G3RDFREE</span> <span class="cc">(67)</span></li>
+            <li class="copy-line"><span class="line">A fragrance-free, non-comedogenic sunscreen for every morning, from Rs. 224</span> <span class="cc">(75)</span></li>
+          </ol>
+
+          <h5>Descriptions (5 · ≤90, at least one ≤60)</h5>
+          <ol class="lines">
+            <li class="copy-line"><span class="line">SPF 50, PA++++. No white cast, no fragrance.</span> <span class="cc">(44)</span></li>
+            <li class="copy-line"><span class="line">Independent in-vivo test to ISO 24444:2019 recorded SPF 56.6.</span> <span class="cc">(61)</span></li>
+            <li class="copy-line"><span class="line">Uvinul T 150, Avobenzone, Octocrylene and Titanium Dioxide in one photostable formula.</span> <span class="cc">(86)</span></li>
+            <li class="copy-line"><span class="line">Buy 2, Get the 3rd Free with code B2G3RDFREE. Available in 30g, 50g and 100g.</span> <span class="cc">(77)</span></li>
+            <li class="copy-line"><span class="line">Spreads like a light moisturiser, with Vitamins B3, B5, E and F. Apply every AM.</span> <span class="cc">(80)</span></li>
+          </ol>
+
+          <h5>Business name (≤25)</h5>
+          <div class="plain-line copy-line"><span class="line">Minimalist</span> <span class="cc">(10)</span></div>
+        </article>
+      </section>
+
+      <!-- DEMAND GEN -->
+      <section class="panel" id="panel-demandgen" role="tabpanel" aria-labelledby="tab-demandgen" tabindex="0" hidden>
+        <article class="report">
+          <div class="panel-head">
+            <h3>Demand Gen</h3>
+            <button type="button" class="copy-btn" data-copy="demandgen">Copy</button>
+          </div>
+
+          <h5>Headlines (5 · ≤40)</h5>
+          <ol class="lines">
+            <li class="copy-line"><span class="line">4 UV Filters. One Light Layer.</span> <span class="cc">(30)</span></li>
+            <li class="copy-line"><span class="line">Labelled SPF 50. Lab-Tested at 56.6.</span> <span class="cc">(36)</span></li>
+            <li class="copy-line"><span class="line">SPF 50 That Leaves No White Cast</span> <span class="cc">(32)</span></li>
+            <li class="copy-line"><span class="line">Buy 2, Get the 3rd Free</span> <span class="cc">(23)</span></li>
+            <li class="copy-line"><span class="line">Moisturiser Meets SPF 50 Sunscreen</span> <span class="cc">(34)</span></li>
+          </ol>
+
+          <h5>Descriptions (5 · ≤90)</h5>
+          <ol class="lines">
+            <li class="copy-line"><span class="line">Uvinul T 150, Avobenzone, Octocrylene and Titanium Dioxide for SPF 50, PA++++.</span> <span class="cc">(78)</span></li>
+            <li class="copy-line"><span class="line">Independent in-vivo test to ISO 24444:2019 recorded SPF 56.6. From Rs. 224.</span> <span class="cc">(75)</span></li>
+            <li class="copy-line"><span class="line">Fragrance-free, non-comedogenic and cast-free. Spreads like a light moisturiser.</span> <span class="cc">(80)</span></li>
+            <li class="copy-line"><span class="line">Stock up for home, bag and office. Buy 2, Get the 3rd Free with code B2G3RDFREE.</span> <span class="cc">(80)</span></li>
+            <li class="copy-line"><span class="line">One morning step: SPF 50, PA++++ sunscreen with Vitamins B3, B5, E and F.</span> <span class="cc">(73)</span></li>
+          </ol>
+        </article>
+      </section>
+
+      <!-- VIDEO -->
+      <section class="panel" id="panel-video" role="tabpanel" aria-labelledby="tab-video" tabindex="0" hidden>
+        <article class="report">
+          <div class="panel-head">
+            <h3>Video hooks and scripts</h3>
+            <button type="button" class="copy-btn" data-copy="video">Copy</button>
+          </div>
+
+          <h5>Hooks for the first 3 seconds (5)</h5>
+          <ol class="lines">
+            <li class="copy-line"><span class="angle">[How it works]</span> <span class="line">Spoken: "Four UV filters. One bottle." · On-screen: "4 UV filters, 1 layer"</span></li>
+            <li class="copy-line"><span class="angle">[Proof]</span> <span class="line">Spoken: "It says SPF 50. The lab measured 56.6." · On-screen: "Lab-tested: SPF 56.6"</span></li>
+            <li class="copy-line"><span class="angle">[Objection]</span> <span class="line">Spoken: "Watch this rub in. No white cast." (swatch demo) · On-screen: "Zero white cast?"</span></li>
+            <li class="copy-line"><span class="angle">[Offer]</span> <span class="line">Spoken: "Buy two, the third one's free." · On-screen: "Buy 2, Get 3rd Free"</span></li>
+            <li class="copy-line"><span class="angle">[Lifestyle]</span> <span class="line">Spoken: "What if your moisturiser was your sunscreen?" · On-screen: "Moisturiser meets SPF 50"</span></li>
+          </ol>
+
+          <div class="script-block">
+            <h5>Script 1 — Proof, ~25 seconds</h5>
+            <ul>
+              <li class="copy-line"><span class="line">0–3s Hook: Bottle to camera. "It says SPF 50. The lab measured 56.6."</span></li>
+              <li class="copy-line"><span class="line">3–10s Proof: "Tested in-vivo by an independent lab, to international standard ISO 24444." Show the lab-report numbers from the product page.</span></li>
+              <li class="copy-line"><span class="line">10–20s Product and benefit: "Four UV filters for UVA and UVB, PA++++, and no fragrance." Swatch on the back of the hand, blended in.</span></li>
+              <li class="copy-line"><span class="line">20–25s Offer and CTA: "Buy 2, get the 3rd free. Code B2G3RDFREE."</span></li>
+            </ul>
+            <p class="onscreen copy-line"><span class="line">On-screen text: "Lab-tested: SPF 56.6" → "4 UV filters · PA++++" → "Buy 2, Get 3rd Free"</span></p>
+          </div>
+
+          <div class="script-block">
+            <h5>Script 2 — Objection handling (demo), ~20 seconds</h5>
+            <ul>
+              <li class="copy-line"><span class="line">0–3s Hook: A dollop on the cheek. "Watch this rub in."</span></li>
+              <li class="copy-line"><span class="line">3–10s Demo: Blend in real time and show no white cast. "No white cast, no sticky feel."</span></li>
+              <li class="copy-line"><span class="line">10–17s Product and benefit: "Minimalist SPF 50. Fragrance-free, non-comedogenic, spreads like a light moisturiser."</span></li>
+              <li class="copy-line"><span class="line">17–20s CTA: "Buy 2, get the 3rd free."</span></li>
+            </ul>
+            <p class="onscreen copy-line"><span class="line">On-screen text: "Zero white cast?" → "Fragrance-free · Non-comedogenic" → "Buy 2, Get 3rd Free"</span></p>
+          </div>
+
+          <div class="script-block">
+            <h5>Script 3 — Lifestyle, ~20 seconds</h5>
+            <ul>
+              <li class="copy-line"><span class="line">0–3s Hook: A morning shelf. "What if your moisturiser was your sunscreen?"</span></li>
+              <li class="copy-line"><span class="line">3–10s Problem: "Every morning is serum, moisturiser, sunscreen, and three layers of feeling heavy."</span></li>
+              <li class="copy-line"><span class="line">10–17s Product: "Minimalist SPF 50 feels like a light moisturiser, with Vitamins B3, B5, E and F."</span></li>
+              <li class="copy-line"><span class="line">17–20s CTA: "One for home, one for your bag, the third one's free."</span></li>
+            </ul>
+            <p class="onscreen copy-line"><span class="line">On-screen text: "Moisturiser meets SPF 50" → "Vitamins B3, B5, E, F" → "Buy 2, Get 3rd Free"</span></p>
+          </div>
+        </article>
+      </section>
+
+      <!-- CLAIMS & TESTS -->
+      <section class="panel" id="panel-claims" role="tabpanel" aria-labelledby="tab-claims" tabindex="0" hidden>
+        <article class="report">
+          <div class="panel-head">
+            <h3>Claims to verify</h3>
+            <button type="button" class="copy-btn" data-copy="claims">Copy</button>
+          </div>
+          <ul>
+            <li class="copy-line"><span class="line"><strong>"Buy 2, Get the 3rd Free":</strong> confirm which products it covers, which item is free, and the end date. Pause offer lines when the code expires (ASCI expects price accuracy).</span></li>
+            <li class="copy-line"><span class="line"><strong>"Lab-tested at SPF 56.6":</strong> supported by the product page (ISO 24444:2019). Keep the report handy in case Meta or ASCI asks for it.</span></li>
+            <li class="copy-line"><span class="line"><strong>"No white cast":</strong> claimed on the page, but some reviews mention a slight cast on some skin tones. Test the demo creative across skin tones before scaling.</span></li>
+            <li class="copy-line"><span class="line"><strong>"Moisturiser-like":</strong> a texture claim from the page. Avoid implying it replaces a moisturiser.</span></li>
+            <li class="copy-line"><span class="line">The product isn't recommended during pregnancy or lactation, so exclude those audiences.</span></li>
+            <li class="copy-line"><span class="line">"Repairs skin" from the page was left out on purpose because it reads as a treatment claim.</span></li>
+          </ul>
+
+          <h4>What to test first</h4>
+          <ul>
+            <li class="copy-line"><span class="line"><strong>Proof vs objection (Meta primary text 2 vs 3):</strong> shows whether this audience buys on lab credibility or on sensory reassurance.</span></li>
+            <li class="copy-line"><span class="line"><strong>Hook test (Script 1 body with Hook 2 vs Hook 3):</strong> shows whether a number or a live demo stops the scroll better. Judge on 3-second view rate.</span></li>
+            <li class="copy-line"><span class="line"><strong>Offer vs no offer (Meta headline 4 vs 2, same creative):</strong> shows whether Buy 2 Get 1 lifts conversion rate enough to justify the lower margin, or whether proof alone converts.</span></li>
+          </ul>
+        </article>
+      </section>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- WHAT I LEARNED -->
+    <section id="learned">
+      <div class="section-eyebrow">06 — What I learned</div>
+      <h2 class="section-title">What building this taught me.</h2>
+      <ul class="bullets">
+        <li>Character limits are the easy part; the hard part is writing angles that are genuinely different.</li>
+        <li>Pulling the brief from the product page gives better proof points than a typed brief, but it needs a confirmation step.</li>
+        <li>In the first test the skill added a detail that wasn't on the page, so I added a fact-check step: every detail must trace back to the brief.</li>
+        <li>Flagging claims before they run matters most in health, beauty and finance.</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- STATUS -->
+    <section id="status">
+      <div class="section-eyebrow">07 — Status</div>
+      <h2 class="section-title">Where it stands.</h2>
+      <div class="status-box">
+        <p>Version 1.1 · Live. Pairs with Meta Ad Intel: hooks found in competitor ads can feed straight into the brief.</p>
+      </div>
+      <p class="related"><a href="ai-lab-meta-ad-intel.html">See Meta Ad Intel →</a></p>
+    </section>
+
+    <p class="page-note">Brand names belong to their owners. Sample copy was written from a public product page for demonstration only and was not used in live campaigns.</p>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-copy">© 2026 Chethan Shankar · Bengaluru, India</span>
+  </footer>
+
+  <script>
+    (function () {
+      var TABS = ['brief', 'meta', 'search', 'pmax', 'demandgen', 'video', 'claims'];
+
+      function $(id) { return document.getElementById(id); }
+
+      function activate(name, focusTab) {
+        if (TABS.indexOf(name) === -1) return;
+        TABS.forEach(function (t) {
+          var on = t === name;
+          var tab = $('tab-' + t);
+          tab.setAttribute('aria-selected', on ? 'true' : 'false');
+          tab.tabIndex = on ? 0 : -1;
+          $('panel-' + t).hidden = !on;
+        });
+        if (focusTab) $('tab-' + name).focus();
+      }
+
+      document.querySelectorAll('.tab').forEach(function (btn) {
+        btn.addEventListener('click', function () { activate(btn.dataset.tab, false); });
+        btn.addEventListener('keydown', function (e) {
+          var i = TABS.indexOf(btn.dataset.tab);
+          var next = null;
+          if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = TABS[(i + 1) % TABS.length];
+          else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = TABS[(i + TABS.length - 1) % TABS.length];
+          else if (e.key === 'Home') next = TABS[0];
+          else if (e.key === 'End') next = TABS[TABS.length - 1];
+          if (!next) return;
+          activate(next, true);
+          e.preventDefault();
+        });
+      });
+
+      // Collect a panel's copy lines as plain text, with character counts left out.
+      function linesFor(name) {
+        var panel = $('panel-' + name);
+        if (!panel) return '';
+        var out = [];
+        panel.querySelectorAll('.copy-line').forEach(function (el) {
+          var clone = el.cloneNode(true);
+          clone.querySelectorAll('.cc').forEach(function (c) { c.remove(); });
+          var text;
+          if (clone.tagName === 'TR') {
+            text = Array.prototype.map.call(clone.children, function (td) {
+              return td.textContent.trim();
+            }).join(': ');
+          } else {
+            // Where a line is marked up, copy just the ad line: angle labels
+            // like "[Proof]" are annotation, not copy.
+            var marked = clone.querySelectorAll('.line');
+            text = marked.length
+              ? Array.prototype.map.call(marked, function (n) { return n.textContent.trim(); }).join(' / ')
+              : clone.textContent;
+          }
+          text = text.replace(/\s+/g, ' ').trim();
+          if (text) out.push(text);
+        });
+        return out.join('\n');
+      }
+
+      function flash(btn) {
+        btn.textContent = 'Copied';
+        btn.classList.add('done');
+        window.setTimeout(function () {
+          btn.textContent = 'Copy';
+          btn.classList.remove('done');
+        }, 1600);
+      }
+
+      function fallbackCopy(text) {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.top = '-1000px';
+        document.body.appendChild(ta);
+        ta.select();
+        var ok = false;
+        try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+        document.body.removeChild(ta);
+        return ok;
+      }
+
+      document.querySelectorAll('.copy-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var text = linesFor(btn.dataset.copy);
+          if (!text) return;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(function () { flash(btn); }, function () {
+              if (fallbackCopy(text)) flash(btn);
+            });
+          } else if (fallbackCopy(text)) {
+            flash(btn);
+          }
+        });
+      });
+
+      activate('brief', false);
+    })();
+  </script>
+
+</body>
+</html>

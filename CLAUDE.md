@@ -51,6 +51,7 @@ Write for a hiring manager or recruiter, not a buyer. The contact section reads
 | `playbooks.html` | Playbooks — Campaign Launch Checklist. Views are addressed by hash: `#<platform>/<objective-or-campaign-type>/<business-type>`, e.g. `#meta/sales/d2c` |
 | `content/playbooks/*.md` | Source markdown for the checklist content. Not published; the page carries its own copy of the items |
 | `ai-lab-meta-ad-intel.html` | AI Lab — Meta Ad Intel, a Claude skill for competitor Meta ad reports. Two sample reports in tabs, rendered into the page at build time from `content/ai-lab/*.md` |
+| `ai-lab-ad-copy-variants.html` | AI Lab — Ad Copy Variants, a Claude skill that writes platform-ready ad copy. Sample output in tabs (Brief, Meta, Google Search, Performance Max, Demand Gen, Video, Claims & tests), each with a Copy button; rendered into the page at build time from `content/ai-lab/*.md` |
 | `content/ai-lab/*.md` | Source markdown for AI Lab sample outputs. Not published; the page carries its own converted copy. Never fetched at runtime |
 | `downloads/` | Downloadable files linked from the site, such as `meta-ad-intel.skill`. Linked with the `download` attribute |
 | `case-study-workout-app.html` | Workout Session Sequencer write-up; links to `workout/index.html`. Not currently linked from the homepage |

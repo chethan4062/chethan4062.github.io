@@ -50,6 +50,9 @@ Write for a hiring manager or recruiter, not a buyer. The contact section reads
 | `health-check.html` | Tools — Ad Performance Health Check. Reads a daily Meta or Google Ads CSV export with `FileReader`, entirely in the browser: the file is never uploaded or stored. Only thresholds and the goal type may be saved in `localStorage` (`healthcheck:v1:settings`); never data, targets or campaign names |
 | `playbooks.html` | Playbooks — Campaign Launch Checklist. Views are addressed by hash: `#<platform>/<objective-or-campaign-type>/<business-type>`, e.g. `#meta/sales/d2c` |
 | `content/playbooks/*.md` | Source markdown for the checklist content. Not published; the page carries its own copy of the items |
+| `ai-lab-meta-ad-intel.html` | AI Lab — Meta Ad Intel, a Claude skill for competitor Meta ad reports. Two sample reports in tabs, rendered into the page at build time from `content/ai-lab/*.md` |
+| `content/ai-lab/*.md` | Source markdown for AI Lab sample outputs. Not published; the page carries its own converted copy. Never fetched at runtime |
+| `downloads/` | Downloadable files linked from the site, such as `meta-ad-intel.skill`. Linked with the `download` attribute |
 | `case-study-workout-app.html` | Workout Session Sequencer write-up; links to `workout/index.html`. Not currently linked from the homepage |
 | `workout/index.html` | Live workout app demo |
 | `templates/` | Page templates. `noindex`, never linked from the site |
@@ -93,7 +96,13 @@ section order matching nav order. Every other page carries `Tools` and
   brand freely; cite public figures only.
 - **AI Lab** — my own AI tools and workflows. Each card carries an `In Progress`
   badge and no link until the thing is actually finished and has a page to point at.
-  Use the `.cases-grid` / `.case-card` markup so cards can be added by copy-paste.
+  **The `In Progress` badge is removed only when a project is live**: at that point the
+  badge reads `Live`, the card becomes an `<a>` pointing at its page, and it gains a
+  "View project →" arrow. Use the `.cases-grid` / `.case-card` markup so cards can be
+  added by copy-paste. Sample outputs an AI Lab page shows live in
+  `content/ai-lab/*.md` and are converted to HTML and pasted into the page at build
+  time — never loaded from the markdown at runtime. Anything a visitor downloads,
+  such as a packaged skill, lives in `downloads/`.
 - **Tools** — free calculators and utilities for performance marketers. **Every tool
   must be plain HTML and vanilla JavaScript in a single self-contained file: no
   libraries, no API keys, no external calls (the Google Fonts stylesheet is the only
@@ -181,7 +190,8 @@ should open in a new tab.
    Teardown and Work cards are `<a>` elements with three metrics and a "Read case
    study" arrow; Tools and Playbooks cards are `<a>` elements with a tag, title,
    description and an "Open tool" / "Open playbook" arrow; AI Lab cards are `<div>`
-   elements with an `In Progress` badge and no metrics.
+   elements with an `In Progress` badge and no metrics, and become `<a>` elements with
+   a `Live` badge and a "View project →" arrow once the project is live.
 5. Check the back-link to `index.html` and any footer cross-links resolve.
 
 ## Before finishing a change

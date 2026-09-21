@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meta Ad Intel — Claude Skill · Chethan Shankar</title>
+  <meta name="description" content="Meta Ad Intel — Claude Skill · Chethan Shankar" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #FAFAF8;
+      --card:      #FFFFFF;
+      --text:      #1A1A1A;
+      --muted:     #6B6B6B;
+      --accent:    #E8E4DF;
+      --border:    #E5E3DE;
+      --highlight: #2C2C2C;
+      --warm:      #C8A882;
+      --warm-bg:   #F5EFE8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Instrument Serif', serif; font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.1rem 6%;
+      background: rgba(250,250,248,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.3rem;
+      color: var(--text);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-cta {
+      background: transparent;
+      color: var(--text);
+      border: 1.5px solid var(--text);
+      padding: 0.5rem 1.3rem;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover { background: var(--text); color: var(--bg); }
+
+    /* ── PAGE ── */
+    main { max-width: 1000px; margin: 0 auto; padding: 7.5rem 6% 4rem; }
+
+    .section-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--warm);
+      margin-bottom: 0.9rem;
+    }
+    .section-eyebrow::after { content: ''; flex: 0 0 40px; height: 1px; background: var(--warm); }
+
+    .page-head h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.05; margin-bottom: 0.8rem; }
+    .page-sub { color: var(--muted); font-size: 1.05rem; max-width: 620px; line-height: 1.7; }
+    .page-meta { margin-top: 1.1rem; font-size: 0.82rem; color: var(--muted); }
+
+    .head-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.8rem; }
+    .btn {
+      display: inline-block;
+      padding: 0.65rem 1.5rem;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1.5px solid var(--text);
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-primary { background: var(--text); color: var(--bg); }
+    .btn-primary:hover { background: transparent; color: var(--text); }
+    .btn-outline { background: transparent; color: var(--text); }
+    .btn-outline:hover { background: var(--text); color: var(--bg); }
+    .btn:focus-visible { outline: 2px solid var(--warm); outline-offset: 3px; }
+
+    /* ── SECTIONS ── */
+    section { padding-top: 3.5rem; }
+    .section-title { font-size: clamp(1.6rem, 3.5vw, 2.3rem); margin-bottom: 1rem; }
+    .prose { max-width: 720px; }
+    .prose p { font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+    .prose p:last-child { margin-bottom: 0; }
+
+    .bullets { list-style: none; max-width: 720px; margin-top: 1.2rem; }
+    .bullets li {
+      position: relative;
+      padding: 0.55rem 0 0.55rem 1.4rem;
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .bullets li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 1.25rem;
+      width: 6px; height: 1px;
+      background: var(--warm);
+    }
+
+    .divider { width: 100%; height: 1px; background: var(--border); margin-top: 3.5rem; }
+
+    /* ── TOOL TAGS ── */
+    .tool-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tool-tag {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.35rem 0.9rem;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    /* ── FLOW ── */
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+      margin-top: 1.8rem;
+      list-style: none;
+    }
+    .flow-step {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.3rem 1.2rem;
+    }
+    .flow-num {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--warm);
+      color: var(--warm);
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.05rem;
+      line-height: 1;
+      margin-bottom: 0.9rem;
+    }
+    .flow-title { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.35rem; }
+    .flow-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+
+    .infer-box {
+      margin-top: 1.8rem;
+      border-left: 3px solid var(--warm);
+      background: var(--warm-bg);
+      border-radius: 0 8px 8px 0;
+      padding: 1.1rem 1.4rem;
+      max-width: 720px;
+    }
+    .infer-box .infer-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.5px; color: var(--highlight); margin-bottom: 0.3rem; }
+    .infer-box p { font-size: 0.85rem; color: var(--highlight); line-height: 1.7; }
+
+    /* ── TABS ── */
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      margin: 2rem 0 0;
+    }
+    .tab {
+      background: none;
+      border: 0;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      padding: 0.7rem 0.1rem;
+      font: 500 0.9rem 'DM Sans', sans-serif;
+      color: var(--muted);
+      cursor: pointer;
+      text-align: left;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .tab:hover { color: var(--text); }
+    .tab[aria-selected="true"] { color: var(--text); border-bottom-color: var(--text); }
+    .tab:focus-visible { outline: 2px solid var(--warm); outline-offset: 2px; border-radius: 4px; }
+    .panel[hidden] { display: none; }
+    .panel:focus-visible { outline: 2px solid var(--warm); outline-offset: 4px; border-radius: 8px; }
+
+    /* ── REPORT DOCUMENT ── */
+    .report {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem 2.2rem 2.2rem;
+      margin-top: 2rem;
+      max-width: 760px;
+    }
+    .report h3 { font-size: 1.6rem; margin-bottom: 0.4rem; }
+    .report h4 {
+      font-size: 1.2rem;
+      margin: 2rem 0 0.7rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid var(--border);
+    }
+    .report h4:first-of-type { border-top: 0; padding-top: 0; margin-top: 1.6rem; }
+    .report-meta { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+    .report p { font-size: 0.9rem; color: var(--muted); line-height: 1.8; }
+    .report ul { list-style: none; }
+    .report ul li {
+      position: relative;
+      padding: 0.45rem 0 0.45rem 1.3rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .report ul li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 1.15rem;
+      width: 5px; height: 1px;
+      background: var(--warm);
+    }
+    .report strong { color: var(--text); font-weight: 600; }
+
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+    }
+
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0.6rem 0 0.4rem; }
+    .report table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 460px;
+      font-size: 0.85rem;
+    }
+    /* tables with 4 columns need more room before their container scrolls */
+    .report table.wide { min-width: 660px; }
+    .report th, .report td {
+      border-bottom: 1px solid var(--border);
+      padding: 0.6rem 0.9rem 0.6rem 0;
+      text-align: left;
+      vertical-align: top;
+      line-height: 1.6;
+    }
+    .report th {
+      font-weight: 600;
+      color: var(--text);
+      font-size: 0.75rem;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--text);
+      white-space: nowrap;
+    }
+    .report td { color: var(--muted); }
+    .report td:first-child { color: var(--text); }
+    .report tr:last-child td { border-bottom: 0; }
+
+    .limits { margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.2rem; }
+    .limits summary {
+      cursor: pointer;
+      list-style: none;
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.2rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .limits summary::-webkit-details-marker { display: none; }
+    .limits summary::after {
+      content: '+';
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      color: var(--muted);
+      margin-left: auto;
+    }
+    .limits[open] summary::after { content: '−'; }
+    .limits summary:focus-visible { outline: 2px solid var(--warm); outline-offset: 3px; border-radius: 4px; }
+
+    /* ── STATUS ── */
+    .status-box {
+      background: var(--highlight);
+      border-radius: 12px;
+      padding: 1.6rem 1.8rem;
+      max-width: 720px;
+      margin-top: 1.2rem;
+    }
+    .status-box p { font-size: 0.92rem; color: #E8E0D8; line-height: 1.8; }
+
+    .page-note { margin-top: 3rem; font-size: 0.8rem; color: var(--muted); font-style: italic; }
+
+    /* ── FOOTER (same as homepage) ── */
+    footer {
+      background: var(--highlight);
+      border-top: 1px solid rgba(245,239,232,0.1);
+      padding: 1.75rem 6%;
+      text-align: center;
+    }
+    .footer-copy { font-size: 0.82rem; color: #83786C; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .flow { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .flow { grid-template-columns: 1fr; }
+      .report { padding: 1.6rem 1.4rem 1.8rem; }
+    }
+    @media (max-width: 480px) {
+      main { padding: 6.5rem 5% 3rem; }
+      nav { padding: 1rem 5%; }
+      .tabs { gap: 0.25rem 1.1rem; }
+      .tab { font-size: 0.85rem; }
+      .report { padding: 1.4rem 1.1rem 1.6rem; border-radius: 12px; }
+      .btn { padding: 0.6rem 1.2rem; font-size: 0.82rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Chethan Shankar</a>
+    <ul class="nav-links">
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#teardowns">Teardowns</a></li>
+      <li><a href="tools.html">Tools</a></li>
+      <li><a href="playbooks.html">Playbooks</a></li>
+      <li><a href="index.html#ai-lab" class="active" aria-current="page">AI Lab</a></li>
+      <li><a href="index.html#experience">Experience</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <a href="https://www.linkedin.com/in/chethanshankar" target="_blank" rel="noopener noreferrer" class="nav-cta">LinkedIn</a>
+  </nav>
+
+  <main>
+
+    <header class="page-head">
+      <div class="section-eyebrow">AI Lab · Claude Skill</div>
+      <h1>Meta Ad Intel</h1>
+      <p class="page-sub">A Claude skill that turns a brand's Meta Ad Library results into a competitor ad report in minutes.</p>
+      <p class="page-meta">Built September 2026 · Works with Claude in Chrome or by pasting Ad Library results</p>
+      <div class="head-actions">
+        <a href="#sample" class="btn btn-primary">See sample report</a>
+        <a href="downloads/meta-ad-intel.skill" class="btn btn-outline" download>Download the skill</a>
+      </div>
+    </header>
+
+    <div class="divider"></div>
+
+    <!-- THE PROBLEM -->
+    <section id="problem">
+      <div class="section-eyebrow">01 — The problem</div>
+      <h2 class="section-title">Ad Library research is slow and inconsistent.</h2>
+      <div class="prose">
+        <p>Competitor research on Meta means scrolling the Ad Library ad by ad, noting dates, formats and offers by hand, and guessing which ads are working. It takes hours and the notes are rarely consistent.</p>
+        <p>For Indian brands there is no shortcut: Meta's Ad Library API only returns commercial ads that ran in the EU or UK, and the Ad Library shows no spend or impressions for normal ads in India.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- WHAT I BUILT -->
+    <section id="built">
+      <div class="section-eyebrow">02 — What I built</div>
+      <h2 class="section-title">A skill that reads the Ad Library for you.</h2>
+      <div class="prose">
+        <p>A Claude skill that collects a brand's active ads (automatically with Claude in Chrome, or from pasted text or screenshots) and produces a structured report in the chat.</p>
+      </div>
+      <ul class="bullets">
+        <li>Single-brand report or a side-by-side comparison with up to 3 competitors</li>
+        <li>Likely winning ads, inferred from how long ads run, how many versions they have and how often ideas repeat</li>
+        <li>Hooks, messaging angles, creative styles, offers, CTAs and landing pages, with counts</li>
+        <li>What the brand is testing now, and what to test next</li>
+        <li>An honest limits section: it never invents spend, ROAS or impressions</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- TOOLS USED -->
+    <section id="tools">
+      <div class="section-eyebrow">03 — Tools used</div>
+      <h2 class="section-title">What it is built on.</h2>
+      <div class="tool-tags">
+        <span class="tool-tag">Claude</span>
+        <span class="tool-tag">Claude Skills</span>
+        <span class="tool-tag">Claude in Chrome</span>
+        <span class="tool-tag">Meta Ad Library</span>
+        <span class="tool-tag">Python (optional stats script)</span>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- HOW IT WORKS -->
+    <section id="how">
+      <div class="section-eyebrow">04 — How it works</div>
+      <h2 class="section-title">Four steps, brand name to report.</h2>
+      <ol class="flow">
+        <li class="flow-step">
+          <div class="flow-num" aria-hidden="true">1</div>
+          <div class="flow-title">Name the brand</div>
+          <div class="flow-desc">For example: Analyse Minimalist's Meta ads, India.</div>
+        </li>
+        <li class="flow-step">
+          <div class="flow-num" aria-hidden="true">2</div>
+          <div class="flow-title">Collect the ads</div>
+          <div class="flow-desc">Claude in Chrome browses the Ad Library, or you paste the page or screenshots.</div>
+        </li>
+        <li class="flow-step">
+          <div class="flow-num" aria-hidden="true">3</div>
+          <div class="flow-title">Structure and analyse</div>
+          <div class="flow-desc">Every ad becomes a row: start date, versions, format, hook, offer, CTA, landing page.</div>
+        </li>
+        <li class="flow-step">
+          <div class="flow-num" aria-hidden="true">4</div>
+          <div class="flow-title">Report in chat</div>
+          <div class="flow-desc">Snapshot table, likely winners, creative patterns, gaps and what to test next.</div>
+        </li>
+      </ol>
+      <div class="infer-box">
+        <div class="infer-label">How winners are inferred</div>
+        <p>90+ days running: strong signal · 30+ days with multiple versions: likely scaling · Same concept in 3+ ads: likely working · Performance is inferred, never measured.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SAMPLE OUTPUT -->
+    <section id="sample">
+      <div class="section-eyebrow">05 — Sample output</div>
+      <h2 class="section-title">What it produces.</h2>
+      <div class="prose">
+        <p>Real outputs from the skill, run on 21 September 2026 using public Ad Library data. Lightly edited for the web: creator handles removed.</p>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Sample reports">
+        <button class="tab" role="tab" id="tab-single" data-tab="single" aria-controls="panel-single" aria-selected="true">Single brand: Minimalist</button>
+        <button class="tab" role="tab" id="tab-compare" data-tab="compare" aria-controls="panel-compare" aria-selected="false" tabindex="-1">Comparison: Minimalist vs The Derma Co vs Deconstruct</button>
+      </div>
+
+      <!-- PANEL 1: SINGLE BRAND -->
+      <section class="panel" id="panel-single" role="tabpanel" aria-labelledby="tab-single" tabindex="0">
+        <article class="report">
+          <h3>Minimalist — Meta Ads Intel</h3>
+          <p class="report-meta">Snapshot: 21 Sep 2026 · Country: India · Ads analysed: 114, a sample of about 190 active ads (Page: Minimalistinc, the verified Page linked to @beminimalist)</p>
+
+          <h4>At a glance</h4>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th scope="col">Metric</th><th scope="col">Value</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Active ads</td><td>~190 (114 analysed)</td></tr>
+                <tr><td>New in last 7 / 14 days</td><td>0 / 1</td></tr>
+                <tr><td>Running 30+ days</td><td>113 of 114 (28 of them 90+ days)</td></tr>
+                <tr><td>Main format</td><td>Video 62 · Image/carousel 52</td></tr>
+                <tr><td>Main CTA</td><td>Shop Now (92), Buy Now (11), Learn More (5)</td></tr>
+                <tr><td>Main landing page</td><td>Their own site (beminimalist.co). A few ads go to Zepto (2), Blinkit (2) or Instagram (1)</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4>Key takeaways</h4>
+          <ul>
+            <li><strong>Almost no new ads.</strong> 113 of 114 started between 4 Jun and 14 Aug. The only new one is the Travel Pouch gift ad from 14 Sep. This points to an always-on account that scales ads it already has, not one that tests a lot.</li>
+            <li><strong>Heavy use of multiple versions.</strong> 91 of 114 ads have multiple versions, which suggests they rely on dynamic creative and Advantage+ to test copy and creative inside each ad.</li>
+            <li><strong>Cashback is the default offer.</strong> 54 of 114 ads mention cashback or mCash. Price discounts are rare.</li>
+            <li><strong>Routines and kits sell the basket.</strong> 34 ads push a 2–4 step routine or kit, mostly for acne, oil control, glow, dryness or hair repair. This likely raises average order value.</li>
+            <li><strong>The science message runs through everything.</strong> 30 ads cite clinical data (for example "50% fewer blackheads in 28 days"), and 8 carry the "Hide Nothing" transparency line.</li>
+          </ul>
+
+          <h4>Likely winning ads</h4>
+          <div class="table-wrap">
+            <table class="wide">
+              <thead>
+                <tr><th scope="col">Ad</th><th scope="col">Running for</th><th scope="col">Versions</th><th scope="col">Why it's likely working</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>"Skincare with absolutely nothing to hide" brand videos (3 ads)</td><td>109 days</td><td>Multiple</td><td>The oldest ads in the account. A brand-trust piece that keeps running</td></tr>
+                <tr><td>Vitamin K + Retinol eye cream: "Dark circles? Puffiness?"</td><td>85–91 days</td><td>Multiple, 4+ ads</td><td>Same concept in both video and static, which suggests they're scaling it</td></tr>
+                <tr><td>Light Fluid SPF 50 and the "summer essential" SPF 50</td><td>90–91 days</td><td>2 ads per creative, 6+ ads</td><td>Sunscreen is a hero product with the most duplicate ads</td></tr>
+                <tr><td>Buy 2, get 1 free of your choice</td><td>75–85 days</td><td>4 ads use one creative, about 8 in total</td><td>The one strong promotion, backed by creator ads</td></tr>
+                <tr><td>Creator sunscreen ad ("PR but I already use it")</td><td>106 days</td><td>—</td><td>The longest-running creator ad</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4>Creative and messaging</h4>
+          <ul>
+            <li><strong>Hooks:</strong> problem or pain first ("Tired of…", "Struggling with…") in about 37 ads; ingredient or percentage leads ("2% BHA + LHA") in most of the rest; clinical proof in 30.</li>
+            <li><strong>Angles:</strong> efficacy and ingredients first, then seasonal ads (7 on monsoon and humidity), then value (cashback, Buy 2 Get 1).</li>
+            <li><strong>Categories:</strong> skin is the core; hair appears in 23 ads and body in 13, a clear push beyond the face.</li>
+            <li><strong>Styles:</strong> mostly product demo and text-heavy benefit copy. Only 8 creator or UGC ads, and none founder-led.</li>
+            <li><strong>Worth noting:</strong> one ad directly addresses an online rumour about a product's concentration ("No quiet downgrades"). The brand is putting ad money behind handling a reputation issue.</li>
+          </ul>
+
+          <h4>Offers, CTAs and funnel</h4>
+          <ul>
+            <li><strong>Offers:</strong> cashback or mCash (54 ads), Buy 2 Get 1 (8), a free Travel Pouch with any 2 products (7 ads use this creative), build-your-own bundle (3).</li>
+            <li><strong>Funnel:</strong> mainly direct-response e-commerce (Shop Now to their site), with small tests on quick commerce (Zepto, Blinkit) and a thin brand-trust layer (Learn More, transparency videos).</li>
+          </ul>
+
+          <h4>What they're testing now</h4>
+          <ul>
+            <li>A hair growth + anti-grey serum launch: 5 "New Launch" ads (31 Jul – 10 Aug).</li>
+            <li>Quick-commerce ads on Zepto and Blinkit (Jul–Aug).</li>
+            <li>A gift-with-purchase offer instead of a discount: the Travel Pouch ad (14 Sep).</li>
+            <li>Small creator ads aimed at men and travellers (early Aug).</li>
+          </ul>
+
+          <h4>What to test next</h4>
+          <ul>
+            <li>Proof-first hooks that open with a hard number.</li>
+            <li>Routine or kit bundles with cashback rather than a flat % off, to raise order value while protecting margin.</li>
+            <li>Seasonal problem angles (monsoon, winter dryness) on evergreen hero products.</li>
+            <li>More creator content, which is their gap: only 8 of 114 ads are UGC, and none are founder-led.</li>
+            <li>Quick-commerce ads for impulse products such as cleansers and sunscreen.</li>
+          </ul>
+
+          <details class="limits">
+            <summary>Limits of this report</summary>
+            <ul>
+              <li>No spend, impression or results data is available for India. Performance is inferred from how long ads run, how many versions they have and how often ideas repeat.</li>
+              <li>Only active ads are visible. Paused ads and past campaigns aren't included.</li>
+              <li>114 of about 190 active ads were analysed. Formats are approximate because image and carousel can't always be told apart from the list view. Landing pages were only visible on 26 ads.</li>
+            </ul>
+          </details>
+        </article>
+      </section>
+
+      <!-- PANEL 2: COMPARISON -->
+      <section class="panel" id="panel-compare" role="tabpanel" aria-labelledby="tab-compare" tabindex="0" hidden>
+        <article class="report">
+          <h3>Minimalist vs The Derma Co vs Deconstruct — Meta Ads Intel</h3>
+          <p class="report-meta">Snapshot: 21 Sep 2026 · Country: India · Ads analysed: Minimalist 114 (of about 190), The Derma Co 129 (of about 1,200), Deconstruct 121 (of about 190). All three are samples.</p>
+
+          <h4>One-line snapshots</h4>
+          <ul>
+            <li><strong>Minimalist:</strong> has barely made a new ad since mid-August and keeps scaling proven ones. Its message is science and transparency, and its offer is cashback.</li>
+            <li><strong>The Derma Co:</strong> tests at very high volume (about 1,200 active ads). It leans on creators, Hinglish copy, "Up to 35% OFF" and "comment for the link" ads.</li>
+            <li><strong>Deconstruct:</strong> tests fast and keeps a solid base of long-running ads. Sunscreen dominates, and it runs sales with flat 25% off plus free gifts.</li>
+          </ul>
+
+          <h4>Side by side</h4>
+          <div class="table-wrap">
+            <table class="wide">
+              <thead>
+                <tr><th scope="col"><span class="visually-hidden">Metric</span></th><th scope="col">Minimalist</th><th scope="col">The Derma Co</th><th scope="col">Deconstruct</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Active ads</td><td>~190</td><td>~1,200</td><td>~190</td></tr>
+                <tr><td>New in last 7 / 14 days</td><td>0 / 1</td><td>~24 / ~60</td><td>38 / 70</td></tr>
+                <tr><td>Running 30+ days</td><td>113 (28 at 90+)</td><td>4 (0 at 90+)</td><td>27 (9 at 90+)</td></tr>
+                <tr><td>Creator / UGC ads</td><td>8 (7%)</td><td>42 (33%)</td><td>34 (28%)</td></tr>
+                <tr><td>Video share</td><td>54%</td><td>56%</td><td>50%</td></tr>
+                <tr><td>Main angle</td><td>Efficacy and clinical proof</td><td>Acne and pigmentation, backed by clinical claims</td><td>Sunscreen (54 of 121) and routines</td></tr>
+                <tr><td>Main offer</td><td>Cashback / mCash (54)</td><td>Flat 30% or up to 35% off, free combo (~30)</td><td>Flat 25% off + surprise freebies (~24)</td></tr>
+                <tr><td>Main CTA</td><td>Shop Now (92)</td><td>Shop Now (70), Buy Now (45)</td><td>Shop Now (70), Buy Now (41)</td></tr>
+                <tr><td>Quick commerce</td><td>Zepto and Blinkit (4)</td><td>None seen</td><td>Blinkit (2)</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4>Likely winners by brand</h4>
+          <ul>
+            <li><strong>Minimalist:</strong> "Hide Nothing" brand videos (109 days), the eye cream "Dark circles?" ad (about 90 days, 4+ ads), Light Fluid SPF 50 (90+ days), and Buy 2 Get 1 (4 ads use one creative).</li>
+            <li><strong>The Derma Co:</strong> pigmentation/dark-spot ad (82 days), Hyaluronic Sunscreen Aqua Gel (81 days), salicylic face wash (69 days), and a creator "comment link" ad (51 days). Only 4 sampled ads run 30+ days.</li>
+            <li><strong>Deconstruct:</strong> "Skincare acids for your concern" (184 days), light gel sunscreen (118 days), flat 25% off + free gifts (115 days), and pre-paired routines (94 days). The newest ad being scaled is a "special prices" sale with 14 ads using one creative.</li>
+          </ul>
+
+          <h4>Gaps and opportunities for Minimalist</h4>
+          <ul>
+            <li><strong>Creators are the biggest gap.</strong> Competitors run 28–33% creator ads vs 7%, including "comment for the link" ads that trigger Instagram DM automation.</li>
+            <li><strong>Regional and Hinglish copy.</strong> The Derma Co writes in Hinglish ("Dandruff se pareshan?") and Deconstruct has a Malayalam creator ad. Minimalist runs English only.</li>
+            <li><strong>Testing velocity.</strong> Competitors launched 60–70 ads in the last 14 days; Minimalist launched 1 — a risk heading into the festive season.</li>
+            <li><strong>Clear price-led offers.</strong> Competitors put "Flat 25–35% OFF" in the headline, while Minimalist's value sits in cashback: better for margin, possibly weaker at stopping the scroll.</li>
+            <li><strong>Where Minimalist is ahead:</strong> the transparency and trust story, the broadest category spread (hair and body), a stronger quick-commerce presence, and the most long-running ads.</li>
+          </ul>
+
+          <h4>What to test next</h4>
+          <ul>
+            <li>Creator ads with "comment for the link" DM automation for hero products.</li>
+            <li>A Hinglish version of the best problem-hook ads, tested against English.</li>
+            <li>A price-led headline tested against cashback on the same creative.</li>
+            <li>Owning transparency: ads comparing ingredient concentrations, an angle no competitor claims.</li>
+            <li>Routine pricing: "the routine costs less than buying the steps separately".</li>
+          </ul>
+
+          <details class="limits">
+            <summary>Limits of this report</summary>
+            <ul>
+              <li>No spend, impression or results data is available for India. Performance is inferred from how long ads run, how many versions they have and how often ideas repeat.</li>
+              <li>Only active ads are visible. Each brand's numbers come from the first 114–129 ads in Meta's default order, not a random sample; The Derma Co sample is about 11% of its ads, so its velocity and longevity figures may reflect the sample order.</li>
+              <li>A few start dates couldn't be read, so "new ad" counts are approximate. Creator counts only include partnership ads labelled "with [creator]".</li>
+            </ul>
+          </details>
+        </article>
+      </section>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- WHAT I LEARNED -->
+    <section id="learned">
+      <div class="section-eyebrow">06 — What I learned</div>
+      <h2 class="section-title">What building this taught me.</h2>
+      <ul class="bullets">
+        <li>Meta's Ad Library API can't be used for Indian commercial ads, so the skill works from the Ad Library website instead.</li>
+        <li>Ad longevity and versions are the most reliable public signals of what is working.</li>
+        <li>Sampling matters: the Ad Library lists ads in its own order, so a partial sample can skew counts of new or long-running ads. After the first comparison run, I updated the skill to compare percentages and use the date filter for testing velocity.</li>
+        <li>Guardrails matter as much as features: the skill is told never to invent spend, ROAS or impressions.</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- STATUS -->
+    <section id="status">
+      <div class="section-eyebrow">07 — Status</div>
+      <h2 class="section-title">Where it stands.</h2>
+      <div class="status-box">
+        <p>Version 1.2 · Live. Next: saving snapshots over time to track how a brand's ads change week to week.</p>
+      </div>
+    </section>
+
+    <p class="page-note">Brand names and ads belong to their owners. Analysis is based on publicly visible Meta Ad Library data.</p>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-copy">© 2026 Chethan Shankar · Bengaluru, India</span>
+  </footer>
+
+  <script>
+    (function () {
+      var TABS = ['single', 'compare'];
+
+      function $(id) { return document.getElementById(id); }
+
+      function activate(name, focusTab) {
+        if (TABS.indexOf(name) === -1) return;
+        TABS.forEach(function (t) {
+          var on = t === name;
+          var tab = $('tab-' + t);
+          tab.setAttribute('aria-selected', on ? 'true' : 'false');
+          tab.tabIndex = on ? 0 : -1;
+          $('panel-' + t).hidden = !on;
+        });
+        if (focusTab) $('tab-' + name).focus();
+      }
+
+      document.querySelectorAll('.tab').forEach(function (btn) {
+        btn.addEventListener('click', function () { activate(btn.dataset.tab, false); });
+        btn.addEventListener('keydown', function (e) {
+          var i = TABS.indexOf(btn.dataset.tab);
+          var next = null;
+          if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = TABS[(i + 1) % TABS.length];
+          else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = TABS[(i + TABS.length - 1) % TABS.length];
+          else if (e.key === 'Home') next = TABS[0];
+          else if (e.key === 'End') next = TABS[TABS.length - 1];
+          if (!next) return;
+          activate(next, true);
+          e.preventDefault();
+        });
+      });
+
+      activate('single', false);
+    })();
+  </script>
+
+</body>
+</html>

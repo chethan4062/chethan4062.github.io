@@ -52,8 +52,9 @@ Write for a hiring manager or recruiter, not a buyer. The contact section reads
 | `content/playbooks/*.md` | Source markdown for the checklist content. Not published; the page carries its own copy of the items |
 | `ai-lab-meta-ad-intel.html` | AI Lab — Meta Ad Intel, a Claude skill for competitor Meta ad reports. Two sample reports in tabs, rendered into the page at build time from `content/ai-lab/*.md` |
 | `ai-lab-ad-copy-variants.html` | AI Lab — Ad Copy Variants, a Claude skill that writes platform-ready ad copy. Sample output in tabs (Brief, Meta, Google Search, Performance Max, Demand Gen, Video, Claims & tests), each with a Copy button; rendered into the page at build time from `content/ai-lab/*.md` |
+| `ai-lab-weekly-ads-summary.html` | AI Lab — Weekly Ads Summary, a Google Sheet template plus a Claude skill that writes the weekly team update. Sample output in two tabs (Team summary, Slack version), the Slack tab with a Copy button; rendered into the page at build time from `content/ai-lab/*.md`. Offers two downloads: the sheet template and the skill |
 | `content/ai-lab/*.md` | Source markdown for AI Lab sample outputs. Not published; the page carries its own converted copy. Never fetched at runtime |
-| `downloads/` | Downloadable files linked from the site, such as `meta-ad-intel.skill`. Linked with the `download` attribute |
+| `downloads/` | Downloadable files linked from the site: packaged Claude skills (`*.skill`) and templates such as `Weekly-Ads-Report-Template.xlsx`. Always linked with the `download` attribute |
 | `case-study-workout-app.html` | Workout Session Sequencer write-up; links to `workout/index.html`. Not currently linked from the homepage |
 | `workout/index.html` | Live workout app demo |
 | `templates/` | Page templates. `noindex`, never linked from the site |
@@ -103,7 +104,7 @@ section order matching nav order. Every other page carries `Tools` and
   added by copy-paste. Sample outputs an AI Lab page shows live in
   `content/ai-lab/*.md` and are converted to HTML and pasted into the page at build
   time — never loaded from the markdown at runtime. Anything a visitor downloads,
-  such as a packaged skill, lives in `downloads/`.
+  such as a packaged skill or a sheet template, lives in `downloads/`.
 - **Tools** — free calculators and utilities for performance marketers. **Every tool
   must be plain HTML and vanilla JavaScript in a single self-contained file: no
   libraries, no API keys, no external calls (the Google Fonts stylesheet is the only
